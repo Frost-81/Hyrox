@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyrox Plan Builder</title>
+  <meta name="description" content="Build a free, personalised 12-week Hyrox training plan from your race date and goal time.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#FFD60A">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFD60A'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='%23111' font-family='Arial' font-weight='900'>H</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="preload" as="image" href="img/hero-ropes.jpg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#top"><span class="brand-mark">H</span> Hyrox Plan Builder</a>
+      <div class="account no-print" id="account" hidden>
+        <select id="plan-picker" aria-label="Your saved plans" hidden></select>
+        <span id="account-email" class="muted small"></span>
+        <button type="button" class="btn small" id="sign-in-btn">Sign in</button>
+        <button type="button" class="btn small ghost" id="sign-out-btn" hidden>Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero no-print" id="top">
+    <img class="hero-img" src="img/hero-ropes.jpg" alt="Athletes gripping ropes at a Hyrox event" fetchpriority="high">
+    <div class="hero-panel">
+      <p class="eyebrow">12 weeks · your paces · your race</p>
+      <h1>Train for your<br>Hyrox race</h1>
+      <p>Enter your race date and goal time to get a 12-week plan with your own paces, heart-rate zones, station weights and dates. Preview it for free, then sign in to unlock all 12 weeks.</p>
+      <a class="btn primary big" href="#plan-form">Build my plan</a>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <figure class="banner no-print"><img src="img/chalk.jpg" alt="An athlete chalking their hands" loading="lazy" decoding="async"></figure>
+
+    <form id="plan-form" class="card form no-print" novalidate>
+      <h2>Your details</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="raceDate">Race date</label>
+          <input type="date" id="raceDate" name="raceDate" required>
+          <p class="error" data-error-for="raceDate"></p>
+        </div>
+        <div class="field">
+          <label for="goal">Goal finish time <span class="muted">(h:mm)</span></label>
+          <input type="text" id="goal" name="goal" inputmode="numeric" placeholder="1:30" autocomplete="off" required data-time>
+          <p class="error" data-error-for="goal"></p>
+        </div>
+        <div class="field">
+          <label for="division">Division</label>
+          <select id="division" name="division">
+            <optgroup label="Singles">
+              <option value="MO">Men Open</option>
+              <option value="WO">Women Open</option>
+              <option value="MP">Men Pro</option>
+              <option value="WP">Women Pro</option>
+            </optgroup>
+            <optgroup label="Doubles">
+              <option value="MD">Men Doubles</option>
+              <option value="WD">Women Doubles</option>
+              <option value="XD">Mixed Doubles</option>
+            </optgroup>
+          </select>
+          <p class="hint" id="doubles-hint" hidden>In doubles you run every km together and share the station work. Each partner should still follow the full plan.</p>
+          <p class="error" data-error-for="division"></p>
+        </div>
+        <div class="field">
+          <label for="age">Age group</label>
+          <select id="age" name="age"></select>
+          <p class="error" data-error-for="age"></p>
+        </div>
+        <div class="field">
+          <label for="fiveK">Current 5k time <span class="muted">(mm:ss, optional)</span></label>
+          <input type="text" id="fiveK" name="fiveK" inputmode="numeric" placeholder="25:00" autocomplete="off" data-time>
+          <p class="hint">Leave empty and we'll estimate it from your goal.</p>
+          <p class="error" data-error-for="fiveK"></p>
+        </div>
+      </div>
+
+      <fieldset class="field days-field">
+        <legend>Which days can you train? <span class="muted">(pick 5 or 6)</span></legend>
+        <div class="chips" id="day-chips"></div>
+        <p class="hint">Your long run or race practice goes on your last day of the week. We avoid putting hard sessions on back-to-back days.</p>
+        <p class="error" data-error-for="days"></p>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Which machines can you use?</legend>
+        <div class="chips" id="machine-chips">
+          <label class="chip"><input type="checkbox" name="equipment" value="row" checked><span>Rower</span></label>
+          <label class="chip"><input type="checkbox" name="equipment" value="ski" checked><span>SkiErg</span></label>
+          <label class="chip"><input type="checkbox" name="equipment" value="bike" checked><span>Bike</span></label>
+        </div>
+        <p class="hint">Untick what you don't have. We swap those sessions for running or another machine.</p>
+      </fieldset>
+
+      <details class="hr-section">
+        <summary>Heart rate <span class="muted">(optional, tunes your plan)</span></summary>
+        <div class="grid">
+          <div class="field">
+            <label for="maxHR">Max heart rate <span class="muted">(bpm)</span></label>
+            <input type="number" id="maxHR" name="maxHR" inputmode="numeric" min="120" max="230" placeholder="e.g. 188">
+            <p class="hint">Leave empty and we'll estimate it from your age.</p>
+            <p class="error" data-error-for="maxHR"></p>
+          </div>
+          <div class="field">
+            <label for="hr5k">Average heart rate in your 5k <span class="muted">(bpm)</span></label>
+            <input type="number" id="hr5k" name="hr5k" inputmode="numeric" min="100" max="220" placeholder="e.g. 172">
+            <p class="hint">From a hard 5k run with a heart-rate watch. This gives the most accurate zones.</p>
+            <p class="error" data-error-for="hr5k"></p>
+          </div>
+        </div>
+        <label class="check-row"><input type="checkbox" name="startTest" id="startTest"> Start my plan with a 5k heart-rate test (week 1, Tuesday)</label>
+      </details>
+
+      <button type="submit" class="btn primary big">Build my plan</button>
+    </form>
+
+    <div id="results" hidden>
+      <div class="toolbar no-print" role="toolbar" aria-label="Plan actions">
+        <button type="button" class="btn" id="today-btn">Today</button>
+        <button type="button" class="btn" id="print-btn" title="Print or save as PDF">Print</button>
+        <button type="button" class="btn" id="ics-btn" title="Download a calendar file (.ics) for your phone">Calendar</button>
+        <button type="button" class="btn primary" id="save-btn">Sign in to save</button>
+      </div>
+      <div id="suggestions-out"></div>
+      <div id="plan-out"></div>
+      <figure class="banner no-print"><img src="img/runners.jpg" alt="Athletes running past a Hyrox sign" loading="lazy" decoding="async"></figure>
+      <h2 class="weeks-heading">Week by week</h2>
+      <p class="legend small">
+        <span class="dot effort-hard"></span>Hard
+        <span class="dot effort-moderate"></span>Moderate
+        <span class="dot effort-easy"></span>Easy
+        <span class="dot effort-rest"></span>Rest
+      </p>
+      <div id="weeks-out"></div>
+    </div>
+  </main>
+
+  <figure class="banner footer-banner no-print"><img src="img/finish.jpg" alt="The Hyrox finish line" loading="lazy" decoding="async"></figure>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p><strong>General guidance, not medical advice.</strong> Check with a doctor before starting a new training programme.</p>
+      <p class="small">Station weights follow the Hyrox rulebook; check the current rules for your event.</p>
+    </div>
+  </footer>
+
+  <dialog id="auth-dialog" class="no-print">
+    <form method="dialog" class="dialog-close"><button class="btn small ghost" aria-label="Close">✕</button></form>
+    <h2>Unlock your plan</h2>
+    <p class="muted">Sign in to see all 12 weeks and keep your plan and progress on any device.</p>
+    <button type="button" class="btn big google" id="google-btn">Continue with Google</button>
+    <p class="or"><span>or</span></p>
+    <form id="email-form">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="password">Password <span class="muted">(6+ characters)</span></label>
+        <input type="password" id="password" autocomplete="current-password" minlength="6" required>
+      </div>
+      <p class="error" id="auth-error" role="alert"></p>
+      <button type="submit" class="btn primary big" id="email-submit">Sign in</button>
+      <p class="small center">
+        <span id="mode-text">New here?</span>
+        <button type="button" class="btn link" id="mode-toggle">Create an account</button>
+      </p>
+    </form>
+  </dialog>
+
+  <dialog id="log-dialog" class="no-print">
+    <form method="dialog" class="dialog-close"><button class="btn small ghost" aria-label="Close">✕</button></form>
+    <h2>Log your session</h2>
+    <p class="muted" id="log-session"></p>
+    <form id="log-form">
+      <div class="field" id="log-fivek-field" hidden>
+        <label for="log-fivek">5k time <span class="muted">(mm:ss)</span></label>
+        <input type="text" id="log-fivek" inputmode="numeric" placeholder="25:00" autocomplete="off" data-time>
+      </div>
+      <div class="field">
+        <label for="log-hr">Average heart rate <span class="muted">(bpm)</span></label>
+        <input type="number" id="log-hr" inputmode="numeric" min="60" max="230" placeholder="e.g. 145">
+        <p class="hint" id="log-zone"></p>
+      </div>
+      <fieldset class="field">
+        <legend>How did it feel?</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="feel" value="easy"><span>Easy</span></label>
+          <label class="chip"><input type="radio" name="feel" value="ok" checked><span>OK</span></label>
+          <label class="chip"><input type="radio" name="feel" value="hard"><span>Hard</span></label>
+        </div>
+      </fieldset>
+      <p class="error" id="log-error" role="alert"></p>
+      <button type="submit" class="btn primary big">Save log</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
