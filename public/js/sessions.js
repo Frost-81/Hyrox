@@ -134,13 +134,13 @@ export const WEEKS = [
       ] },
       { key: 'long', label: '5k Time Trial', effort: 'hard', test: true, lines: [
         '15 min easy warm-up ({easy}) with 3 short strides',
-        '5 km time trial: run it as fast as you can hold, even pace (aim around {5k})',
-        '10 min easy cool-down. Log your time and average heart rate to update your paces',
+        '5 km test: run it as fast as you can hold at an even pace. No target: this shows where you are today, not your goal',
+        '10 min easy cool-down. Log your time (and average heart rate) and your workouts update to match',
       ] },
     ],
   },
   {
-    n: 5, phase: 2, title: 'Introducing HYROX Specifics',
+    n: 5, phase: 2, title: 'Introducing Race Specifics',
     sessions: [
       { key: 'str', label: 'Strength', effort: 'moderate', lines: [
         'Deadlifts: 3 sets of 5-8 reps (focus on form and controlled movement)',
@@ -166,7 +166,7 @@ export const WEEKS = [
         'Sandbag Lunges: 3 sets of 10 reps per leg @ {bag}',
       ] },
       { key: 'long', label: 'Simulation', effort: 'hard', lines: [
-        'Mock HYROX Block: 2 km Run @ {race} + {m:row:1000m} + 2 km Run @ {race}. Focus on pacing',
+        'Mock Race Block: 2 km Run @ {race} + {m:row:1000m} + 2 km Run @ {race}. Focus on pacing',
       ] },
     ],
   },
@@ -197,7 +197,7 @@ export const WEEKS = [
         'Sandbag Overhead Lunges: 3 sets of 8 reps per leg @ {bag}',
       ] },
       { key: 'long', label: 'Full Simulation', effort: 'hard', sim: true, lines: [
-        'Full HYROX simulation: 8 x 1 km run + all 8 stations in race order at race weights. Practise smooth transitions',
+        'Full race simulation: 8 x 1 km run + all 8 stations in race order at race weights. Practise smooth transitions',
       ] },
     ],
   },
@@ -229,7 +229,7 @@ export const WEEKS = [
         'Wall Balls: 4 sets of 12 reps @ {wb}',
       ] },
       { key: 'long', label: 'Simulation', effort: 'hard', lines: [
-        'Mock HYROX Race: 3 km Run @ {race} + {m:row:1000m} + 3 km Run @ {race}. Focus on pacing and managing fatigue',
+        'Mock Race: 3 km Run @ {race} + {m:row:1000m} + 3 km Run @ {race}. Focus on pacing and managing fatigue',
       ] },
     ],
   },
@@ -262,8 +262,8 @@ export const WEEKS = [
       ] },
       { key: 'long', label: '5k Time Trial', effort: 'hard', test: true, lines: [
         '15 min easy warm-up ({easy}) with 3 short strides',
-        '5 km time trial: run it as fast as you can hold, even pace (aim around {5k})',
-        '10 min easy cool-down. Log your time and average heart rate to update your paces',
+        '5 km test: run it as fast as you can hold at an even pace. No target: this shows where you are today, not your goal',
+        '10 min easy cool-down. Log your time (and average heart rate) and your workouts update to match',
       ] },
     ],
   },
@@ -295,7 +295,7 @@ export const WEEKS = [
         'Wall Balls: 4 sets of 15 reps @ {wb}',
       ] },
       { key: 'long', label: 'Full Simulation', effort: 'hard', sim: true, lines: [
-        'Full HYROX Simulation: complete all 8 km of running and all 8 HYROX stations in race order. Focus on smooth transitions and pacing',
+        'Full Race Simulation: complete all 8 km of running and all 8 stations in race order. Focus on smooth transitions and pacing',
       ] },
     ],
   },
@@ -326,7 +326,7 @@ export const WEEKS = [
         'Wall Balls: 3 sets of 20 reps @ {wb}',
       ] },
       { key: 'long', label: 'Simulation', effort: 'hard', lines: [
-        'Mock HYROX: 6 km Run @ {race} + {m:row:1000m} + 6 km Run @ {race}. Focus on maintaining effort. Last hard session before the taper',
+        'Mock Race: 6 km Run @ {race} + {m:row:1000m} + 6 km Run @ {race}. Focus on maintaining effort. Last hard session before the taper',
       ] },
     ],
   },
@@ -370,7 +370,7 @@ export const RACE_WEEK = [
     'Dynamic stretching',
   ] },
   { offset: -4, key: 'rev', label: 'Skill Review', effort: 'easy', lines: [
-    'Practice one or two HYROX stations at a very light intensity (e.g. 50 m sled push, 10 wall balls). Focus on perfect form',
+    'Practice one or two race stations at a very light intensity (e.g. 50 m sled push, 10 wall balls). Focus on perfect form',
   ] },
   { offset: -1, key: 'mob', label: 'Light Mobility & Hydration', effort: 'easy', lines: [
     'Light mobility, drink well through the day, lay out your race kit',
@@ -383,11 +383,11 @@ export const RACE_WEEK = [
   ] },
 ];
 
-// Replaces week 1's Tuesday session when the athlete asks to start with a heart-rate test.
-export const HR_TEST = { key: 'end', label: '5k Heart-Rate Test', effort: 'hard', test: true, hrTest: true, lines: [
-  '15 min easy warm-up ({easy}) with 3 short strides. Wear a heart-rate monitor',
-  '5 km time trial: run it as fast as you can hold at an even pace (aim around {5k})',
-  'Log your time and average heart rate. We will tune your paces and heart-rate zones from it',
+// Replaces week 1's Tuesday session: every plan opens with a 5k test (time + optional heart rate).
+export const HR_TEST = { key: 'end', label: '5k Test', effort: 'hard', test: true, hrTest: true, lines: [
+  '15 min easy warm-up ({easy}) with 3 short strides. Wear a heart-rate monitor if you have one',
+  '5 km test: run it as fast as you can hold at an even pace. No target: this shows where you are today, not your goal',
+  'Log your time (and average heart rate if you wore a monitor) and your workouts update to match your new paces',
 ] };
 
 export const BEFORE_12_WEEKS = [
@@ -407,7 +407,7 @@ export const RECOVERY_TIPS_45 = [
   'If a tendon is sore the next morning, swap the next run for a bike or row.',
 ];
 
-// CrossFit-style workouts done after the Skill and Skill/Strength sessions, keyed "week-sessionKey".
+// Short workouts (WODs) done after the Skill and Skill/Strength sessions, keyed "week-sessionKey".
 // Wednesday WODs are the harder ones; Friday WODs stay smooth because Saturday is usually a simulation or test.
 export const WODS = {
   '1-skl': { title: '12-min AMRAP, easy pace', lines: [

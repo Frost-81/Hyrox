@@ -61,7 +61,7 @@ export function pacesCard(plan) {
   const hrNote = {
     test: `Heart-rate zones come from your 5k test (threshold ${hr.lthr} bpm).`,
     max: `Heart-rate zones come from your max heart rate (${hr.maxHR} bpm).`,
-    estimate: `Heart-rate zones are <strong>estimated</strong> from your age (max ${hr.maxHR} bpm). Add your max heart rate or a 5k test heart rate for accurate zones.`,
+    estimate: `Heart-rate zones are <strong>estimated</strong> from your age (max ${hr.maxHR} bpm). Log your week 1 5k test with your average heart rate for accurate zones.`,
   }[hr.source];
   return `
   <section class="card">
@@ -127,7 +127,7 @@ export function noticeCards(plan) {
     html += `
     <section class="card warn">
       <h2>Your race is less than 12 weeks away</h2>
-      <p>You have ${plan.shortened.weeksLeft} week${plan.shortened.weeksLeft === 1 ? '' : 's'} left, so the plan starts at week ${plan.shortened.firstWeek}. The early build weeks are skipped. The taper is kept in full.</p>
+      <p>You have ${plan.shortened.weeksLeft} week${plan.shortened.weeksLeft === 1 ? '' : 's'} left, so your plan starts at week ${plan.shortened.firstWeek} and the earlier weeks are left out. ${plan.shortened.firstWeek < 11 ? 'Your first week includes a 5k test to set your paces. ' : ''}The taper is kept in full.</p>
       <p class="small">If you are new to this kind of training, go easier on the first two weeks shown.</p>
     </section>`;
   }
@@ -149,11 +149,12 @@ export function glossaryCard() {
     <dl>
       ${item('AMRAP', 'As many reps as possible, with good form.')}
       ${item('Romanian deadlift', 'A deadlift where you keep the legs nearly straight and hinge at the hips.')}
-      ${item('Mock HYROX block', 'A run + station combo done back-to-back, to practise running on tired legs.')}
+      ${item('Mock race block', 'A run + station combo done back-to-back, to practise running on tired legs.')}
       ${item('Full simulation', 'The whole race in order: 8 x 1 km runs, each followed by a station.')}
       ${item('Overload', 'Training a bit heavier than race weight so race day feels lighter.')}
+      ${item('% of body weight', 'Your target for the working sets of a lift, set from your body weight, your division, the reps and the week. It is a starting guide: pick a weight that leaves about 2 good reps in the tank, and go lighter if your form breaks down. New to a lift? Start 10-20% lighter.')}
       ${item('Taper', 'Cutting training down before the race so you start fresh.')}
-      ${item('WOD', 'Workout of the day: a short CrossFit-style workout done after the skill work.')}
+      ${item('WOD', 'Workout of the day: a short workout done after the skill work.')}
       ${item('EMOM', 'Every minute on the minute: start the set at the top of each minute and rest for what is left of it.')}
       ${item('For time', 'Finish the work as fast as you can. The time cap is when you stop, even if you are not done.')}
       ${item('Chipper', 'A long list of exercises done once each, "chipping" through them in order.')}
@@ -191,7 +192,7 @@ function unlockCta(hiddenWeeks) {
   return `
   <section class="card unlock no-print">
     <h2>🔒 Unlock your full plan</h2>
-    <p>That was your first week. Sign in (free) to see all ${hiddenWeeks} remaining weeks, save your plan, tick off sessions and add them to your calendar.</p>
+    <p>That was your first week. Sign in (free) to see all ${hiddenWeeks} remaining weeks, save your plan, tick off sessions and get the daily workout.</p>
     <button type="button" class="btn primary big" data-unlock>Sign in to unlock your full plan</button>
   </section>`;
 }
@@ -237,7 +238,7 @@ function dayItem(d, done, today, locked, log) {
 function wodBlock(wod) {
   return `
     <div class="wod">
-      <p class="wod-title">Then: CrossFit WOD · ${esc(wod.title)}</p>
+      <p class="wod-title">Then: WOD · ${esc(wod.title)}</p>
       <ul class="lines">${wod.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
       ${wod.note ? `<p class="small muted">${esc(wod.note)}</p>` : ''}
     </div>`;

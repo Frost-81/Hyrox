@@ -53,3 +53,19 @@ export const getLogs = (uid, planId) => (uid ? read(logsKey(uid, planId), {}) : 
 export function replaceLogs(uid, planId, logs) {
   write(logsKey(uid, planId), logs);
 }
+
+// Workout of the Day: the Solo/Team choice and logged results, cached per user like the ticks.
+const wodModeKey = (uid) => `hyrox:wodMode:${uid}`;
+const wodResultsKey = (uid) => `hyrox:wodResults:${uid}`;
+
+export const getWodMode = (uid) => (uid ? read(wodModeKey(uid), null) : null);
+export const setWodMode = (uid, mode) => uid && write(wodModeKey(uid), mode);
+export const getWodResults = (uid) => (uid ? read(wodResultsKey(uid), {}) : {});
+export const replaceWodResults = (uid, results) => uid && write(wodResultsKey(uid), results);
+
+/** Remove everything this site stored for a user on this device (after account deletion). */
+export function forgetUser(uid) {
+  try {
+    for (const k of Object.keys(localStorage)) if (k.startsWith('hyrox:') && k.includes(uid)) localStorage.removeItem(k);
+  } catch { /* storage unavailable */ }
+}

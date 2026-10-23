@@ -1,4 +1,4 @@
-/* Hyrox Plan Builder: white and yellow with black text, always light. */
+/* Hybrid Plan Builder: white and yellow with black text, always light. */
 
 :root {
   --bg: #ffffff;
@@ -34,7 +34,12 @@ body {
   color: var(--text);
   font: 17px/1.55 var(--font-body);
   overflow-wrap: anywhere;
+  /* Full-height column so the footer sits at the bottom even when a view is short. */
+  display: flex; flex-direction: column;
+  min-height: 100vh; min-height: 100dvh;
 }
+#plan-view, .wod-view { flex: 1 0 auto; }
+.site-footer { flex: none; }
 
 h1, h2, h3 {
   font-family: var(--font-head);
@@ -76,8 +81,35 @@ a { color: inherit; }
   background: var(--yellow); color: var(--text); font-size: 1.3rem;
 }
 .account { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.tabs { display: flex; gap: 2px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 999px; padding: 2px; }
+.tabs a {
+  text-decoration: none; font-weight: 700; font-size: .92rem;
+  padding: 4px 14px; border-radius: 999px; min-height: 30px; display: inline-flex; align-items: center;
+}
+.tabs a[aria-current="page"] { background: var(--yellow); }
+
+.account-menu { position: relative; }
+.account-menu summary { list-style: none; display: inline-flex; align-items: center; }
+.account-menu summary::-webkit-details-marker { display: none; }
+.account-menu .menu {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 30;
+  display: grid; gap: 6px; min-width: 220px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow); padding: 10px;
+}
+.account-menu .menu p { margin: 0 0 4px; overflow-wrap: anywhere; }
+.account-menu .menu .btn { width: 100%; text-align: left; }
 /* Keep the sticky header one line tall on phones so it never covers the toolbar. */
-@media (max-width: 599px) { #account-email { display: none; } .account select { max-width: 130px; } }
+@media (max-width: 599px) {
+  .brand { font-size: 1.1rem; }
+  .brand-mark { width: 30px; height: 30px; }
+  .account select { max-width: 110px; }
+  .header-row { gap: 6px; }
+}
+@media (max-width: 479px) {
+  .brand-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
 .account select { max-width: 100%; min-height: 40px; }
 
 /* ---------- hero ---------- */
@@ -181,21 +213,15 @@ input[aria-invalid="true"] { border-color: var(--hard); }
 .chip input:checked + span { background: var(--yellow); border-color: var(--text); }
 .chip input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-.hr-section {
-  border: 2px dashed var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 18px;
-}
-.hr-section summary { cursor: pointer; font-weight: 700; }
-.hr-section[open] summary { margin-bottom: 12px; }
 .check-row { display: flex; align-items: center; gap: 10px; font-weight: 600; cursor: pointer; }
 .check-row input { width: 22px; height: 22px; flex: none; accent-color: var(--text); }
+.check-row.small { align-items: flex-start; font-weight: 500; margin: 4px 0 12px; }
+.form:focus { outline: none; }
 
 /* ---------- buttons ---------- */
 
 .btn {
-  font: inherit; font-weight: 700;
+  font: inherit; font-weight: 700; overflow-wrap: normal;
   min-height: 46px; padding: 8px 18px;
   border-radius: 12px; border: 2px solid var(--text);
   background: var(--bg); color: var(--text);
@@ -214,12 +240,14 @@ input[aria-invalid="true"] { border-color: var(--hard); }
 .btn.google { margin-bottom: 4px; }
 
 .toolbar {
-  position: sticky; top: 57px; z-index: 5;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  position: sticky; top: 58px; z-index: 5;
+  display: flex; gap: 6px;
   padding: 10px 0; background: var(--bg-soft);
 }
-.toolbar .btn { padding: 8px 4px; font-size: .9rem; }
-@media (min-width: 640px) { .toolbar { display: flex; flex-wrap: wrap; } .toolbar .btn { padding: 8px 18px; font-size: 1rem; } }
+.toolbar { flex-wrap: wrap; }
+.toolbar .btn { flex: 1 1 auto; padding: 8px 6px; font-size: .8rem; }
+@media (max-width: 479px) { #print-btn { display: none; } } /* printing from a phone is rare; keeps the toolbar on one row */
+@media (min-width: 640px) { .toolbar .btn { flex: 0 1 auto; padding: 8px 18px; font-size: 1rem; } }
 
 .row-btns { display: flex; flex-wrap: wrap; gap: 8px; }
 
@@ -391,13 +419,134 @@ dialog::backdrop { background: rgb(0 0 0 / 55%); }
   opacity: 0; transform: translateY(10px); pointer-events: none;
   transition: opacity .2s, transform .2s;
 }
-.toast.show { opacity: 1; transform: none; }
+.toast.show { opacity: 1; transform: none; pointer-events: auto; }
+.toast { display: flex; align-items: center; gap: 12px; }
+#toast-msg { flex: 1; }
+.toast .btn { background: var(--yellow); border-color: var(--yellow); flex: none; }
+
+/* ---------- Workout of the Day ---------- */
+
+/* Photo background behind the WOD view, darkened and grey like the other photos. */
+body.wod-mode::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgb(0 0 0 / 55%), rgb(0 0 0 / 70%)), url("../img/finish.jpg") center / cover no-repeat;
+  filter: grayscale(1) contrast(1.05);
+}
+body.wod-mode .wod-heading { color: #fff; text-shadow: 0 2px 12px rgb(0 0 0 / 50%); }
+body.wod-mode .wod-view { padding-bottom: 32px; }
+
+.wod-heading { font-size: clamp(2rem, 8vw, 2.8rem); margin: 22px 0 12px; }
+
+.week-strip { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
+.week-strip ol { list-style: none; margin: 0; padding: 0; flex: 1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.strip-arrow { flex: none; min-width: 32px; padding: 4px 6px; font-size: 1.2rem; }
+.strip-day {
+  width: 100%; min-height: 56px; display: grid; place-items: center;
+  font: inherit; color: var(--text); cursor: pointer; overflow-wrap: normal;
+  background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 4px 0;
+}
+.strip-day .strip-wd { font-size: .66rem; text-transform: uppercase; letter-spacing: .02em; white-space: nowrap; color: var(--muted); font-weight: 700; }
+.strip-day .strip-date { font-family: var(--font-head); font-size: 1.3rem; font-weight: 800; line-height: 1; }
+.strip-day.today { border-color: var(--yellow-dark); }
+.strip-day.selected { background: var(--yellow); border-color: var(--text); }
+.strip-day.selected .strip-wd { color: var(--text); }
+
+.wod-card h2 { font-size: 2rem; margin-bottom: 0; }
+.wod-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.wod-day { margin: 0 0 2px; color: var(--muted); font-size: .9rem; font-weight: 600; }
+
+.seg { display: inline-flex; border: 2px solid var(--text); border-radius: 12px; overflow: hidden; }
+.seg button {
+  font: inherit; font-weight: 700; font-size: .92rem; min-height: 40px; padding: 4px 14px;
+  border: 0; background: var(--bg); color: var(--text); cursor: pointer;
+}
+.seg button + button { border-left: 2px solid var(--text); }
+.seg button.on { background: var(--yellow); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tag {
+  display: inline-block; font-size: .78rem; font-weight: 700; border-radius: 999px;
+  padding: 3px 10px; background: var(--bg-soft); border: 1px solid var(--border);
+}
+.tag.mode { background: var(--text); color: var(--yellow); border-color: var(--text); }
+.tag.bench { background: var(--yellow); border-color: var(--yellow-dark); }
+.tag.effort-hard { background: var(--hard); color: #fff; border-color: var(--hard); }
+.tag.effort-moderate { background: var(--moderate); border-color: var(--moderate); }
+.tag.effort-easy { background: var(--easy); color: #fff; border-color: var(--easy); }
+.tag.effort-rest { background: var(--rest); border-color: var(--rest); }
+
+.wod-headline { font-size: 1.1rem; margin-bottom: 8px; }
+.howto { border-radius: 10px; padding: 10px 12px; background: var(--bg-soft); border: 1px solid var(--border); }
+.howto.team { background: var(--yellow-soft); border-color: var(--yellow); font-weight: 600; }
+.wod-scheme { margin-bottom: 4px; }
+.wod-block { margin: 12px 0; }
+.wod-block-label { margin: 0 0 2px; }
+.wod-block .lines { margin-top: 4px; }
+.team-note { margin: 0 0 4px; color: var(--muted); }
+.wod-rest { color: var(--muted); margin: 4px 0 0; font-size: .92rem; }
+.wod-score { margin-top: 14px; }
+
+.wod-teaser { border-left: 6px solid var(--yellow); margin-top: 20px; }
+.wod-teaser .eyebrow { margin-bottom: .2rem; }
+.wod-teaser .btn { text-decoration: none; display: inline-flex; align-items: center; }
+
+.wod-info h3, .bench-group h3 { font-size: 1.15rem; margin: 14px 0 6px; }
+.bench-list { list-style: none; padding: 0; margin: 0; }
+.bench-list li { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 0; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+
+/* ---------- leaderboard ---------- */
+
+.leaderboard h2 .small { font-family: var(--font-body); text-transform: none; font-weight: 600; letter-spacing: 0; }
+.lb-list { list-style: none; padding: 0; margin: 8px 0; }
+.lb-list li {
+  display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: center; gap: 10px;
+  padding: 8px 10px; border-bottom: 1px solid var(--border);
+}
+.lb-list li:nth-child(-n+3) .lb-rank { background: var(--yellow); }
+.lb-list li.me { background: var(--yellow-soft); border-radius: 10px; border-bottom-color: transparent; }
+.lb-rank {
+  display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%;
+  background: var(--bg-soft); font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.lb-name { font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
+.lb-score { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-mine { margin-top: 0; border-top: 2px dashed var(--border); padding-top: 6px; }
+.lb-mine li .lb-rank { background: var(--bg-soft); }
+
+/* ---------- consent bar ---------- */
+
+.consent-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgb(17 17 17 / 96%); color: #fff; font-size: .88rem;
+  border-top: 3px solid var(--yellow);
+}
+.consent-bar[hidden] { display: none; }
+.consent-bar p { margin: 0; max-width: 560px; }
+.consent-bar a { color: var(--yellow); }
+.consent-btns { display: flex; gap: 8px; }
+.consent-bar .btn.ghost { background: transparent; color: #fff; border-color: #777; }
+.consent-bar .btn.ghost:hover { background: #333; }
+
+/* ---------- footer links and legal pages ---------- */
+
+.footer-links a { color: #fff; }
+.legal { padding-top: 24px; padding-bottom: 40px; }
+.legal h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
+.legal h2 { margin-top: 28px; font-size: 1.4rem; }
+.legal ul { margin-bottom: .75rem; }
+.legal li { margin-bottom: 4px; }
+.legal .table-wrap { overflow-x: auto; }
+.legal table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: .92rem; }
+.legal th, .legal td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.legal th { background: var(--yellow-soft); }
 
 /* ---------- print ---------- */
 
 @media print {
   body { background: #fff; font-size: 11pt; }
-  .no-print, .site-header, .toast, .check, .log-btn, .badge, .week-count, .banner, .hero, .site-footer .small { display: none !important; }
+  .no-print, .site-header, .toast, .consent-bar, .check, .log-btn, .badge, .week-count, .banner, .hero, .site-footer .small { display: none !important; }
   .card, .week { box-shadow: none; break-inside: avoid; }
   .summary { background: #fff; color: #000; }
   .summary h2, .stats dt { color: #000; }

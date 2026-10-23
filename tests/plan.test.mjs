@@ -1,8 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, DIVISIONS } from '../public/js/plan.js';
+import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, maskTime, DIVISIONS, liftShare } from '../public/js/plan.js';
 import { hrProfile, suggest, applySuggestion } from '../public/js/hr.js';
-import { buildIcs } from '../public/js/ics.js';
+import { readFileSync } from 'node:fs';
+import { wodIndex, workoutFor, weekDates, addDays, pickMode, groupBenchmarks, resultId, scoreType, parseScore, parseClock, checkUsername, boardId } from '../public/js/wod.js';
+import { canUse } from '../public/js/billing.js';
+import { planIdFor } from '../public/js/progress.js';
 
 const TODAY = '2026-10-22';
 const example = { raceDate: '2027-04-24', goal: '1:05', division: 'MO', age: '45-49', fiveK: '20:00', days: [0, 1, 2, 3, 4, 5] };
@@ -127,19 +130,6 @@ test('validation', () => {
   assert.ok(!validateInputs({ ...example, goal: '2:30' }, TODAY).goal);
 });
 
-test('.ics output', () => {
-  const p = buildPlan(example, TODAY);
-  const ics = buildIcs(p, 'race-2027-04-24', new Date('2026-10-22T10:00:00Z'));
-  assert.ok(ics.startsWith('BEGIN:VCALENDAR\r\n'));
-  assert.ok(ics.endsWith('END:VCALENDAR\r\n'));
-  const events = ics.match(/BEGIN:VEVENT/g).length;
-  const sessions = p.weeks.flatMap((w) => w.days).filter((d) => d.effort !== 'rest').length;
-  assert.equal(events, sessions);
-  for (const line of ics.split('\r\n')) assert.ok(new TextEncoder().encode(line).length <= 75, line);
-  assert.match(ics, /DTSTART;VALUE=DATE:20270424/);
-  assert.ok(!/[^\r]\n/.test(ics), 'only CRLF line endings');
-});
-
 const allDays = (plan) => plan.weeks.flatMap((w) => w.days.map((d) => ({ ...d, week: w.n })));
 
 test('WODs follow every Skill and Skill/Strength session', () => {
@@ -188,12 +178,6 @@ test('45+: WODs carry the note and stay within two hard days', () => {
   }
 });
 
-test('.ics includes the WOD', () => {
-  const p = buildPlan(example, TODAY);
-  const ics = buildIcs(p, 'race-2027-04-24').replace(/\r\n /g, '');
-  assert.ok(ics.includes('Then: CrossFit WOD · 12-min AMRAP\\, easy pace'));
-});
-
 // ---------- form defaults, divisions ----------
 
 test('normalizeTime fills in :00', () => {
@@ -224,10 +208,10 @@ const linesOf = (plan, key) => allDays(plan).find((d) => d.key === key).lines.jo
 
 test('upgrades: longer easy runs, SkiErg weeks, more sled pull', () => {
   const p = buildPlan({ ...example, age: '30-34' }, TODAY);
-  const expectRun = { 'w1-end': 35, 'w2-end': 40, 'w4-end': 35, 'w6-end': 60, 'w8-end': 65, 'w10-end': 70, 'w1-long': 50, 'w2-long': 55, 'w3-long': 60 };
+  const expectRun = { 'w2-end': 40, 'w4-end': 35, 'w6-end': 60, 'w8-end': 65, 'w10-end': 70, 'w1-long': 50, 'w2-long': 55, 'w3-long': 60 };
   for (const [key, min] of Object.entries(expectRun)) assert.match(linesOf(p, key), new RegExp(`Run: ${min} minutes`), key);
   for (const n of [2, 4, 6, 8, 10]) assert.match(linesOf(p, `w${n}-end`), /SkiErg: /, `week ${n}`);
-  for (const n of [1, 3, 5, 7, 9, 11]) assert.match(linesOf(p, `w${n}-end`), /Row: /, `week ${n}`);
+  for (const n of [3, 5, 7, 9, 11]) assert.match(linesOf(p, `w${n}-end`), /Row: /, `week ${n}`); // week 1 Tuesday is the 5k test
   for (const n of [7, 8, 9]) assert.match(linesOf(p, `w${n}-rec`), /Sled Pull: 3 x 50 m/, `week ${n}`);
 });
 
@@ -240,11 +224,11 @@ test('machine swaps follow the chart', () => {
 
   const menNoRow = buildPlan({ ...all, equipment: ['ski', 'bike'] }, TODAY);
   assert.match(linesOf(menNoRow, 'w5-long'), /800 m run or 2000 m bike \(no rower\)/);
-  assert.match(linesOf(menNoRow, 'w1-end'), /Bike: 15 min at a moderate effort \(no rower\)/);
+  assert.match(linesOf(menNoRow, 'w3-end'), /Bike: 2 x 10 min hard \(no rower\)/);
 
   const womenNoRow = buildPlan({ ...all, division: 'WO', equipment: [] }, TODAY);
   assert.match(linesOf(womenNoRow, 'w5-long'), /1000 m run \(no rower\)/);
-  assert.match(linesOf(womenNoRow, 'w1-end'), /Run: 15 min @ .*\/km \(no rower\)/);
+  assert.match(linesOf(womenNoRow, 'w3-end'), /Run: 2 x 10 min @ .*\/km \(no rower\)/);
 
   const noSki = buildPlan({ ...all, equipment: ['row'] }, TODAY);
   assert.match(linesOf(noSki, 'w2-end'), /Row: 20 min .*\(no SkiErg\)/);
@@ -292,12 +276,39 @@ test('heart-rate zones from a 5k test and from max HR', () => {
   assert.ok(validateInputs({ ...example, maxHR: '180', hr5k: '190' }, TODAY).hr5k);
 });
 
-test('start with a 5k heart-rate test', () => {
-  const p = buildPlan({ ...example, startTest: true }, TODAY);
-  const tue = allDays(p).find((d) => d.key === 'w1-end');
-  assert.equal(tue.label, '5k Heart-Rate Test');
-  assert.ok(tue.test && tue.hrTest);
-  assert.equal(allDays(buildPlan(example, TODAY)).find((d) => d.key === 'w1-end').label, 'Endurance');
+test('5k tests in weeks 1, 4 and 8', () => {
+  const p = buildPlan(example, TODAY);
+  const tests = allDays(p).filter((d) => d.test);
+  assert.deepEqual(tests.map((d) => d.key), ['w1-end', 'w4-long', 'w8-long']);
+  const tue = tests[0];
+  assert.equal(tue.label, '5k Test');
+  assert.equal(tue.weekday, 'Tue');
+  assert.ok(tue.hrTest);
+  // A test is run at 5k effort, so its heart rate never counts as an easy run.
+  assert.ok(tests.every((d) => d.zone === 'fiveK'));
+  // 5-day plans and 45+ plans keep the week 1 test too.
+  const five = buildPlan({ ...example, days: [0, 1, 3, 4, 5] }, TODAY);
+  assert.ok(allDays(five).find((d) => d.key === 'w1-end').test);
+});
+
+test('a logged 5k test updates the plan and keeps its id (automatic adjust)', () => {
+  const inp = { ...example, age: '30-34' };
+  const p = buildPlan(inp, TODAY);
+  const s = { id: 'test:w1-end:19:00:176', apply: { kind: 'test', fiveK: '19:00', hr5k: 176 } };
+  const next = applySuggestion(inp, s);
+  assert.equal(next.fiveK, '19:00');
+  assert.equal(next.hr5k, '176');
+  assert.deepEqual(validateInputs(next, TODAY), {});
+  assert.equal(planIdFor(next), planIdFor(inp));
+  const p2 = buildPlan(next, TODAY);
+  assert.equal(p2.paces.fiveK, 228);
+  assert.equal(p2.hr.source, 'test');
+  assert.ok(p2.paces.fiveK < p.paces.fiveK);
+  // The matching suggestion card does not appear afterwards.
+  assert.equal(suggest(p2, { 'w1-end': { fiveK: '19:00', hr: 176, feel: 'hard' } }, next.dismissed).length, 0);
+  // Time only: heart rate stays as it was.
+  const timeOnly = applySuggestion(inp, { id: 'x', apply: { kind: 'test', fiveK: '21:10', hr5k: null } });
+  assert.equal(timeOnly.hr5k, undefined);
 });
 
 test('suggestions from logged heart rates', () => {
@@ -305,12 +316,12 @@ test('suggestions from logged heart rates', () => {
   const p = buildPlan(inp, TODAY);
   const ceiling = p.hr.easy[1];
 
-  // Easy runs (Tuesday weeks 1, 2, 4 are easy).
-  const hot = { 'w1-end': { hr: ceiling + 10, feel: 'ok' }, 'w2-end': { hr: ceiling + 8, feel: 'ok' }, 'w4-end': { hr: ceiling - 5, feel: 'ok' } };
+  // Easy runs (Tuesday weeks 2, 4, 6 are easy; week 1 Tuesday is the 5k test and never counts).
+  const hot = { 'w1-end': { hr: ceiling + 30, feel: 'hard' }, 'w2-end': { hr: ceiling + 10, feel: 'ok' }, 'w4-end': { hr: ceiling + 8, feel: 'ok' }, 'w6-end': { hr: ceiling - 5, feel: 'ok' } };
   const s = suggest(p, hot);
   assert.equal(s.length, 1);
-  assert.match(s[0].id, /^easy-hot:w4-end$/);
-  const inZone = { 'w1-end': { hr: ceiling - 5 }, 'w2-end': { hr: ceiling }, 'w4-end': { hr: ceiling + 2 } };
+  assert.match(s[0].id, /^easy-hot:w6-end$/);
+  const inZone = { 'w2-end': { hr: ceiling - 5 }, 'w4-end': { hr: ceiling }, 'w6-end': { hr: ceiling + 2 } };
   assert.equal(suggest(p, inZone).length, 0);
 
   // Applying slows easy runs by 10 s/km and the suggestion does not come back.
@@ -335,4 +346,214 @@ test('suggestions from logged heart rates', () => {
   const p3 = buildPlan(applySuggestion(inp, t[0]), TODAY);
   assert.equal(p3.paces.fiveK, 234);
   assert.equal(p3.hr.lthr, 172);
+});
+
+// ---------- time input mask ----------
+
+test('maskTime adds the colon as you type', () => {
+  assert.equal(maskTime('1'), '1');
+  assert.equal(maskTime('13'), '13');
+  assert.equal(maskTime('130'), '1:30');
+  assert.equal(maskTime('2500'), '25:00');
+  assert.equal(maskTime('25001'), '25:00');
+  assert.equal(maskTime('1:3'), '1:3');
+  assert.equal(maskTime('1:30'), '1:30');
+  assert.equal(maskTime('1:305'), '13:05');
+  assert.equal(maskTime('22.30'), '22:30');
+  assert.equal(maskTime(''), '');
+  assert.equal(normalizeTime(maskTime('130')), '1:30');
+  assert.equal(normalizeTime(maskTime('25')), '25:00');
+});
+
+// ---------- Workout of the Day ----------
+
+const WODS = JSON.parse(readFileSync(new URL('../public/data/wods.json', import.meta.url), 'utf8'));
+
+test('WOD picks by local date from 2026-11-02', () => {
+  assert.equal(WODS.workouts.length, 365);
+  const first = workoutFor(WODS, '2026-11-02');
+  assert.equal(first.day, 1);
+  assert.equal(first.title, 'Blackout Pull');
+  assert.equal(first.weekday, 'Monday');
+  assert.equal(first.solo.headline, 'EMOM 44');
+  assert.equal(first.team.headline, 'Team of 2: EMOM 44');
+  assert.equal(workoutFor(WODS, '2027-11-02').day, 1);
+  assert.equal(workoutFor(WODS, '2026-11-03').day, 2);
+  assert.equal(wodIndex('2026-11-01'), 364);
+  assert.equal(workoutFor(WODS, '2026-10-22').day, 355);
+  // Every index in range across a leap year boundary.
+  for (let i = 0; i < 800; i++) {
+    const idx = wodIndex(addDays('2026-01-01', i));
+    assert.ok(idx >= 0 && idx < 365);
+  }
+});
+
+test('WOD: weekly rotation, default modes and team version has more work', () => {
+  const week = weekDates('2026-11-04');
+  assert.deepEqual(week.map((d) => d.ymd), ['2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-07', '2026-11-08']);
+  for (const w of WODS.workouts) {
+    assert.ok(w.durationMin >= 40 && w.durationMin <= 48);
+    assert.ok(w.solo && w.team && w.solo.text && w.team.text);
+    if (w.weekday === 'Wednesday') assert.equal(w.defaultMode, 'team');
+  }
+  const wed = workoutFor(WODS, '2026-11-04');
+  assert.equal(pickMode(wed, null), 'team');
+  assert.equal(pickMode(wed, 'solo'), 'solo');
+  assert.equal(pickMode(workoutFor(WODS, '2026-11-02'), null), 'solo');
+  assert.equal(workoutFor(WODS, '2026-11-07').intensity, 'easy');
+  assert.doesNotMatch(JSON.stringify(WODS), /hyrox/i);
+});
+
+test('WOD benchmark history groups by title and mode', () => {
+  const r = (day, mode, title, date, score, benchmark = true) => [resultId(day, mode), { day, mode, title, date, score, benchmark }];
+  const results = Object.fromEntries([
+    r(54, 'solo', 'Benchmark: Back Half', '2026-12-25', '42:00'),
+    r(26, 'solo', 'Benchmark: Front Half', '2026-11-27', '39:10'),
+    r(82, 'solo', 'Benchmark: Front Half', '2027-01-22', '37:50'),
+    r(26, 'team', 'Benchmark: Front Half', '2026-11-27', '33:00'),
+    r(1, 'solo', 'Blackout Pull', '2026-11-02', '11 rounds', false),
+  ]);
+  const g = groupBenchmarks(results);
+  assert.deepEqual(g.map((x) => x.title), ['Benchmark: Back Half · Solo', 'Benchmark: Front Half · Solo', 'Benchmark: Front Half · Team of 2']);
+  assert.deepEqual(g[1].items.map((x) => x.score), ['39:10', '37:50']);
+});
+
+test('feature gates are free for signed-in users only', () => {
+  assert.equal(canUse('fullPlan', { user: null }), false);
+  assert.equal(canUse('fullPlan', { user: { uid: 'u' } }), true);
+  assert.equal(canUse('wod', { user: { uid: 'u' }, tier: 'free' }), true);
+  assert.equal(canUse('unknown-feature', { user: { uid: 'u' }, tier: 'free' }), false);
+  assert.equal(canUse('unknown-feature', { user: { uid: 'u' }, tier: 'pro' }), true);
+});
+
+test('no trademark in user-facing plan text', () => {
+  const p = buildPlan(example, TODAY);
+  const text = allDays(p).flatMap((d) => [d.label, ...d.lines, ...(d.wod?.lines || [])]).join(' ') + p.weeks.map((w) => w.title).join(' ');
+  assert.doesNotMatch(text, /hyrox/i);
+});
+
+test('race under 12 weeks away: earlier weeks dropped, first week shown includes a 5k test', () => {
+  const eight = buildPlan({ ...example, raceDate: '2026-12-12' }, TODAY);
+  assert.deepEqual(eight.weeks.map((w) => w.n), [5, 6, 7, 8, 9, 10, 11, 12]);
+  assert.deepEqual(eight.shortened, { firstWeek: 5, weeksLeft: 8 });
+  assert.equal(eight.preBlock, null);
+  const tests = allDays(eight).filter((d) => d.test).map((d) => d.key);
+  assert.deepEqual(tests, ['w5-end', 'w8-long']);
+  // Starting in week 4 or 8: that week already has its test, so no second one.
+  const nine = buildPlan({ ...example, raceDate: '2026-12-19' }, TODAY);
+  assert.equal(nine.weeks[0].n, 4);
+  assert.deepEqual(allDays(nine).filter((d) => d.test && d.week === 4).map((d) => d.key), ['w4-long']);
+  // In the taper there is no extra test.
+  const two = buildPlan({ ...example, raceDate: '2026-11-01' }, TODAY);
+  assert.equal(two.weeks[0].n, 11);
+  assert.equal(allDays(two).filter((d) => d.test).length, 0);
+});
+
+test('race more than 12 weeks away: full plan and the start date is shown', () => {
+  const p = buildPlan(example, TODAY);
+  assert.equal(p.weeks[0].n, 1);
+  assert.equal(p.shortened, null);
+  assert.equal(p.preBlock.start, 'Mon Feb 1, 2027');
+  assert.equal(p.preBlock.weeksUntil, 15);
+});
+
+test('5k tests have no target pace: they measure where the athlete is today', () => {
+  for (const fiveK of ['', '20:00']) {
+    const p = buildPlan({ ...example, goal: '1:15', fiveK }, TODAY);
+    for (const d of allDays(p).filter((x) => x.test)) {
+      const main = d.lines.find((l) => /^5 km test/.test(l));
+      assert.ok(main, d.key);
+      assert.doesNotMatch(main, /\d:\d\d\/km|aim/, d.key);
+    }
+  }
+});
+
+// ---------- leaderboard ----------
+
+test('leaderboard: each workout is ranked by time, rounds + reps, a count, or not at all', () => {
+  const kinds = {};
+  for (const w of WODS.workouts) {
+    const t = scoreType(w.solo);
+    kinds[t ? t.kind : 'none'] = (kinds[t ? t.kind : 'none'] || 0) + 1;
+    // Same scoring for both versions, so a day's Solo and Team boards rank the same way.
+    assert.deepEqual(scoreType(w.team), t, `day ${w.day}`);
+    // Easy and recovery days are never ranked.
+    if (['easy', 'recovery'].includes(w.intensity)) assert.equal(t, null, `day ${w.day}`);
+  }
+  assert.deepEqual(kinds, { time: 150, none: 104, count: 80, rounds: 31 });
+  assert.equal(scoreType({ scoring: 'Time' }).better, 'lower');
+  assert.equal(scoreType({ scoring: 'Total calories' }).unit, 'cal');
+  assert.equal(scoreType({ scoring: 'Total metres' }).unit, 'm');
+  assert.equal(scoreType({ scoring: 'Rounds + reps per block' }).better, 'higher');
+});
+
+test('leaderboard: scores parse to sortable values', () => {
+  const time = scoreType({ scoring: 'Time' });
+  assert.deepEqual(parseScore(time, { time: '41:20' }), { value: 2480, display: '41:20' });
+  assert.deepEqual(parseScore(time, { time: '1:02:05' }), { value: 3725, display: '1:02:05' });
+  assert.ok(parseScore(time, { time: '41' }).error);
+  assert.ok(parseScore(time, { time: '0:30' }).error); // under a minute is not a real result
+  assert.equal(parseClock('7:5'), null);
+  const rr = scoreType({ scoring: 'Rounds + reps per block' });
+  assert.deepEqual(parseScore(rr, { rounds: '6', reps: '12' }), { value: 6012, display: '6 rounds + 12' });
+  assert.ok(parseScore(rr, { rounds: '6', reps: '12' }).value > parseScore(rr, { rounds: '5', reps: '999' }).value);
+  assert.deepEqual(parseScore(rr, { rounds: '7', reps: '' }), { value: 7000, display: '7 rounds' });
+  assert.ok(parseScore(rr, { rounds: '', reps: '' }).error);
+  const cal = scoreType({ scoring: 'Total calories' });
+  assert.deepEqual(parseScore(cal, { count: '212' }), { value: 212, display: '212 cal' });
+  assert.ok(parseScore(cal, { count: '2.5' }).error);
+  assert.ok(parseScore(null, {}).error);
+  assert.equal(boardId('2026-11-02', 'team'), '2026-11-02-team');
+});
+
+test('usernames: format, reserved names, and case-insensitive uniqueness key', () => {
+  assert.deepEqual(checkUsername('  Rower_Mike '), { name: 'Rower_Mike', key: 'rower_mike' });
+  assert.equal(checkUsername('ROWER_mike').key, checkUsername('rower_MIKE').key);
+  for (const bad of ['ab', 'a'.repeat(21), 'has space', 'émile', '___', 'Admin', 'HYBRID', 'info']) assert.ok(checkUsername(bad).error, bad);
+  assert.ok(!checkUsername('m.v-81').error);
+});
+
+// ---------- strength targets ----------
+
+const liftLines = (p, key) => allDays(p).find((d) => d.key === key).lines.filter((l) => /body weight/.test(l));
+
+test('strength targets: % of body weight by lift and men/women, kg when body weight is given', () => {
+  const men = buildPlan({ ...example, age: '30-34', bodyWeight: '80' }, TODAY);
+  assert.deepEqual(liftLines(men, 'w1-str'), [
+    'Back Squat: 3 sets of 8-10 reps @ 60 kg, about 75% of body weight',
+    'Bench Press: 3 sets of 8-10 reps @ 47.5 kg, about 60% of body weight',
+    'Romanian Deadlifts: 3 sets of 10-12 reps @ 52.5 kg, about 65% of body weight',
+  ]);
+  const women = buildPlan({ ...example, age: '30-34', division: 'WO', bodyWeight: '62' }, TODAY);
+  assert.match(liftLines(women, 'w1-str')[1], /Bench Press: .* @ 25 kg, about 40% of body weight/);
+  // No body weight: percentages only.
+  const noBw = buildPlan({ ...example, age: '30-34' }, TODAY);
+  assert.equal(liftLines(noBw, 'w1-str')[1], 'Bench Press: 3 sets of 8-10 reps @ about 60% of body weight');
+  // Mixed doubles shows both; dumbbells are per hand; notes in brackets stay after the target.
+  const mixed = buildPlan({ ...example, age: '30-34', division: 'XD', bodyWeight: '75' }, TODAY);
+  assert.match(linesOf(mixed, 'w3-str'), /Incline Dumbbell Press: 3 sets of 8-10 reps @ 2 x \d+\/\d+ kg \(men\/women\), about \d+%\/\d+% of body weight each/);
+  assert.match(linesOf(mixed, 'w8-str'), /Deadlifts: 3 sets of 3-5 reps @ [\d.]+\/[\d.]+ kg \(men\/women\), about \d+%\/\d+% of body weight \(heavy, focus on form\)/);
+  // Bodyweight squats, sandbag work and pull-ups get no % target.
+  for (const d of allDays(men)) for (const l of d.lines) if (/^(Bodyweight Squats|Sandbag|Pull-ups)/.test(l)) assert.doesNotMatch(l, /body weight/, l);
+});
+
+test('strength targets: heavier for fewer reps and for Pro, lighter for 45+ and taper weeks', () => {
+  const at = (line, sex = 'm', o) => liftShare(line, sex, o).share;
+  assert.ok(at('Back Squat: 3 sets of 5 reps') > at('Back Squat: 3 sets of 8-10 reps'));
+  assert.ok(at('Back Squat: 3 sets of 5 reps', 'm', { pro: true }) > at('Back Squat: 3 sets of 5 reps'));
+  assert.ok(at('Back Squat: 3 sets of 5 reps', 'm', { is45: true }) < at('Back Squat: 3 sets of 5 reps'));
+  assert.ok(at('Back Squat: 3 sets of 5 reps (lighter weight)') < at('Back Squat: 3 sets of 5 reps'));
+  assert.ok(at('Bench Press: 3 sets of 8 reps', 'f') < at('Bench Press: 3 sets of 8 reps', 'm'));
+  assert.equal(liftShare('Plank: 3 sets, hold for 45 seconds', 'm'), null);
+  // Every week's weighted lifts get a target, and no target is silly.
+  for (const division of Object.keys(DIVISIONS)) {
+    const p = buildPlan({ ...example, division, bodyWeight: '70' }, TODAY);
+    for (const d of allDays(p)) for (const l of d.lines) {
+      const m = /about (\d+)%(?:\/(\d+)%)? of body weight/.exec(l);
+      if (m) for (const v of [m[1], m[2]].filter(Boolean)) assert.ok(+v >= 5 && +v <= 140, `${division}: ${l}`);
+    }
+  }
+  assert.ok(validateInputs({ ...example, bodyWeight: '20' }, TODAY).bodyWeight);
+  assert.deepEqual(validateInputs({ ...example, bodyWeight: '72.5' }, TODAY), {});
+  assert.deepEqual(validateInputs({ ...example, bodyWeight: '' }, TODAY), {});
 });

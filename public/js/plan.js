@@ -62,6 +62,17 @@ export function normalizeTime(str) {
   return /^\d{1,2}$/.test(t) ? `${+t}:00` : t;
 }
 
+/**
+ * As-you-type mask for time fields, so phones without a ":" key still work:
+ * "130" -> "1:30", "2500" -> "25:00", "1:305" -> "13:05". A well-formed "m:ss" being typed is left alone.
+ */
+export function maskTime(raw) {
+  const t = String(raw ?? '');
+  if (/^\d{0,2}:\d{0,2}$/.test(t)) return t;
+  const digits = t.replace(/\D/g, '').slice(0, 4);
+  return digits.length >= 3 ? `${digits.slice(0, -2)}:${digits.slice(-2)}` : digits;
+}
+
 /** "20:00" -> 1200 seconds (minutes:seconds). */
 export function parseMS(str) {
   const m = /^\s*(\d{1,3}):([0-5]\d)\s*$/.exec(str || '');
@@ -139,6 +150,10 @@ export function validateInputs(inp, today = todayYmd()) {
   const maxHR = inp.maxHR ? Number(inp.maxHR) : null;
   const hr5k = inp.hr5k ? Number(inp.hr5k) : null;
   if (maxHR != null && !(maxHR >= 120 && maxHR <= 230)) errors.maxHR = 'Max heart rate should be between 120 and 230.';
+  if (inp.bodyWeight !== undefined && inp.bodyWeight !== '' && inp.bodyWeight !== null) {
+    const bw = Number(String(inp.bodyWeight).replace(',', '.'));
+    if (!(bw >= 35 && bw <= 200)) errors.bodyWeight = 'Body weight should be between 35 and 200 kg.';
+  }
   if (hr5k != null && !(hr5k >= 100 && hr5k <= 220)) errors.hr5k = '5k heart rate should be between 100 and 220.';
   else if (hr5k && maxHR && hr5k > maxHR) errors.hr5k = 'Your 5k average can\'t be above your max heart rate.';
   return errors;
@@ -219,6 +234,71 @@ export function fill(line, values, ctx) {
   return line
     .replace(/\{m:([^}]+)\}/g, (m, spec) => (ctx ? machineText(spec, ctx, values) : m))
     .replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+}
+
+// ---------- lifting targets ----------
+
+/**
+ * Estimated one-rep max as a share of body weight for a fit amateur (Open divisions).
+ * perHand: dumbbell lifts, where the target is for each dumbbell.
+ */
+export const LIFTS = [
+  { re: /^Back Squat\b/, name: 'squat', m: 1.0, f: 0.8 },
+  { re: /^Front Squats?\b/, name: 'front squat', m: 0.85, f: 0.65 },
+  { re: /^Bench Press\b/, name: 'bench', m: 0.85, f: 0.55 },
+  { re: /^Incline Dumbbell Press\b/, name: 'incline DB press', m: 0.22, f: 0.14, perHand: true },
+  { re: /^Romanian Deadlifts?\b/, name: 'RDL', m: 0.9, f: 0.7 },
+  { re: /^Deadlifts?\b/, name: 'deadlift', m: 1.25, f: 1.0 },
+  { re: /^Overhead Press\b/, name: 'overhead press', m: 0.5, f: 0.33 },
+  { re: /^Walking Lunges with Dumbbells\b/, name: 'DB lunges', m: 0.25, f: 0.17, perHand: true },
+];
+
+/** Share of one-rep max for a set of `reps`, leaving about 2 reps in reserve (Epley). */
+export const shareOfMax = (reps) => 1 / (1 + (reps + 2) / 30);
+
+/**
+ * Working weight for a lift line, as a share of body weight: by lift, men/women, rep count,
+ * Pro (stronger) or 45+ (start lighter), and taper notes like "lighter weight".
+ */
+export function liftShare(line, sex, { pro = false, is45 = false } = {}) {
+  const lift = LIFTS.find((l) => l.re.test(line));
+  const m = /(\d+)(?:-(\d+))? reps/.exec(line);
+  if (!lift || !m) return null;
+  const reps = m[2] ? (+m[1] + +m[2]) / 2 : +m[1];
+  let k = shareOfMax(reps) * (pro ? 1.15 : 1) * (is45 ? 0.9 : 1);
+  if (/lighter weight/.test(line)) k *= 0.85;
+  else if (/moderate weight/.test(line)) k *= 0.9;
+  return { lift, share: lift[sex] * k };
+}
+
+// The % shown is rounded (5% steps for barbells, 1% per dumbbell) and the kg comes from that same %,
+// so the two always agree (75% of 80 kg = 60 kg).
+const pctOf = (share, perHand) => (perHand ? Math.round(share * 100) : roundTo(share * 100, 5));
+const pctText = (share, perHand) => `${pctOf(share, perHand)}%`;
+const kgText = (share, bw, perHand) => {
+  const exact = (pctOf(share, perHand) / 100) * bw;
+  return String(perHand ? Math.max(2, roundTo(exact, 2)) : Math.max(5, roundTo(exact, 2.5)));
+};
+
+/**
+ * Add a target to a lift line: "@ 50 kg, about 60% of body weight" (or the % alone without a body weight).
+ * Mixed Doubles shows men/women. Lines that aren't weighted lifts come back unchanged.
+ */
+export function liftLine(line, ctx) {
+  const sexes = ctx.div.sex === 'x' ? ['m', 'f'] : [ctx.div.sex];
+  const opts = { pro: /Pro/.test(ctx.div.name), is45: ctx.is45 };
+  const shares = sexes.map((sx) => liftShare(line, sx, opts));
+  if (!shares[0]) return line;
+  const { perHand } = shares[0].lift;
+  const pct = shares.map((x) => pctText(x.share, perHand)).join('/');
+  const bw = Number(ctx.bodyWeight) || null;
+  const each = perHand ? ' each' : '';
+  const mw = sexes.length > 1 ? ' (men/women)' : '';
+  const target = bw
+    ? `@ ${perHand ? '2 x ' : ''}${shares.map((x) => kgText(x.share, bw, perHand)).join('/')} kg${mw}, about ${pct} of body weight${each}`
+    : `@ about ${pct} of body weight${each}${mw}`;
+  // Put the target right after the reps, before any note in brackets.
+  return line.replace(/(\d+(?:-\d+)? reps(?: per leg)?)/, `$1 ${target}`);
 }
 
 // ---------- machine swaps ----------
@@ -330,11 +410,14 @@ function* permutations(arr) {
   }
 }
 
-/** Week sessions after the 5-day and 45+ adjustments. */
-export function adjustSessions(week, { fiveDay, is45, startTest }) {
+/** Week sessions after the week 1 test, 5-day and 45+ adjustments. */
+export function adjustSessions(week, { fiveDay, is45, testWeek = 1 }) {
   // Copies, so the shared session data is never changed. On 5-day plans the Wednesday WOD goes with the dropped session.
   let sessions = week.sessions.map((s) => ({ ...s, lines: [...s.lines], wod: s.wod && { ...s.wod } }));
-  if (startTest && week.n === 1) sessions = sessions.map((s) => (s.key === 'end' ? { ...HR_TEST, lines: [...HR_TEST.lines] } : s));
+  // Every plan opens with a 5k test (time + optional heart rate), also when a late start skips the early
+  // weeks. Weeks 4 and 8 have their own; the taper (week 11+) gets no extra test.
+  const opensWithTest = week.n === testWeek && week.n < 11 && !sessions.some((s) => s.test);
+  if (opensWithTest) sessions = sessions.map((s) => (s.key === 'end' ? { ...HR_TEST, lines: [...HR_TEST.lines] } : s));
   if (fiveDay) {
     const rec = sessions.find((s) => s.key === 'rec');
     if (rec.movable) sessions.find((s) => s.key === 'skl').lines.push(...rec.lines);
@@ -366,8 +449,9 @@ export function buildPlan(inp, today = todayYmd()) {
   const hr = hrProfile(inp);
   const equipment = Array.isArray(inp.equipment) ? inp.equipment : MACHINES;
   // Heart rate shows in the session lines only when the athlete gave us real numbers.
-  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment };
   const is45 = AGE_GROUPS.indexOf(inp.age) >= AGE_GROUPS.indexOf('45-49');
+  const bodyWeight = Number(String(inp.bodyWeight ?? '').replace(',', '.')) || null;
+  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment, is45, bodyWeight };
   const days = [...inp.days].map(Number).sort((a, b) => a - b);
   const fiveDay = days.length === 5;
 
@@ -387,7 +471,7 @@ export function buildPlan(inp, today = todayYmd()) {
 
     if (n < 12) {
       const src = WEEKS[n - 1];
-      const sessions = adjustSessions(src, { fiveDay, is45, startTest: !!inp.startTest });
+      const sessions = adjustSessions(src, { fiveDay, is45, testWeek: firstWeek });
       const a = assignSessions(sessions, days);
       clash = a.clash;
       for (let d = 0; d < 7; d++) {
@@ -458,7 +542,8 @@ export function buildPlan(inp, today = todayYmd()) {
 const ZONE_TOKEN = /\{(easy|steady|thr|5k|race)\}/;
 
 function makeDay(date, week, s, lines, values, ctx) {
-  const zone = lines.map((l) => ZONE_TOKEN.exec(l)?.[1]).find(Boolean);
+  // A 5k test is run at 5k effort, even though its first line is the easy warm-up.
+  const zone = s.test ? '5k' : lines.map((l) => ZONE_TOKEN.exec(l)?.[1]).find(Boolean);
   return {
     date,
     ymd: toYmd(date),
@@ -470,7 +555,7 @@ function makeDay(date, week, s, lines, values, ctx) {
     test: !!s.test,
     hrTest: !!s.hrTest,
     zone: zone === '5k' ? 'fiveK' : zone || null,
-    lines: lines.map((l) => fill(l, values, ctx)),
+    lines: lines.map((l) => liftLine(fill(l, values, ctx), ctx)),
     wod: s.wod ? { title: s.wod.title, note: s.wod.note || null, lines: s.wod.lines.map((l) => fill(l, values, ctx)) } : null,
   };
 }
