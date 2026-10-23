@@ -88,15 +88,6 @@ The site goes live at https://hyrox-prog.web.app.
 
 `users/{uid}/settings/prefs` holds `{ wodMode: 'solo' | 'team' }`. `users/{uid}/wodResults/{day}-{mode}` holds `{ day, mode, title, benchmark, date, score, partner?, weight?, notes? }`. Both are cached in browser storage per user.
 
-## Usernames and the WOD leaderboard
-
-- On first sign-in users are asked to pick a username (3-20 letters, numbers, `.`, `-`, `_`). It is unique ignoring case and can't be changed. The account itself is identified by Firebase Auth, which allows one account per email; the email is never stored where other users can read it.
-- `usernames/{lowercase name}` = `{ uid }` is the uniqueness lock and `profiles/{uid}` = `{ username, usernameKey }`; both are written in one batch and the rules refuse the batch if the name is taken.
-- One board per day and version: `leaderboards/{YYYY-MM-DD}-{solo|team}/entries/{uid}` = `{ username, value, display, kind, day, title }`. Any signed-in user can read boards; users write only their own entry and only under their own username (checked in the rules).
-- How a workout is ranked comes from its `scoring` text (`scoreType` in `wod.js`): time (lowest first), rounds + reps (stored as rounds x 1000 + reps) or a count (calories, metres, reps; highest first). Easy, technique and recovery days have no board.
-- Sharing is opt-in per result ("Show my score"); unticking removes the entry. Deleting an account removes its entries, profile and username.
-- There is no moderation tool yet: remove an offensive username or false score in the Firebase console (delete the entry, profile and username docs).
-
 ## Turning on payments (Stripe)
 
 Nothing is charged today; every feature in `FEATURES` (`public/js/billing.js`) is `'free'`, which means "any signed-in user". The site is wired for the official **Run Payments with Stripe** Firebase extension:

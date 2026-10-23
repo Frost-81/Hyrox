@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, maskTime, DIVISIONS, liftShare } from '../public/js/plan.js';
 import { hrProfile, suggest, applySuggestion } from '../public/js/hr.js';
 import { readFileSync } from 'node:fs';
-import { wodIndex, workoutFor, weekDates, addDays, pickMode, groupBenchmarks, resultId, scoreType, parseScore, parseClock, checkUsername, boardId } from '../public/js/wod.js';
+import { wodIndex, workoutFor, weekDates, addDays, pickMode, groupBenchmarks, resultId } from '../public/js/wod.js';
 import { canUse } from '../public/js/billing.js';
 import { planIdFor } from '../public/js/progress.js';
 
@@ -466,51 +466,6 @@ test('5k tests have no target pace: they measure where the athlete is today', ()
       assert.doesNotMatch(main, /\d:\d\d\/km|aim/, d.key);
     }
   }
-});
-
-// ---------- leaderboard ----------
-
-test('leaderboard: each workout is ranked by time, rounds + reps, a count, or not at all', () => {
-  const kinds = {};
-  for (const w of WODS.workouts) {
-    const t = scoreType(w.solo);
-    kinds[t ? t.kind : 'none'] = (kinds[t ? t.kind : 'none'] || 0) + 1;
-    // Same scoring for both versions, so a day's Solo and Team boards rank the same way.
-    assert.deepEqual(scoreType(w.team), t, `day ${w.day}`);
-    // Easy and recovery days are never ranked.
-    if (['easy', 'recovery'].includes(w.intensity)) assert.equal(t, null, `day ${w.day}`);
-  }
-  assert.deepEqual(kinds, { time: 150, none: 104, count: 80, rounds: 31 });
-  assert.equal(scoreType({ scoring: 'Time' }).better, 'lower');
-  assert.equal(scoreType({ scoring: 'Total calories' }).unit, 'cal');
-  assert.equal(scoreType({ scoring: 'Total metres' }).unit, 'm');
-  assert.equal(scoreType({ scoring: 'Rounds + reps per block' }).better, 'higher');
-});
-
-test('leaderboard: scores parse to sortable values', () => {
-  const time = scoreType({ scoring: 'Time' });
-  assert.deepEqual(parseScore(time, { time: '41:20' }), { value: 2480, display: '41:20' });
-  assert.deepEqual(parseScore(time, { time: '1:02:05' }), { value: 3725, display: '1:02:05' });
-  assert.ok(parseScore(time, { time: '41' }).error);
-  assert.ok(parseScore(time, { time: '0:30' }).error); // under a minute is not a real result
-  assert.equal(parseClock('7:5'), null);
-  const rr = scoreType({ scoring: 'Rounds + reps per block' });
-  assert.deepEqual(parseScore(rr, { rounds: '6', reps: '12' }), { value: 6012, display: '6 rounds + 12' });
-  assert.ok(parseScore(rr, { rounds: '6', reps: '12' }).value > parseScore(rr, { rounds: '5', reps: '999' }).value);
-  assert.deepEqual(parseScore(rr, { rounds: '7', reps: '' }), { value: 7000, display: '7 rounds' });
-  assert.ok(parseScore(rr, { rounds: '', reps: '' }).error);
-  const cal = scoreType({ scoring: 'Total calories' });
-  assert.deepEqual(parseScore(cal, { count: '212' }), { value: 212, display: '212 cal' });
-  assert.ok(parseScore(cal, { count: '2.5' }).error);
-  assert.ok(parseScore(null, {}).error);
-  assert.equal(boardId('2026-11-02', 'team'), '2026-11-02-team');
-});
-
-test('usernames: format, reserved names, and case-insensitive uniqueness key', () => {
-  assert.deepEqual(checkUsername('  Rower_Mike '), { name: 'Rower_Mike', key: 'rower_mike' });
-  assert.equal(checkUsername('ROWER_mike').key, checkUsername('rower_MIKE').key);
-  for (const bad of ['ab', 'a'.repeat(21), 'has space', 'émile', '___', 'Admin', 'HYBRID', 'info']) assert.ok(checkUsername(bad).error, bad);
-  assert.ok(!checkUsername('m.v-81').error);
 });
 
 // ---------- strength targets ----------

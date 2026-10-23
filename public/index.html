@@ -29,8 +29,6 @@
           <summary class="btn small ghost">Account</summary>
           <div class="menu" role="menu">
             <p class="muted small" id="account-email"></p>
-            <p class="small" id="account-username" hidden></p>
-            <button type="button" class="btn small ghost" id="username-btn" role="menuitem" hidden>Choose a username</button>
             <button type="button" class="btn small ghost" id="export-btn" role="menuitem">Download my data</button>
             <button type="button" class="btn small ghost" id="delete-btn" role="menuitem">Delete my account</button>
             <button type="button" class="btn small" id="sign-out-btn" role="menuitem">Sign out</button>
@@ -226,28 +224,9 @@
     <h2>Log your result</h2>
     <p class="muted" id="wod-log-title"></p>
     <form id="wod-log-form">
-      <p class="hint" id="wod-score-hint"></p>
-      <div class="field" data-score="time" hidden>
-        <label for="wod-time">Time <span class="muted">(mm:ss)</span></label>
-        <input type="text" id="wod-time" inputmode="numeric" maxlength="8" placeholder="41:20" autocomplete="off" data-time>
-      </div>
-      <div class="grid" data-score="rounds" hidden>
-        <div class="field">
-          <label for="wod-rounds">Rounds</label>
-          <input type="number" id="wod-rounds" inputmode="numeric" min="0" max="200" placeholder="6">
-        </div>
-        <div class="field">
-          <label for="wod-reps">Extra reps</label>
-          <input type="number" id="wod-reps" inputmode="numeric" min="0" max="999" placeholder="12">
-        </div>
-      </div>
-      <div class="field" data-score="count" hidden>
-        <label for="wod-count" id="wod-count-label">Total</label>
-        <input type="number" id="wod-count" inputmode="numeric" min="1" max="100000">
-      </div>
-      <div class="field" data-score="text" hidden>
-        <label for="wod-score">How did it go? <span class="muted">(optional)</span></label>
-        <input type="text" id="wod-score" maxlength="60" placeholder="e.g. felt smooth" autocomplete="off">
+      <div class="field">
+        <label for="wod-score">Score</label>
+        <input type="text" id="wod-score" maxlength="60" placeholder="e.g. 41:20 or 6 rounds + 12" autocomplete="off" required>
       </div>
       <fieldset class="field">
         <legend>Version</legend>
@@ -268,28 +247,8 @@
         <label for="wod-notes">Notes <span class="muted">(optional)</span></label>
         <input type="text" id="wod-notes" maxlength="300" autocomplete="off">
       </div>
-      <label class="check-row small" id="wod-share-row" hidden>
-        <input type="checkbox" id="wod-share">
-        <span id="wod-share-text">Show my score on today's leaderboard</span>
-      </label>
       <p class="error" id="wod-log-error" role="alert"></p>
       <button type="submit" class="btn primary big">Save result</button>
-    </form>
-  </dialog>
-
-  <dialog id="username-dialog" class="no-print">
-    <form method="dialog" class="dialog-close"><button class="btn small ghost" aria-label="Close">✕</button></form>
-    <h2>Choose a username</h2>
-    <p class="muted">Your username appears on the Workout of the Day leaderboard next to the scores you choose to share. Your email is never shown.</p>
-    <form id="username-form">
-      <div class="field">
-        <label for="username">Username</label>
-        <input type="text" id="username" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="e.g. rower_mike" required>
-        <p class="hint">3 to 20 letters, numbers, dots, dashes or underscores. It can't be changed later, and nobody else can take it. You don't have to use your real name.</p>
-      </div>
-      <p class="error" id="username-error" role="alert"></p>
-      <button type="submit" class="btn primary big" id="username-submit">Save username</button>
-      <p class="small center"><button type="button" class="btn link" id="username-later">Later</button></p>
     </form>
   </dialog>
 

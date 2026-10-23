@@ -5,8 +5,8 @@ import {
   getWodMode, setWodMode, getWodResults, replaceWodResults, forgetUser,
 } from './progress.js';
 import { suggest, applySuggestion, fmtZone } from './hr.js';
-import { loadWods, workoutFor, weekDates, addDays, pickMode, resultId, groupBenchmarks, scoreType, parseScore, boardId, checkUsername } from './wod.js';
-import { weekStrip, wodCard, planNote, infoPanel, benchmarkHistory, todayTeaser, lockedWod, leaderboardCard } from './wodRender.js';
+import { loadWods, workoutFor, weekDates, addDays, pickMode, resultId, groupBenchmarks } from './wod.js';
+import { weekStrip, wodCard, planNote, infoPanel, benchmarkHistory, todayTeaser, lockedWod } from './wodRender.js';
 import { canUse } from './billing.js';
 import * as cloud from './cloud.js';
 
@@ -24,7 +24,6 @@ const state = {
   authAvailable: true,
   saveAfterSignIn: false,
   createMode: false,
-  profile: null, // { username, usernameKey } once chosen
 };
 
 const wod = { data: null, ymd: todayYmd(), savedMode: null, results: {} };
@@ -391,92 +390,10 @@ function renderWod() {
   const result = wod.results[resultId(w.day, mode)] || null;
   $('#wod-out').innerHTML = weekStrip(weekDates(wod.ymd), wod.ymd, today)
     + wodCard(w, mode, wod.ymd, { result, today })
-    + '<div id="leaderboard-out"></div>'
     + planNote(planDayOn(wod.ymd))
     + benchmarkHistory(groupBenchmarks(wod.results))
     + infoPanel(wod.data.meta);
-  renderLeaderboard();
 }
-
-// ---------- leaderboard ----------
-
-let boardRequest = 0;
-
-async function renderLeaderboard() {
-  const el = $('#leaderboard-out');
-  if (!el) return;
-  const { w, mode } = currentWorkout();
-  const type = scoreType(w[mode]);
-  const base = { type, mode, myUid: uid(), username: state.profile?.username, isFuture: wod.ymd > todayYmd() };
-  const req = ++boardRequest; // any slower request for another day or mode is now stale
-  el.innerHTML = leaderboardCard({ ...base, loading: true });
-  if (!type || base.isFuture) { el.innerHTML = leaderboardCard(base); return; }
-  try {
-    const data = await cloud.getLeaderboard(boardId(wod.ymd, mode), type.better, uid());
-    if (req !== boardRequest) return; // the user moved on to another day or mode
-    $('#leaderboard-out').innerHTML = leaderboardCard({ ...base, data });
-  } catch (err) {
-    console.warn('Leaderboard:', err);
-    if (req === boardRequest) $('#leaderboard-out').innerHTML = leaderboardCard({ ...base, error: true });
-  }
-}
-
-// ---------- usernames ----------
-
-const usernameDialog = $('#username-dialog');
-let afterUsername = null;
-
-function updateAccountUsername() {
-  const name = state.profile?.username;
-  $('#account-username').hidden = !name;
-  $('#account-username').textContent = name ? `Username: ${name}` : '';
-  $('#username-btn').hidden = !state.user || !!name;
-}
-
-/** Ask for a username; then() runs once one is saved. */
-function openUsername(then = null) {
-  if (!state.user || state.profile) { then?.(); return; }
-  afterUsername = then;
-  $('#username-error').textContent = '';
-  usernameDialog.showModal();
-}
-
-$('#username-btn').addEventListener('click', () => { $('#account-menu').open = false; openUsername(); });
-$('#username-later').addEventListener('click', () => usernameDialog.close());
-// However the dialog closes, carry on with what was waiting (a skipped username just means the score stays private).
-usernameDialog.addEventListener('close', () => {
-  const then = afterUsername;
-  afterUsername = null;
-  then?.();
-});
-document.addEventListener('click', (e) => {
-  if (e.target.closest('[data-choose-username]')) openUsername(() => renderLeaderboard());
-});
-
-$('#username-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const check = checkUsername($('#username').value);
-  const err = $('#username-error');
-  if (check.error) { err.textContent = check.error; return; }
-  const btn = $('#username-submit');
-  btn.disabled = true;
-  err.textContent = '';
-  try {
-    if (!(await cloud.isUsernameFree(check.key))) { err.textContent = 'That username is taken. Please pick another.'; return; }
-    state.profile = await cloud.claimUsername(uid(), check.name, check.key);
-    updateAccountUsername();
-    usernameDialog.close();
-    toast(`Welcome, ${check.name}!`);
-    const then = afterUsername;
-    afterUsername = null;
-    then?.();
-    renderLeaderboard();
-  } catch (error) {
-    err.textContent = error.code === 'username-taken' ? 'That username is taken. Please pick another.' : 'Could not save your username. Please try again.';
-  } finally {
-    btn.disabled = false;
-  }
-});
 
 /** The small card on the plan page (signed in only). */
 async function renderTeaser() {
@@ -527,28 +444,10 @@ function selectedWodLogMode() {
   return wodLogForm.querySelector('input[name="wod-mode"]:checked')?.value || 'solo';
 }
 
-/** Show the score fields that fit this workout: a time, rounds + reps, a count, or free text when it isn't ranked. */
 function fillWodLog() {
   const { w } = currentWorkout();
-  const mode = selectedWodLogMode();
-  const type = scoreType(w[mode]);
-  const r = wod.results[resultId(w.day, mode)] || {};
-  const kind = type ? type.kind : 'text';
-  for (const el of wodLogForm.querySelectorAll('[data-score]')) el.hidden = el.dataset.score !== kind;
-  $('#wod-score-hint').textContent = type ? `Score: ${w[mode].scoring}` : 'No score to rank today: this session is about quality.';
-  $('#wod-count-label').textContent = type?.kind === 'count' ? type.label : 'Total';
-  const sameKind = r.kind === kind;
-  $('#wod-time').value = sameKind && kind === 'time' ? r.score : '';
-  $('#wod-rounds').value = sameKind && kind === 'rounds' ? Math.floor(r.value / 1000) : '';
-  $('#wod-reps').value = sameKind && kind === 'rounds' ? r.value % 1000 || '' : '';
-  $('#wod-count').value = sameKind && kind === 'count' ? r.value : '';
-  $('#wod-score').value = kind === 'text' ? r.score || '' : '';
-  const canShare = !!type && wod.ymd <= todayYmd();
-  $('#wod-share-row').hidden = !canShare;
-  $('#wod-share').checked = canShare && (r.shared ?? true);
-  $('#wod-share-text').textContent = state.profile
-    ? `Show my score on this day's ${mode === 'team' ? 'Team of 2' : 'Solo'} leaderboard as ${state.profile.username}`
-    : `Show my score on this day's ${mode === 'team' ? 'Team of 2' : 'Solo'} leaderboard (you'll pick a username)`;
+  const r = wod.results[resultId(w.day, selectedWodLogMode())] || {};
+  $('#wod-score').value = r.score || '';
   $('#wod-partner').value = r.partner || '';
   $('#wod-weight').value = r.weight || '';
   $('#wod-notes').value = r.notes || '';
@@ -573,51 +472,24 @@ wodLogForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const { w } = currentWorkout();
   const mode = selectedWodLogMode();
-  const type = scoreType(w[mode]);
-  const result = { day: w.day, mode, title: w.title, benchmark: !!w.benchmark, date: wod.ymd };
-  if (type) {
-    const parsed = parseScore(type, { time: $('#wod-time').value, rounds: $('#wod-rounds').value, reps: $('#wod-reps').value, count: $('#wod-count').value });
-    if (parsed.error) { $('#wod-log-error').textContent = parsed.error; return; }
-    Object.assign(result, { score: parsed.display, value: parsed.value, kind: type.kind, shared: $('#wod-share').checked && wod.ymd <= todayYmd() });
-  } else {
-    result.score = $('#wod-score').value.trim() || 'Done';
-  }
+  const score = $('#wod-score').value.trim();
+  if (!score) { $('#wod-log-error').textContent = 'Enter your score, e.g. 41:20 or 6 rounds + 12.'; return; }
+  const result = { day: w.day, mode, title: w.title, benchmark: !!w.benchmark, date: wod.ymd, score };
   const optional = { partner: mode === 'team' ? $('#wod-partner').value.trim() : '', weight: $('#wod-weight').value.trim(), notes: $('#wod-notes').value.trim() };
   for (const [k, v] of Object.entries(optional)) if (v) result[k] = v;
-
-  // Sharing needs a username first.
-  if (result.shared && !state.profile) {
-    wodLogDialog.close();
-    openUsername(() => saveWodLog(w, result));
-    return;
-  }
-  wodLogDialog.close();
-  saveWodLog(w, result);
-});
-
-async function saveWodLog(w, result) {
-  if (result.shared && !state.profile) result.shared = false; // the user skipped choosing a username
-  const id = resultId(w.day, result.mode);
-  const before = wod.results[id];
+  const id = resultId(w.day, mode);
   wod.results = { ...wod.results, [id]: result };
   replaceWodResults(uid(), wod.results);
+  wodLogDialog.close();
   renderWod();
   try {
     await cloud.saveWodResult(uid(), id, result);
-    const board = boardId(result.date, result.mode);
-    if (result.shared) {
-      await cloud.postScore(uid(), board, { username: state.profile.username, value: result.value, display: result.score, kind: result.kind, day: w.day, title: w.title });
-      toast('Result saved and added to the leaderboard.');
-    } else {
-      if (before?.shared && before.date === result.date) await cloud.removeScore(uid(), board).catch(() => {});
-      toast('Result saved.');
-    }
-    renderLeaderboard();
+    toast('Result saved.');
   } catch (err) {
     console.warn(err);
     toast('Saved on this device. It will sync to your account next time you sign in.');
   }
-}
+});
 
 /** Merge the device cache with the account, then push anything that only exists on this device. */
 async function loadWodData() {
@@ -697,8 +569,6 @@ async function onUser(user) {
   $('#account-menu').hidden = !user;
   $('#account-menu').open = false;
   if (!user) {
-    state.profile = null;
-    updateAccountUsername();
     state.cloudPlans = [];
     wod.savedMode = null;
     wod.results = {};
@@ -714,9 +584,6 @@ async function onUser(user) {
     render();
   }).then((stop) => { stopTier = stop; });
   try {
-    state.profile = await cloud.getProfile(user.uid).catch(() => null);
-    updateAccountUsername();
-    if (!state.profile && !sessionFlag('hybrid:usernameAsked')) openUsername();
     await loadWodData();
     renderTeaser();
     if (location.hash === '#wod') showWod();
@@ -827,15 +694,6 @@ $('#email-form').addEventListener('submit', (e) => {
 });
 
 // ---------- misc ----------
-
-/** Returns whether the flag was already set this browser session, and sets it. */
-function sessionFlag(key) {
-  try {
-    if (sessionStorage.getItem(key)) return true;
-    sessionStorage.setItem(key, '1');
-  } catch { /* storage blocked */ }
-  return false;
-}
 
 /** Firestore rejects undefined values, so drop them before saving. */
 function cleanInputs(inp) {
