@@ -36,19 +36,19 @@ export function dayStrip(days, { selected, today, attr }) {
 }
 
 const PAYWALL_TEXT = {
-  plan: { title: 'Unlock your full plan', text: 'Week 1 is your free preview. Subscribe to see all 12 weeks, log your 5k tests to keep your paces and projected finish up to date, and keep your plan on any device.' },
-  wod: { title: 'Workout of the Day', text: 'A new hybrid workout every day, solo or with a partner. Subscribe to see this week\'s workouts.' },
+  plan: { title: 'Unlock your full plan', text: 'Week 1 is your free preview. Unlock all 12 weeks, log your 5k tests to keep your paces and projected finish up to date, and keep your plan on any device.', button: 'Unlock', fine: 'One-time payment. No subscription.' },
+  wod: { title: 'Workout of the Day', text: 'A new hybrid workout every day, solo or with a partner. Subscribe to see this week\'s workouts.', button: 'Subscribe', fine: 'Cancel any time.' },
 };
 
-/** The lock card for a product, with its subscribe button. */
+/** The lock card for a product, with its buy button. */
 export function paywall(product) {
   const t = PAYWALL_TEXT[product];
   return `
   <section class="card unlock no-print">
     <h2>🔒 ${esc(t.title)}</h2>
     <p>${esc(t.text)}</p>
-    <button type="button" class="btn primary big" data-subscribe="${product}">Subscribe · ${esc(PRODUCTS[product].price)}</button>
-    <p class="small muted">Cancel any time.</p>
+    <button type="button" class="btn primary big" data-subscribe="${product}">${esc(t.button)} · ${esc(PRODUCTS[product].price)}</button>
+    <p class="small muted">${esc(t.fine)}</p>
   </section>`;
 }
 
@@ -244,7 +244,7 @@ function dayCard(d, w, today, log, locked) {
     ${log?.fiveK ? `<p class="logged small">✓ Logged: 5k ${esc(log.fiveK)}${log.hr ? ` · ${esc(log.hr)} bpm` : ''}</p>` : ''}
     <div class="row-btns">
       ${locked
-        ? '<button type="button" class="btn primary" data-subscribe="plan">Subscribe to log your 5k</button>'
+        ? '<button type="button" class="btn primary" data-subscribe="plan">Unlock to log your 5k</button>'
         : `<button type="button" class="btn primary" data-log="${esc(d.key)}">${log?.fiveK ? 'Edit 5k result' : 'Log 5k result'}</button>`}
     </div>` : '';
   return `

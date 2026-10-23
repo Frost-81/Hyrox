@@ -1,13 +1,13 @@
 # Hybrid Plan Builder
 
-A one-page website that builds a personal 12-week training plan for hybrid fitness races (8 x 1 km runs + 8 stations) from a race date, goal time, division, age group, optional 5k time and chosen training days. Sessions come from the original 12-week plan document, with the athlete's own paces, station weights and dates filled in. Two separate $5/month subscriptions unlock the full plan and the Workout of the Day.
+A one-page website that builds a personal 12-week training plan for hybrid fitness races (8 x 1 km runs + 8 stations) from a race date, goal time, division, age group, optional 5k time and chosen training days. Sessions come from the original 12-week plan document, with the athlete's own paces, station weights and dates filled in. A one-time $5 payment unlocks the full plan, and a $5/month subscription unlocks the Workout of the Day.
 
 The site does not use any race organiser's name or branding (trademark). Internal identifiers such as the `hyrox-prog` Firebase project and the `hyrox:*` browser storage keys stay as they are so deploys and saved data keep working.
 
 - No build step: plain HTML, CSS and ES modules in `public/`.
 - Anyone can build a plan and see a preview: summary, projected finish, race splits, paces and the first week.
 - Once a plan is built, the landing page (hero, photos, form) is hidden. The plan shows one week at a time, like the WOD page: a week header with arrows, a 7-day strip and the chosen day's card. The toolbar has the race-plan picker (signed in), Edit, New plan and Delete.
-- The **12-week plan** subscription ($5/month) unlocks every week and logging the 5k tests. Signing in (Google or email/password) saves plans to Firestore. The lock is a UI gate only, since the session content ships in the page's JS.
+- The **12-week plan** (one-time $5, for good) unlocks every week and logging the 5k tests. Signing in (Google or email/password) saves plans to Firestore. The lock is a UI gate only, since the session content ships in the page's JS.
 - Weekly layout (weeks 1-11): Mon Endurance, Tue Strength, Wed Active Recovery (about 45 min), Thu Hybrid (written like a Workout of the Day, about 40-45 min), Fri Skill + WOD, Sat Long Endurance / test / simulation, Sun rest. On 5-day plans the Wednesday recovery is dropped.
 - Friday's Skill or Skill/Strength session ends with a short WOD (`WODS` in `sessions.js`), the only one in the week.
 - Time fields add the ":" as you type (`maskTime` in `plan.js`), because phone number pads have no colon key: 130 becomes 1:30.
@@ -38,7 +38,7 @@ The site does not use any race organiser's name or branding (trademark). Interna
 | `public/privacy.html`, `public/terms.html` | Privacy Policy and Terms of Use, served at `/privacy` and `/terms`. |
 | `public/data/wods.json` | The 365-workout library. Do not edit by hand; see `tools/wod/`. |
 | `tools/wod/` | The WOD generator (`generate_wods.py`), the readable library (`wod-library.md`) and `rebrand.mjs`, which removes the race organiser's name from the generated text. Not deployed. |
-| `firestore.rules` | Users can read and write only their own `users/{uid}/plans` and `settings`, with field checks (old `wodResults` can only be read or deleted). Payment data (`customers`) is read-only for its owner, except creating a `checkout_sessions` document. Everything else is denied. |
+| `firestore.rules` | Users can read and write only their own `users/{uid}/plans` and `settings`, with field checks (old `wodResults` can only be read or deleted). Payment data (`customers/{uid}`) is read-only for its owner and written only by the functions. Everything else is denied. |
 | `tests/plan.test.mjs` | Engine, WOD and gating tests. |
 
 ## Run locally
@@ -46,10 +46,11 @@ The site does not use any race organiser's name or branding (trademark). Interna
 You need Node.js 18+, the Firebase CLI (`npm i -g firebase-tools`) and Java (for the emulators).
 
 ```sh
-firebase emulators:start --only hosting,auth,firestore
+(cd functions && npm install)
+firebase emulators:start --only hosting,auth,firestore,functions
 ```
 
-Open http://127.0.0.1:5000. When the site is served on port 5000, it uses the local Auth and Firestore emulators, so nothing touches the real project. The emulator UI is at http://127.0.0.1:4000.
+Open http://127.0.0.1:5000. When the site is served on port 5000, it uses the local Auth, Firestore and Functions emulators, so nothing touches the real project. The emulator UI is at http://127.0.0.1:4000.
 
 To try the planner without Firebase, any static server works (for example `npx serve public`). Sign-in then talks to the real project.
 
@@ -66,11 +67,13 @@ The project is `hyrox-prog` (see `.firebaserc`). The web app config is already i
 1. **Firestore:** Firebase console → Build → Firestore Database → Create database. Choose a location (it can't be changed later) and start in production mode. The rules in this repo get deployed over the defaults.
 2. **Authentication:** Firebase console → Build → Authentication → Get started → Sign-in method. Enable **Google** and **Email/Password**.
 3. **Authorized domains:** `hyrox-prog.web.app` and `hyrox-prog.firebaseapp.com` are there by default. Add any custom domain under Authentication → Settings.
+4. **Email sign-in codes (MFA):** the codes are sent by the Cloud Functions in `functions/` (Blaze plan, which Stripe needs anyway) over SMTP. Set the mail server once: `firebase functions:secrets:set SMTP_URL` with a value like `smtps://user:password@smtp.example.com:465` (any provider: Resend, SendGrid, Google Workspace…). The sender defaults to `Hybrid Prog <info@hybridprog.com>`. Change it with `MAIL_FROM` in `functions/.env`. For the emulator, put `SMTP_URL=...` in `functions/.secret.local`.
+5. **Password reset email:** Authentication → Templates → Password reset. Firebase sends it, so nothing to deploy. Set the sender name and, if you like, a custom domain there.
 
 ## Deploy
 
 ```sh
-firebase deploy --only hosting,firestore:rules
+firebase deploy --only hosting,firestore:rules,functions
 
 # Deploy the rules too whenever firestore.rules changes (the WOD settings and results need them).
 ```
@@ -89,18 +92,29 @@ The site goes live at https://hyrox-prog.web.app.
 
 `users/{uid}/plans/{planId}` holds `{ inputs, done, logs, createdAt, updatedAt }`. `logs` maps 5k test session keys (`w1-end`, `w4-long`, `w8-long`) to `{ fiveK, hr? }`; a logged test also sets `inputs.fiveK`, `inputs.hr5k` and `inputs.fiveKFromTest`. `planId` is `race-YYYY-MM-DD`. Only the inputs are stored, and the plan is rebuilt from them on load. `done` (old session ticks) is no longer written but is kept so older documents stay valid; old `inputs.paceAdjust` values are still applied.
 
+Email sign-in codes: a user who turns them on (Account menu, password sign-ins only) gets the custom claims `mfaEmail: true` and `mfa`, the `auth_time` of their last 5 verified sign-ins. `firestore.rules` (`mfaPassed`) refuses a password sign-in of an enrolled user until its `auth_time` is in `mfa`, so every new sign-in needs a new code. `mfaCodes/{uid}` holds the hashed pending code and its rate limits. Only the functions read it. Codes expire after 10 minutes and allow 5 tries; one can be sent per minute and 5 per hour.
+
 `users/{uid}/settings/prefs` holds `{ wodMode: 'solo' | 'team' }`, cached in browser storage per user. Old `users/{uid}/wodResults` documents are no longer written; account deletion still removes them.
 
-## Turning on payments (Stripe)
+## Payments (Stripe)
 
-Two separate subscriptions, $5/month each: `plan` (all 12 weeks + 5k test logging) and `wod` (Workout of the Day). Until the ids below are filled in, every Subscribe button says "Subscriptions open soon". The site uses the official **Run Payments with Stripe** Firebase extension:
+Two products: `plan` (all 12 weeks + 5k test logging), a one-time $5 payment that unlocks it for good, and `wod` (Workout of the Day), a $5/month subscription. Our own Cloud Functions in `functions/payments.js` talk to Stripe (no Firebase extension):
 
-1. Install the extension (`firebase ext:install stripe/firestore-stripe-payments`) with customer data in `customers` and products in `products`. It needs the Blaze plan. Set `FUNCTIONS_REGION` in `public/js/firebase-config.js` to the region you pick (Account > Manage subscription uses it to open the Stripe customer portal).
-2. In Stripe, create two products ("12-week plan" and "Workout of the Day"), each with a $5/month recurring price. Turn on the customer portal (Settings > Billing > Customer portal) so users can cancel.
-3. Paste each product id (`prod_...`) and price id (`price_...`) into `PRODUCTS` in `public/js/billing.js`.
-4. Deploy the rules (`firebase deploy --only firestore:rules`). They let a signed-in user create their own `customers/{uid}/checkout_sessions` document, which the extension turns into a Checkout URL.
+- `createCheckout` (callable) creates a Stripe Checkout session for the product, with the price id from `PRODUCTS` in that file, and returns its URL. Stripe sends the user back with `?paid=plan` or `?paid=wod`.
+- `stripeWebhook` (HTTP) receives Stripe's events and sets `customers/{uid}.access.plan` / `.wod`. The plan turns on when its payment completes and off on a full refund; the WOD is on while the subscription is active or trialing.
+- `billingPortal` (callable) opens the Stripe customer portal (Account > Manage subscription, shown only to WOD subscribers).
 
-How it works: Subscribe (signed out: sign in first) writes a checkout session, waits for its `url` and redirects to Stripe. Stripe sends the user back to `?paid=plan` or `?paid=wod`. `cloud.watchSubs()` reads the active or trialing `customers/{uid}/subscriptions` and maps each one's `product` to `plan` or `wod`; `canUse()` gates the features on that set.
+`cloud.watchSubs()` listens to `customers/{uid}` and `canUse()` gates the features on `access`. Only the functions write that document.
+
+Setup:
+
+1. In Stripe, create "12-week plan" with a $5 one-time price and "Workout of the Day" with a $5/month recurring price. Put the product and price ids in `functions/stripe-config.js` (sandbox and live; `STRIPE_MODE` picks which). Turn on the customer portal (Settings > Billing > Customer portal) so users can cancel.
+2. `firebase functions:secrets:set STRIPE_SECRET_KEY` with the secret key (`sk_test_...` or `sk_live_...`, same mode as the price ids).
+3. Deploy the functions. In Stripe, Developers > Webhooks > Add endpoint: `https://us-central1-hyrox-prog.cloudfunctions.net/stripeWebhook`, with the events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted` and `charge.refunded`.
+4. Copy the endpoint's signing secret (`whsec_...`) into `firebase functions:secrets:set STRIPE_WEBHOOK_SECRET`, then deploy the functions again so they pick it up.
+5. Add any new site domain to `ORIGINS` in `functions/payments.js`, or checkout refuses to send people back to it.
+
+Founding-member codes: `PLAN50` (12-week plan) and `WOD50` (WOD, free forever) are 100% off for the first 50 redemptions each. Customers type them in the promotion code box that Checkout always shows. Create them once per Stripe mode with `STRIPE_SECRET_KEY=sk_... node scripts/createPromoCodes.js` (run from `functions/`; it skips what already exists). A free plan purchase completes with `payment_status: no_payment_required`, which the webhook accepts, and a free WOD subscription asks for no card.
 
 ## Privacy and Law 25
 

@@ -1,6 +1,5 @@
 // Firebase Auth + Firestore. Loaded lazily so the planner works even if Firebase can't load.
 import { firebaseConfig, FIREBASE_SDK, FUNCTIONS_REGION } from './firebase-config.js';
-import { productKeyFor } from './billing.js';
 
 let fb = null; // { app, auth, db, a: authModule, f: firestoreModule }
 
@@ -22,8 +21,19 @@ async function load() {
       f.connectFirestoreEmulator(db, '127.0.0.1', 8080);
     } catch { /* already connected */ }
   }
-  fb = { app, auth, db, a, f };
+  fb = { app, auth, db, a, f, local: local && location.port === '5000' };
   return fb;
+}
+
+/** One of our callable Cloud Functions (functions/). */
+async function callable(name) {
+  const c = await load();
+  const fn = await import(`${FIREBASE_SDK}/firebase-functions.js`);
+  const functions = fn.getFunctions(c.app, FUNCTIONS_REGION);
+  if (c.local) {
+    try { fn.connectFunctionsEmulator(functions, '127.0.0.1', 5001); } catch { /* already connected */ }
+  }
+  return fn.httpsCallable(functions, name);
 }
 
 /** Calls onUser(user | null) whenever sign-in state changes. Returns false if Firebase is unavailable. */
@@ -48,6 +58,42 @@ export async function signInEmail(email, password, create) {
   return create
     ? a.createUserWithEmailAndPassword(auth, email, password)
     : a.signInWithEmailAndPassword(auth, email, password);
+}
+
+/** Emails a link to choose a new password. Firebase sends it, so nothing reveals whether the account exists. */
+export async function sendPasswordReset(email) {
+  const { auth, a } = await load();
+  return a.sendPasswordResetEmail(auth, email);
+}
+
+// ---------- email sign-in codes (functions/index.js) ----------
+
+/**
+ * { available, enrolled, needed }: whether this sign-in can use email codes (it used a password),
+ * whether they are turned on, and whether this sign-in still has to enter one.
+ */
+export async function mfaInfo(user) {
+  const { claims } = await user.getIdTokenResult();
+  const available = claims.firebase?.sign_in_provider === 'password';
+  const enrolled = claims.mfaEmail === true;
+  return { available, enrolled, needed: available && enrolled && !(claims.mfa || []).includes(claims.auth_time) };
+}
+
+/** Emails a 6-digit code. Returns the address it went to. */
+export async function sendMfaCode() {
+  const { data } = await (await callable('sendMfaCode'))();
+  return data.email;
+}
+
+/** Checks the code (turning codes on if enroll), then refreshes the token so Firestore sees it. */
+export async function verifyMfaCode(user, code, enroll = false) {
+  await (await callable('verifyMfaCode'))({ code, enroll });
+  await user.getIdToken(true);
+}
+
+export async function disableMfa(user) {
+  await (await callable('disableMfa'))();
+  await user.getIdToken(true);
 }
 
 export async function signOutUser() {
@@ -104,19 +150,18 @@ export async function saveWodMode(uid, wodMode) {
   await c.f.setDoc(prefsRef(c, uid), { wodMode, updatedAt: c.f.serverTimestamp() }, { merge: true });
 }
 
-// ---------- payments ("Run Payments with Stripe" extension) ----------
+// ---------- payments (functions/payments.js) ----------
 
 /**
- * Calls onSubs(Set of 'plan' | 'wod') whenever the user's active subscriptions change.
- * The extension writes customers/{uid}/subscriptions with a `product` reference. Returns an unsubscribe function.
+ * Calls onSubs(Set of 'plan' | 'wod') whenever what the user has paid for changes. The Stripe webhook keeps
+ * customers/{uid}.access up to date ({ plan: true, wod: false, ... }). Returns an unsubscribe function.
  */
 export async function watchSubs(uid, onSubs) {
   try {
     const c = await load();
-    const q = c.f.query(c.f.collection(c.db, 'customers', uid, 'subscriptions'), c.f.where('status', 'in', ['active', 'trialing']));
     return c.f.onSnapshot(
-      q,
-      (snap) => onSubs(new Set(snap.docs.map((d) => productKeyFor(d.data().product?.id)).filter(Boolean))),
+      c.f.doc(c.db, 'customers', uid),
+      (snap) => onSubs(new Set(Object.entries(snap.get('access') || {}).filter(([, on]) => on === true).map(([k]) => k))),
       () => onSubs(new Set()),
     );
   } catch {
@@ -125,31 +170,17 @@ export async function watchSubs(uid, onSubs) {
   }
 }
 
-/** Start a Stripe Checkout for a monthly subscription and go to it. */
-export async function startCheckout(uid, priceId, product) {
-  const c = await load();
-  const back = `${location.origin}${location.pathname}`;
-  const ref = await c.f.addDoc(c.f.collection(c.db, 'customers', uid, 'checkout_sessions'), {
-    price: priceId,
-    mode: 'subscription',
-    success_url: `${back}?paid=${product}${location.hash}`,
-    cancel_url: `${back}${location.hash}`,
-  });
-  await new Promise((resolve, reject) => {
-    const stop = c.f.onSnapshot(ref, (snap) => {
-      const { url, error } = snap.data() || {};
-      if (error) { stop(); reject(new Error(error.message)); }
-      if (url) { stop(); location.assign(url); resolve(); }
-    }, reject);
-  });
+/** Go to Stripe Checkout for 'plan' or 'wod'. It comes back here with ?paid=<product>. */
+export async function startCheckout(product) {
+  const call = await callable('createCheckout');
+  const { data } = await call({ product, returnUrl: `${location.origin}${location.pathname}${location.hash}` });
+  location.assign(data.url);
 }
 
 /** Open the Stripe customer portal, where the user can change or cancel a subscription. */
 export async function openBillingPortal() {
-  const c = await load();
-  const fn = await import(`${FIREBASE_SDK}/firebase-functions.js`);
-  const call = fn.httpsCallable(fn.getFunctions(c.app, FUNCTIONS_REGION), 'ext-firestore-stripe-payments-createPortalLink');
-  const { data } = await call({ returnUrl: location.href });
+  const call = await callable('billingPortal');
+  const { data } = await call({ returnUrl: `${location.origin}${location.pathname}${location.hash}` });
   location.assign(data.url);
 }
 

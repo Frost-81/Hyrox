@@ -4,7 +4,7 @@ import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, maskTime, D
 import { hrProfile, applyTest } from '../public/js/hr.js';
 import { readFileSync } from 'node:fs';
 import { wodIndex, workoutFor, weekDates, addDays, pickMode, clampToWeek } from '../public/js/wod.js';
-import { canUse, checkoutReady, productKeyFor } from '../public/js/billing.js';
+import { canUse, hasSubscription } from '../public/js/billing.js';
 import { planIdFor } from '../public/js/progress.js';
 
 const TODAY = '2026-10-22';
@@ -398,7 +398,7 @@ test('WOD shows only the current week', () => {
   assert.equal(clampToWeek('2026-11-01', '2026-11-04'), '2026-11-04', 'last week is pulled back to today');
 });
 
-test('feature gates: two separate subscriptions', () => {
+test('feature gates: one-time plan, WOD subscription', () => {
   const user = { uid: 'u' };
   assert.equal(canUse('fullPlan', { user: null, subs: new Set(['plan']) }), false);
   assert.equal(canUse('fullPlan', { user }), false);
@@ -407,9 +407,8 @@ test('feature gates: two separate subscriptions', () => {
   assert.equal(canUse('wod', { user, subs: new Set(['wod']) }), true);
   assert.equal(canUse('fullPlan', { user, subs: new Set(['wod']) }), false);
   assert.equal(canUse('unknown-feature', { user, subs: new Set(['plan', 'wod']) }), false);
-  assert.equal(checkoutReady('plan'), false, 'no Stripe price yet');
-  assert.equal(productKeyFor(''), null);
-  assert.equal(productKeyFor(undefined), null);
+  assert.equal(hasSubscription(new Set(['plan'])), false, 'the plan is a one-time payment');
+  assert.equal(hasSubscription(new Set(['plan', 'wod'])), true);
 });
 
 test('no trademark in user-facing plan text', () => {

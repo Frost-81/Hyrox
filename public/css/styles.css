@@ -101,6 +101,7 @@ a { color: inherit; }
 }
 .account-menu .menu p { margin: 0 0 4px; overflow-wrap: anywhere; }
 .account-menu .menu .btn { width: 100%; text-align: left; }
+.account-menu .menu a.btn:not([hidden]) { display: flex; align-items: center; text-decoration: none; }
 /* Phones: pin the menu inside the screen instead of hanging off the button, which may sit near the edge. */
 @media (max-width: 599px) {
   .account-menu .menu { position: fixed; top: 60px; left: 12px; right: 12px; min-width: 0; }

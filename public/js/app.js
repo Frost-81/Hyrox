@@ -4,7 +4,7 @@ import { planIdFor, loadInputs, saveInputs, clearInputs, getUnits, setUnits, get
 import { applyTest } from './hr.js';
 import { loadWods, workoutFor, weekDates, pickMode, clampToWeek } from './wod.js';
 import { wodCard, planNote, infoPanel, todayTeaser } from './wodRender.js';
-import { canUse, checkoutReady, PRODUCTS } from './billing.js';
+import { canUse, hasSubscription, portalLoginUrl, PRODUCTS } from './billing.js';
 import * as cloud from './cloud.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -15,12 +15,13 @@ const state = {
   plan: null,
   planId: null,
   user: null,
-  subs: new Set(), // products with an active subscription: 'plan', 'wod'
+  subs: new Set(), // products the user has paid for: 'plan' (one-time), 'wod' (active subscription)
   subsKnown: false,
   cloudPlans: [],
   authAvailable: true,
   pendingProduct: null, // subscribe to this after signing in
   createMode: false,
+  mfa: null, // { available, enrolled } for the signed-in user's email sign-in codes
   view: { weekIdx: 0, ymd: null }, // the week and day shown in the plan
 };
 
@@ -28,6 +29,7 @@ const wod = { data: null, ymd: todayYmd(), savedMode: null };
 let stopSubs = () => {};
 let editMode = null; // null | 'edit' | 'new'
 let signedInFromDialog = false;
+let mfa = null; // { user, enroll } while the dialog waits for an email code
 let authKnown = false; // until Firebase reports, don't flash the signed-out WOD view
 
 const uid = () => state.user?.uid || null;
@@ -213,7 +215,7 @@ function build(inp, { keepView = false } = {}) {
   render();
 }
 
-/** Signed out or no plan subscription: summary + the first week. Subscribed: every week. */
+/** Signed out or plan not bought: summary + the first week. Bought: every week. */
 function render() {
   const { plan } = state;
   if (!plan) return;
@@ -384,7 +386,7 @@ $('#plan-picker').addEventListener('change', (e) => {
   if (p) loadCloudPlan(p);
 });
 
-// ---------- subscriptions ----------
+// ---------- purchases ----------
 
 async function subscribe(product) {
   if (!state.user) {
@@ -393,13 +395,12 @@ async function subscribe(product) {
     return;
   }
   if (state.subs.has(product)) { toast(`You already have the ${PRODUCTS[product].name}.`); return; }
-  if (!checkoutReady(product)) { toast('Subscriptions open soon. Thanks for your patience!'); return; }
   toast('Opening secure checkout…');
   try {
-    await cloud.startCheckout(uid(), PRODUCTS[product].priceId, product);
+    await cloud.startCheckout(product);
   } catch (err) {
     console.error(err);
-    toast('Could not open checkout right now. Please try again.');
+    toast(fnError(err, 'Could not open checkout right now. Please try again.'));
   }
 }
 
@@ -414,9 +415,20 @@ $('#billing-btn').addEventListener('click', async () => {
     await cloud.openBillingPortal();
   } catch (err) {
     console.error(err);
-    toast('Could not open your subscription settings. Email info@hybridprog.com and we will help.');
+    const url = portalLoginUrl(state.user?.email);
+    if (url) toast('Could not open your subscription settings here.', { action: 'Open Stripe', onAction: () => window.open(url, '_blank', 'noopener') });
+    else toast('Could not open your subscription settings. Email info@hybridprog.com and we will help.');
   }
 });
+
+/** The fallback links to Stripe's portal login (account menu and footer), with the user's email filled in. */
+function updatePortalLinks() {
+  const url = portalLoginUrl(state.user?.email);
+  document.querySelectorAll('[data-portal-link]').forEach((el) => {
+    el.hidden = !url;
+    if (el.tagName === 'A' && url) el.href = url;
+  });
+}
 
 /** Back from Stripe Checkout: ?paid=plan or ?paid=wod. */
 function checkPaidReturn() {
@@ -424,7 +436,7 @@ function checkPaidReturn() {
   const paid = params.get('paid');
   if (!paid || !PRODUCTS[paid]) return;
   history.replaceState(null, '', `${location.pathname}${location.hash}`);
-  toast(`Thanks! Your ${PRODUCTS[paid].name} subscription unlocks in a few seconds.`);
+  toast(`Thanks! Your ${PRODUCTS[paid].name} unlocks in a few seconds.`);
 }
 
 // ---------- Plan / WOD views ----------
@@ -573,11 +585,11 @@ function loadCloudPlan(p) {
   build(p.inputs);
 }
 
-/** Subscriptions changed (or first arrived): re-render whatever they unlock. */
+/** Purchases changed (or first arrived): re-render whatever they unlock. */
 function onSubs(subs) {
   state.subs = subs;
   state.subsKnown = true;
-  $('#billing-btn').hidden = subs.size === 0;
+  $('#billing-btn').hidden = !hasSubscription(subs);
   render();
   renderTeaser();
   if (location.hash === '#wod') showWod();
@@ -589,6 +601,12 @@ function onSubs(subs) {
 }
 
 async function onUser(user) {
+  state.mfa = user ? await cloud.mfaInfo(user).catch(() => null) : null;
+  if (state.mfa?.needed) {
+    // Not signed in until the emailed code is entered (Firestore refuses until then).
+    startMfa(user);
+    user = null;
+  }
   const signedOut = !!state.user && !user;
   authKnown = true;
   state.user = user;
@@ -602,6 +620,8 @@ async function onUser(user) {
   $('#account-menu').hidden = !user;
   $('#account-menu').open = false;
   $('#billing-btn').hidden = true;
+  updateMfaBtn();
+  updatePortalLinks();
   if (!user) {
     state.cloudPlans = [];
     wod.savedMode = null;
@@ -638,6 +658,7 @@ function openAuth() {
     return;
   }
   $('#auth-error').textContent = '';
+  $('#auth-note').hidden = true;
   dialog.showModal();
 }
 
@@ -645,6 +666,12 @@ dialog.addEventListener('close', () => {
   // Closed without signing in: forget the subscribe that was waiting for it.
   if (!signedInFromDialog) state.pendingProduct = null;
   signedInFromDialog = false;
+  if (mfa) {
+    // Closed before entering the code: a sign-in that needs one doesn't stay half signed in.
+    if (!mfa.enroll) cloud.signOutUser();
+    mfa = null;
+  }
+  showAuthStep('main');
 });
 
 $('#sign-in-btn').addEventListener('click', () => openAuth());
@@ -683,6 +710,29 @@ $('#mode-toggle').addEventListener('click', () => {
   $('#mode-toggle').textContent = state.createMode ? 'Sign in' : 'Create an account';
   $('#password').autocomplete = state.createMode ? 'new-password' : 'current-password';
   $('#agree-row').hidden = !state.createMode;
+  $('#forgot-btn').hidden = state.createMode;
+});
+
+$('#forgot-btn').addEventListener('click', async () => {
+  const email = $('#email').value.trim();
+  $('#auth-error').textContent = '';
+  $('#auth-note').hidden = true;
+  if (!$('#email').checkValidity() || !email) {
+    $('#auth-error').textContent = 'Enter your email above, then choose Forgot password.';
+    $('#email').focus();
+    return;
+  }
+  try {
+    await cloud.sendPasswordReset(email);
+  } catch (err) {
+    // Unknown emails are not reported, so the form can't be used to find out who has an account.
+    if (err.code !== 'auth/user-not-found') {
+      $('#auth-error').textContent = AUTH_ERRORS[err.code] || 'Could not send the email. Please try again.';
+      return;
+    }
+  }
+  $('#auth-note').textContent = `If ${email} has an account, a link to reset your password is on its way. Check your spam folder too.`;
+  $('#auth-note').hidden = false;
 });
 
 const AUTH_ERRORS = {
@@ -694,12 +744,17 @@ const AUTH_ERRORS = {
   'auth/invalid-email': 'That email address looks wrong.',
   'auth/popup-closed-by-user': 'Sign-in window was closed.',
   'auth/operation-not-allowed': 'This sign-in method is not switched on yet.',
+  'auth/too-many-requests': 'Too many attempts. Wait a few minutes and try again.',
 };
 
 async function runAuth(fn) {
   $('#auth-error').textContent = '';
   try {
-    await fn();
+    const { user } = await fn();
+    if ((await cloud.mfaInfo(user)).needed) {
+      startMfa(user);
+      return;
+    }
     signedInFromDialog = true;
     dialog.close();
   } catch (err) {
@@ -715,6 +770,91 @@ $('#email-form').addEventListener('submit', (e) => {
     return;
   }
   runAuth(() => cloud.signInEmail($('#email').value.trim(), $('#password').value, state.createMode));
+});
+
+// ---------- email sign-in codes ----------
+
+/** The message one of our Cloud Functions sent, or the fallback for anything unexpected. */
+const fnError = (err, fallback) => (err.code && err.code !== 'functions/internal' && err.message) || fallback;
+
+function showAuthStep(step) {
+  $('#auth-main').hidden = step !== 'main';
+  $('#mfa-form').hidden = step !== 'mfa';
+}
+
+function updateMfaBtn() {
+  $('#mfa-btn').hidden = !state.user || !state.mfa?.available;
+  $('#mfa-btn').textContent = state.mfa?.enrolled ? 'Turn off email sign-in codes' : 'Turn on email sign-in codes';
+}
+
+async function sendCode() {
+  $('#mfa-error').textContent = '';
+  $('#mfa-text').textContent = 'Sending a code to your email…';
+  try {
+    const email = await cloud.sendMfaCode();
+    $('#mfa-text').textContent = `We emailed a 6-digit code to ${email}. It expires in 10 minutes.`;
+  } catch (err) {
+    $('#mfa-text').textContent = '';
+    $('#mfa-error').textContent = fnError(err, 'Could not send the code. Please try again.');
+  }
+}
+
+/** Ask for an emailed code: to finish signing in, or (enroll) to turn codes on. */
+function startMfa(user, enroll = false) {
+  if (mfa?.user.uid === user.uid) return; // already waiting for this one
+  mfa = { user, enroll };
+  $('#mfa-title').textContent = enroll ? 'Turn on email sign-in codes' : 'Check your email';
+  $('#mfa-code').value = '';
+  showAuthStep('mfa');
+  if (!dialog.open) dialog.showModal();
+  $('#mfa-code').focus();
+  sendCode();
+}
+
+$('#mfa-resend').addEventListener('click', () => sendCode());
+
+$('#mfa-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!mfa) return;
+  const { user, enroll } = mfa;
+  $('#mfa-error').textContent = '';
+  $('#mfa-submit').disabled = true;
+  try {
+    await cloud.verifyMfaCode(user, $('#mfa-code').value.trim(), enroll);
+    mfa = null;
+    signedInFromDialog = !enroll;
+    dialog.close();
+    if (enroll) {
+      state.mfa = { ...state.mfa, enrolled: true };
+      updateMfaBtn();
+      toast('Email sign-in codes are on. You will enter one each time you sign in with your password.');
+    } else {
+      onUser(user);
+    }
+  } catch (err) {
+    $('#mfa-error').textContent = fnError(err, 'Could not check the code. Please try again.');
+  } finally {
+    $('#mfa-submit').disabled = false;
+  }
+});
+
+$('#mfa-btn').addEventListener('click', async () => {
+  const user = state.user;
+  if (!user) return;
+  $('#account-menu').open = false;
+  if (!state.mfa?.enrolled) {
+    startMfa(user, true);
+    return;
+  }
+  if (!window.confirm('Turn off email sign-in codes? You will sign in with just your password.')) return;
+  try {
+    await cloud.disableMfa(user);
+    state.mfa = { ...state.mfa, enrolled: false };
+    updateMfaBtn();
+    toast('Email sign-in codes are off.');
+  } catch (err) {
+    toast(fnError(err, 'Could not turn off email sign-in codes right now.'));
+  }
 });
 
 // ---------- misc ----------
@@ -752,6 +892,7 @@ if (saved) {
   }
 }
 checkPaidReturn();
+updatePortalLinks();
 route();
 cloud.watchUser(onUser).then((ok) => {
   state.authAvailable = ok;

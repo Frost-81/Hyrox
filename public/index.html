@@ -31,6 +31,8 @@
           <div class="menu" role="menu">
             <p class="muted small" id="account-email"></p>
             <button type="button" class="btn small ghost" id="billing-btn" role="menuitem" hidden>Manage subscription</button>
+            <a class="btn small ghost" data-portal-link role="menuitem" target="_blank" rel="noopener" hidden>Manage your subscription ↗</a>
+            <button type="button" class="btn small ghost" id="mfa-btn" role="menuitem" hidden>Turn on email sign-in codes</button>
             <button type="button" class="btn small ghost" id="delete-btn" role="menuitem">Delete my account</button>
             <button type="button" class="btn small" id="sign-out-btn" role="menuitem">Sign out</button>
           </div>
@@ -45,7 +47,7 @@
       <div class="hero-panel">
         <p class="eyebrow">12 weeks · your pace · your race</p>
         <h1>Train for your<br>hybrid race</h1>
-        <p>Enter your race date and goal time to get a 12-week plan with your own paces, station weights and dates. A 5k test in weeks 1, 4 and 8 keeps your paces, heart-rate zones and projected finish time up to date. Week 1 is free to preview; all 12 weeks are $5/month.</p>
+        <p>Enter your race date and goal time to get a 12-week plan with your own paces, station weights and dates. A 5k test in weeks 1, 4 and 8 keeps your paces, heart-rate zones and projected finish time up to date. Week 1 is free to preview; all 12 weeks are a one-time $5.</p>
         <a class="btn primary big" href="#plan-form">Build my plan</a>
       </div>
     </section>
@@ -179,14 +181,15 @@
     <div class="wrap">
       <p><strong>General guidance, not medical advice.</strong> Check with a doctor before starting a new training programme.</p>
       <p class="small">Station weights follow common race standards; check the official rulebook of your event. Hybrid Plan Builder is independent and not affiliated with any race organiser.</p>
-      <p class="footer-links small"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="#" data-cookie-settings>Cookie settings</a> · <a href="mailto:info@hybridprog.com">info@hybridprog.com</a></p>
+      <p class="footer-links small"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="#" data-cookie-settings>Cookie settings</a><span data-portal-link hidden> · <a data-portal-link target="_blank" rel="noopener">Manage your subscription</a></span> · <a href="mailto:info@hybridprog.com">info@hybridprog.com</a></p>
     </div>
   </footer>
 
   <dialog id="auth-dialog" class="no-print">
     <form method="dialog" class="dialog-close"><button class="btn small ghost" aria-label="Close">✕</button></form>
+    <div id="auth-main">
     <h2>Unlock your plan</h2>
-    <p class="muted">Sign in to subscribe and keep your plan on any device. The 12-week plan and the Workout of the Day are $5/month each.</p>
+    <p class="muted">Sign in to unlock and keep your plan on any device. The 12-week plan is a one-time $5; the Workout of the Day is $5/month.</p>
     <button type="button" class="btn big google" id="google-btn"><svg class="google-g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
     <p class="small muted">By continuing you agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
     <p class="or"><span>or</span></p>
@@ -198,17 +201,31 @@
       <div class="field">
         <label for="password">Password <span class="muted">(6+ characters)</span></label>
         <input type="password" id="password" autocomplete="current-password" minlength="6" required>
+        <button type="button" class="btn link small" id="forgot-btn">Forgot password?</button>
       </div>
       <label class="check-row small" id="agree-row" hidden>
         <input type="checkbox" id="agree">
         <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a>, including storing the training data and heart rates I enter.</span>
       </label>
       <p class="error" id="auth-error" role="alert"></p>
+      <p class="note ok small" id="auth-note" role="status" hidden></p>
       <button type="submit" class="btn primary big" id="email-submit">Sign in</button>
       <p class="small center">
         <span id="mode-text">New here?</span>
         <button type="button" class="btn link" id="mode-toggle">Create an account</button>
       </p>
+    </form>
+    </div>
+    <form id="mfa-form" hidden>
+      <h2 id="mfa-title">Check your email</h2>
+      <p class="muted" id="mfa-text"></p>
+      <div class="field">
+        <label for="mfa-code">6-digit code</label>
+        <input type="text" id="mfa-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+      </div>
+      <p class="error" id="mfa-error" role="alert"></p>
+      <button type="submit" class="btn primary big" id="mfa-submit">Verify</button>
+      <p class="small center"><button type="button" class="btn link" id="mfa-resend">Send a new code</button></p>
     </form>
   </dialog>
 

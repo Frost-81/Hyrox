@@ -20,29 +20,25 @@ service cloud.firestore {
       allow read, delete: if isOwner(uid);
     }
 
-    // Payments ("Run Payments with Stripe" extension). The extension writes here with the Admin SDK;
-    // users can read their own subscriptions and start a Checkout by creating a checkout session.
+    // What the user has paid for: { stripeId, access: { plan, wod } }. Only the Stripe webhook
+    // (functions/payments.js) writes it, with the Admin SDK; the owner can read it.
     match /customers/{uid} {
       allow read: if isOwner(uid);
-      match /checkout_sessions/{id} {
-        allow create: if isOwner(uid) && validCheckout(request.resource.data);
-      }
-      match /{document=**} {
-        allow read: if isOwner(uid);
-      }
-    }
-    // Products and prices are public so a pricing page can list them.
-    match /products/{productId} {
-      allow read: if true;
-      match /{document=**} {
-        allow read: if true;
-      }
     }
 
-    // Everything else is denied (no other match blocks).
+    // Everything else is denied (no other match blocks), including mfaCodes/{uid},
+    // which only the Cloud Functions use.
 
     function isOwner(uid) {
-      return request.auth != null && request.auth.uid == uid;
+      return request.auth != null && request.auth.uid == uid && mfaPassed();
+    }
+
+    // Users who turned on email sign-in codes must enter one for each password sign-in.
+    // functions/index.js lists the auth_time of verified sign-ins in the `mfa` claim.
+    function mfaPassed() {
+      return request.auth.token.get('mfaEmail', false) != true
+        || request.auth.token.firebase.sign_in_provider != 'password'
+        || request.auth.token.auth_time in request.auth.token.get('mfa', []);
     }
 
     function validPlan(d) {
@@ -56,14 +52,6 @@ service cloud.firestore {
     function validSettings(d) {
       return d.keys().hasOnly(['wodMode', 'updatedAt'])
         && (!('wodMode' in d) || d.wodMode in ['solo', 'team']);
-    }
-
-    function validCheckout(d) {
-      return d.keys().hasOnly(['price', 'mode', 'success_url', 'cancel_url', 'allow_promotion_codes'])
-        && d.price is string && d.price.size() <= 100
-        && d.mode == 'subscription'
-        && d.success_url is string && d.success_url.size() <= 500
-        && d.cancel_url is string && d.cancel_url.size() <= 500;
     }
   }
 }
