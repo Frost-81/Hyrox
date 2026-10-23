@@ -7,7 +7,9 @@
   <meta name="description" content="How Hybrid Plan Builder collects, uses and protects your personal information, under Quebec's Act respecting the protection of personal information in the private sector (Law 25).">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#FFD60A">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFD60A'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='%23111' font-family='Arial' font-weight='900'>H</text></svg>">
+  <link rel="icon" type="image/png" sizes="32x32" href="C:/Program Files/Git/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="C:/Program Files/Git/img/favicon-48.png">
+  <link rel="apple-touch-icon" href="C:/Program Files/Git/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
@@ -16,7 +18,7 @@
 <body>
   <header class="site-header">
     <div class="wrap header-row">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">H</span><span class="brand-text">Hybrid Plan Builder</span></a>
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><img src="C:/Program Files/Git/img/logo.png" alt="" width="34" height="34"></span><span class="brand-text">Hybrid Plan Builder</span></a>
       <nav class="tabs" aria-label="Sections">
         <a href="/#top">Plan</a>
         <a href="/#wod">WOD</a>
@@ -40,17 +42,19 @@
       <ul>
         <li><strong>Account details:</strong> your email address and a user ID. If you sign in with Google, Google shares your email address and basic profile with us. We never see your Google password.</li>
         <li><strong>Plan details:</strong> race date, goal time, division, age group, 5k times, body weight (if you enter it), training days and available machines.</li>
-        <li><strong>Training logs:</strong> sessions you tick off, how a session felt, 5k test times and, <strong>if you choose to enter it</strong>, your average heart rate.</li>
-        <li><strong>Workout of the Day:</strong> your Solo or Team choice and the results you log (score, weight used, notes and, if you enter one, a training partner's name).</li>
+        <li><strong>5k test results:</strong> your 5k test times and, <strong>if you choose to enter it</strong>, your average heart rate for the test.</li>
+        <li><strong>Workout of the Day:</strong> your Solo or Team choice.</li>
+        <li><strong>Subscriptions:</strong> if you subscribe, a Stripe customer reference and the status of your subscriptions.</li>
       </ul>
-      <p><strong>Nothing you enter is shown to other users.</strong> Your account, plan and results are visible only to you.</p>
-      <p>Heart-rate data is health-related information, which we treat as sensitive. Entering it is always optional. We only collect it with your express consent, which you give when you create an account and each time you enter a value. If you log a partner's name, please only do so with their agreement. Enter a first name or nickname only.</p>
-      <p>We do not collect your location or payment details, and we do not use advertising or tracking cookies.</p>
+      <p><strong>Nothing you enter is shown to other users.</strong> Your account and plan are visible only to you.</p>
+      <p>Heart-rate data is health-related information, which we treat as sensitive. Entering it is always optional. We only collect it with your express consent, which you give when you create an account and each time you enter a value.</p>
+      <p>We do not collect your location or your card details, and we do not use advertising or tracking cookies.</p>
 
       <h2 id="why">Why we use it</h2>
       <ul>
         <li>To build your plan and work out your paces and heart-rate zones.</li>
-        <li>To save your plan, progress and results so you can use them on any device.</li>
+        <li>To save your plan and 5k test results so you can use them on any device.</li>
+        <li>To know which subscriptions you have, so the right features are unlocked.</li>
         <li>To show you the daily workout in the version you prefer.</li>
         <li>To answer your questions and keep the service secure.</li>
       </ul>
@@ -59,7 +63,7 @@
       <h2 id="where">Where it is stored and who processes it</h2>
       <p>Your account and saved data are stored with <strong>Google Firebase</strong> (Firebase Authentication and Cloud Firestore), operated by Google LLC. Google's servers may be located outside Quebec and outside Canada, including in the United States. Before using this provider, we assessed the protection it offers: data is encrypted in transit and at rest, and each user can access only their own records. Information held in another country may be accessible to authorities there under local law.</p>
       <p>The site also loads fonts from Google Fonts and the Firebase code from Google's servers. To deliver these, Google receives your IP address and browser details.</p>
-      <p>If we add paid features, payments will be handled by Stripe, and we would receive only a customer reference and your subscription status, never your card number. This policy will be updated before that happens.</p>
+      <p>Payments are handled by <strong>Stripe</strong> (Stripe, Inc. and its affiliates), which may process data outside Quebec and Canada. Stripe collects your card details on its own checkout page; we receive only a customer reference, your email address and your subscription status, never your card number.</p>
 
       <h2 id="cookies">Cookies and browser storage</h2>
       <p>We only use storage that is essential for the site to work. You can choose "Essential only" or "Accept" in the bar at the bottom of the page and change your choice at any time with <a href="#" data-cookie-settings>Cookie settings</a>. Optional categories (for example audience measurement) are off unless you accept them. None are in use today.</p>
@@ -69,8 +73,9 @@
           <tbody>
             <tr><td>firebaseLocalStorageDb, firebase:*</td><td>Browser storage (essential)</td><td>Keeps you signed in</td><td>Until you sign out</td></tr>
             <tr><td>hyrox:inputs</td><td>Browser storage (essential)</td><td>Remembers the plan you built on this device</td><td>Until you clear it</td></tr>
-            <tr><td>hyrox:done:*, hyrox:logs:*</td><td>Browser storage (essential)</td><td>Ticks and logs for your plan, cached on this device</td><td>Until you clear it or delete your account</td></tr>
-            <tr><td>hyrox:wodMode:*, hyrox:wodResults:*</td><td>Browser storage (essential)</td><td>Your Solo/Team choice and workout results, cached on this device</td><td>Until you clear it or delete your account</td></tr>
+            <tr><td>hyrox:units</td><td>Browser storage (essential)</td><td>Whether you see weights in kg or lb</td><td>Until you clear it</td></tr>
+            <tr><td>hyrox:logs:*</td><td>Browser storage (essential)</td><td>Your 5k test results, cached on this device</td><td>Until you clear it or delete your account</td></tr>
+            <tr><td>hyrox:wodMode:*</td><td>Browser storage (essential)</td><td>Your Solo/Team choice, cached on this device</td><td>Until you clear it or delete your account</td></tr>
             <tr><td>hybrid:consent</td><td>Browser storage (essential)</td><td>Remembers your cookie choice</td><td>Until you change it</td></tr>
             <tr><td>Google sign-in cookies</td><td>Cookies set by Google (essential, Google sign-in only)</td><td>Used by Google during "Continue with Google"</td><td>Set by Google</td></tr>
           </tbody>
@@ -78,13 +83,13 @@
       </div>
 
       <h2 id="retention">How long we keep it</h2>
-      <p>We keep your information while your account is open. When you delete your account, your plans, logs, settings and results are deleted right away. Google may keep backup copies for a short period (normally up to 30 days) before they are erased. Information you never sent to us stays only in your browser, and you can clear it at any time.</p>
+      <p>We keep your information while your account is open. When you delete your account, your plans, 5k test results and settings are deleted right away. Stripe keeps payment records as the law requires. Google may keep backup copies for a short period (normally up to 30 days) before they are erased. Information you never sent to us stays only in your browser, and you can clear it at any time.</p>
 
       <h2 id="rights">Your rights</h2>
       <ul>
-        <li><strong>Access and portability:</strong> use <em>Account → Download my data</em> to get a copy of everything we hold, in a structured format (JSON), or email us.</li>
-        <li><strong>Correction:</strong> change your plan details at any time with <em>Edit plan</em>, or ask us to correct anything else.</li>
-        <li><strong>Withdraw consent and deletion:</strong> remove heart-rate values by editing a log, or delete everything with <em>Account → Delete my account</em>.</li>
+        <li><strong>Access and portability:</strong> email <a href="mailto:info@hybridprog.com">info@hybridprog.com</a> and we will send you a copy of everything we hold, in a structured format (JSON).</li>
+        <li><strong>Correction:</strong> change your plan details at any time with <em>Edit</em>, or ask us to correct anything else.</li>
+        <li><strong>Withdraw consent and deletion:</strong> remove heart-rate values by editing a 5k result, delete a plan with <em>Delete</em>, or delete everything with <em>Account → Delete my account</em>.</li>
         <li><strong>Questions and complaints:</strong> contact our person in charge at <a href="mailto:info@hybridprog.com">info@hybridprog.com</a>. We answer within 30 days. If you are not satisfied, you can complain to the <a href="https://www.cai.gouv.qc.ca/" rel="noopener" target="_blank">Commission d'accès à l'information du Québec</a>.</li>
       </ul>
 

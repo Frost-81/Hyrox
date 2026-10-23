@@ -48,6 +48,37 @@ export const STATIONS = [
 
 const DAY = 86400000;
 
+// ---------- units ----------
+
+export const UNITS = ['kg', 'lb'];
+const LB_PER_KG = 2.20462;
+const BODY_WEIGHT_RANGE = { kg: [35, 200], lb: [77, 440] };
+
+export const unitsOf = (inp) => (inp?.units === 'lb' ? 'lb' : 'kg');
+
+/** Pounds for a kg weight: to the nearest 5 lb from 60 lb up (plates, sleds), otherwise to the nearest 1 lb. */
+export function lbFromKg(kg) {
+  const lb = kg * LB_PER_KG;
+  return lb >= 60 ? Math.round(lb / 5) * 5 : Math.round(lb);
+}
+
+/** "24 kg" or "53 lb". */
+export const wt = (kg, units) => (units === 'lb' ? `${lbFromKg(kg)} lb` : `${kg} kg`);
+
+/**
+ * Rewrite weights in free text (the WOD library) in pounds: "6/4 kg" -> "13/9 lb",
+ * "2x24/2x16 kg" -> "2x55/2x35 lb". Text is unchanged for kg.
+ */
+export function textToUnits(text, units) {
+  if (units !== 'lb' || !text) return text;
+  const one = (v) => {
+    const m = /^(2x)?(\d+(?:\.\d+)?)$/.exec(v);
+    return `${m[1] || ''}${lbFromKg(+m[2])}`;
+  };
+  return text.replace(/((?:2x)?\d+(?:\.\d+)?)(?:\/((?:2x)?\d+(?:\.\d+)?))? kg\b/g,
+    (_, a, b) => `${[a, b].filter(Boolean).map(one).join('/')} lb`);
+}
+
 // ---------- parsing & formatting ----------
 
 /** "1:05" -> 3900 seconds (hours:minutes). */
@@ -152,7 +183,9 @@ export function validateInputs(inp, today = todayYmd()) {
   if (maxHR != null && !(maxHR >= 120 && maxHR <= 230)) errors.maxHR = 'Max heart rate should be between 120 and 230.';
   if (inp.bodyWeight !== undefined && inp.bodyWeight !== '' && inp.bodyWeight !== null) {
     const bw = Number(String(inp.bodyWeight).replace(',', '.'));
-    if (!(bw >= 35 && bw <= 200)) errors.bodyWeight = 'Body weight should be between 35 and 200 kg.';
+    const units = unitsOf(inp);
+    const [lo, hi] = BODY_WEIGHT_RANGE[units];
+    if (!(bw >= lo && bw <= hi)) errors.bodyWeight = `Body weight should be between ${lo} and ${hi} ${units}.`;
   }
   if (hr5k != null && !(hr5k >= 100 && hr5k <= 220)) errors.hr5k = '5k heart rate should be between 100 and 220.';
   else if (hr5k && maxHR && hr5k > maxHR) errors.hr5k = 'Your 5k average can\'t be above your max heart rate.';
@@ -172,6 +205,15 @@ export function computeSplits(goalSec) {
     roxzone: goalSec * 0.051,
     perStation: STATIONS.map((s) => ({ ...s, time: stations * s.share })),
   };
+}
+
+// Race-day km pace is about 17% slower than 5k pace (running on tired legs between stations),
+// and running is 50.3% of the finish time (the same split computeSplits uses).
+const RACE_RUN_FACTOR = 1.17;
+
+/** Rough finish time from a 5k time, both in seconds; rounded to the minute since it is an estimate. */
+export function projectFinish(fiveKSec) {
+  return Math.round(((fiveKSec / 5) * RACE_RUN_FACTOR * 8) / 0.503 / 60) * 60;
 }
 
 /** adjust: seconds per km added to easy and to steady/threshold paces (from heart-rate suggestions). */
@@ -209,11 +251,11 @@ export function weekLoads(div, week) {
   };
 }
 
-/** ctx: { paces, div, hr (zones, or null to hide heart rate), equipment } */
+/** ctx: { paces, div, hr (zones, or null to hide heart rate), equipment, units } */
 function tokenValues(ctx, week) {
-  const { paces, div, hr } = ctx;
+  const { paces, div, hr, units } = ctx;
   const L = weekLoads(div, week);
-  const kg = (x) => `${x} kg`;
+  const kg = (x) => wt(x, units);
   const withHr = (pace, zone) => (hr ? `${pace}, HR ${fmtZone(hr[zone])}` : pace);
   return {
     easy: withHr(`${fmtTime(paces.easy[0])}–${fmtTime(paces.easy[1])}/km`, 'easy'),
@@ -223,7 +265,7 @@ function tokenValues(ctx, week) {
     race: `${fmtTime(paces.race)}/km`,
     push: kg(L.push),
     pull: kg(L.pull),
-    farm: `2 x ${L.farm} kg`,
+    farm: `2 x ${kg(L.farm)}`,
     bag: kg(div.bag),
     kb: kg(div.farm),
     wb: kg(div.wb),
@@ -271,12 +313,13 @@ export function liftShare(line, sex, { pro = false, is45 = false } = {}) {
   return { lift, share: lift[sex] * k };
 }
 
-// The % shown is rounded (5% steps for barbells, 1% per dumbbell) and the kg comes from that same %,
-// so the two always agree (75% of 80 kg = 60 kg).
+// The % shown is rounded (5% steps for barbells, 1% per dumbbell) and the weight comes from that same %,
+// so the two always agree (75% of 80 kg = 60 kg). Body weight is in the athlete's units; pounds round to 5 lb.
 const pctOf = (share, perHand) => (perHand ? Math.round(share * 100) : roundTo(share * 100, 5));
 const pctText = (share, perHand) => `${pctOf(share, perHand)}%`;
-const kgText = (share, bw, perHand) => {
+const weightText = (share, bw, perHand, units) => {
   const exact = (pctOf(share, perHand) / 100) * bw;
+  if (units === 'lb') return String(Math.max(5, roundTo(exact, 5)));
   return String(perHand ? Math.max(2, roundTo(exact, 2)) : Math.max(5, roundTo(exact, 2.5)));
 };
 
@@ -295,7 +338,7 @@ export function liftLine(line, ctx) {
   const each = perHand ? ' each' : '';
   const mw = sexes.length > 1 ? ' (men/women)' : '';
   const target = bw
-    ? `@ ${perHand ? '2 x ' : ''}${shares.map((x) => kgText(x.share, bw, perHand)).join('/')} kg${mw}, about ${pct} of body weight${each}`
+    ? `@ ${perHand ? '2 x ' : ''}${shares.map((x) => weightText(x.share, bw, perHand, ctx.units)).join('/')} ${ctx.units === 'lb' ? 'lb' : 'kg'}${mw}, about ${pct} of body weight${each}`
     : `@ about ${pct} of body weight${each}${mw}`;
   // Put the target right after the reps, before any note in brackets.
   return line.replace(/(\d+(?:-\d+)? reps(?: per leg)?)/, `$1 ${target}`);
@@ -354,8 +397,8 @@ export function machineText(spec, ctx, values) {
 
 function simLines(splits, div, ctx, values) {
   const load = {
-    push: ` @ ${div.push} kg`, pull: ` @ ${div.pull} kg`, farm: ` @ 2 x ${div.farm} kg`,
-    lunge: ` @ ${div.bag} kg`, wb: ` @ ${div.wb} kg`,
+    push: ` @ ${wt(div.push, ctx.units)}`, pull: ` @ ${wt(div.pull, ctx.units)}`, farm: ` @ 2 x ${wt(div.farm, ctx.units)}`,
+    lunge: ` @ ${wt(div.bag, ctx.units)}`, wb: ` @ ${wt(div.wb, ctx.units)}`,
   };
   return [
     'Each round: 1 km run @ {race}, then the station. Targets in brackets:',
@@ -412,17 +455,14 @@ function* permutations(arr) {
 
 /** Week sessions after the week 1 test, 5-day and 45+ adjustments. */
 export function adjustSessions(week, { fiveDay, is45, testWeek = 1 }) {
-  // Copies, so the shared session data is never changed. On 5-day plans the Wednesday WOD goes with the dropped session.
+  // Copies, so the shared session data is never changed.
   let sessions = week.sessions.map((s) => ({ ...s, lines: [...s.lines], wod: s.wod && { ...s.wod } }));
   // Every plan opens with a 5k test (time + optional heart rate), also when a late start skips the early
   // weeks. Weeks 4 and 8 have their own; the taper (week 11+) gets no extra test.
   const opensWithTest = week.n === testWeek && week.n < 11 && !sessions.some((s) => s.test);
   if (opensWithTest) sessions = sessions.map((s) => (s.key === 'end' ? { ...HR_TEST, lines: [...HR_TEST.lines] } : s));
-  if (fiveDay) {
-    const rec = sessions.find((s) => s.key === 'rec');
-    if (rec.movable) sessions.find((s) => s.key === 'skl').lines.push(...rec.lines);
-    sessions = sessions.filter((s) => s.key !== 'rec');
-  }
+  // 5-day plans drop the Wednesday recovery session.
+  if (fiveDay) sessions = sessions.filter((s) => s.key !== 'rec');
   if (is45) {
     const hard = sessions.filter((s) => s.effort === 'hard');
     const end = sessions.find((s) => s.key === 'end');
@@ -451,7 +491,8 @@ export function buildPlan(inp, today = todayYmd()) {
   // Heart rate shows in the session lines only when the athlete gave us real numbers.
   const is45 = AGE_GROUPS.indexOf(inp.age) >= AGE_GROUPS.indexOf('45-49');
   const bodyWeight = Number(String(inp.bodyWeight ?? '').replace(',', '.')) || null;
-  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment, is45, bodyWeight };
+  const units = unitsOf(inp);
+  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment, is45, bodyWeight, units };
   const days = [...inp.days].map(Number).sort((a, b) => a - b);
   const fiveDay = days.length === 5;
 
@@ -515,8 +556,14 @@ export function buildPlan(inp, today = todayYmd()) {
   }
 
   const daysToRace = Math.round((race - todayMs) / DAY);
+  const fiveKSec = parseMS(normalizeTime(inp.fiveK));
+  const projected = fiveKSec ? projectFinish(fiveKSec) : null;
   return {
+    projection: projected
+      ? { time: projected, from: inp.fiveKFromTest ? 'test' : 'entered', vsGoal: projected - goal }
+      : { time: null, from: null, vsGoal: null },
     inputs: { ...inp, days, equipment },
+    units,
     division: div,
     hr,
     missingMachines: ['row', 'ski'].filter((k) => !equipment.includes(k)),

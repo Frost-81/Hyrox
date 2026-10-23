@@ -1,13 +1,10 @@
-import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime } from './plan.js';
-import { summaryCard, splitsCard, pacesCard, swapCard, suggestionCards, noticeCards, glossaryCard, weekCards } from './render.js';
-import {
-  planIdFor, loadInputs, saveInputs, getDone, setDone, replaceDone, getLogs, replaceLogs,
-  getWodMode, setWodMode, getWodResults, replaceWodResults, forgetUser,
-} from './progress.js';
-import { suggest, applySuggestion, fmtZone } from './hr.js';
-import { loadWods, workoutFor, weekDates, addDays, pickMode, resultId, groupBenchmarks } from './wod.js';
-import { weekStrip, wodCard, planNote, infoPanel, benchmarkHistory, todayTeaser, lockedWod } from './wodRender.js';
-import { canUse } from './billing.js';
+import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, UNITS, unitsOf, textToUnits, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime, fmtLongDate, fmtTime, parseYmd } from './plan.js';
+import { summaryCard, splitsCard, pacesCard, swapCard, noticeCards, glossaryCard, planWeek, dayStrip, paywall } from './render.js';
+import { planIdFor, loadInputs, saveInputs, clearInputs, getUnits, setUnits, getLogs, replaceLogs, clearLogs, getWodMode, setWodMode, forgetUser } from './progress.js';
+import { applyTest } from './hr.js';
+import { loadWods, workoutFor, weekDates, pickMode, clampToWeek } from './wod.js';
+import { wodCard, planNote, infoPanel, todayTeaser } from './wodRender.js';
+import { canUse, checkoutReady, PRODUCTS } from './billing.js';
 import * as cloud from './cloud.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -16,27 +13,31 @@ const dialog = $('#auth-dialog');
 
 const state = {
   plan: null,
-  suggestions: [],
   planId: null,
   user: null,
-  tier: 'free',
+  subs: new Set(), // products with an active subscription: 'plan', 'wod'
+  subsKnown: false,
   cloudPlans: [],
   authAvailable: true,
-  saveAfterSignIn: false,
+  pendingProduct: null, // subscribe to this after signing in
   createMode: false,
+  view: { weekIdx: 0, ymd: null }, // the week and day shown in the plan
 };
 
-const wod = { data: null, ymd: todayYmd(), savedMode: null, results: {} };
-let stopTier = () => {};
+const wod = { data: null, ymd: todayYmd(), savedMode: null };
+let stopSubs = () => {};
+let editMode = null; // null | 'edit' | 'new'
+let signedInFromDialog = false;
 let authKnown = false; // until Firebase reports, don't flash the signed-out WOD view
 
 const uid = () => state.user?.uid || null;
-const access = (feature) => canUse(feature, { user: state.user, tier: state.tier });
+const access = (feature) => canUse(feature, { user: state.user, subs: state.subs });
 
 // ---------- form ----------
 
+// The age options are in the HTML, so the field never depends on this script loading.
 function setupForm() {
-  $('#age').innerHTML = AGE_GROUPS.map((a) => `<option value="${a}"${a === '30-34' ? ' selected' : ''}>${a}</option>`).join('');
+  setUnitsRadio(getUnits());
   $('#day-chips').innerHTML = WEEKDAYS.map((d, i) => `
     <label class="chip"><input type="checkbox" name="days" value="${i}"${i < 6 ? ' checked' : ''}><span>${d}</span></label>`).join('');
   const tomorrow = new Date();
@@ -55,16 +56,15 @@ function readForm() {
     days: fd.getAll('days').map(Number),
     equipment: fd.getAll('equipment'),
     bodyWeight: String(fd.get('bodyWeight') || '').trim(),
+    units: UNITS.includes(fd.get('units')) ? fd.get('units') : 'kg',
   };
   const prev = state.plan?.inputs || loadInputs();
-  // Heart-rate values now come from the 5k tests, not the form; they describe the athlete, so keep them.
+  // Heart-rate values come from the 5k tests, not the form; they describe the athlete, so keep them.
   if (prev?.maxHR) inp.maxHR = prev.maxHR;
   if (prev?.hr5k) inp.hr5k = prev.hr5k;
-  // Changes applied from heart-rate logs belong to this race's plan, so keep them on a rebuild.
-  if (prev && planIdFor(prev) === planIdFor(inp)) {
-    if (prev.paceAdjust) inp.paceAdjust = prev.paceAdjust;
-    if (prev.dismissed) inp.dismissed = prev.dismissed;
-  }
+  if (prev?.fiveKFromTest && prev.fiveK === inp.fiveK) inp.fiveKFromTest = true;
+  // Older plans may carry pace changes from heart-rate suggestions; keep them for the same race.
+  if (prev?.paceAdjust && planIdFor(prev) === planIdFor(inp)) inp.paceAdjust = prev.paceAdjust;
   return inp;
 }
 
@@ -72,6 +72,10 @@ const TEXT_FIELDS = ['raceDate', 'goal', 'division', 'age', 'fiveK', 'bodyWeight
 
 function fillForm(inp) {
   for (const k of TEXT_FIELDS) form.elements[k].value = inp[k] ?? '';
+  // A saved plan with a missing or old value would leave a dropdown blank: fall back to the default.
+  if (!AGE_GROUPS.includes(form.elements.age.value)) form.elements.age.value = '30-34';
+  if (!DIVISIONS[form.elements.division.value]) form.elements.division.value = 'MO';
+  setUnitsRadio(unitsOf(inp));
   const setChecks = (name, values) => {
     for (const el of form.querySelectorAll(`input[name="${name}"]`)) el.checked = values.includes(el.value) || values.includes(Number(el.value));
   };
@@ -80,17 +84,67 @@ function fillForm(inp) {
   updateDoublesHint();
 }
 
+function resetForm() {
+  form.reset();
+  form.elements.age.value = '30-34';
+  setUnitsRadio(getUnits());
+  showErrors({});
+  updateDoublesHint();
+}
+
+function setUnitsRadio(units) {
+  for (const r of form.querySelectorAll('input[name="units"]')) r.checked = r.value === units;
+  for (const el of document.querySelectorAll('[data-unit-label]')) el.textContent = units;
+}
+
+const LB_PER_KG = 2.20462;
+/** Body weight written in the other unit, to the nearest 0.5. */
+function convertBodyWeight(value, to) {
+  const n = Number(String(value ?? '').replace(',', '.'));
+  if (!n) return value ?? '';
+  return String(Math.round((to === 'lb' ? n * LB_PER_KG : n / LB_PER_KG) * 2) / 2);
+}
+
+// Switching kg/lb in the form converts a body weight already typed in.
+form.addEventListener('change', (e) => {
+  if (e.target.name !== 'units') return;
+  const to = e.target.value;
+  if (document.querySelector('[data-unit-label]').textContent !== to) {
+    form.elements.bodyWeight.value = convertBodyWeight(form.elements.bodyWeight.value, to);
+  }
+  setUnitsRadio(to);
+});
+
+/** kg/lb picked on the WOD page: remember it and show the plan in the same units. */
+function changeUnits(units) {
+  setUnits(units);
+  if (state.plan && state.plan.units !== units) {
+    const inp = state.plan.inputs;
+    rebuild({ ...inp, units, bodyWeight: convertBodyWeight(inp.bodyWeight, units) });
+  }
+  renderWod();
+  renderTeaser();
+}
+
+const currentUnits = () => state.plan?.units || getUnits();
+
 function updateDoublesHint() {
   $('#doubles-hint').hidden = !DIVISIONS[form.elements.division.value]?.doubles;
 }
 form.elements.division.addEventListener('change', updateDoublesHint);
 
-/** Once a plan exists, the form becomes the place to change it. */
-function updateFormMode() {
-  const has = !!state.plan;
-  $('#form-title').textContent = has ? 'Update your plan' : 'Your details';
-  $('#build-btn').textContent = has ? 'Update my plan' : 'Build my plan';
-  $('#form-hint').hidden = !has;
+/** With a plan built, the landing page and form are hidden; Edit and New plan bring the form back. */
+function setEditing(mode) {
+  editMode = mode;
+  document.body.classList.toggle('editing', !!mode);
+  $('#form-title').textContent = mode === 'edit' ? 'Update your plan' : mode === 'new' ? 'New plan' : 'Your details';
+  $('#build-btn').textContent = mode === 'edit' ? 'Update my plan' : 'Build my plan';
+  $('#form-hint').hidden = mode !== 'edit';
+  $('#cancel-edit-btn').hidden = !mode;
+  if (mode) {
+    window.scrollTo(0, 0);
+    form.focus({ preventScroll: true });
+  }
 }
 
 // Phones have no ":" on the number pad: "130" becomes "1:30" as you type.
@@ -126,74 +180,91 @@ form.addEventListener('submit', (e) => {
     form.querySelector('[aria-invalid="true"], .chips')?.focus?.();
     return;
   }
-  const updating = !!state.plan;
+  const updating = editMode === 'edit';
+  setUnits(inp.units);
   saveInputs(inp);
   build(inp);
-  $('#results').scrollIntoView({ behavior: 'smooth' });
-  if (updating) toast('Plan updated. Your ticks and logs are kept.');
-  if (state.user) syncCurrentPlan({ quiet: true });
+  window.scrollTo(0, 0);
+  if (updating) toast('Plan updated. Your 5k test results are kept.');
+  if (state.user) syncCurrentPlan();
+});
+
+$('#cancel-edit-btn').addEventListener('click', () => {
+  if (state.plan) fillForm(state.plan.inputs);
+  setEditing(null);
 });
 
 // ---------- plan ----------
 
-function build(inp) {
-  state.plan = buildPlan(inp);
-  state.planId = planIdFor(inp);
-  render();
-  updateFormMode();
+/** The day to open on: today if it is in the plan, otherwise the first day shown. */
+function defaultView(plan) {
+  const idx = plan.weeks.findIndex((w) => w.days.some((d) => d.ymd === plan.today));
+  return idx >= 0 ? { weekIdx: idx, ymd: plan.today } : { weekIdx: 0, ymd: plan.weeks[0].days[0].ymd };
 }
 
-/** Signed out: a preview (summary + first week). Signed in: the full plan with ticks, logs and suggestions. */
+function build(inp, { keepView = false } = {}) {
+  const prev = state.view;
+  state.plan = buildPlan(inp);
+  state.planId = planIdFor(inp);
+  const w = state.plan.weeks[prev.weekIdx];
+  state.view = keepView && w?.days.some((d) => d.ymd === prev.ymd) ? prev : defaultView(state.plan);
+  document.body.classList.add('has-plan');
+  setEditing(null);
+  render();
+}
+
+/** Signed out or no plan subscription: summary + the first week. Subscribed: every week. */
 function render() {
   const { plan } = state;
   if (!plan) return;
-  const locked = !access('fullPlan');
-  const done = getDone(uid(), state.planId);
-  const logs = getLogs(uid(), state.planId);
-  state.suggestions = locked ? [] : suggest(plan, logs, plan.inputs.dismissed);
-  $('#suggestions-out').innerHTML = suggestionCards(state.suggestions);
-  $('#plan-out').innerHTML = summaryCard(plan) + noticeCards(plan) + splitsCard(plan) + pacesCard(plan) + swapCard(plan) + glossaryCard();
-  $('#weeks-out').innerHTML = weekCards(plan, done, { locked, logs });
-  $('#print-btn').hidden = locked;
+  $('#plan-out').innerHTML = summaryCard(plan) + noticeCards(plan);
+  renderWeek();
+  $('#info-out').innerHTML = splitsCard(plan) + pacesCard(plan) + swapCard(plan) + glossaryCard();
   $('#results').hidden = false;
-  updateSaveButton();
+  updatePicker();
 }
 
-/** Rebuild after an input change, keeping open weeks open. */
+function renderWeek() {
+  $('#plan-week-out').innerHTML = planWeek(state.plan, {
+    ...state.view,
+    locked: !access('fullPlan'),
+    logs: getLogs(uid(), state.planId),
+  });
+}
+
+/** Rebuild after an input change, keeping the day shown. */
 function rebuild(inputs) {
-  const openWeeks = [...document.querySelectorAll('details.week[open]')].map((d) => d.id);
   saveInputs(inputs);
   fillForm(inputs);
-  build(inputs);
-  for (const id of openWeeks) document.getElementById(id)?.setAttribute('open', '');
-  syncCurrentPlan({ quiet: true });
+  build(inputs, { keepView: true });
+  syncCurrentPlan();
 }
 
-function updateWeekCount(weekEl) {
-  const boxes = weekEl.querySelectorAll('input[type="checkbox"]');
-  const n = [...boxes].filter((b) => b.checked).length;
-  weekEl.querySelector('.week-count').textContent = `${n}/${boxes.length} done`;
-}
-
-$('#weeks-out').addEventListener('change', (e) => {
-  const box = e.target.closest('input[type="checkbox"][data-key]');
-  if (!box) return;
-  if (!state.user) return;
-  const done = setDone(uid(), state.planId, box.dataset.key, box.checked);
-  updateWeekCount(box.closest('details.week'));
-  if (isSaved()) cloud.queueProgress(uid(), state.planId, done, getLogs(uid(), state.planId));
+$('#plan-week-out').addEventListener('click', (e) => {
+  const step = e.target.closest('[data-plan-week]');
+  const day = e.target.closest('[data-plan-day]');
+  const log = e.target.closest('[data-log]');
+  if (step) {
+    const weekIdx = state.view.weekIdx + Number(step.dataset.planWeek);
+    const w = state.plan.weeks[weekIdx];
+    if (!w) return;
+    // Keep the same weekday when changing week.
+    const dayIdx = state.plan.weeks[state.view.weekIdx].days.findIndex((d) => d.ymd === state.view.ymd);
+    state.view = { weekIdx, ymd: w.days[Math.max(0, dayIdx)].ymd };
+  } else if (day) {
+    state.view = { ...state.view, ymd: day.dataset.planDay };
+  } else if (e.target.closest('[data-plan-today]')) {
+    state.view = defaultView(state.plan);
+  } else if (log) {
+    openLog(log.dataset.log);
+    return;
+  } else {
+    return;
+  }
+  renderWeek();
 });
 
-document.addEventListener('click', (e) => {
-  if (e.target.closest('[data-unlock]')) openAuth(true);
-});
-
-$('#weeks-out').addEventListener('click', (e) => {
-  const logBtn = e.target.closest('[data-log]');
-  if (logBtn) openLog(logBtn.dataset.log);
-});
-
-// ---------- session logs and 5k tests ----------
+// ---------- 5k test logs (the only thing a user logs) ----------
 
 const logDialog = $('#log-dialog');
 let loggingKey = null;
@@ -205,19 +276,13 @@ function findDay(key) {
 
 function openLog(key) {
   const found = findDay(key);
-  if (!found || !state.user) return;
+  if (!found?.d.test || !access('fullPlan')) return;
   const { w, d } = found;
   loggingKey = key;
   const log = getLogs(uid(), state.planId)[key] || {};
   $('#log-session').textContent = `Week ${w.n} · ${d.weekday} · ${d.label}`;
-  $('#log-fivek-field').hidden = !d.test;
   $('#log-fivek').value = log.fiveK || '';
   $('#log-hr').value = log.hr || '';
-  const hrZone = d.zone && state.plan.hr[d.zone];
-  $('#log-zone').textContent = d.test
-    ? 'Your average from your watch for the 5 km. It sets your heart-rate zones.'
-    : hrZone ? `Target for this session: ${fmtZone(hrZone)} bpm.` : 'Your average from your watch for the whole session.';
-  for (const r of logDialog.querySelectorAll('input[name="feel"]')) r.checked = r.value === (log.feel || 'ok');
   $('#log-error').textContent = '';
   logDialog.showModal();
 }
@@ -226,112 +291,141 @@ $('#log-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const hr = $('#log-hr').value.trim();
   const fiveK = normalizeTime($('#log-fivek').value);
-  const isTest = !$('#log-fivek-field').hidden;
+  if (!/^\d{1,2}:[0-5]\d$/.test(fiveK)) { $('#log-error').textContent = 'Enter your 5k time in minutes:seconds, e.g. 24:30.'; return; }
   if (hr && !(Number(hr) >= 60 && Number(hr) <= 230)) { $('#log-error').textContent = 'Heart rate should be between 60 and 230.'; return; }
-  if (isTest && fiveK && !/^\d{1,2}:[0-5]\d$/.test(fiveK)) { $('#log-error').textContent = 'Use minutes:seconds for the 5k, e.g. 24:30.'; return; }
 
-  // A 5k test updates the plan right away (with Undo).
-  let next = null;
-  if (isTest && fiveK) {
-    const s = { id: `test:${loggingKey}:${fiveK}:${hr || ''}`, apply: { kind: 'test', fiveK, hr5k: hr ? Number(hr) : null } };
-    next = applySuggestion(state.plan.inputs, s);
-    const errors = validateInputs(next);
-    if (errors.fiveK || errors.hr5k) { $('#log-error').textContent = errors.fiveK || errors.hr5k; return; }
-  }
+  const next = applyTest(state.plan.inputs, { fiveK, hr5k: hr ? Number(hr) : null });
+  const errors = validateInputs(next);
+  if (errors.fiveK || errors.hr5k) { $('#log-error').textContent = errors.fiveK || errors.hr5k; return; }
 
-  const entry = { feel: logDialog.querySelector('input[name="feel"]:checked')?.value || 'ok' };
+  const before = { inputs: state.plan.inputs, logs: getLogs(uid(), state.planId) };
+  const entry = { fiveK };
   if (hr) entry.hr = Number(hr);
-  if (isTest && fiveK) entry.fiveK = fiveK;
-  const logs = { ...getLogs(uid(), state.planId), [loggingKey]: entry };
-  replaceLogs(uid(), state.planId, logs);
-  const done = setDone(uid(), state.planId, loggingKey, true);
-  if (isSaved()) cloud.queueProgress(uid(), state.planId, done, logs);
+  replaceLogs(uid(), state.planId, { ...before.logs, [loggingKey]: entry });
   logDialog.close();
-
-  if (next) {
-    const before = state.plan.inputs;
-    rebuild(next);
-    toast(`Paces updated from your 5k test (${fiveK}${hr ? `, ${hr} bpm` : ''}).`, {
-      action: 'Undo',
-      onAction: () => { rebuild(before); toast('Back to your previous paces.'); },
-    });
-    return;
-  }
-  const openWeeks = [...document.querySelectorAll('details.week[open]')].map((d) => d.id);
-  render();
-  for (const id of openWeeks) document.getElementById(id)?.setAttribute('open', '');
-  toast(state.suggestions.length ? 'Logged. We have a suggestion for your plan at the top.' : 'Logged.');
+  rebuild(next);
+  const p = state.plan.projection;
+  toast(`Saved. Paces updated${p.time ? ` and your projected finish is now ${fmtTime(p.time)}` : ''}.`, {
+    action: 'Undo',
+    onAction: () => {
+      replaceLogs(uid(), state.planId, before.logs);
+      rebuild(before.inputs);
+      toast('Back to your previous result.');
+    },
+  });
 });
 
-$('#suggestions-out').addEventListener('click', (e) => {
-  const applyBtn = e.target.closest('[data-apply]');
-  const dismissBtn = e.target.closest('[data-dismiss]');
-  if (!applyBtn && !dismissBtn) return;
-  const id = (applyBtn || dismissBtn).dataset[applyBtn ? 'apply' : 'dismiss'];
-  const s = state.suggestions.find((x) => x.id === id);
-  if (!s) return;
-  const inputs = applyBtn
-    ? applySuggestion(state.plan.inputs, s)
-    : { ...state.plan.inputs, dismissed: [...(state.plan.inputs.dismissed || []), id] };
-  saveInputs(inputs);
-  fillForm(inputs);
-  build(inputs);
-  syncCurrentPlan({ quiet: true });
-  toast(applyBtn ? 'Plan updated.' : 'Okay, we will keep your plan as it is.');
-});
-
-// ---------- toolbar ----------
-
-$('#today-btn').addEventListener('click', () => {
-  const today = todayYmd();
-  const el = document.querySelector(`.day[data-ymd="${today}"]`);
-  if (!el) {
-    if (!access('fullPlan') && state.plan.weeks.some((w) => w.days.some((d) => d.ymd === today))) {
-      toast('Sign in to see your full plan.');
-      document.querySelector('.unlock')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    const first = document.querySelector('details.week');
-    toast(state.plan.currentWeek < 1 ? 'Your 12 weeks have not started yet. Here is week 1.' : 'No session today.');
-    if (first) { first.open = true; first.scrollIntoView({ behavior: 'smooth' }); }
-    return;
-  }
-  el.closest('details').open = true;
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  el.classList.remove('flash');
-  void el.offsetWidth;
-  el.classList.add('flash');
-});
+// ---------- toolbar: switch, edit, new, delete ----------
 
 $('#edit-btn').addEventListener('click', () => {
-  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  form.focus({ preventScroll: true });
+  if (!state.plan) return;
+  fillForm(state.plan.inputs);
+  setEditing('edit');
 });
 
-let openBeforePrint = [];
-window.addEventListener('beforeprint', () => {
-  openBeforePrint = [...document.querySelectorAll('details')].map((d) => d.open);
-  document.querySelectorAll('details').forEach((d) => { d.open = true; });
+$('#new-btn').addEventListener('click', () => {
+  resetForm();
+  setEditing('new');
 });
-window.addEventListener('afterprint', () => {
-  document.querySelectorAll('details').forEach((d, i) => { d.open = openBeforePrint[i] ?? d.open; });
-});
-$('#print-btn').addEventListener('click', () => window.print());
 
-function download(name, blob) {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = name;
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+$('#delete-btn-plan').addEventListener('click', async () => {
+  if (!state.plan) return;
+  if (!window.confirm(`Delete your plan for the race on ${state.plan.raceLabel}? Your 5k test results for it are deleted too.`)) return;
+  const id = state.planId;
+  try {
+    if (state.user && isSaved()) await cloud.deletePlan(uid(), id);
+  } catch (err) {
+    console.error(err);
+    toast('Could not delete the plan right now. Please try again.');
+    return;
+  }
+  clearLogs(uid(), id);
+  clearInputs();
+  state.cloudPlans = state.cloudPlans.filter((p) => p.id !== id);
+  if (state.cloudPlans.length) {
+    loadCloudPlan(state.cloudPlans[0]);
+  } else {
+    showLanding();
+  }
+  toast('Plan deleted.');
+});
+
+/** Back to the empty landing page: no plan shown, empty form. */
+function showLanding() {
+  state.plan = null;
+  state.planId = null;
+  $('#results').hidden = true;
+  document.body.classList.remove('has-plan');
+  resetForm();
+  setEditing(null);
+  renderTeaser();
 }
 
-$('#save-btn').addEventListener('click', () => {
-  if (state.user) syncCurrentPlan({ quiet: false });
-  else openAuth(true);
+/** The home page: the Plan tab, scrolled to the top, without the #wod hash. */
+function goHome() {
+  if (location.hash) history.pushState(null, '', `${location.pathname}${location.search}`);
+  route();
+  window.scrollTo(0, 0);
+}
+
+function updatePicker() {
+  const picker = $('#plan-picker');
+  const plans = state.cloudPlans;
+  picker.hidden = !state.user || plans.length === 0;
+  const label = (inp) => `Race ${fmtLongDate(parseYmd(inp.raceDate))} · ${inp.goal}`;
+  const options = plans.map((p) => `<option value="${p.id}"${p.id === state.planId ? ' selected' : ''}>${label(p.inputs)}</option>`);
+  // A plan built but not yet saved still shows in the list.
+  if (state.plan && !isSaved()) options.unshift(`<option value="${state.planId}" selected>${label(state.plan.inputs)}</option>`);
+  picker.innerHTML = options.join('');
+}
+
+$('#plan-picker').addEventListener('change', (e) => {
+  const p = state.cloudPlans.find((x) => x.id === e.target.value);
+  if (p) loadCloudPlan(p);
 });
+
+// ---------- subscriptions ----------
+
+async function subscribe(product) {
+  if (!state.user) {
+    state.pendingProduct = product;
+    openAuth();
+    return;
+  }
+  if (state.subs.has(product)) { toast(`You already have the ${PRODUCTS[product].name}.`); return; }
+  if (!checkoutReady(product)) { toast('Subscriptions open soon. Thanks for your patience!'); return; }
+  toast('Opening secure checkout…');
+  try {
+    await cloud.startCheckout(uid(), PRODUCTS[product].priceId, product);
+  } catch (err) {
+    console.error(err);
+    toast('Could not open checkout right now. Please try again.');
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-subscribe]');
+  if (btn) subscribe(btn.dataset.subscribe);
+});
+
+$('#billing-btn').addEventListener('click', async () => {
+  try {
+    toast('Opening your subscription settings…');
+    await cloud.openBillingPortal();
+  } catch (err) {
+    console.error(err);
+    toast('Could not open your subscription settings. Email info@hybridprog.com and we will help.');
+  }
+});
+
+/** Back from Stripe Checkout: ?paid=plan or ?paid=wod. */
+function checkPaidReturn() {
+  const params = new URLSearchParams(location.search);
+  const paid = params.get('paid');
+  if (!paid || !PRODUCTS[paid]) return;
+  history.replaceState(null, '', `${location.pathname}${location.hash}`);
+  toast(`Thanks! Your ${PRODUCTS[paid].name} subscription unlocks in a few seconds.`);
+}
 
 // ---------- Plan / WOD views ----------
 
@@ -358,9 +452,9 @@ async function getWods() {
 
 async function showWod() {
   const out = $('#wod-out');
-  if (!authKnown) return; // "Loading…" stays until sign-in state is known
+  if (!authKnown || (state.user && !state.subsKnown)) return; // "Loading…" stays until access is known
   if (!access('wod')) {
-    out.innerHTML = lockedWod();
+    out.innerHTML = paywall('wod');
     return;
   }
   try {
@@ -383,26 +477,26 @@ function planDayOn(ymd) {
   return null;
 }
 
+/** Only the current week's workouts are shown. */
 function renderWod() {
-  if (!wod.data || $('#wod-view').hidden) return;
-  const { w, mode } = currentWorkout();
+  if (!wod.data || $('#wod-view').hidden || !access('wod')) return;
   const today = todayYmd();
-  const result = wod.results[resultId(w.day, mode)] || null;
-  $('#wod-out').innerHTML = weekStrip(weekDates(wod.ymd), wod.ymd, today)
-    + wodCard(w, mode, wod.ymd, { result, today })
+  wod.ymd = clampToWeek(wod.ymd, today);
+  const { w, mode } = currentWorkout();
+  $('#wod-out').innerHTML = dayStrip(weekDates(today), { selected: wod.ymd, today, attr: 'wod-day' })
+    + wodCard(w, mode, wod.ymd, { today, units: currentUnits() })
     + planNote(planDayOn(wod.ymd))
-    + benchmarkHistory(groupBenchmarks(wod.results))
-    + infoPanel(wod.data.meta);
+    + infoPanel(wod.data.meta, currentUnits());
 }
 
-/** The small card on the plan page (signed in only). */
+/** The small card on the landing page (WOD subscribers only). */
 async function renderTeaser() {
   const el = $('#wod-teaser');
   if (!access('wod')) { el.innerHTML = ''; return; }
   try {
     const data = await getWods();
     const w = workoutFor(data, todayYmd());
-    el.innerHTML = todayTeaser(w, pickMode(w, wod.savedMode));
+    el.innerHTML = todayTeaser(w, pickMode(w, wod.savedMode), currentUnits());
   } catch {
     el.innerHTML = '';
   }
@@ -410,13 +504,12 @@ async function renderTeaser() {
 
 $('#wod-out').addEventListener('click', (e) => {
   const day = e.target.closest('[data-wod-day]');
-  const week = e.target.closest('[data-wod-week]');
   const mode = e.target.closest('[data-wod-mode]');
+  const units = e.target.closest('[data-wod-units]');
   if (day) { wod.ymd = day.dataset.wodDay; renderWod(); return; }
-  if (week) { wod.ymd = addDays(wod.ymd, 7 * Number(week.dataset.wodWeek)); renderWod(); return; }
   if (mode) { setMode(mode.dataset.wodMode); return; }
-  if (e.target.closest('[data-wod-copy]')) { copyWod(); return; }
-  if (e.target.closest('[data-wod-log]')) openWodLog();
+  if (units) { changeUnits(units.dataset.wodUnits); return; }
+  if (e.target.closest('[data-wod-copy]')) copyWod();
 });
 
 function setMode(m) {
@@ -430,79 +523,21 @@ function setMode(m) {
 async function copyWod() {
   const { w, mode } = currentWorkout();
   try {
-    await navigator.clipboard.writeText(`${w.title}\n${w[mode].text}`);
+    await navigator.clipboard.writeText(`${w.title}\n${textToUnits(w[mode].text, currentUnits())}`);
     toast('Workout copied.');
   } catch {
     toast('Could not copy. Select the text and copy it instead.');
   }
 }
 
-const wodLogDialog = $('#wod-log-dialog');
-const wodLogForm = $('#wod-log-form');
-
-function selectedWodLogMode() {
-  return wodLogForm.querySelector('input[name="wod-mode"]:checked')?.value || 'solo';
-}
-
-function fillWodLog() {
-  const { w } = currentWorkout();
-  const r = wod.results[resultId(w.day, selectedWodLogMode())] || {};
-  $('#wod-score').value = r.score || '';
-  $('#wod-partner').value = r.partner || '';
-  $('#wod-weight').value = r.weight || '';
-  $('#wod-notes').value = r.notes || '';
-  $('#wod-partner-field').hidden = selectedWodLogMode() !== 'team';
-}
-
-function openWodLog() {
-  if (!access('wodLog')) { openAuth(false); return; }
-  const { w, mode } = currentWorkout();
-  $('#wod-log-title').textContent = `Day ${w.day} · ${w.title}`;
-  for (const r of wodLogForm.querySelectorAll('input[name="wod-mode"]')) r.checked = r.value === mode;
-  fillWodLog();
-  $('#wod-log-error').textContent = '';
-  wodLogDialog.showModal();
-}
-
-wodLogForm.addEventListener('change', (e) => {
-  if (e.target.name === 'wod-mode') fillWodLog();
-});
-
-wodLogForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const { w } = currentWorkout();
-  const mode = selectedWodLogMode();
-  const score = $('#wod-score').value.trim();
-  if (!score) { $('#wod-log-error').textContent = 'Enter your score, e.g. 41:20 or 6 rounds + 12.'; return; }
-  const result = { day: w.day, mode, title: w.title, benchmark: !!w.benchmark, date: wod.ymd, score };
-  const optional = { partner: mode === 'team' ? $('#wod-partner').value.trim() : '', weight: $('#wod-weight').value.trim(), notes: $('#wod-notes').value.trim() };
-  for (const [k, v] of Object.entries(optional)) if (v) result[k] = v;
-  const id = resultId(w.day, mode);
-  wod.results = { ...wod.results, [id]: result };
-  replaceWodResults(uid(), wod.results);
-  wodLogDialog.close();
-  renderWod();
-  try {
-    await cloud.saveWodResult(uid(), id, result);
-    toast('Result saved.');
-  } catch (err) {
-    console.warn(err);
-    toast('Saved on this device. It will sync to your account next time you sign in.');
-  }
-});
-
-/** Merge the device cache with the account, then push anything that only exists on this device. */
-async function loadWodData() {
+/** The Solo/Team choice, from the account (or this device). */
+async function loadWodMode() {
   wod.savedMode = getWodMode(uid());
-  wod.results = getWodResults(uid());
   try {
-    const [settings, remote] = await Promise.all([cloud.getSettings(uid()), cloud.listWodResults(uid())]);
+    const settings = await cloud.getSettings(uid());
     if (settings.wodMode) wod.savedMode = settings.wodMode;
     else if (wod.savedMode) cloud.saveWodMode(uid(), wod.savedMode).catch(() => {});
     setWodMode(uid(), wod.savedMode);
-    for (const [id, r] of Object.entries(wod.results)) if (!remote[id]) cloud.saveWodResult(uid(), id, r).catch(() => {});
-    wod.results = { ...wod.results, ...remote };
-    replaceWodResults(uid(), wod.results);
   } catch (err) {
     console.warn('Could not load WOD settings:', err);
   }
@@ -512,85 +547,81 @@ async function loadWodData() {
 
 const isSaved = () => state.cloudPlans.some((p) => p.id === state.planId);
 
-function updateSaveButton() {
-  const btn = $('#save-btn');
-  const saved = state.user && isSaved();
-  btn.textContent = !state.user ? 'Sign in to save' : saved ? 'Saved ✓' : 'Save my plan';
-  btn.disabled = !!saved;
-}
-
-/** Save the current plan to the account and merge progress both ways. */
-async function syncCurrentPlan({ quiet }) {
+/** Save the current plan to the account and merge the 5k test logs both ways. */
+async function syncCurrentPlan() {
   if (!state.user || !state.plan) return;
   try {
-    const merged = await cloud.savePlan(uid(), state.planId, cleanInputs(state.plan.inputs), getDone(uid(), state.planId), getLogs(uid(), state.planId));
-    replaceDone(uid(), state.planId, merged.done);
-    replaceLogs(uid(), state.planId, merged.logs);
+    const logs = await cloud.savePlan(uid(), state.planId, cleanInputs(state.plan.inputs), getLogs(uid(), state.planId));
+    replaceLogs(uid(), state.planId, logs);
     await refreshPlanList();
     render();
-    if (!quiet) toast('Plan saved to your account.');
   } catch (err) {
     console.error(err);
-    toast('Could not save your plan right now. Your progress is still kept on this device.');
+    toast('Could not save your plan to your account right now. It is still kept on this device.');
   }
 }
 
 async function refreshPlanList() {
   state.cloudPlans = await cloud.listPlans(state.user.uid);
-  const picker = $('#plan-picker');
-  picker.hidden = state.cloudPlans.length < 2;
-  picker.innerHTML = state.cloudPlans.map((p) =>
-    `<option value="${p.id}"${p.id === state.planId ? ' selected' : ''}>Race ${p.inputs.raceDate} · ${p.inputs.goal}</option>`).join('');
+  updatePicker();
 }
-
-$('#plan-picker').addEventListener('change', (e) => {
-  const p = state.cloudPlans.find((x) => x.id === e.target.value);
-  if (!p) return;
-  loadCloudPlan(p);
-});
 
 function loadCloudPlan(p) {
   fillForm(p.inputs);
   saveInputs(p.inputs);
-  replaceDone(uid(), p.id, { ...getDone(uid(), p.id), ...(p.done || {}) });
   replaceLogs(uid(), p.id, { ...getLogs(uid(), p.id), ...(p.logs || {}) });
   build(p.inputs);
 }
 
+/** Subscriptions changed (or first arrived): re-render whatever they unlock. */
+function onSubs(subs) {
+  state.subs = subs;
+  state.subsKnown = true;
+  $('#billing-btn').hidden = subs.size === 0;
+  render();
+  renderTeaser();
+  if (location.hash === '#wod') showWod();
+  if (state.pendingProduct) {
+    const p = state.pendingProduct;
+    state.pendingProduct = null;
+    subscribe(p);
+  }
+}
+
 async function onUser(user) {
+  const signedOut = !!state.user && !user;
   authKnown = true;
   state.user = user;
-  stopTier();
-  stopTier = () => {};
-  state.tier = 'free';
+  stopSubs();
+  stopSubs = () => {};
+  state.subs = new Set();
+  state.subsKnown = false;
   $('#account').hidden = false;
   $('#account-email').textContent = user ? (user.email || 'Signed in') : '';
   $('#sign-in-btn').hidden = !!user;
   $('#account-menu').hidden = !user;
   $('#account-menu').open = false;
+  $('#billing-btn').hidden = true;
   if (!user) {
     state.cloudPlans = [];
     wod.savedMode = null;
-    wod.results = {};
-    $('#plan-picker').hidden = true;
-    if (state.plan) render(); // back to the locked preview
+    if (signedOut) {
+      // Signing out goes home and leaves nothing of the account's plan on this device.
+      clearInputs();
+      showLanding();
+      goHome();
+      return;
+    }
+    if (state.plan) render(); // the locked preview of a plan built without an account
     renderTeaser();
     if (location.hash === '#wod') showWod();
     return;
   }
-  cloud.watchTier(user.uid, (tier) => {
-    if (tier === state.tier) return;
-    state.tier = tier;
-    render();
-  }).then((stop) => { stopTier = stop; });
+  cloud.watchSubs(user.uid, onSubs).then((stop) => { stopSubs = stop; });
   try {
-    await loadWodData();
-    renderTeaser();
-    if (location.hash === '#wod') showWod();
+    await loadWodMode();
     if (state.plan) {
-      // Signing in unlocks the full plan and saves it to the account.
-      render();
-      await syncCurrentPlan({ quiet: !state.saveAfterSignIn });
+      await syncCurrentPlan();
     } else {
       await refreshPlanList();
       if (state.cloudPlans.length) loadCloudPlan(state.cloudPlans[0]);
@@ -599,20 +630,24 @@ async function onUser(user) {
     console.error(err);
     toast('Signed in, but your saved plans could not be loaded.');
   }
-  state.saveAfterSignIn = false;
 }
 
-function openAuth(saveAfter) {
+function openAuth() {
   if (!state.authAvailable) {
     toast('Sign-in is unavailable right now, please try again later.');
     return;
   }
-  state.saveAfterSignIn = saveAfter;
   $('#auth-error').textContent = '';
   dialog.showModal();
 }
 
-$('#sign-in-btn').addEventListener('click', () => openAuth(false));
+dialog.addEventListener('close', () => {
+  // Closed without signing in: forget the subscribe that was waiting for it.
+  if (!signedInFromDialog) state.pendingProduct = null;
+  signedInFromDialog = false;
+});
+
+$('#sign-in-btn').addEventListener('click', () => openAuth());
 $('#sign-out-btn').addEventListener('click', () => cloud.signOutUser());
 
 // Close the account menu when clicking elsewhere.
@@ -621,22 +656,10 @@ document.addEventListener('click', (e) => {
   if (menu.open && !menu.contains(e.target)) menu.open = false;
 });
 
-$('#export-btn').addEventListener('click', async () => {
-  if (!state.user) return;
-  try {
-    const data = await cloud.exportMyData(state.user);
-    download('hybrid-plan-builder-my-data.json', new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
-    toast('Your data was downloaded.');
-  } catch (err) {
-    console.error(err);
-    toast('Could not download your data right now. Please try again.');
-  }
-});
-
 $('#delete-btn').addEventListener('click', async () => {
   const user = state.user;
   if (!user) return;
-  if (!window.confirm('Delete your account and all your plans, logs and workout results? This cannot be undone.')) return;
+  if (!window.confirm('Delete your account and all your plans and 5k results? This cannot be undone. Cancel any subscription first under Manage subscription.')) return;
   try {
     await cloud.deleteMyAccount(user);
     forgetUser(user.uid);
@@ -644,7 +667,7 @@ $('#delete-btn').addEventListener('click', async () => {
   } catch (err) {
     if (err.code === 'auth/requires-recent-login') {
       await cloud.signOutUser();
-      openAuth(false);
+      openAuth();
       toast('For your security, sign in again, then choose Delete my account.');
     } else {
       console.error(err);
@@ -677,6 +700,7 @@ async function runAuth(fn) {
   $('#auth-error').textContent = '';
   try {
     await fn();
+    signedInFromDialog = true;
     dialog.close();
   } catch (err) {
     $('#auth-error').textContent = AUTH_ERRORS[err.code] || 'Sign-in failed. Please try again.';
@@ -720,8 +744,14 @@ setupForm();
 const saved = loadInputs();
 if (saved) {
   fillForm(saved);
-  if (!Object.keys(validateInputs(saved)).length) build(saved);
+  // Older saved plans may lack the age group or division: use the defaults fillForm picked.
+  const repaired = { ...saved, age: form.elements.age.value, division: form.elements.division.value };
+  if (!Object.keys(validateInputs(repaired)).length) {
+    saveInputs(repaired);
+    build(repaired);
+  }
 }
+checkPaidReturn();
 route();
 cloud.watchUser(onUser).then((ok) => {
   state.authAvailable = ok;

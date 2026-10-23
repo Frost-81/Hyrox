@@ -35,21 +35,8 @@ export const addDays = (ymd, n) => toYmd(parseYmd(ymd) + n * DAY);
 /** The user's saved choice wins; before they ever tap the toggle, each workout opens in the mode it was written for. */
 export const pickMode = (workout, savedMode) => (MODES.includes(savedMode) ? savedMode : workout.defaultMode);
 
-/** Result document id, as in Firestore: users/{uid}/wodResults/{day}-{mode}. */
-export const resultId = (day, mode) => `${day}-${mode}`;
-
-/** Benchmark results grouped by title and mode, oldest first in each group. */
-export function groupBenchmarks(results) {
-  const groups = new Map();
-  for (const r of Object.values(results || {})) {
-    if (!r?.benchmark) continue;
-    const key = `${r.title} · ${r.mode === 'team' ? 'Team of 2' : 'Solo'}`;
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(r);
-  }
-  for (const list of groups.values()) list.sort((a, b) => String(a.date).localeCompare(String(b.date)));
-  return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([title, items]) => ({ title, items }));
-}
+/** Subscribers see only the current week: any other date is pulled back to today. */
+export const clampToWeek = (ymd, today) => (weekDates(today).some((d) => d.ymd === ymd) ? ymd : today);
 
 let cache = null;
 /** Fetch the library once per page load. */

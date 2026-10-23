@@ -14,16 +14,19 @@ service cloud.firestore {
       allow create, update: if isOwner(uid) && docId == 'prefs' && validSettings(request.resource.data);
     }
 
-    // Logged Workout of the Day results, id "{day}-{mode}".
+    // Workout of the Day results are no longer logged. Owners can still read and delete old ones,
+    // so deleting an account clears them.
     match /users/{uid}/wodResults/{resultId} {
       allow read, delete: if isOwner(uid);
-      allow create, update: if isOwner(uid) && validWodResult(resultId, request.resource.data);
     }
 
-    // Payments (ready for the "Run Payments with Stripe" extension). Only the extension writes
-    // here, with the Admin SDK; users can read their own subscription status.
+    // Payments ("Run Payments with Stripe" extension). The extension writes here with the Admin SDK;
+    // users can read their own subscriptions and start a Checkout by creating a checkout session.
     match /customers/{uid} {
       allow read: if isOwner(uid);
+      match /checkout_sessions/{id} {
+        allow create: if isOwner(uid) && validCheckout(request.resource.data);
+      }
       match /{document=**} {
         allow read: if isOwner(uid);
       }
@@ -55,22 +58,12 @@ service cloud.firestore {
         && (!('wodMode' in d) || d.wodMode in ['solo', 'team']);
     }
 
-    function shortText(d, key, max) {
-      return !(key in d) || (d[key] is string && d[key].size() <= max);
-    }
-
-    function validWodResult(id, d) {
-      return d.keys().hasOnly(['day', 'mode', 'title', 'benchmark', 'date', 'score', 'partner', 'weight', 'notes', 'updatedAt'])
-        && d.day is int && d.day >= 1 && d.day <= 365
-        && d.mode in ['solo', 'team']
-        && id == string(d.day) + '-' + d.mode
-        && d.benchmark is bool
-        && d.title is string && d.title.size() <= 80
-        && d.date is string && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
-        && d.score is string && d.score.size() >= 1 && d.score.size() <= 60
-        && shortText(d, 'partner', 60)
-        && shortText(d, 'weight', 60)
-        && shortText(d, 'notes', 300);
+    function validCheckout(d) {
+      return d.keys().hasOnly(['price', 'mode', 'success_url', 'cancel_url', 'allow_promotion_codes'])
+        && d.price is string && d.price.size() <= 100
+        && d.mode == 'subscription'
+        && d.success_url is string && d.success_url.size() <= 500
+        && d.cancel_url is string && d.cancel_url.size() <= 500;
     }
   }
 }

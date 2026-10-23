@@ -10,3 +10,6 @@ export const firebaseConfig = {
 };
 
 export const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/11.10.0';
+
+// Region of the Stripe extension's functions (chosen when you install it), used for the billing portal.
+export const FUNCTIONS_REGION = 'us-central1';
