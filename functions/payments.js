@@ -34,14 +34,13 @@ const region = 'us-central1';
 const stripe = () => new Stripe(STRIPE_SECRET_KEY.value());
 const customerRef = (uid) => getFirestore().doc(`customers/${uid}`);
 
-/** The signed-in user, who must have entered their email code if they use one (same test as firestore.rules). */
+/** The signed-in user, who must have confirmed their email if they use a password (same test as firestore.rules). */
 function signedIn(request) {
   const token = request.auth?.token;
   if (!token) throw new HttpsError('unauthenticated', 'Sign in first.');
-  const mfaPassed = token.mfaEmail !== true
-    || token.firebase?.sign_in_provider !== 'password'
-    || (token.mfa || []).includes(token.auth_time);
-  if (!mfaPassed) throw new HttpsError('permission-denied', 'Enter your sign-in code first.');
+  if (token.firebase?.sign_in_provider === 'password' && token.email_verified !== true) {
+    throw new HttpsError('permission-denied', 'Confirm your email first.');
+  }
   return { uid: request.auth.uid, email: token.email };
 }
 
@@ -92,6 +91,8 @@ export const createCheckout = onCall({ region, secrets: [STRIPE_SECRET_KEY] }, a
       ? { payment_intent_data: { metadata } }
       : { subscription_data: { metadata }, payment_method_collection: 'if_required' }), // no card when a code makes it free
     allow_promotion_codes: true,
+    // Stripe turns Managed Payments (Stripe as merchant of record) on by default; we collect and file tax ourselves.
+    managed_payments: { enabled: false },
   });
   return { url: session.url };
 });

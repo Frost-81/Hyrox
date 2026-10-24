@@ -60,40 +60,32 @@ export async function signInEmail(email, password, create) {
     : a.signInWithEmailAndPassword(auth, email, password);
 }
 
-/** Emails a link to choose a new password. Firebase sends it, so nothing reveals whether the account exists. */
-export async function sendPasswordReset(email) {
-  const { auth, a } = await load();
-  return a.sendPasswordResetEmail(auth, email);
-}
-
-// ---------- email sign-in codes (functions/index.js) ----------
-
 /**
- * { available, enrolled, needed }: whether this sign-in can use email codes (it used a password),
- * whether they are turned on, and whether this sign-in still has to enter one.
+ * Emails a link to choose a new password, from info@hybridprog.com (functions/index.js).
+ * It succeeds the same way whether or not the account exists.
  */
-export async function mfaInfo(user) {
-  const { claims } = await user.getIdTokenResult();
-  const available = claims.firebase?.sign_in_provider === 'password';
-  const enrolled = claims.mfaEmail === true;
-  return { available, enrolled, needed: available && enrolled && !(claims.mfa || []).includes(claims.auth_time) };
+export async function sendPasswordReset(email) {
+  await (await callable('sendPasswordReset'))({ email });
 }
 
-/** Emails a 6-digit code. Returns the address it went to. */
-export async function sendMfaCode() {
-  const { data } = await (await callable('sendMfaCode'))();
+// ---------- email verification (functions/index.js) ----------
+
+/** True when this is an email and password account that hasn't confirmed its address yet. */
+export const needsVerify = (user) =>
+  !!user && !user.emailVerified && user.providerData.some((p) => p.providerId === 'password');
+
+/** Emails a link that confirms the address. Returns the address it went to. */
+export async function sendVerifyEmail() {
+  const { data } = await (await callable('sendVerifyEmail'))();
   return data.email;
 }
 
-/** Checks the code (turning codes on if enroll), then refreshes the token so Firestore sees it. */
-export async function verifyMfaCode(user, code, enroll = false) {
-  await (await callable('verifyMfaCode'))({ code, enroll });
-  await user.getIdToken(true);
-}
-
-export async function disableMfa(user) {
-  await (await callable('disableMfa'))();
-  await user.getIdToken(true);
+/** Re-reads the account after the link was opened elsewhere. True once the email is confirmed. */
+export async function checkVerified(user) {
+  await user.reload();
+  if (!user.emailVerified) return false;
+  await user.getIdToken(true); // so Firestore sees email_verified
+  return true;
 }
 
 export async function signOutUser() {

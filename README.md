@@ -67,7 +67,7 @@ The project is `hyrox-prog` (see `.firebaserc`). The web app config is already i
 1. **Firestore:** Firebase console → Build → Firestore Database → Create database. Choose a location (it can't be changed later) and start in production mode. The rules in this repo get deployed over the defaults.
 2. **Authentication:** Firebase console → Build → Authentication → Get started → Sign-in method. Enable **Google** and **Email/Password**.
 3. **Authorized domains:** `hyrox-prog.web.app` and `hyrox-prog.firebaseapp.com` are there by default. Add any custom domain under Authentication → Settings.
-4. **Email sign-in codes (MFA):** the codes are sent by the Cloud Functions in `functions/` (Blaze plan, which Stripe needs anyway) over SMTP. Set the mail server once: `firebase functions:secrets:set SMTP_URL` with a value like `smtps://user:password@smtp.example.com:465` (any provider: Resend, SendGrid, Google Workspace…). The sender defaults to `Hybrid Prog <info@hybridprog.com>`. Change it with `MAIL_FROM` in `functions/.env`. For the emulator, put `SMTP_URL=...` in `functions/.secret.local`.
+4. **Email (email verification and password resets):** sent by the Cloud Functions in `functions/` (`mail.js`) from `info@hybridprog.com` on Namecheap Private Email, never by Firebase itself. Set the mailbox once: `firebase functions:secrets:set SMTP_URL` with `smtps://info%40hybridprog.com:PASSWORD@mail.privateemail.com:465`. The sender is fixed in `mail.js` and must stay that same mailbox (SPF/DKIM/DMARC). For the emulator, put `SMTP_URL=...` in `functions/.secret.local`.
 5. **Password reset email:** Authentication → Templates → Password reset. Firebase sends it, so nothing to deploy. Set the sender name and, if you like, a custom domain there.
 
 ## Deploy
@@ -92,7 +92,7 @@ The site goes live at https://hyrox-prog.web.app.
 
 `users/{uid}/plans/{planId}` holds `{ inputs, done, logs, createdAt, updatedAt }`. `logs` maps 5k test session keys (`w1-end`, `w4-long`, `w8-long`) to `{ fiveK, hr? }`; a logged test also sets `inputs.fiveK`, `inputs.hr5k` and `inputs.fiveKFromTest`. `planId` is `race-YYYY-MM-DD`. Only the inputs are stored, and the plan is rebuilt from them on load. `done` (old session ticks) is no longer written but is kept so older documents stay valid; old `inputs.paceAdjust` values are still applied.
 
-Email sign-in codes: a user who turns them on (Account menu, password sign-ins only) gets the custom claims `mfaEmail: true` and `mfa`, the `auth_time` of their last 5 verified sign-ins. `firestore.rules` (`mfaPassed`) refuses a password sign-in of an enrolled user until its `auth_time` is in `mfa`, so every new sign-in needs a new code. `mfaCodes/{uid}` holds the hashed pending code and its rate limits. Only the functions read it. Codes expire after 10 minutes and allow 5 tries; one can be sent per minute and 5 per hour.
+Email verification: a new email and password account gets a confirmation link from `info@hybridprog.com` (`sendVerifyEmail` in `functions/index.js`, at most 5 per hour per account). Until it is opened, `firestore.rules` (`emailConfirmed`) and the payment functions refuse that sign-in, and the site shows the "Confirm your email" step instead of signing in. Google sign-ins are already verified.
 
 `users/{uid}/settings/prefs` holds `{ wodMode: 'solo' | 'team' }`, cached in browser storage per user. Old `users/{uid}/wodResults` documents are no longer written; account deletion still removes them.
 

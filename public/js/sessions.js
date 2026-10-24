@@ -47,13 +47,17 @@ export const WEEKS = [
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hips and ankles') },
       { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        'Every 4 min for 40 min (10 rounds):',
-        'Min 1-3: 500 m run @ {steady}, rest the time left',
-        'Min 4: 10 air squats + 5 burpee broad jumps',
+        'Every 4 min for 40 min (10 rounds), each round:',
+        '500 m run @ {steady}',
+        '10 air squats',
+        '5 burpee broad jumps',
+        'Rest the time left, then start the next round',
         WARM_UP,
       ] },
-      { key: 'skl', label: 'Skill', effort: 'moderate', lines: [
-        'Practice Burpee Broad Jumps: 3 sets of 10 reps. Focus on form',
+      { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
+        'Strength: 4 sets of 10 goblet squats @ {kb} + 10 dumbbell rows per arm, 90 s rest between sets',
+        'Practice Burpee Broad Jumps: 6 sets of 8 reps, 60 s rest. Focus on form',
+        'Core: 3 rounds of 30 s plank + 10 dead bugs per side',
       ] },
       { key: 'long', label: 'Long Endurance', effort: 'easy', lines: [
         'Run: 50 minutes at a comfortable pace ({easy})',
@@ -83,8 +87,10 @@ export const WEEKS = [
         'Max wall balls @ {wb} in the time left',
         WARM_UP,
       ] },
-      { key: 'skl', label: 'Skill', effort: 'moderate', lines: [
-        "Practice Farmer's Carry: 3 sets of 50 m @ {farm}. Use challenging weight",
+      { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
+        'Strength: 4 sets of 10 reverse lunges per leg + 10 push-ups, 90 s rest between sets',
+        "Practice Farmer's Carry: 8 sets of 50 m @ {farm}, 60-90 s rest. Use challenging weight",
+        'Core: 3 rounds of 20 s side plank per side + 10 hollow rocks',
       ] },
       { key: 'long', label: 'Long Endurance', effort: 'easy', lines: [
         'Run: 55 minutes at a comfortable pace ({easy})',
@@ -113,9 +119,10 @@ export const WEEKS = [
         'Max burpees in the time left',
         WARM_UP,
       ] },
-      { key: 'skl', label: 'Skill', effort: 'moderate', lines: [
-        'Sandbag training: 3 sets of 30 seconds of sandbag cleans @ {bag}',
-        'Practice Wall Balls: 3 sets of 15 reps @ {wb}. Focus on consistent height and power',
+      { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
+        'Strength: 3 sets of 8 single-leg Romanian deadlifts per leg + 10 dumbbell push presses, 90 s rest between sets',
+        'Sandbag training: 6 sets of 30 seconds of sandbag cleans @ {bag}, 60 s rest',
+        'Practice Wall Balls: 6 sets of 15 reps @ {wb}, 60 s rest. Focus on consistent height and power',
       ] },
       { key: 'long', label: 'Long Endurance', effort: 'easy', lines: [
         'Run: 60 minutes at a comfortable pace ({easy})',
@@ -138,13 +145,16 @@ export const WEEKS = [
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('easy full-body flow (deload week)') },
       { key: 'hyb', label: 'Hybrid', effort: 'moderate', lines: [
-        'Every 3 min for 36 min (12 rounds), smooth (deload week):',
-        'Min 1-2: 400 m run @ {steady}, rest the time left',
-        'Min 3: 10 air squats',
+        'Every 3 min for 36 min (12 rounds), smooth (deload week), each round:',
+        '400 m run @ {steady}',
+        '10 air squats',
+        'Rest the time left, then start the next round',
         WARM_UP,
       ] },
-      { key: 'skl', label: 'Skill', effort: 'moderate', lines: [
-        'Practice Sled Push: 3 sets of 50 m @ {push}. Focus on driving through the legs',
+      { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
+        'Strength (light, deload week): 3 sets of 10 push-ups + 10 dumbbell rows per arm, 60 s rest between sets',
+        'Practice Sled Push: 6 sets of 50 m @ {push}, 90 s rest. Focus on driving through the legs',
+        'Core: 3 rounds of 30 s plank + 10 dead bugs per side',
       ] },
       { key: 'long', label: '5k Time Trial', effort: 'hard', test: true, lines: [
         '15 min easy warm-up ({easy}) with 3 short strides',
@@ -237,9 +247,11 @@ export const WEEKS = [
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hamstrings and hip flexors') },
       { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        'Every 5 min for 40 min (8 rounds):',
-        'Min 1-3: 600 m run @ {thr}, rest the time left',
-        'Min 4-5: 15 KB swings @ {kb} + 20 m sandbag lunges @ {bag}',
+        'Every 5 min for 40 min (8 rounds), each round:',
+        '600 m run @ {thr}',
+        '15 KB swings @ {kb}',
+        '20 m sandbag lunges @ {bag}',
+        'Rest the time left, then start the next round',
         WARM_UP,
       ] },
       { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
@@ -380,10 +392,11 @@ export const WEEKS = [
         WARM_UP,
       ] },
       { key: 'skl', label: 'Skill/Strength', effort: 'moderate', lines: [
-        'Sled Push: 3 x 50 m @ {push} (light weight, focus on speed)',
-        'Burpee Broad Jumps: 3 sets of 8 reps',
-        "Farmer's Carry: 3 x 30 m @ {farm} (light weight)",
-        'Wall Balls: 3 sets of 12 reps @ {wb}',
+        'Sled Push: 6 x 25 m @ {push} (light weight, focus on speed), 60 s rest',
+        'Burpee Broad Jumps: 4 sets of 8 reps',
+        "Farmer's Carry: 4 x 30 m @ {farm} (light weight)",
+        'Wall Balls: 4 sets of 12 reps @ {wb}',
+        'Core: 3 rounds of 30 s plank + 10 dead bugs per side',
       ] },
       { key: 'long', label: 'Light Endurance', effort: 'easy', lines: [
         'Run: 20 minutes at a very easy pace ({easy})',

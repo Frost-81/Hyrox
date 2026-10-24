@@ -26,19 +26,17 @@ service cloud.firestore {
       allow read: if isOwner(uid);
     }
 
-    // Everything else is denied (no other match blocks), including mfaCodes/{uid},
+    // Everything else is denied (no other match blocks), including mailLimits/{id},
     // which only the Cloud Functions use.
 
     function isOwner(uid) {
-      return request.auth != null && request.auth.uid == uid && mfaPassed();
+      return request.auth != null && request.auth.uid == uid && emailConfirmed();
     }
 
-    // Users who turned on email sign-in codes must enter one for each password sign-in.
-    // functions/index.js lists the auth_time of verified sign-ins in the `mfa` claim.
-    function mfaPassed() {
-      return request.auth.token.get('mfaEmail', false) != true
-        || request.auth.token.firebase.sign_in_provider != 'password'
-        || request.auth.token.auth_time in request.auth.token.get('mfa', []);
+    // Email and password accounts must confirm their address first (functions/index.js emails the link).
+    function emailConfirmed() {
+      return request.auth.token.firebase.sign_in_provider != 'password'
+        || request.auth.token.get('email_verified', false) == true;
     }
 
     function validPlan(d) {

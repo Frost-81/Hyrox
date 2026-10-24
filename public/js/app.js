@@ -21,7 +21,6 @@ const state = {
   authAvailable: true,
   pendingProduct: null, // subscribe to this after signing in
   createMode: false,
-  mfa: null, // { available, enrolled } for the signed-in user's email sign-in codes
   view: { weekIdx: 0, ymd: null }, // the week and day shown in the plan
 };
 
@@ -29,7 +28,7 @@ const wod = { data: null, ymd: todayYmd(), savedMode: null };
 let stopSubs = () => {};
 let editMode = null; // null | 'edit' | 'new'
 let signedInFromDialog = false;
-let mfa = null; // { user, enroll } while the dialog waits for an email code
+let verify = null; // { user } while the dialog waits for a new account to confirm its email
 let authKnown = false; // until Firebase reports, don't flash the signed-out WOD view
 
 const uid = () => state.user?.uid || null;
@@ -601,10 +600,9 @@ function onSubs(subs) {
 }
 
 async function onUser(user) {
-  state.mfa = user ? await cloud.mfaInfo(user).catch(() => null) : null;
-  if (state.mfa?.needed) {
-    // Not signed in until the emailed code is entered (Firestore refuses until then).
-    startMfa(user);
+  if (cloud.needsVerify(user)) {
+    // Not signed in until the email is confirmed (Firestore refuses until then).
+    startVerify(user);
     user = null;
   }
   const signedOut = !!state.user && !user;
@@ -620,7 +618,6 @@ async function onUser(user) {
   $('#account-menu').hidden = !user;
   $('#account-menu').open = false;
   $('#billing-btn').hidden = true;
-  updateMfaBtn();
   updatePortalLinks();
   if (!user) {
     state.cloudPlans = [];
@@ -659,17 +656,30 @@ function openAuth() {
   }
   $('#auth-error').textContent = '';
   $('#auth-note').hidden = true;
+  showPassword(false);
   dialog.showModal();
 }
+
+/** The eye in the password box: shows the password as text, or hides it again. */
+function showPassword(show) {
+  $('#password').type = show ? 'text' : 'password';
+  $('#pw-toggle').setAttribute('aria-pressed', String(show));
+  $('#pw-toggle').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+}
+
+$('#pw-toggle').addEventListener('click', () => {
+  showPassword($('#password').type === 'password');
+  $('#password').focus();
+});
 
 dialog.addEventListener('close', () => {
   // Closed without signing in: forget the subscribe that was waiting for it.
   if (!signedInFromDialog) state.pendingProduct = null;
   signedInFromDialog = false;
-  if (mfa) {
-    // Closed before entering the code: a sign-in that needs one doesn't stay half signed in.
-    if (!mfa.enroll) cloud.signOutUser();
-    mfa = null;
+  if (verify) {
+    // Closed before confirming the email: the account doesn't stay half signed in.
+    cloud.signOutUser();
+    verify = null;
   }
   showAuthStep('main');
 });
@@ -725,11 +735,9 @@ $('#forgot-btn').addEventListener('click', async () => {
   try {
     await cloud.sendPasswordReset(email);
   } catch (err) {
-    // Unknown emails are not reported, so the form can't be used to find out who has an account.
-    if (err.code !== 'auth/user-not-found') {
-      $('#auth-error').textContent = AUTH_ERRORS[err.code] || 'Could not send the email. Please try again.';
-      return;
-    }
+    // Unknown emails succeed too (functions/index.js), so the form can't tell who has an account.
+    $('#auth-error').textContent = fnError(err, 'Could not send the email. Please try again.');
+    return;
   }
   $('#auth-note').textContent = `If ${email} has an account, a link to reset your password is on its way. Check your spam folder too.`;
   $('#auth-note').hidden = false;
@@ -751,8 +759,8 @@ async function runAuth(fn) {
   $('#auth-error').textContent = '';
   try {
     const { user } = await fn();
-    if ((await cloud.mfaInfo(user)).needed) {
-      startMfa(user);
+    if (cloud.needsVerify(user)) {
+      startVerify(user, true);
       return;
     }
     signedInFromDialog = true;
@@ -772,90 +780,66 @@ $('#email-form').addEventListener('submit', (e) => {
   runAuth(() => cloud.signInEmail($('#email').value.trim(), $('#password').value, state.createMode));
 });
 
-// ---------- email sign-in codes ----------
+// ---------- email verification ----------
 
 /** The message one of our Cloud Functions sent, or the fallback for anything unexpected. */
 const fnError = (err, fallback) => (err.code && err.code !== 'functions/internal' && err.message) || fallback;
 
 function showAuthStep(step) {
   $('#auth-main').hidden = step !== 'main';
-  $('#mfa-form').hidden = step !== 'mfa';
+  $('#verify-step').hidden = step !== 'verify';
 }
 
-function updateMfaBtn() {
-  $('#mfa-btn').hidden = !state.user || !state.mfa?.available;
-  $('#mfa-btn').textContent = state.mfa?.enrolled ? 'Turn off email sign-in codes' : 'Turn on email sign-in codes';
-}
-
-async function sendCode() {
-  $('#mfa-error').textContent = '';
-  $('#mfa-text').textContent = 'Sending a code to your email…';
+async function sendVerifyLink() {
+  $('#verify-error').textContent = '';
+  $('#verify-text').textContent = 'Sending a link to your email…';
   try {
-    const email = await cloud.sendMfaCode();
-    $('#mfa-text').textContent = `We emailed a 6-digit code to ${email}. It expires in 10 minutes.`;
+    const email = await cloud.sendVerifyEmail();
+    $('#verify-text').textContent = `We emailed a link to ${email}. Open it to confirm your email, then come back here. Check your junk or spam folder too.`;
   } catch (err) {
-    $('#mfa-text').textContent = '';
-    $('#mfa-error').textContent = fnError(err, 'Could not send the code. Please try again.');
+    $('#verify-text').textContent = '';
+    $('#verify-error').textContent = fnError(err, 'Could not send the email. Please try again.');
   }
 }
 
-/** Ask for an emailed code: to finish signing in, or (enroll) to turn codes on. */
-function startMfa(user, enroll = false) {
-  if (mfa?.user.uid === user.uid) return; // already waiting for this one
-  mfa = { user, enroll };
-  $('#mfa-title').textContent = enroll ? 'Turn on email sign-in codes' : 'Check your email';
-  $('#mfa-code').value = '';
-  showAuthStep('mfa');
-  if (!dialog.open) dialog.showModal();
-  $('#mfa-code').focus();
-  sendCode();
+/** Ask a new email and password account to confirm its address, emailing the link if send. */
+function startVerify(user, send = false) {
+  if (verify?.user.uid !== user.uid) {
+    verify = { user };
+    $('#verify-error').textContent = '';
+    $('#verify-text').textContent = `Confirm ${user.email} to finish signing in. We can email you a link.`;
+    showAuthStep('verify');
+    if (!dialog.open) dialog.showModal();
+  }
+  if (send) sendVerifyLink();
 }
 
-$('#mfa-resend').addEventListener('click', () => sendCode());
-
-$('#mfa-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (!mfa) return;
-  const { user, enroll } = mfa;
-  $('#mfa-error').textContent = '';
-  $('#mfa-submit').disabled = true;
+/** Once the link was opened (often in another tab): finish signing in. */
+async function finishVerify({ quiet = false } = {}) {
+  if (!verify) return;
+  const { user } = verify;
+  $('#verify-error').textContent = '';
   try {
-    await cloud.verifyMfaCode(user, $('#mfa-code').value.trim(), enroll);
-    mfa = null;
-    signedInFromDialog = !enroll;
-    dialog.close();
-    if (enroll) {
-      state.mfa = { ...state.mfa, enrolled: true };
-      updateMfaBtn();
-      toast('Email sign-in codes are on. You will enter one each time you sign in with your password.');
-    } else {
-      onUser(user);
+    if (!(await cloud.checkVerified(user))) {
+      if (!quiet) $('#verify-error').textContent = 'Your email is not confirmed yet. Open the link we sent, then try again.';
+      return;
     }
-  } catch (err) {
-    $('#mfa-error').textContent = fnError(err, 'Could not check the code. Please try again.');
-  } finally {
-    $('#mfa-submit').disabled = false;
-  }
-});
-
-$('#mfa-btn').addEventListener('click', async () => {
-  const user = state.user;
-  if (!user) return;
-  $('#account-menu').open = false;
-  if (!state.mfa?.enrolled) {
-    startMfa(user, true);
+  } catch {
+    if (!quiet) $('#verify-error').textContent = 'Could not check right now. Please try again.';
     return;
   }
-  if (!window.confirm('Turn off email sign-in codes? You will sign in with just your password.')) return;
-  try {
-    await cloud.disableMfa(user);
-    state.mfa = { ...state.mfa, enrolled: false };
-    updateMfaBtn();
-    toast('Email sign-in codes are off.');
-  } catch (err) {
-    toast(fnError(err, 'Could not turn off email sign-in codes right now.'));
-  }
-});
+  if (verify?.user !== user) return;
+  verify = null;
+  signedInFromDialog = true;
+  dialog.close();
+  toast('Email confirmed. You are signed in.');
+  onUser(user);
+}
+
+$('#verify-done').addEventListener('click', () => finishVerify());
+$('#verify-resend').addEventListener('click', () => sendVerifyLink());
+// Coming back from the tab where the link was opened.
+window.addEventListener('focus', () => finishVerify({ quiet: true }));
 
 // ---------- misc ----------
 

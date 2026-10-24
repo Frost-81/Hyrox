@@ -152,6 +152,14 @@ a { color: inherit; }
   font-family: var(--font-head); font-weight: 700; font-size: .95rem;
   text-transform: uppercase; letter-spacing: .12em; margin-bottom: .4rem;
 }
+/* The logo after a heading, filled with the text colour (black on yellow, white on the WOD photo). */
+.logo-mark {
+  display: inline-block; width: 1em; height: 1em; margin-left: .3em; vertical-align: -.12em;
+  background: currentColor;
+  -webkit-mask: url("../img/logo.png") center / contain no-repeat;
+  mask: url("../img/logo.png") center / contain no-repeat;
+}
+.eyebrow .logo-mark { width: 1.6em; height: 1.6em; vertical-align: -.45em; }
 .hero-panel .btn.primary { background: var(--text); border-color: var(--text); color: var(--yellow); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
 @media (min-width: 760px) { .hero { min-height: 620px; padding: 48px 24px; } .hero-panel { padding: 30px 32px; } }
 
@@ -188,6 +196,16 @@ a { color: inherit; }
 @media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
 
 .field { margin-bottom: 12px; min-width: 0; }
+/* Password with a show/hide eye inside the box. */
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 52px; }
+.pw-toggle {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 42px; display: grid; place-items: center;
+  border: 0; border-radius: 8px; background: none; color: var(--muted); cursor: pointer;
+}
+.pw-toggle:hover { color: var(--text); }
+.pw-toggle[aria-pressed="false"] .eye-closed, .pw-toggle[aria-pressed="true"] .eye-open { display: none; }
 .field label, .field legend { display: block; font-weight: 600; margin-bottom: 6px; }
 fieldset.field { border: 0; padding: 0; margin: 0 0 16px; }
 
