@@ -52,10 +52,26 @@ function returnUrl(raw) {
   return url;
 }
 
-/** The user's Stripe customer id, created on first use. */
+/**
+ * The saved Stripe customer, or null when there is none in this Stripe mode: an id saved while testing in the
+ * sandbox doesn't exist in live mode (and the other way round), and a customer deleted in Stripe is gone too.
+ */
+async function savedCustomer(uid) {
+  const id = (await customerRef(uid).get()).get('stripeId');
+  if (!id) return null;
+  try {
+    const customer = await stripe().customers.retrieve(id);
+    return customer.deleted ? null : id;
+  } catch (err) {
+    if (err.code === 'resource_missing') return null;
+    throw err;
+  }
+}
+
+/** The user's Stripe customer id, created on first use (and again if the saved one is from the other mode). */
 async function stripeCustomer(uid, email) {
-  const snap = await customerRef(uid).get();
-  if (snap.get('stripeId')) return snap.get('stripeId');
+  const saved = await savedCustomer(uid);
+  if (saved) return saved;
   const customer = await stripe().customers.create({ email, metadata: { uid } });
   await customerRef(uid).set({ stripeId: customer.id }, { merge: true });
   return customer.id;
@@ -100,7 +116,7 @@ export const createCheckout = onCall({ region, secrets: [STRIPE_SECRET_KEY] }, a
 /** { returnUrl } → { url } of the Stripe customer portal (change or cancel the subscription, invoices). */
 export const billingPortal = onCall({ region, secrets: [STRIPE_SECRET_KEY] }, async (request) => {
   const { uid } = signedIn(request);
-  const stripeId = (await customerRef(uid).get()).get('stripeId');
+  const stripeId = await savedCustomer(uid);
   if (!stripeId) throw new HttpsError('failed-precondition', 'No purchases yet.');
   const session = await stripe().billingPortal.sessions.create({
     customer: stripeId,
