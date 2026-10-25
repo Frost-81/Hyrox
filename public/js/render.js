@@ -18,19 +18,21 @@ function fold(title, body) {
 
 /**
  * Seven day buttons, shared by the plan and the WOD.
- * days: [{ ymd, weekday, date, effort? }]; attr: the data attribute set on each button.
+ * days: [{ ymd, weekday, date, effort? }]; effort colours a thin line along the day's bottom edge.
+ * attr: the data attribute set on each button; prev/next: optional arrows either side.
  */
-export function dayStrip(days, { selected, today, attr }) {
+export function dayStrip(days, { selected, today, attr, prev = '', next = '' }) {
   return `
   <nav class="week-strip" aria-label="Pick a day">
+    ${prev}
     <ol>
       ${days.map((d) => `
-      <li><button type="button" class="strip-day${d.ymd === selected ? ' selected' : ''}${d.ymd === today ? ' today' : ''}"
+      <li><button type="button" class="strip-day${d.effort ? ` effort-${d.effort}` : ''}${d.ymd === selected ? ' selected' : ''}${d.ymd === today ? ' today' : ''}"
         data-${attr}="${d.ymd}" aria-pressed="${d.ymd === selected}"${d.ymd === today ? ' aria-current="date"' : ''}>
         <span class="strip-wd">${d.weekday}</span><span class="strip-date">${d.date}</span>
-        ${d.effort ? `<span class="strip-bar effort-${d.effort}" aria-hidden="true"></span>` : ''}
       </button></li>`).join('')}
     </ol>
+    ${next}
   </nav>`;
 }
 
@@ -177,7 +179,7 @@ export function glossaryCard() {
 }
 
 /**
- * One week at a time, like the WOD page: a week header with arrows, a day strip, and the chosen day's card.
+ * One week at a time, like the WOD page: the day strip (with arrows to the other weeks), then the chosen day's card.
  */
 export function planWeek(plan, { weekIdx, ymd, logs = {} }) {
   const w = plan.weeks[weekIdx];
@@ -187,38 +189,32 @@ export function planWeek(plan, { weekIdx, ymd, logs = {} }) {
   const todayInPlan = plan.weeks.some((x) => x.days.some((d) => d.ymd === today));
   const arrow = (dir, label, disabled) =>
     `<button type="button" class="btn small ghost strip-arrow" data-plan-week="${dir}" aria-label="${label}"${disabled ? ' disabled' : ''}>${dir < 0 ? '‹' : '›'}</button>`;
-  return `
-  <section class="card plan-week" id="plan-week">
-    <div class="plan-week-head">
-      ${arrow(-1, 'Previous week', weekIdx === 0)}
-      <div class="plan-week-title">
-        <p class="wod-day">Week ${w.n} of 12 · ${esc(w.label.split(' · ')[1])}${w.current ? ' <span class="badge">This week</span>' : ''}</p>
-        <h2>${esc(w.title)}</h2>
-        <p class="muted small">${esc(w.phaseName)}</p>
-      </div>
-      ${arrow(1, 'Next week', weekIdx === plan.weeks.length - 1)}
-    </div>
-    ${dayStrip(days, { selected: day.ymd, today, attr: 'plan-day' })}
-    <p class="legend small">
-      <span class="dot effort-hard"></span>Hard
-      <span class="dot effort-moderate"></span>Moderate
-      <span class="dot effort-easy"></span>Easy
-      <span class="dot effort-rest"></span>Rest
-      ${todayInPlan && day.ymd !== today ? '<button type="button" class="btn link" data-plan-today>Back to today</button>' : ''}
-    </p>
-    ${w.clash ? '<p class="note small">Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.</p>' : ''}
-  </section>
-  ${dayCard(day, w, today, logs[day.key])}`;
+  return dayStrip(days, {
+    selected: day.ymd, today, attr: 'plan-day',
+    prev: arrow(-1, 'Previous week', weekIdx === 0),
+    next: arrow(1, 'Next week', weekIdx === plan.weeks.length - 1),
+  }) + dayCard(day, w, { today, log: logs[day.key], backToToday: todayInPlan && day.ymd !== today });
 }
 
-function dayCard(d, w, today, log) {
-  const when = `${d.ymd === today ? 'Today · ' : ''}${FULL_DAY[d.weekday]} ${esc(fmtDate(d.date))} · Week ${w.n}`;
+/** The day's card, laid out like the WOD card: date and week, title, then tags (effort colour, week theme, phase). */
+function dayCard(d, w, { today, log, backToToday }) {
+  const when = `${d.ymd === today ? 'Today · ' : ''}${FULL_DAY[d.weekday]} ${esc(fmtDate(d.date))} · Week ${w.n} of 12`;
+  const top = (title) => `
+    <div class="wod-top">
+      <div>
+        <p class="wod-day">${when}</p>
+        <h2>${title}</h2>
+      </div>
+      ${backToToday ? '<button type="button" class="btn small ghost" data-plan-today aria-label="Back to today">Today</button>' : ''}
+    </div>`;
+  // In race week the phase and the week's title say the same thing.
+  const same = (a, b) => a.toLowerCase().replace(/\W/g, '') === b.toLowerCase().replace(/\W/g, '');
+  const weekTags = `<span class="tag">${esc(w.title)}</span>${same(w.title, w.phaseName) ? '' : `<span class="tag">${esc(w.phaseName)}</span>`}`;
   if (d.effort === 'rest') {
     return `
   <section class="card wod-card day-card" aria-live="polite">
-    <p class="wod-day">${when}</p>
-    <h2>Rest</h2>
-    <div class="tags"><span class="tag effort-rest">Rest</span></div>
+    ${top('Rest')}
+    <div class="tags"><span class="tag effort-rest">Rest</span>${weekTags}</div>
     <p>No training today. Sleep well, eat well, and go for an easy walk if you like.</p>
   </section>`;
   }
@@ -229,13 +225,13 @@ function dayCard(d, w, today, log) {
     </div>` : '';
   return `
   <section class="card wod-card day-card" aria-live="polite">
-    <p class="wod-day">${when}</p>
-    <h2>${esc(d.label)}</h2>
+    ${top(esc(d.label))}
     <div class="tags">
       <span class="tag effort-${d.effort}">${EFFORT_TEXT[d.effort]}</span>
-      <span class="tag">${esc(w.phaseName)}</span>
+      ${weekTags}
       ${d.test ? '<span class="tag bench">5k test</span>' : ''}
     </div>
+    ${w.clash ? '<p class="note small">Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.</p>' : ''}
     ${d.note ? `<p class="note small">${esc(d.note)}</p>` : ''}
     <ul class="lines">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
     ${d.wod ? wodBlock(d.wod) : ''}

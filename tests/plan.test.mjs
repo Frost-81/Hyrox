@@ -429,7 +429,7 @@ test('every week of the plan is open: no lock, and the 5k tests can be logged', 
   assert.doesNotMatch(html, /data-subscribe/);
 });
 
-test('pages: one h1, canonical link, description, FAQ data, and HYROX named with a non-affiliation note', () => {
+test('pages: one h1, canonical link, description, FAQ data, and HYROX named for search but not on the page', () => {
   const pages = { 'index.html': 'https://hybridprog.com/', 'wod.html': 'https://hybridprog.com/wod' };
   for (const [file, url] of Object.entries(pages)) {
     const html = readFileSync(new URL(`../public/${file}`, import.meta.url), 'utf8');
@@ -437,11 +437,12 @@ test('pages: one h1, canonical link, description, FAQ data, and HYROX named with
     assert.ok(html.includes(`<link rel="canonical" href="${url}">`), `${file}: canonical`);
     const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || '';
     assert.ok(description.length >= 80 && description.length <= 160, `${file}: description is ${description.length} characters`);
-    // HYROX is named so its community finds the site, always with the note that the site is independent.
+    // HYROX is named in the search data so its community finds the site, but never in the text people see.
     assert.match(html.match(/<title>(.*?)<\/title>/)[1], /HYROX/, `${file}: title`);
     assert.match(description, /HYROX/, `${file}: description`);
     assert.match(html, /<meta name="keywords" content="[^"]*HYROX/, `${file}: keywords`);
-    assert.match(html, /not affiliated with, sponsored or endorsed by HYROX/, `${file}: footer note`);
+    assert.doesNotMatch(html.slice(html.indexOf('<body')), /hyrox/i, `${file}: no HYROX in the page text`);
+    assert.match(html, /not affiliated with, sponsored or endorsed by any race organiser/, `${file}: footer note`);
     for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(json);
     // Two separate products: the WOD page sells only the WOD.
     if (file === 'wod.html') assert.doesNotMatch(html, /12[- ]week/i, 'the WOD page does not mention the 12-week plan');

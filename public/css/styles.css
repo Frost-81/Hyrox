@@ -132,7 +132,8 @@ body[data-page="wod"]::before {
 .page-main { padding-bottom: 32px; }
 .page-head { color: #fff; text-shadow: 0 2px 12px rgb(0 0 0 / 70%); margin: 26px 0 16px; }
 /* One line with the logo beside it, also on phones. */
-.page-head h1 { display: flex; align-items: center; white-space: nowrap; font-size: clamp(1.55rem, 7.4vw, 3.1rem); margin: 0 0 .4rem; }
+/* Sized so the longest heading ("12-week hybrid training plan" and the logo, about 13.4em) fits on a phone. */
+.page-head h1 { display: flex; align-items: center; white-space: nowrap; font-size: clamp(1.2rem, calc(7.2vw - 3px), 3.1rem); margin: 0 0 .4rem; }
 .page-head .eyebrow { color: var(--yellow); margin-bottom: .35rem; }
 .page-lede { font-size: 1.05rem; max-width: 560px; color: rgb(255 255 255 / 88%); margin: 0; }
 .owns-plan .page-lede { display: none; }
@@ -152,7 +153,8 @@ body[data-page="wod"]::before {
 /* The buy card: price, what you get, one button. */
 .buy-card { border: 0; border-top: 6px solid var(--yellow); padding: 22px 20px; box-shadow: 0 16px 50px rgb(0 0 0 / 35%); }
 .buy-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; margin-bottom: 12px; }
-.buy-top h2 { font-size: 1.9rem; margin: 0; }
+/* Shrinks on phones so the longest title ("A new workout every day", about 11em wide) stays on one line. */
+.buy-top h2 { font-size: min(1.9rem, calc(9vw - 7px)); margin: 0; }
 .price { margin: 0; font-weight: 600; color: var(--muted); white-space: nowrap; }
 .price strong { font-family: var(--font-head); font-size: 1.9rem; line-height: 1; color: var(--text); background: var(--yellow); padding: 2px 10px; border-radius: 8px; margin-right: 4px; }
 .checks { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 10px; }
@@ -454,29 +456,16 @@ input[aria-invalid="true"] { border-color: var(--hard); }
 /* ---------- plan week (same look as the WOD page) ---------- */
 
 .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 0; }
-.legend .btn.link { margin-left: auto; }
 .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 .dot.effort-hard { background: var(--hard); }
 .dot.effort-moderate { background: var(--moderate); }
 .dot.effort-easy { background: var(--easy); }
 .dot.effort-rest { background: var(--rest); }
-.badge { display: inline-block; background: var(--yellow); color: var(--text); font-family: var(--font-body); font-size: .72rem; font-weight: 700; border-radius: 999px; padding: 2px 9px; vertical-align: middle; text-transform: none; }
 
-.plan-week { scroll-margin-top: 80px; }
-.plan-week-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; margin-bottom: 12px; }
-.plan-week-title { text-align: center; }
-.plan-week-title h2 { font-size: 1.7rem; margin-bottom: 2px; }
-.plan-week-title p { margin: 0; }
-.plan-week .week-strip { margin-bottom: 10px; }
-.plan-week .note { margin: 10px 0 0; }
-.strip-arrow:disabled { opacity: .3; }
-
-.strip-day { position: relative; }
-.strip-bar { width: 60%; height: 4px; border-radius: 4px; background: var(--rest); }
-.strip-bar.effort-hard { background: var(--hard); }
-.strip-bar.effort-moderate { background: var(--moderate); }
-.strip-bar.effort-easy { background: var(--easy); }
-
+/* The Today button stays top right; a long title wraps beside it. */
+.day-card .wod-top { flex-wrap: nowrap; }
+.day-card .wod-top .btn { flex: none; }
+.day-card .note { margin-bottom: 10px; }
 .day-card .lines { margin-top: 4px; }
 .day-card .lines li { margin-bottom: 4px; }
 .day-card .row-btns { margin-top: 14px; }
@@ -560,7 +549,9 @@ dialog::backdrop { background: rgb(0 0 0 / 55%); }
 
 .week-strip { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
 .week-strip ol { list-style: none; margin: 0; padding: 0; flex: 1; display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.strip-arrow { flex: none; min-width: 32px; padding: 4px 6px; font-size: 1.2rem; }
+/* The plan's arrows to the other weeks, as tall as the days. */
+.strip-arrow { flex: none; align-self: stretch; min-width: 30px; padding: 0 4px; font-size: 1.3rem; border-width: 2px; border-radius: 12px; }
+.strip-arrow:disabled { opacity: .3; }
 .strip-day {
   width: 100%; min-height: 56px; display: grid; place-items: center;
   font: inherit; color: var(--text); cursor: pointer; overflow-wrap: normal;
@@ -571,6 +562,11 @@ dialog::backdrop { background: rgb(0 0 0 / 55%); }
 .strip-day.today { border-color: var(--yellow-dark); }
 .strip-day.selected { background: var(--yellow); border-color: var(--text); }
 .strip-day.selected .strip-wd { color: var(--text); }
+/* The plan's days: a thin line in the day's effort colour, kept when the day is picked or today. */
+.strip-day.effort-hard { border-bottom: 4px solid var(--hard); }
+.strip-day.effort-moderate { border-bottom: 4px solid var(--moderate); }
+.strip-day.effort-easy { border-bottom: 4px solid var(--easy); }
+.strip-day.effort-rest { border-bottom: 4px solid var(--rest); }
 
 .wod-card h2 { font-size: 2rem; margin-bottom: 0; }
 .wod-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
@@ -650,7 +646,7 @@ dialog::backdrop { background: rgb(0 0 0 / 55%); }
 
 @media print {
   body { background: #fff; font-size: 11pt; }
-  .no-print, .site-header, .toast, .consent-bar, .badge, .banner, .page-lede, .page-head .eyebrow, .site-footer .small { display: none !important; }
+  .no-print, .site-header, .toast, .consent-bar, .banner, .page-lede, .page-head .eyebrow, .site-footer .small { display: none !important; }
   body.photo-page::before { display: none; }
   .page-head { color: #000; text-shadow: none; margin-top: 0; }
   .card { box-shadow: none; break-inside: avoid; }
