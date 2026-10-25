@@ -4,7 +4,7 @@
 
 // Stripe's customer portal login page: the user enters their email and Stripe sends a sign-in link.
 // A fallback for the Manage subscription button. Switch with STRIPE_MODE in functions/stripe-config.js.
-const PORTAL_MODE = 'sandbox'; // 'sandbox' | 'live'
+const PORTAL_MODE = 'live'; // 'sandbox' | 'live'
 const PORTAL_LOGIN = {
   sandbox: 'https://billing.stripe.com/p/login/test_8x24gA0ekdlLfze9yt2Ji00',
   live: '', // Stripe → Settings → Billing → Customer portal → "Login link", in the live account

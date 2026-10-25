@@ -1,7 +1,7 @@
 // Stripe ids for each account. To go live, change STRIPE_MODE to 'live', set the live
 // STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET, run scripts/createPromoCodes.js with the live key
 // and deploy the functions. Also switch PORTAL_MODE in public/js/billing.js and deploy hosting.
-export const STRIPE_MODE = 'sandbox'; // 'sandbox' | 'live'
+export const STRIPE_MODE = 'live'; // 'sandbox' | 'live'
 
 const IDS = {
   sandbox: {
