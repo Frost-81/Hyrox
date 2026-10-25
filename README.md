@@ -1,21 +1,27 @@
 # Hybrid Plan Builder
 
-A one-page website that builds a personal 12-week training plan for hybrid fitness races (8 x 1 km runs + 8 stations) from a race date, goal time, division, age group, optional 5k time and chosen training days. Sessions come from the original 12-week plan document, with the athlete's own paces, station weights and dates filled in. A one-time $5 payment unlocks the full plan, and a $5/month subscription unlocks the Workout of the Day.
+A two-page website for hybrid fitness races (8 x 1 km runs + 8 stations). The **12-week plan** page (`/`) builds a personal training plan from a race date, goal time, division, age group, optional 5k time and chosen training days. Sessions come from the original 12-week plan document, with the athlete's own paces, station weights and dates filled in. The **Workout of the Day** page (`/wod`) has a new workout every day. The plan is a one-time $5 payment, and the Workout of the Day is a $5/month subscription.
 
-The site does not use any race organiser's name or branding (trademark). Internal identifiers such as the `hyrox-prog` Firebase project and the `hyrox:*` browser storage keys stay as they are so deploys and saved data keep working.
+The site is built for the HYROX community and names HYROX so people find it on search engines and AI assistants: in the page titles, descriptions, keywords, Open Graph tags, structured data, `llms.txt`, the page eyebrows and headings and one FAQ answer per page. The name is used only to describe what the training is for. There is no HYROX logo, and every page footer (and the Terms) says Hybrid Plan Builder is independent and not affiliated with, sponsored or endorsed by HYROX. The workouts themselves stay generic (the tests check that the plan text and the WOD library don't name it). Internal identifiers such as the `hyrox-prog` Firebase project and the `hyrox:*` browser storage keys stay as they are so deploys and saved data keep working.
+
+Google Analytics 4 (`G-P0GFWB3X3R`, `analytics.js`) loads only after a visitor clicks "Accept" in the consent bar (Quebec Law 25: tracking off by default); "Essential only" stops it and deletes its cookies. Moving between the two pages sends a `page_view` from `site.js`, so in GA4 turn off Enhanced measurement › Page views › "Page changes based on browser history events" to avoid counting those twice.
 
 - No build step: plain HTML, CSS and ES modules in `public/`.
-- Anyone can build a plan and see a preview: summary, projected finish, race splits, paces and the first week.
-- Once a plan is built, the landing page (hero, photos, form) is hidden. The plan shows one week at a time, like the WOD page: a week header with arrows, a 7-day strip and the chosen day's card. The toolbar has the race-plan picker (signed in), Edit, New plan and Delete.
-- The **12-week plan** (one-time $5, for good) unlocks every week and logging the 5k tests. Signing in (Google or email/password) saves plans to Firestore. The lock is a UI gate only, since the session content ships in the page's JS.
+- Two real pages, each with its own title, description, canonical link and FAQ structured data: `index.html` (`/`) and `wod.html` (`/wod`). Old `/#wod` links are redirected to `/wod` by a line of script in `index.html`.
+- Moving between the two pages doesn't reload: the header (and sign-in) stays, and `site.js` fetches the other page once, adds its `<div class="view">` to the document and starts its module, then swaps the views, the title and the head tags and updates the address bar (Back and Forward work). So everything a page shows goes inside its view, and ids must be unique across both pages.
+- **No free preview.** Both pages look alike: a heading on a grey photo, then a buy card, and under it a light band of information (what you get, how it's built, photos, FAQ) for visitors and search engines. Signing in alone changes nothing; only buying does. Owners don't see the buy card or the information band.
+- After buying the **12-week plan** (one-time $5, for good), the buy card becomes the plan form, then the plan: one week at a time, like the WOD page, with a week header with arrows, a 7-day strip and the chosen day's card. The toolbar has the race-plan picker, Edit, New plan and Delete. Plans are saved to Firestore. The lock is a UI gate only, since the session content ships in the page's JS.
+- So owners don't see the buy card flash while sign-in loads, `hyrox:access` remembers what the user owned last time; until the purchases are known, the page shows "Loading…" instead. Back from Stripe (`?paid=plan|wod`), it shows "Unlocking…" until the webhook unlocks the purchase.
 - Weekly layout (weeks 1-11): Mon Endurance, Tue Strength, Wed Active Recovery (about 45 min), Thu Hybrid (written like a Workout of the Day, about 40-45 min), Fri Skill + WOD, Sat Long Endurance / test / simulation, Sun rest. On 5-day plans the Wednesday recovery is dropped.
 - Friday's Skill or Skill/Strength session ends with a short WOD (`WODS` in `sessions.js`), the only one in the week.
+- Every timed round fits the athlete. Thursday Hybrid sessions have a `clock` in `sessions.js`; `clockValues` in `plan.js` times one round with the athlete's own paces and goal (`roundSeconds`) and lengthens the interval, the time on or the time cap until each round leaves at least a minute of rest (a fifth of the work for long rounds). Fewer rounds or sets keep the session about the same length. In Friday EMOMs, `{m:row:30s}` is the metres the athlete covers in 30 s and `{r:N}` cuts the reps for racers slower than 1:10, so every minute leaves rest.
+- Simulations: mock races (runs + a row) in weeks 5, 7 and 10, a half simulation in week 6 (8 x 500 m runs + every station at half its race distance) and the full simulation in week 9.
 - Time fields add the ":" as you type (`maskTime` in `plan.js`), because phone number pads have no colon key: 130 becomes 1:30.
 - 5k tests in weeks 1, 4 and 8 (week 1 Monday, then the long day of weeks 4 and 8). Logging a test (time and, optionally, average heart rate) is the only logging on the site. It updates the paces, heart-rate zones and projected finish straight away, with an Undo in the toast.
 - Projected finish (`projectFinish` in `plan.js`): race-day km pace is about 5k pace x 1.17, and running is 50.3% of the finish, so finish = 8 x km pace / 0.503, rounded to the minute. It is shown against the goal time.
 - Race less than 12 weeks away: the plan starts at the current week and the earlier weeks are left out; the first week shown includes a 5k test (except in the taper). Race more than 12 weeks away: a card says when the 12 weeks start and how to build a base until then.
 - "Edit" changes the goal, days or machines at any time. The plan id depends only on the race date, so 5k test results are kept.
-- Workout of the Day (**WOD** subscription, $5/month): 365 workouts from `public/data/wods.json`, each in a Solo and a Team of 2 version. Subscribers see the current week only, and nothing is logged. See below.
+- Workout of the Day (**WOD** subscription, $5/month): 365 workouts from `public/data/wods.json`, each in a Solo and a Team of 2 version. Subscribers see one week at a time (next week opens Sunday 6 pm), and nothing is logged. See below.
 - Machine swaps: users untick the machines they don't have, and SkiErg/rower work is swapped using the run/row/bike chart (meter columns) in `SWAP_CHART` in `plan.js`.
 - Divisions: Men/Women Open and Pro, plus Men, Women and Mixed Doubles (Open weights).
 - Photos: resized copies are in `public/img/`. The originals are in `photos-original/`, which is not deployed and is gitignored.
@@ -28,14 +34,19 @@ The site does not use any race organiser's name or branding (trademark). Interna
 | `public/js/plan.js` | The engine: dates, splits, paces, weights, placing sessions on the picked days, 45+ and 5-day rules, machine swaps. |
 | `public/js/hr.js` | Heart-rate zones and suggestions from logged sessions. |
 | `public/js/render.js` | HTML for the cards. |
-| `public/js/app.js` | Form, buttons and checkboxes. |
+| `public/js/site.js` | What both pages share: the account menu, the sign-in dialog (Sign in, Create account, Forgot password, Confirm your email, Terms for new Google accounts), buying, the toast, and moving between the pages. Page modules call `startSite({ page, onUser, onAccess, onShow })`; `accessStatus(product)` says whether to show the buy card, a waiting card or the tool. |
+| `public/js/app.js` | The plan page: form, week view, 5k test logs, the account's plans. |
+| `public/js/wodPage.js` | The WOD page. |
+| `public/auth-action.html`, `public/js/authAction.js` | The page our email links open (`/auth-action`): confirms an email address, or sets a new password and signs the user in. |
+| `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt` | For search engines and AI assistants. Add new pages to the sitemap (and update `lastmod` when a page changes) and to `llms.txt`. |
 | `public/js/cloud.js` | Firebase Auth and Firestore. |
 | `public/js/firebase-config.js` | **The only place the Firebase config lives.** |
 | `public/js/wod.js` | Workout of the Day logic: which workout falls on a date, the current week's dates. |
 | `public/js/wodRender.js` | HTML for the WOD view. |
 | `public/js/billing.js` | The two products (`PRODUCTS`: Stripe price and product ids) and the feature gates (`FEATURES`, `canUse`). |
 | `public/js/consent.js` | The cookie/storage consent bar (Law 25). Loaded on every page. |
-| `public/privacy.html`, `public/terms.html` | Privacy Policy and Terms of Use, served at `/privacy` and `/terms`. |
+| `public/js/analytics.js` | Google Analytics 4, started only after the visitor accepts optional cookies (`consentchange` event from `consent.js`). Loaded on every page except `/auth-action`. |
+| `public/privacy.html`, `public/terms.html`, `public/js/legal.js` | Privacy Policy and Terms of Use, served at `/privacy` and `/terms`, written for users in any country. Their ✕ (`legal.js`) goes back to the page the reader came from, or closes the tab the sign-in window opened. |
 | `public/data/wods.json` | The 365-workout library. Do not edit by hand; see `tools/wod/`. |
 | `tools/wod/` | The WOD generator (`generate_wods.py`), the readable library (`wod-library.md`) and `rebrand.mjs`, which removes the race organiser's name from the generated text. Not deployed. |
 | `firestore.rules` | Users can read and write only their own `users/{uid}/plans` and `settings`, with field checks (old `wodResults` can only be read or deleted). Payment data (`customers/{uid}`) is read-only for its owner and written only by the functions. Everything else is denied. |
@@ -67,8 +78,8 @@ The project is `hyrox-prog` (see `.firebaserc`). The web app config is already i
 1. **Firestore:** Firebase console → Build → Firestore Database → Create database. Choose a location (it can't be changed later) and start in production mode. The rules in this repo get deployed over the defaults.
 2. **Authentication:** Firebase console → Build → Authentication → Get started → Sign-in method. Enable **Google** and **Email/Password**.
 3. **Authorized domains:** `hyrox-prog.web.app` and `hyrox-prog.firebaseapp.com` are there by default. Add any custom domain under Authentication → Settings.
-4. **Email (email verification and password resets):** sent by the Cloud Functions in `functions/` (`mail.js`) from `info@hybridprog.com` on Namecheap Private Email, never by Firebase itself. Set the mailbox once: `firebase functions:secrets:set SMTP_URL` with `smtps://info%40hybridprog.com:PASSWORD@mail.privateemail.com:465`. The sender is fixed in `mail.js` and must stay that same mailbox (SPF/DKIM/DMARC). For the emulator, put `SMTP_URL=...` in `functions/.secret.local`.
-5. **Password reset email:** Authentication → Templates → Password reset. Firebase sends it, so nothing to deploy. Set the sender name and, if you like, a custom domain there.
+4. **Email (email verification and password resets):** sent by the Cloud Functions in `functions/` (`mail.js`) from `info@hybridprog.com` on Namecheap Private Email, never by Firebase itself. Set the mailbox once: `firebase functions:secrets:set SMTP_URL` with `smtps://info%40hybridprog.com:PASSWORD@mail.privateemail.com:465`. The sender is fixed in `mail.js` and must stay that same mailbox (SPF/DKIM/DMARC). For the emulator, put `SMTP_URL=...` in `functions/.secret.local`; without it, the emulator only logs the email and its link.
+5. **Email links:** the functions make the links point to our own page, `https://hybridprog.com/auth-action` (`actionLink` in `functions/index.js`), not Firebase's. Optional: also set Authentication → Templates → (pencil) → Customize action URL to `https://hybridprog.com/auth-action`, so any email Firebase itself might send uses it too.
 
 ## Deploy
 
@@ -84,15 +95,19 @@ The site goes live at https://hyrox-prog.web.app.
 
 - Day 1 is `START_DATE = '2026-11-02'` (a Monday) in `wod.js`. The workout for a date is `workouts[((days since start % 365) + 365) % 365]`, using the visitor's local date, so it changes at local midnight and repeats every 365 days.
 - Weekly rotation: Mon strength endurance, Tue run intervals, Wed partner day, Thu engine, Fri for time / simulation (every 4th Friday is a Front Half or Back Half benchmark), Sat light aerobic, Sun optional recovery.
-- Only the current week (Monday to Sunday of today) is shown; `clampToWeek` keeps the chosen day inside it. Results are not logged.
+- Only one week (Monday to Sunday) is shown: the current one, and from Sunday 6 pm local time (`RELEASE_HOUR`) the next one (`wodWeekAnchor`). `clampToWeek` keeps the chosen day inside it. Results are not logged. The site markets this as weekly workouts opening Sunday evening; do not mention the 365-day library on the page.
+- Wall balls in pounds use the official weights (4/6/9 kg = 9/14/20 lb, `wallBallWt` and `textToUnits` in `plan.js`), not a straight conversion.
 - Each workout opens in the version it was written for (`defaultMode`) until the user taps Solo / Team of 2. From then on their choice is used for every workout.
-- To regenerate the library: `python tools/wod/generate_wods.py public/data/wods.json`, then `node tools/wod/rebrand.mjs`.
+- Every fixed interval (EMOM, every n min, n min on, the strength part of Strength + AMRAP) leaves at least a fifth of it to rest, in the solo and the team version (`REST_SHARE` and `fit_window` in the generator), so an athlete about 25% slower than the generator's estimates still finishes inside it. Work is trimmed to fit; a sled already down to one 12.5 m length gets a lighter load. The generator stops without writing if an interval still doesn't fit.
+- To regenerate the library: `python tools/wod/generate_wods.py public/data/wods.json`, then `node tools/wod/rebrand.mjs`. The generator doesn't write `wod-library.md`; update it to match.
 
 ## Data model
 
 `users/{uid}/plans/{planId}` holds `{ inputs, done, logs, createdAt, updatedAt }`. `logs` maps 5k test session keys (`w1-end`, `w4-long`, `w8-long`) to `{ fiveK, hr? }`; a logged test also sets `inputs.fiveK`, `inputs.hr5k` and `inputs.fiveKFromTest`. `planId` is `race-YYYY-MM-DD`. Only the inputs are stored, and the plan is rebuilt from them on load. `done` (old session ticks) is no longer written but is kept so older documents stay valid; old `inputs.paceAdjust` values are still applied.
 
-Email verification: a new email and password account gets a confirmation link from `info@hybridprog.com` (`sendVerifyEmail` in `functions/index.js`, at most 5 per hour per account). Until it is opened, `firestore.rules` (`emailConfirmed`) and the payment functions refuse that sign-in, and the site shows the "Confirm your email" step instead of signing in. Google sign-ins are already verified.
+Email verification: a new email and password account gets a confirmation link from `info@hybridprog.com` (`sendVerifyEmail` in `functions/index.js`, at most 5 per hour per account). The link opens `/auth-action`, which confirms the address and leads back to the page the user signed up on. Until it is opened, `firestore.rules` (`emailConfirmed`) and the payment functions refuse that sign-in, and the site shows the "Confirm your email" step instead of signing in. That step checks every few seconds, so it finishes by itself once the link is opened (on a phone too), then goes on to the purchase that was waiting. Google sign-ins are already verified.
+
+Password reset: "Forgot password?" in the dialog emails a link (`sendPasswordReset`); `/auth-action` asks for the new password, saves it and signs the user in.
 
 `users/{uid}/settings/prefs` holds `{ wodMode: 'solo' | 'team' }`, cached in browser storage per user. Old `users/{uid}/wodResults` documents are no longer written; account deletion still removes them.
 
@@ -116,11 +131,11 @@ Setup:
 
 Founding-member codes: `PLAN50` (12-week plan) and `WOD50` (WOD, free forever) are 100% off for the first 50 redemptions each. Customers type them in the promotion code box that Checkout always shows. Create them once per Stripe mode with `STRIPE_SECRET_KEY=sk_... node scripts/createPromoCodes.js` (run from `functions/`; it skips what already exists). A free plan purchase completes with `payment_status: no_payment_required`, which the webhook accepts, and a free WOD subscription asks for no card.
 
-## Privacy and Law 25
+## Privacy
 
 - The consent bar (`consent.js`) shows until the visitor picks "Essential only" or "Accept"; the choice is stored in `hybrid:consent`. Only essential storage is used today. Check `hasConsent('optional')` before adding analytics, and list any new cookie in the table in `privacy.html`.
 - Access requests are answered by email (there is no download button). Account → Delete my account deletes the Firestore data and the Auth user (it asks the user to sign in again if their sign-in is older than 5 minutes). Stripe subscriptions are cancelled separately, in Manage subscription.
-- Creating an account with email requires ticking the Terms/Privacy box; Google sign-in shows the same notice.
+- Creating an account (email or Google) requires ticking the Terms/Privacy box; signing in shows no Terms. A brand-new Google account made from Sign in gets a one-step "agree to the Terms" screen, and closing it deletes that account again.
 - The person in charge of personal information is reached at info@hybridprog.com. Add a name and mailing address to `privacy.html` when you have them.
 
 ## Before launch

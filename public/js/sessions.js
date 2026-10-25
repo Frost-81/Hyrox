@@ -7,8 +7,25 @@
 //                                       and effort (easy | steady | thr). plan.js writes it out with a
 //                                       split per 500 m, or swaps it for another machine or running.
 //   {push} {pull} {farm} {bag} {wb} {kb} station loads for the week
+//   {m:row:30s}                        machine work in a one-minute window: the metres the athlete covers in 30 s
+//   {r:10}                             reps in a one-minute window: 10 for a 1:10 racer, fewer for slower athletes
+//   {every} {total} {rounds} {sets} {on} {cap}  a session's clock, set by plan.js from `clock` (below)
 // effort: hard | moderate | easy | rest
 // On a 5-day plan the Wednesday recovery session is dropped.
+//
+// clock: the timed rounds of a Hybrid session. `work` is one round, and plan.js times it with the athlete's
+// own paces so every round fits, with rest to spare. `every`, `on` and `cap` are the least the session gets;
+// a slower athlete gets more time per round and fewer rounds or sets, so the session keeps its length.
+//   { every, total, work }      "Every {every} min for {total} min ({rounds})"
+//   { sets, on, off, work }     "{sets}, {on} min on / 2 min off": the work, then max reps in the time left
+//   { rounds, cap, work }       "{rounds} for time ({cap}-min cap)"
+// work items: ['run', metres, pace token], ['row' | 'ski', metres], or [MOVE_SEC key, reps or metres].
+
+/** Seconds per rep (or per metre) for an athlete racing about 1:10, as in tools/wod/generate_wods.py. */
+export const MOVE_SEC = {
+  airSquat: 1.8, bbj: 5.0, burpee: 4.0, gobletSquat: 2.5, kbSwing: 2.2, lunge: 2.0, wallBall: 3.0, sbClean: 3.0,
+  sbLunge: 3.0, sledPush: 3.6, sledPull: 4.0, // per metre
+};
 
 export const PHASES = {
   1: 'Building the Foundation',
@@ -46,8 +63,9 @@ export const WEEKS = [
         plank('45-60'),
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hips and ankles') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        'Every 4 min for 40 min (10 rounds), each round:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { every: 4, total: 40, work: [['run', 500, 'steady'], ['airSquat', 10], ['bbj', 5]] }, lines: [
+        'Every {every} min for {total} min ({rounds}), each round:',
         '500 m run @ {steady}',
         '10 air squats',
         '5 burpee broad jumps',
@@ -79,8 +97,9 @@ export const WEEKS = [
         'Overhead Press: 3 sets of 8-10 reps',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('thoracic spine and shoulders') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '4 sets, 9 min on / 2 min off:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { sets: 4, on: 9, off: 2, work: [['run', 800, 'thr'], ['ski', 250], ['lunge', 20]] }, lines: [
+        '{sets}, {on} min on / 2 min off:',
         '800 m run @ {thr}',
         '{m:ski:250m}',
         '20 walking lunges',
@@ -112,8 +131,9 @@ export const WEEKS = [
         'Glute Bridges: 3 sets of 15 reps',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hamstrings and hip flexors') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '5 sets, 7 min on / 1 min off:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { sets: 5, on: 7, off: 1, work: [['run', 800, 'steady'], ['kbSwing', 15]] }, lines: [
+        '{sets}, {on} min on / 1 min off:',
         '800 m run @ {steady}',
         '15 KB swings @ {kb}',
         'Max burpees in the time left',
@@ -144,8 +164,9 @@ export const WEEKS = [
         plank('60'),
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('easy full-body flow (deload week)') },
-      { key: 'hyb', label: 'Hybrid', effort: 'moderate', lines: [
-        'Every 3 min for 36 min (12 rounds), smooth (deload week), each round:',
+      { key: 'hyb', label: 'Hybrid', effort: 'moderate',
+        clock: { every: 3, total: 36, work: [['run', 400, 'steady'], ['airSquat', 10]] }, lines: [
+        'Every {every} min for {total} min ({rounds}), smooth (deload week), each round:',
         '400 m run @ {steady}',
         '10 air squats',
         'Rest the time left, then start the next round',
@@ -178,8 +199,9 @@ export const WEEKS = [
         'Weighted Plank: 3 sets, hold for 45-60 seconds',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hips and ankles') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '3 rounds for time (40-min cap):',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { rounds: 3, cap: 40, work: [['run', 1000, 'thr'], ['row', 500], ['bbj', 12], ['wallBall', 20]] }, lines: [
+        '{rounds} for time ({cap}-min cap):',
         '1 km run @ {thr}',
         '{m:row:500m}',
         '12 burpee broad jumps',
@@ -192,7 +214,7 @@ export const WEEKS = [
         'Sandbag Cleans: 3 sets of 10 reps @ {bag}',
         'Sandbag Lunges: 3 sets of 10 reps per leg @ {bag}',
       ] },
-      { key: 'long', label: 'Simulation', effort: 'hard', lines: [
+      { key: 'long', label: 'Mock Race', effort: 'hard', lines: [
         'Mock Race Block: 2 km Run @ {race} + {m:row:1000m} + 2 km Run @ {race}. Focus on pacing',
       ] },
     ],
@@ -212,8 +234,9 @@ export const WEEKS = [
         'Dips: 3 sets of AMRAP or 8-10 reps',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('thoracic spine and shoulders') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '4 sets, 9 min on / 2 min off:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { sets: 4, on: 9, off: 2, work: [['run', 800, 'steady'], ['sledPush', 25], ['sledPull', 25]] }, lines: [
+        '{sets}, {on} min on / 2 min off:',
         '800 m run @ {steady}',
         '25 m sled push @ {push}',
         '25 m sled pull @ {pull}',
@@ -226,8 +249,8 @@ export const WEEKS = [
         'Bear Crawls: 3 sets of 30 m',
         'Sandbag Overhead Lunges: 3 sets of 8 reps per leg @ {bag}',
       ] },
-      { key: 'long', label: 'Full Simulation', effort: 'hard', sim: true, lines: [
-        'Full race simulation: 8 x 1 km run + all 8 stations in race order at race weights. Practise smooth transitions',
+      { key: 'long', label: 'Half Simulation', effort: 'hard', sim: 'half', lines: [
+        'Half race simulation: 8 x 500 m run + all 8 stations in race order at half the race distance, at race weights. Practise smooth transitions',
       ] },
     ],
   },
@@ -246,8 +269,9 @@ export const WEEKS = [
         'Push-ups: 3 sets of AMRAP',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hamstrings and hip flexors') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        'Every 5 min for 40 min (8 rounds), each round:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { every: 5, total: 40, work: [['run', 600, 'thr'], ['kbSwing', 15], ['sbLunge', 20]] }, lines: [
+        'Every {every} min for {total} min ({rounds}), each round:',
         '600 m run @ {thr}',
         '15 KB swings @ {kb}',
         '20 m sandbag lunges @ {bag}',
@@ -261,7 +285,7 @@ export const WEEKS = [
         "Farmer's Carry: 4 x 50 m @ {farm} (increase weight)",
         'Wall Balls: 4 sets of 12 reps @ {wb}',
       ] },
-      { key: 'long', label: 'Simulation', effort: 'hard', lines: [
+      { key: 'long', label: 'Mock Race', effort: 'hard', lines: [
         'Mock Race: 3 km Run @ {race} + {m:row:1000m} + 3 km Run @ {race}. Focus on pacing and managing fatigue',
       ] },
     ],
@@ -281,8 +305,9 @@ export const WEEKS = [
         'Renegade Rows: 3 sets of 8 reps per side',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('calves, ankles and feet') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '4 rounds for time (45-min cap):',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { rounds: 4, cap: 45, work: [['run', 1000, 'steady'], ['sledPull', 50], ['ski', 500], ['sbClean', 15]] }, lines: [
+        '{rounds} for time ({cap}-min cap):',
         '1 km run @ {steady}',
         '50 m sled pull @ {pull}',
         '{m:ski:500m}',
@@ -318,8 +343,9 @@ export const WEEKS = [
         'Weighted Plank: 3 sets, hold for 60 seconds',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('hips and ankles') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        '5 sets, 8 min on / 1 min off:',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { sets: 5, on: 8, off: 1, work: [['run', 800, 'thr'], ['bbj', 10]] }, lines: [
+        '{sets}, {on} min on / 1 min off:',
         '800 m run @ {thr}',
         '10 burpee broad jumps',
         'Max wall balls @ {wb} in the time left',
@@ -332,7 +358,7 @@ export const WEEKS = [
         'Sandbag Cleans: 4 sets of 10 reps @ {bag}',
         'Wall Balls: 4 sets of 15 reps @ {wb}',
       ] },
-      { key: 'long', label: 'Full Simulation', effort: 'hard', sim: true, lines: [
+      { key: 'long', label: 'Full Simulation', effort: 'hard', sim: 'full', lines: [
         'Full Race Simulation: complete all 8 km of running and all 8 stations in race order. Focus on smooth transitions and pacing',
       ] },
     ],
@@ -352,8 +378,9 @@ export const WEEKS = [
         'Dips: 3 sets of AMRAP or 8-10 reps',
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('thoracic spine and shoulders') },
-      { key: 'hyb', label: 'Hybrid', effort: 'hard', lines: [
-        'Every 6 min for 42 min (7 rounds):',
+      { key: 'hyb', label: 'Hybrid', effort: 'hard',
+        clock: { every: 6, total: 42, work: [['run', 1000, 'steady'], ['row', 250], ['wallBall', 15]] }, lines: [
+        'Every {every} min for {total} min ({rounds}):',
         '1 km run @ {steady}',
         '{m:row:250m}',
         '15 wall balls @ {wb}, rest the time left',
@@ -365,7 +392,7 @@ export const WEEKS = [
         "Farmer's Carry: 3 x 50 m @ {farm} (focus on grip)",
         'Wall Balls: 3 sets of 20 reps @ {wb}',
       ] },
-      { key: 'long', label: 'Simulation', effort: 'hard', lines: [
+      { key: 'long', label: 'Mock Race', effort: 'hard', lines: [
         'Mock Race: 6 km Run @ {race} + {m:row:1000m} + 6 km Run @ {race}. Focus on maintaining effort. Last hard session before the taper',
       ] },
     ],
@@ -385,8 +412,9 @@ export const WEEKS = [
         plank('45'),
       ] },
       { key: 'rec', label: 'Active Recovery', effort: 'easy', lines: recovery('easy full-body flow, nothing forced') },
-      { key: 'hyb', label: 'Hybrid', effort: 'moderate', lines: [
-        'Every 4 min for 24 min (6 rounds), crisp, not hard (taper week):',
+      { key: 'hyb', label: 'Hybrid', effort: 'moderate',
+        clock: { every: 4, total: 24, work: [['run', 400, 'steady'], ['sbClean', 8]] }, lines: [
+        'Every {every} min for {total} min ({rounds}), crisp, not hard (taper week):',
         '400 m run @ {steady}',
         '8 sandbag cleans @ {bag}, rest the time left',
         WARM_UP,
@@ -455,35 +483,35 @@ export const WODS = {
   '1-skl': { title: '12-min AMRAP, easy pace', lines: [
     '{m:row:200m}', '10 air squats', '8 push-ups', '5 burpee broad jumps',
   ] },
-  '2-skl': { title: 'EMOM 12', lines: [
-    'Odd minutes: {m:row:200m}', 'Even minutes: 10 walking lunges + 5 burpees',
+  '2-skl': { title: 'EMOM 12, three-minute rotation', lines: [
+    'Minute 1: {m:row:30s}', 'Minute 2: {r:12} walking lunges', 'Minute 3: {r:6} burpees',
   ] },
   '3-skl': { title: '14-min AMRAP', lines: [
     '200 m run @ {steady}', '12 wall balls @ {wb}', '8 burpees',
   ] },
   '4-skl': { title: 'EMOM 10, easy (deload week)', lines: [
-    'Odd minutes: 8 wall balls @ {wb}', 'Even minutes: {m:row:150m}',
+    'Odd minutes: {r:8} wall balls @ {wb}', 'Even minutes: {m:row:30s}',
   ] },
   '5-skl': { title: '12-min AMRAP, steady', lines: [
     '{m:row:250m}', '8 sandbag lunges @ {bag}', '8 KB swings @ {kb}',
   ] },
   '6-skl': { title: 'EMOM 12, smooth (simulation tomorrow)', lines: [
-    'Odd minutes: 10 wall balls @ {wb}', 'Even minutes: {m:row:150m}',
+    'Odd minutes: {r:10} wall balls @ {wb}', 'Even minutes: {m:row:30s}',
   ] },
   '7-skl': { title: '14-min AMRAP', lines: [
     '200 m run @ {race}', '12 wall balls @ {wb}', '6 burpee broad jumps',
   ] },
   '8-skl': { title: 'EMOM 10, easy (5k test tomorrow)', lines: [
-    'Odd minutes: {m:ski:150m}', 'Even minutes: 8 goblet squats @ {kb}',
+    'Odd minutes: {m:ski:30s}', 'Even minutes: {r:8} goblet squats @ {kb}',
   ] },
   '9-skl': { title: 'EMOM 10, smooth (simulation tomorrow)', lines: [
-    'Odd minutes: 10 wall balls @ {wb}', 'Even minutes: easy {m:row:100m}',
+    'Odd minutes: {r:10} wall balls @ {wb}', 'Even minutes: easy {m:row:30s}',
   ] },
   '10-skl': { title: '12-min AMRAP, steady', lines: [
     '{m:row:250m}', '10 KB swings @ {kb}', '10 box step-ups',
   ] },
   '11-skl': { title: 'EMOM 8, light and crisp', lines: [
-    'Odd minutes: 6 wall balls @ {wb}', 'Even minutes: {m:ski:100m}',
+    'Odd minutes: {r:6} wall balls @ {wb}', 'Even minutes: {m:ski:30s}',
   ] },
 };
 

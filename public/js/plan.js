@@ -1,5 +1,5 @@
 // Pure plan engine: no DOM, no storage. Turns form inputs into a dated plan.
-import { WEEKS, RACE_WEEK, PHASES, WEEK_LOAD, BEFORE_12_WEEKS, RECOVERY_TIPS_45, HR_TEST } from './sessions.js';
+import { WEEKS, RACE_WEEK, PHASES, WEEK_LOAD, BEFORE_12_WEEKS, RECOVERY_TIPS_45, HR_TEST, MOVE_SEC } from './sessions.js';
 import { hrProfile, fmtZone } from './hr.js';
 
 const MEN_OPEN = { push: 152, pull: 103, farm: 24, bag: 20, wb: 6 };
@@ -34,16 +34,16 @@ export const AGE_GROUPS = ['16-24', '25-29', '30-34', '35-39', '40-44', '45-49',
 export const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Share of the station total, in race order.
+// Share of the station total, in race order. half: the distance in a half simulation.
 export const STATIONS = [
-  { key: 'ski', name: 'SkiErg', dist: '1000 m', share: 0.144 },
-  { key: 'push', name: 'Sled push', dist: '50 m', share: 0.103 },
-  { key: 'pull', name: 'Sled pull', dist: '50 m', share: 0.138 },
-  { key: 'bbj', name: 'Burpee broad jumps', dist: '80 m', share: 0.121 },
-  { key: 'row', name: 'Row', dist: '1000 m', share: 0.147 },
-  { key: 'farm', name: 'Farmers carry', dist: '200 m', share: 0.052 },
-  { key: 'lunge', name: 'Sandbag lunges', dist: '100 m', share: 0.129 },
-  { key: 'wb', name: 'Wall balls', dist: 'race reps', share: 0.167 },
+  { key: 'ski', name: 'SkiErg', dist: '1000 m', half: '500 m', share: 0.144 },
+  { key: 'push', name: 'Sled push', dist: '50 m', half: '25 m', share: 0.103 },
+  { key: 'pull', name: 'Sled pull', dist: '50 m', half: '25 m', share: 0.138 },
+  { key: 'bbj', name: 'Burpee broad jumps', dist: '80 m', half: '40 m', share: 0.121 },
+  { key: 'row', name: 'Row', dist: '1000 m', half: '500 m', share: 0.147 },
+  { key: 'farm', name: 'Farmers carry', dist: '200 m', half: '100 m', share: 0.052 },
+  { key: 'lunge', name: 'Sandbag lunges', dist: '100 m', half: '50 m', share: 0.129 },
+  { key: 'wb', name: 'Wall balls', dist: 'race reps', half: 'half the race reps', share: 0.167 },
 ];
 
 const DAY = 86400000;
@@ -65,18 +65,28 @@ export function lbFromKg(kg) {
 /** "24 kg" or "53 lb". */
 export const wt = (kg, units) => (units === 'lb' ? `${lbFromKg(kg)} lb` : `${kg} kg`);
 
+// Wall balls come in official pound weights (a straight conversion would give 13 lb for 6 kg).
+const WALL_BALL_LB = { 4: 9, 6: 14, 9: 20 };
+const wallBallLb = (kg) => WALL_BALL_LB[kg] ?? lbFromKg(kg);
+
+/** "6 kg" or "14 lb", for a wall ball. */
+export const wallBallWt = (kg, units) => (units === 'lb' ? `${wallBallLb(kg)} lb` : `${kg} kg`);
+
 /**
- * Rewrite weights in free text (the WOD library) in pounds: "6/4 kg" -> "13/9 lb",
- * "2x24/2x16 kg" -> "2x55/2x35 lb". Text is unchanged for kg.
+ * Rewrite weights in free text (the WOD library) in pounds: "2x24/2x16 kg" -> "2x55/2x35 lb", and wall balls
+ * in their official weights: "wall balls (6/4 kg)" -> "wall balls (14/9 lb)". Text is unchanged for kg.
  */
 export function textToUnits(text, units) {
   if (units !== 'lb' || !text) return text;
-  const one = (v) => {
+  const lb = (toLb) => (a, b) => `${[a, b].filter(Boolean).map((v) => {
     const m = /^(2x)?(\d+(?:\.\d+)?)$/.exec(v);
-    return `${m[1] || ''}${lbFromKg(+m[2])}`;
-  };
-  return text.replace(/((?:2x)?\d+(?:\.\d+)?)(?:\/((?:2x)?\d+(?:\.\d+)?))? kg\b/g,
-    (_, a, b) => `${[a, b].filter(Boolean).map(one).join('/')} lb`);
+    return `${m[1] || ''}${toLb(+m[2])}`;
+  }).join('/')} lb`;
+  return text
+    // The first weight after "wall ball(s)" on the same line is the ball's.
+    .replace(/(wall balls?\b[^\n]*?)((?:2x)?\d+(?:\.\d+)?)(?:\/((?:2x)?\d+(?:\.\d+)?))? kg\b/gi,
+      (_, before, a, b) => before + lb(wallBallLb)(a, b))
+    .replace(/((?:2x)?\d+(?:\.\d+)?)(?:\/((?:2x)?\d+(?:\.\d+)?))? kg\b/g, (_, a, b) => lb(lbFromKg)(a, b));
 }
 
 // ---------- parsing & formatting ----------
@@ -268,14 +278,66 @@ function tokenValues(ctx, week) {
     farm: `2 x ${kg(L.farm)}`,
     bag: kg(div.bag),
     kb: kg(div.farm),
-    wb: kg(div.wb),
+    wb: wallBallWt(div.wb, units),
   };
 }
 
 export function fill(line, values, ctx) {
   return line
     .replace(/\{m:([^}]+)\}/g, (m, spec) => (ctx ? machineText(spec, ctx, values) : m))
+    .replace(/\{r:(\d+)\}/g, (m, n) => (ctx ? repsFor(+n, ctx) : m))
     .replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
+}
+
+// ---------- round clocks ----------
+
+const REF_GOAL = 70 * 60; // MOVE_SEC is for an athlete racing about 1:10
+const TRANSITION = 10; // seconds to move on to the next exercise
+const MAX_REPS_TIME = 90; // seconds left for the "max reps in the time left" finisher
+const runPace = (paces, token) => (token === '5k' ? paces.fiveK : token === 'easy' ? paces.easy[1] : paces[token]);
+
+/** Station work is slower for slower racers: MOVE_SEC scaled by goal time. */
+const level = (ctx) => ctx.goal / REF_GOAL;
+
+/** Reps for a one-minute window: as written for a 1:10 racer, fewer for slower athletes so the minute still fits. */
+export const repsFor = (n, ctx) => Math.max(1, Math.round(n * Math.min(1, 1 / level(ctx))));
+
+/** Seconds one round of `work` takes this athlete: runs at their pace, machines at their steady split, stations by level. */
+export function roundSeconds(work, ctx) {
+  return work.reduce((t, [move, n, pace]) => {
+    if (move === 'run') return t + (n / 1000) * runPace(ctx.paces, pace) + TRANSITION;
+    if (move === 'row' || move === 'ski') return t + (n / 500) * ctx.paces[move].steady + TRANSITION;
+    return t + n * MOVE_SEC[move] * level(ctx) + TRANSITION;
+  }, 0);
+}
+
+/** Rest after the work in each round: at least a minute, and a fifth of the work for long rounds. */
+export const restFor = (workSec) => Math.max(60, 0.2 * workSec);
+
+const count = (n, noun) => `${n} ${noun}${n === 1 ? '' : 's'}`;
+
+/**
+ * A Hybrid session's clock for this athlete (see `clock` in sessions.js): the interval, time on or time cap
+ * grows until a round fits with rest to spare. The session keeps about the same length, so a longer
+ * interval means fewer rounds or sets, and a for-time session that would run long drops a round.
+ */
+export function clockValues(clock, ctx) {
+  const work = roundSeconds(clock.work, ctx);
+  if (clock.every) {
+    const every = Math.max(clock.every, Math.ceil((work + restFor(work)) / 60));
+    const rounds = Math.max(2, Math.round(clock.total / every));
+    return { every, rounds: count(rounds, 'round'), total: every * rounds };
+  }
+  if (clock.on) {
+    const on = Math.max(clock.on, Math.ceil((work + MAX_REPS_TIME) / 60));
+    const sets = Math.max(2, Math.round((clock.sets * (clock.on + clock.off)) / (on + clock.off)));
+    return { on, sets: count(sets, 'set') };
+  }
+  // For time: a cap about 15% over the expected time, in 5-minute steps.
+  const capFor = (r) => 5 * Math.ceil((r * work) / 0.85 / 300);
+  let rounds = clock.rounds;
+  while (rounds > 1 && capFor(rounds) > clock.cap + 5) rounds--;
+  return { rounds: count(rounds, 'round'), cap: Math.max(clock.cap, capFor(rounds)) };
 }
 
 // ---------- lifting targets ----------
@@ -359,15 +421,17 @@ function convert(meters, per, sex) {
 }
 
 /**
- * Write out a machine token such as "row:1000m", "ski:15min:easy" or "row:2 x 10min:thr",
+ * Write out a machine token such as "row:1000m", "ski:15min:easy", "row:2 x 10min:thr" or "row:30s"
+ * (the metres the athlete covers in 30 s at a steady split, for one-minute windows),
  * swapping to another machine or to running when the athlete doesn't have it.
  */
 export function machineText(spec, ctx, values) {
   const [machine, amount, effort] = spec.split(':');
-  const m = /^(?:(\d+) x )?(\d+)(m|min)$/.exec(amount);
+  const m = /^(?:(\d+) x )?(\d+)(m|min|s)$/.exec(amount);
   if (!m) return spec;
   const reps = m[1] ? `${m[1]} x ` : '';
-  const n = +m[2];
+  const unit = m[3] === 's' ? 'm' : m[3];
+  const n = m[3] === 's' ? Math.max(50, Math.round(((+m[2] / ctx.paces[machine].steady) * 500) / 10) * 10) : +m[2];
   const has = (k) => ctx.equipment.includes(k);
   const sex = ctx.div.sex;
 
@@ -375,7 +439,7 @@ export function machineText(spec, ctx, values) {
   const use = has(machine) ? machine : machine === 'ski' && has('row') ? 'row' : null;
   const swapNote = use === machine ? '' : ` (${NO_MACHINE[machine]})`;
 
-  if (m[3] === 'm') {
+  if (unit === 'm') {
     if (use) {
       const split = effort ? ` @ about ${fmtTime(ctx.paces[use][effort])}/500 m` : '';
       return `${reps}${n} m ${use === 'ski' ? 'SkiErg' : 'row'}${split}${swapNote}`;
@@ -395,16 +459,22 @@ export function machineText(spec, ctx, values) {
   return `Run: ${time} @ ${values[effort || 'easy']}${swapNote}`;
 }
 
-function simLines(splits, div, ctx, values) {
+/** The race in order with targets; a half simulation halves every run and station. */
+function simLines(splits, div, ctx, values, half = false) {
   const load = {
     push: ` @ ${wt(div.push, ctx.units)}`, pull: ` @ ${wt(div.pull, ctx.units)}`, farm: ` @ 2 x ${wt(div.farm, ctx.units)}`,
-    lunge: ` @ ${wt(div.bag, ctx.units)}`, wb: ` @ ${wt(div.wb, ctx.units)}`,
+    lunge: ` @ ${wt(div.bag, ctx.units)}`, wb: ` @ ${wallBallWt(div.wb, ctx.units)}`,
   };
+  const share = half ? 0.5 : 1;
   return [
-    'Each round: 1 km run @ {race}, then the station. Targets in brackets:',
+    half
+      ? 'Each round: 500 m run @ {race}, then the station at half its race distance. Targets in brackets:'
+      : 'Each round: 1 km run @ {race}, then the station. Targets in brackets:',
     ...splits.perStation.map((s, i) => {
-      const station = s.key === 'ski' || s.key === 'row' ? machineText(`${s.key}:1000m`, ctx, values) : `${s.name} ${s.dist}${load[s.key] || ''}`;
-      return `${i + 1}. ${station} (${fmtTime(s.time)})`;
+      const station = s.key === 'ski' || s.key === 'row'
+        ? machineText(`${s.key}:${1000 * share}m`, ctx, values)
+        : `${s.name} ${half ? s.half : s.dist}${load[s.key] || ''}`;
+      return `${i + 1}. ${station} (${fmtTime(s.time * share)})`;
     }),
     `Keep transitions (Roxzone) brisk: about ${fmtTime(splits.roxzone / 16)} each.`,
   ];
@@ -492,7 +562,7 @@ export function buildPlan(inp, today = todayYmd()) {
   const is45 = AGE_GROUPS.indexOf(inp.age) >= AGE_GROUPS.indexOf('45-49');
   const bodyWeight = Number(String(inp.bodyWeight ?? '').replace(',', '.')) || null;
   const units = unitsOf(inp);
-  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment, is45, bodyWeight, units };
+  const ctx = { paces, div, hr: hr.source === 'estimate' ? null : hr, equipment, is45, bodyWeight, units, goal };
   const days = [...inp.days].map(Number).sort((a, b) => a - b);
   const fiveDay = days.length === 5;
 
@@ -518,7 +588,7 @@ export function buildPlan(inp, today = todayYmd()) {
       for (let d = 0; d < 7; d++) {
         const s = a.byDay[d];
         if (!s) { dayList.push(restDay(start + d * DAY)); continue; }
-        const lines = s.sim ? [...s.lines, ...simLines(splits, div, ctx, values)] : s.lines;
+        const lines = s.sim ? [...s.lines, ...simLines(splits, div, ctx, values, s.sim === 'half')] : s.lines;
         dayList.push(makeDay(start + d * DAY, n, s, lines, values, ctx));
       }
     } else {
@@ -589,6 +659,7 @@ export function buildPlan(inp, today = todayYmd()) {
 const ZONE_TOKEN = /\{(easy|steady|thr|5k|race)\}/;
 
 function makeDay(date, week, s, lines, values, ctx) {
+  if (s.clock) values = { ...values, ...clockValues(s.clock, ctx) };
   // A 5k test is run at 5k effort, even though its first line is the easy warm-up.
   const zone = s.test ? '5k' : lines.map((l) => ZONE_TOKEN.exec(l)?.[1]).find(Boolean);
   return {

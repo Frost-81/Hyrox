@@ -1,7 +1,6 @@
 // HTML builders for the plan output. Everything user-supplied goes through esc().
 import { fmtTime, fmtDate, SWAP_CHART } from './plan.js';
 import { fmtZone } from './hr.js';
-import { PRODUCTS } from './billing.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -33,23 +32,6 @@ export function dayStrip(days, { selected, today, attr }) {
       </button></li>`).join('')}
     </ol>
   </nav>`;
-}
-
-const PAYWALL_TEXT = {
-  plan: { title: 'Unlock your full plan', text: 'Week 1 is your free preview. Unlock all 12 weeks, log your 5k tests to keep your paces and projected finish up to date, and keep your plan on any device.', button: 'Unlock', fine: 'One-time payment. No subscription.' },
-  wod: { title: 'Workout of the Day', text: 'A new hybrid workout every day, solo or with a partner. Subscribe to see this week\'s workouts.', button: 'Subscribe', fine: 'Cancel any time.' },
-};
-
-/** The lock card for a product, with its buy button. */
-export function paywall(product) {
-  const t = PAYWALL_TEXT[product];
-  return `
-  <section class="card unlock no-print">
-    <h2>🔒 ${esc(t.title)}</h2>
-    <p>${esc(t.text)}</p>
-    <button type="button" class="btn primary big" data-subscribe="${product}">${esc(t.button)} · ${esc(PRODUCTS[product].price)}</button>
-    <p class="small muted">${esc(t.fine)}</p>
-  </section>`;
 }
 
 function minutesText(sec) {
@@ -180,8 +162,10 @@ export function glossaryCard() {
     <dl>
       ${item('AMRAP', 'As many reps as possible, with good form.')}
       ${item('Romanian deadlift', 'A deadlift where you keep the legs nearly straight and hinge at the hips.')}
-      ${item('Mock race block', 'A run + station combo done back-to-back, to practise running on tired legs.')}
+      ${item('Mock race', 'Runs and a row done back-to-back at race pace, to practise running on tired legs.')}
+      ${item('Half simulation', 'The whole race in order at half the distance: 8 x 500 m runs, each followed by a station at half its race distance.')}
       ${item('Full simulation', 'The whole race in order: 8 x 1 km runs, each followed by a station.')}
+      ${item('Every 6 min', 'Start a round every 6 minutes and rest for what is left. Your intervals are set from your paces, so each round leaves you at least a minute of rest.')}
       ${item('Overload', 'Training a bit heavier than race weight so race day feels lighter.')}
       ${item('% of body weight', 'Your target for the working sets of a lift, set from your body weight, your division, the reps and the week. It is a starting guide: pick a weight that leaves about 2 good reps in the tank, and go lighter if your form breaks down. New to a lift? Start 10-20% lighter.')}
       ${item('Taper', 'Cutting training down before the race so you start fresh.')}
@@ -194,13 +178,11 @@ export function glossaryCard() {
 
 /**
  * One week at a time, like the WOD page: a week header with arrows, a day strip, and the chosen day's card.
- * locked: weeks after the first one shown are behind the plan paywall.
  */
-export function planWeek(plan, { weekIdx, ymd, locked, logs = {} }) {
+export function planWeek(plan, { weekIdx, ymd, logs = {} }) {
   const w = plan.weeks[weekIdx];
   const today = plan.today;
   const day = w.days.find((d) => d.ymd === ymd) || w.days[0];
-  const isLocked = locked && weekIdx > 0;
   const days = w.days.map((d) => ({ ymd: d.ymd, weekday: d.weekday, date: Number(d.ymd.slice(8)), effort: d.effort }));
   const todayInPlan = plan.weeks.some((x) => x.days.some((d) => d.ymd === today));
   const arrow = (dir, label, disabled) =>
@@ -224,12 +206,12 @@ export function planWeek(plan, { weekIdx, ymd, locked, logs = {} }) {
       <span class="dot effort-rest"></span>Rest
       ${todayInPlan && day.ymd !== today ? '<button type="button" class="btn link" data-plan-today>Back to today</button>' : ''}
     </p>
-    ${w.clash && !isLocked ? '<p class="note small">Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.</p>' : ''}
+    ${w.clash ? '<p class="note small">Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.</p>' : ''}
   </section>
-  ${isLocked ? paywall('plan') : dayCard(day, w, today, logs[day.key], locked)}`;
+  ${dayCard(day, w, today, logs[day.key])}`;
 }
 
-function dayCard(d, w, today, log, locked) {
+function dayCard(d, w, today, log) {
   const when = `${d.ymd === today ? 'Today · ' : ''}${FULL_DAY[d.weekday]} ${esc(fmtDate(d.date))} · Week ${w.n}`;
   if (d.effort === 'rest') {
     return `
@@ -243,9 +225,7 @@ function dayCard(d, w, today, log, locked) {
   const testLog = d.test ? `
     ${log?.fiveK ? `<p class="logged small">✓ Logged: 5k ${esc(log.fiveK)}${log.hr ? ` · ${esc(log.hr)} bpm` : ''}</p>` : ''}
     <div class="row-btns">
-      ${locked
-        ? '<button type="button" class="btn primary" data-subscribe="plan">Unlock to log your 5k</button>'
-        : `<button type="button" class="btn primary" data-log="${esc(d.key)}">${log?.fiveK ? 'Edit 5k result' : 'Log 5k result'}</button>`}
+      <button type="button" class="btn primary" data-log="${esc(d.key)}">${log?.fiveK ? 'Edit 5k result' : 'Log 5k result'}</button>
     </div>` : '';
   return `
   <section class="card wod-card day-card" aria-live="polite">

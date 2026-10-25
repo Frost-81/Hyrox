@@ -19,13 +19,21 @@ export const MAIL = {
   site: 'https://hybridprog.com',
 };
 
+// Running in the Functions emulator (firebase emulators:start).
+export const EMULATOR = process.env.FUNCTIONS_EMULATOR === 'true';
+
 let transport = null;
 
 /**
  * Sends one email with both a plain-text and an HTML part. On failure the SMTP error is logged
  * and the caller gets a generic error, so server details never reach the user.
+ * In the emulator without functions/.secret.local, the email is only logged (its link is logged too).
  */
 export async function sendEmail({ to, subject, text, html }) {
+  if (EMULATOR && !SMTP_URL.value()) {
+    logger.info('Email not sent (no SMTP_URL in the emulator)', { to, subject });
+    return;
+  }
   transport ??= nodemailer.createTransport(SMTP_URL.value());
   try {
     await transport.sendMail({ from: MAIL.from, replyTo: MAIL.replyTo, to, subject, text, html });

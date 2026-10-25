@@ -12,7 +12,7 @@
    "race weights (Men/Women Open)": "Sled push 152/102 kg, sled pull 103/78 kg (sled included), farmers 2x24/2x16 kg, sandbag 20/10 kg, wall ball 6/4 kg.",
    "P1/P2": "Partner 1 / partner 2 in the team version.",
    "Solo / Team": "Every workout has a solo and a team-of-2 version. The team version adds work and says how to share it: split as you wish (one partner works at a time), you go / I go (alternate turns), or synchro (together). defaultMode is the version the workout was written for.",
-   "EnMOM": "Every n minutes on the minute: start the work at the top of each interval, rest for what is left.",
+   "EnMOM": "Every n minutes on the minute: start the work at the top of each interval, rest for what is left. The work is sized to leave about a fifth of each interval to rest; if you have under 10 s left, cut the reps or metres.",
    "AMRAP": "As many rounds and reps as possible in the time."
   },
   "weeklyRotation": {
@@ -63,13 +63,13 @@
        "8/6 cal SkiErg",
        "14 goblet lunges (22.5/15 kg)",
        "10 m sandbag walking lunges (20/10 kg)",
-       "8 burpee dual-DB step-overs (2x22.5/15 kg)"
+       "6 burpee dual-DB step-overs (2x22.5/15 kg)"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 14 goblet lunges (22.5/15 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 8 burpee dual-DB step-overs (2x22.5/15 kg)"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 14 goblet lunges (22.5/15 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 6 burpee dual-DB step-overs (2x22.5/15 kg)"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -78,16 +78,16 @@
     "blocks": [
      {
       "items": [
-       "10/8 cal SkiErg",
-       "18 goblet lunges (22.5/15 kg)",
-       "15 m sandbag walking lunges (20/10 kg)",
-       "10 burpee dual-DB step-overs (2x22.5/15 kg)"
+       "9/7 cal SkiErg",
+       "16 goblet lunges (22.5/15 kg)",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "8 burpee dual-DB step-overs (2x22.5/15 kg)"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal SkiErg\n- 18 goblet lunges (22.5/15 kg)\n- 15 m sandbag walking lunges (20/10 kg)\n- 10 burpee dual-DB step-overs (2x22.5/15 kg)"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal SkiErg\n- 16 goblet lunges (22.5/15 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 8 burpee dual-DB step-overs (2x22.5/15 kg)"
    }
   },
   {
@@ -255,13 +255,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate assault/echo bike > row > SkiErg",
-       "min 4: 8 burpee broad jumps",
+       "min 4: 6 burpee broad jumps",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > row > SkiErg\n- min 4: 8 burpee broad jumps\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > row > SkiErg\n- min 4: 6 burpee broad jumps\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 48 min (12 rounds)",
@@ -365,7 +365,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -373,7 +373,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "28 min easy run + EMOM 14 technique\n\nPart A:\n- 28 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "28 min easy run + EMOM 14 technique\n\nPart A:\n- 28 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 28 min easy run + EMOM 14 technique",
@@ -389,7 +389,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -398,7 +398,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 28 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 28 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 28 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 28 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -532,7 +532,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -547,7 +547,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 20 m DB farmers lunges (2x22.5/15 kg)\n- 25 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 40 wall balls (6/4 kg)\n- 18 burpee broad jumps\n- 45 V-ups"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 20 m DB farmers lunges (2x22.5/15 kg)\n- 25 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 40 wall balls (6/4 kg)\n- 18 burpee broad jumps\n- 45 V-ups"
    }
   },
   {
@@ -1079,14 +1079,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 55 wall balls (6/4 kg)",
-       "even rounds: 300 m farmers carry (2x24/2x16 kg)"
+       "odd rounds: 50 wall balls (6/4 kg)",
+       "even rounds: 275 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "4 rounds, start a new round every 10 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 10 min x 4 rounds\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 55 wall balls (6/4 kg)\n- even rounds: 300 m farmers carry (2x24/2x16 kg)"
+    "text": "Every 10 min x 4 rounds\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 50 wall balls (6/4 kg)\n- even rounds: 275 m farmers carry (2x24/2x16 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 10 min x 4 rounds",
@@ -1096,14 +1096,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 75 wall balls (6/4 kg)",
-       "even rounds: 425 m farmers carry (2x24/2x16 kg)"
+       "odd rounds: 60 wall balls (6/4 kg)",
+       "even rounds: 325 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "4 rounds, start a new round every 10 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 75 wall balls (6/4 kg)\n- even rounds: 425 m farmers carry (2x24/2x16 kg)"
+    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 60 wall balls (6/4 kg)\n- even rounds: 325 m farmers carry (2x24/2x16 kg)"
    }
   },
   {
@@ -1496,15 +1496,15 @@
      {
       "items": [
        "8/6 cal row",
-       "12.5 m sled pull (103/78 kg)",
+       "12.5 m sled pull (70/55 kg)",
        "10 wall balls (6/4 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 12 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 48\n\nMinute 1-4 rotation, 12 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (103/78 kg)\n- 10 wall balls (6/4 kg)\n- 200 m run"
+    "text": "EMOM 48\n\nMinute 1-4 rotation, 12 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (70/55 kg)\n- 10 wall balls (6/4 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 48",
@@ -1514,15 +1514,15 @@
      {
       "items": [
        "10/8 cal row",
-       "12.5 m sled pull (103/78 kg)",
+       "12.5 m sled pull (70/55 kg)",
        "12 wall balls (6/4 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 12 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 48\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 12 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (103/78 kg)\n- 12 wall balls (6/4 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 48\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 12 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (70/55 kg)\n- 12 wall balls (6/4 kg)\n- 100 m run"
    }
   },
   {
@@ -1984,7 +1984,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -1999,7 +1999,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 27 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 15 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 40 DB thrusters (2x15/10 kg)\n- 30 wall balls (6/4 kg)\n- 50 sit-ups"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 27 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 15 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 40 DB thrusters (2x15/10 kg)\n- 30 wall balls (6/4 kg)\n- 50 sit-ups"
    }
   },
   {
@@ -2044,14 +2044,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 37.5 m sled push (152/102 kg)",
-       "even rounds: 50 m sandbag walking lunges (20/10 kg)"
+       "odd rounds: 25 m sled push (152/102 kg)",
+       "even rounds: 40 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "5 rounds, start a new round every 9 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 37.5 m sled push (152/102 kg)\n- even rounds: 50 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 25 m sled push (152/102 kg)\n- even rounds: 40 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -2438,7 +2438,7 @@
      },
      {
       "items": [
-       "55 DB thrusters (2x15/10 kg)"
+       "50 DB thrusters (2x15/10 kg)"
       ],
       "label": "Block 3"
      },
@@ -2456,7 +2456,7 @@
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "Team of 2: E3MOM for 45 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 400 m run\n\nBlock 2:\n- 55 goblet lunges (22.5/15 kg)\n\nBlock 3:\n- 55 DB thrusters (2x15/10 kg)\n\nBlock 4:\n- 50 alternating DB snatches (22.5/15 kg)\n\nBlock 5:\n- 50 m DB farmers lunges (2x22.5/15 kg)"
+    "text": "Team of 2: E3MOM for 45 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 400 m run\n\nBlock 2:\n- 55 goblet lunges (22.5/15 kg)\n\nBlock 3:\n- 50 DB thrusters (2x15/10 kg)\n\nBlock 4:\n- 50 alternating DB snatches (22.5/15 kg)\n\nBlock 5:\n- 50 m DB farmers lunges (2x22.5/15 kg)"
    }
   },
   {
@@ -2484,14 +2484,14 @@
      {
       "items": [
        "400 m run @ race pace",
-       "odd rounds: 24/18 cal SkiErg",
-       "even rounds: 200 m farmers carry (2x24/2x16 kg)"
+       "odd rounds: 21/16 cal SkiErg",
+       "even rounds: 175 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 5 min x 9 rounds\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 24/18 cal SkiErg\n- even rounds: 200 m farmers carry (2x24/2x16 kg)"
+    "text": "Every 5 min x 9 rounds\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 21/16 cal SkiErg\n- even rounds: 175 m farmers carry (2x24/2x16 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 5 min x 9 rounds",
@@ -2501,14 +2501,14 @@
      {
       "items": [
        "400 m run @ race pace",
-       "odd rounds: 34/26 cal SkiErg",
-       "even rounds: 275 m farmers carry (2x24/2x16 kg)"
+       "odd rounds: 26/20 cal SkiErg",
+       "even rounds: 200 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 34/26 cal SkiErg\n- even rounds: 275 m farmers carry (2x24/2x16 kg)"
+    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 26/20 cal SkiErg\n- even rounds: 200 m farmers carry (2x24/2x16 kg)"
    }
   },
   {
@@ -2886,16 +2886,16 @@
     "blocks": [
      {
       "items": [
-       "13/10 cal assault/echo bike",
-       "12.5 m sled pull (103/78 kg)",
-       "18 DB push press (2x15/10 kg)",
-       "10 burpees"
+       "10/8 cal assault/echo bike",
+       "12.5 m sled pull (70/55 kg)",
+       "16 DB push press (2x15/10 kg)",
+       "8 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 13/10 cal assault/echo bike\n- 12.5 m sled pull (103/78 kg)\n- 18 DB push press (2x15/10 kg)\n- 10 burpees"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal assault/echo bike\n- 12.5 m sled pull (70/55 kg)\n- 16 DB push press (2x15/10 kg)\n- 8 burpees"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -2904,16 +2904,16 @@
     "blocks": [
      {
       "items": [
-       "17/13 cal assault/echo bike",
-       "12.5 m sled pull (103/78 kg)",
-       "25 DB push press (2x15/10 kg)",
-       "12 burpees"
+       "12/9 cal assault/echo bike",
+       "12.5 m sled pull (70/55 kg)",
+       "20 DB push press (2x15/10 kg)",
+       "10 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 17/13 cal assault/echo bike\n- 12.5 m sled pull (103/78 kg)\n- 25 DB push press (2x15/10 kg)\n- 12 burpees"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal assault/echo bike\n- 12.5 m sled pull (70/55 kg)\n- 20 DB push press (2x15/10 kg)\n- 10 burpees"
    }
   },
   {
@@ -3057,13 +3057,13 @@
      {
       "items": [
        "min 1-4: max cal, rotate row > assault/echo bike > SkiErg",
-       "min 5: 8 burpee dual-DB step-overs (2x22.5/15 kg)",
+       "min 5: 6 burpee dual-DB step-overs (2x22.5/15 kg)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate row > assault/echo bike > SkiErg\n- min 5: 8 burpee dual-DB step-overs (2x22.5/15 kg)\n- @ max sustainable pace for all"
+    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate row > assault/echo bike > SkiErg\n- min 5: 6 burpee dual-DB step-overs (2x22.5/15 kg)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 5 min for 45 min (9 rounds)",
@@ -3351,7 +3351,7 @@
       "label": "Part A (18 min)",
       "scheme": "Every 3 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -3366,7 +3366,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 15 m sandbag walking lunges (20/10 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 alternating DB snatches (22.5/15 kg)\n- 18 burpee broad jumps\n- 45 sit-ups"
+    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 15 m sandbag walking lunges (20/10 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 alternating DB snatches (22.5/15 kg)\n- 18 burpee broad jumps\n- 45 sit-ups"
    }
   },
   {
@@ -3411,14 +3411,14 @@
      {
       "items": [
        "1600 m run @ race pace",
-       "odd rounds: 24/18 cal row",
-       "even rounds: 30 wall balls (6/4 kg)"
+       "odd rounds: 22/16 cal row",
+       "even rounds: 25 wall balls (6/4 kg)"
       ],
       "scheme": "4 rounds, start a new round every 12 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 24/18 cal row\n- even rounds: 30 wall balls (6/4 kg)"
+    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 22/16 cal row\n- even rounds: 25 wall balls (6/4 kg)"
    }
   },
   {
@@ -3838,14 +3838,14 @@
      {
       "items": [
        "400 m run @ race pace",
-       "odd rounds: 37.5 m sled pull (103/78 kg)",
-       "even rounds: 40 wall balls (6/4 kg)"
+       "odd rounds: 25 m sled pull (103/78 kg)",
+       "even rounds: 35 wall balls (6/4 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 37.5 m sled pull (103/78 kg)\n- even rounds: 40 wall balls (6/4 kg)"
+    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 25 m sled pull (103/78 kg)\n- even rounds: 35 wall balls (6/4 kg)"
    }
   },
   {
@@ -4184,16 +4184,16 @@
     "blocks": [
      {
       "items": [
-       "13/10 cal assault/echo bike",
-       "18 DB push press (2x15/10 kg)",
-       "15 m sandbag walking lunges (20/10 kg)",
-       "200 m run"
+       "10/8 cal assault/echo bike",
+       "16 DB push press (2x15/10 kg)",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 13/10 cal assault/echo bike\n- 18 DB push press (2x15/10 kg)\n- 15 m sandbag walking lunges (20/10 kg)\n- 200 m run"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 10/8 cal assault/echo bike\n- 16 DB push press (2x15/10 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -4202,16 +4202,16 @@
     "blocks": [
      {
       "items": [
-       "17/13 cal assault/echo bike",
-       "25 DB push press (2x15/10 kg)",
-       "20 m sandbag walking lunges (20/10 kg)",
-       "200 m run"
+       "12/9 cal assault/echo bike",
+       "20 DB push press (2x15/10 kg)",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 17/13 cal assault/echo bike\n- 25 DB push press (2x15/10 kg)\n- 20 m sandbag walking lunges (20/10 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 12/9 cal assault/echo bike\n- 20 DB push press (2x15/10 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 100 m run"
    }
   },
   {
@@ -4377,13 +4377,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate SkiErg > row > assault/echo bike",
-       "min 4: 8 burpee box jump-overs (24/20 in)",
+       "min 4: 6 burpee box jump-overs (24/20 in)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 40 min (10 rounds)\n\n- min 1-3: max cal, rotate SkiErg > row > assault/echo bike\n- min 4: 8 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 40 min (10 rounds)\n\n- min 1-3: max cal, rotate SkiErg > row > assault/echo bike\n- min 4: 6 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 40 min (10 rounds)",
@@ -4486,7 +4486,7 @@
      },
      {
       "items": [
-       "odd: 12.5 m sled pull (103/78 kg)",
+       "odd: 12.5 m sled pull (70/55 kg)",
        "even: 50 m farmers carry (2x24/2x16 kg)",
        "light load, perfect race technique"
       ],
@@ -4495,7 +4495,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "30 min easy run + EMOM 12 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 12):\n- odd: 12.5 m sled pull (103/78 kg)\n- even: 50 m farmers carry (2x24/2x16 kg)\n- light load, perfect race technique"
+    "text": "30 min easy run + EMOM 12 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 12):\n- odd: 12.5 m sled pull (70/55 kg)\n- even: 50 m farmers carry (2x24/2x16 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 30 min easy run + EMOM 12 technique",
@@ -4510,7 +4510,7 @@
      },
      {
       "items": [
-       "odd: 12.5 m sled pull (103/78 kg)",
+       "odd: 12.5 m sled pull (70/55 kg)",
        "even: 50 m farmers carry (2x24/2x16 kg)",
        "light load, perfect race technique"
       ],
@@ -4520,7 +4520,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 30 min easy run + EMOM 12 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 12):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 12.5 m sled pull (103/78 kg)\n- even: 50 m farmers carry (2x24/2x16 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 30 min easy run + EMOM 12 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 12):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 12.5 m sled pull (70/55 kg)\n- even: 50 m farmers carry (2x24/2x16 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -4621,7 +4621,7 @@
      {
       "items": [
        "75 m farmers carry (2x24/2x16 kg)",
-       "14 goblet lunges (22.5/15 kg)"
+       "12 goblet lunges (22.5/15 kg)"
       ],
       "label": "Part A (16 min)",
       "scheme": "Every 2 min x 8 sets, heavy but unbroken",
@@ -4639,7 +4639,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2 min x 8 | Part B: AMRAP 21 min\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\n- 75 m farmers carry (2x24/2x16 kg)\n- 14 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\n- 600 m run\n- 35 DB push press (2x15/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 25 V-ups"
+    "text": "Part A: every 2 min x 8 | Part B: AMRAP 21 min\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\n- 75 m farmers carry (2x24/2x16 kg)\n- 12 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\n- 600 m run\n- 35 DB push press (2x15/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 25 V-ups"
    },
    "team": {
     "headline": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 21 min",
@@ -4649,12 +4649,12 @@
      {
       "items": [
        "75 m farmers carry (2x24/2x16 kg)",
-       "14 goblet lunges (22.5/15 kg)"
+       "12 goblet lunges (22.5/15 kg)"
       ],
       "label": "Part A (16 min)",
       "scheme": "Every 2 min x 8 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -4669,7 +4669,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 75 m farmers carry (2x24/2x16 kg)\n- 14 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 DB push press (2x15/10 kg)\n- 25 m sled push (152/102 kg)\n- 40 V-ups"
+    "text": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 75 m farmers carry (2x24/2x16 kg)\n- 12 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 DB push press (2x15/10 kg)\n- 25 m sled push (152/102 kg)\n- 40 V-ups"
    }
   },
   {
@@ -4697,14 +4697,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 23/17 cal SkiErg",
-       "even rounds: 20 burpee box jump-overs (24/20 in)"
+       "odd rounds: 19/14 cal SkiErg",
+       "even rounds: 16 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 23/17 cal SkiErg\n- even rounds: 20 burpee box jump-overs (24/20 in)"
+    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 19/14 cal SkiErg\n- even rounds: 16 burpee box jump-overs (24/20 in)"
    },
    "team": {
     "headline": "Team of 2: Every 6 min x 7 rounds",
@@ -4714,14 +4714,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 32/24 cal SkiErg",
-       "even rounds: 30 burpee box jump-overs (24/20 in)"
+       "odd rounds: 22/16 cal SkiErg",
+       "even rounds: 20 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 32/24 cal SkiErg\n- even rounds: 30 burpee box jump-overs (24/20 in)"
+    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 22/16 cal SkiErg\n- even rounds: 20 burpee box jump-overs (24/20 in)"
    }
   },
   {
@@ -5153,13 +5153,13 @@
       "items": [
        "1600 m run @ race pace",
        "odd rounds: 12.5 m sled push (152/102 kg)",
-       "even rounds: 30 m sandbag walking lunges (20/10 kg)"
+       "even rounds: 25 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "4 rounds, start a new round every 12 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 12.5 m sled push (152/102 kg)\n- even rounds: 30 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 12.5 m sled push (152/102 kg)\n- even rounds: 25 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -5620,13 +5620,13 @@
        "8/6 cal SkiErg",
        "12 alternating DB snatches (22.5/15 kg)",
        "12 DB thrusters (2x15/10 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 12 alternating DB snatches (22.5/15 kg)\n- 12 DB thrusters (2x15/10 kg)\n- 200 m run"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 12 alternating DB snatches (22.5/15 kg)\n- 12 DB thrusters (2x15/10 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -5635,16 +5635,16 @@
     "blocks": [
      {
       "items": [
-       "10/8 cal SkiErg",
-       "16 alternating DB snatches (22.5/15 kg)",
-       "16 DB thrusters (2x15/10 kg)",
-       "200 m run"
+       "9/7 cal SkiErg",
+       "14 alternating DB snatches (22.5/15 kg)",
+       "14 DB thrusters (2x15/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal SkiErg\n- 16 alternating DB snatches (22.5/15 kg)\n- 16 DB thrusters (2x15/10 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal SkiErg\n- 14 alternating DB snatches (22.5/15 kg)\n- 14 DB thrusters (2x15/10 kg)\n- 100 m run"
    }
   },
   {
@@ -5807,13 +5807,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate assault/echo bike > SkiErg > row",
-       "min 4: 18 KB swings (24/16 kg)",
+       "min 4: 16 KB swings (24/16 kg)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 44 min (11 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 18 KB swings (24/16 kg)\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 44 min (11 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 16 KB swings (24/16 kg)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 44 min (11 rounds)",
@@ -6084,7 +6084,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -6099,7 +6099,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 22 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 20 m sandbag walking lunges (20/10 kg)\nRest 3 min\n\nPart B (22 min) (AMRAP 22 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 20 burpees to target\n- 200 m farmers carry (2x24/2x16 kg)\n- 60 sit-ups"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 22 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 20 m sandbag walking lunges (20/10 kg)\nRest 3 min\n\nPart B (22 min) (AMRAP 22 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 20 burpees to target\n- 200 m farmers carry (2x24/2x16 kg)\n- 60 sit-ups"
    }
   },
   {
@@ -6277,13 +6277,13 @@
      {
       "items": [
        "min 1-4: max cal, rotate assault/echo bike > SkiErg > row",
-       "min 5: 8 burpee box jump-overs (24/20 in)",
+       "min 5: 6 burpee box jump-overs (24/20 in)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate assault/echo bike > SkiErg > row\n- min 5: 8 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
+    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate assault/echo bike > SkiErg > row\n- min 5: 6 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 5 min for 45 min (9 rounds)",
@@ -6501,7 +6501,7 @@
     "blocks": [
      {
       "items": [
-       "37.5 m sled push (152/102 kg)"
+       "25 m sled push (152/102 kg)"
       ],
       "label": "Block 1"
      },
@@ -6531,7 +6531,7 @@
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "E3MOM for 45 min\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 37.5 m sled push (152/102 kg)\n\nBlock 2:\n- 25 m sled pull (103/78 kg)\n\nBlock 3:\n- 40 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 4:\n- 400 m run\n\nBlock 5:\n- 225 m farmers carry (2x24/2x16 kg)"
+    "text": "E3MOM for 45 min\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 25 m sled push (152/102 kg)\n\nBlock 2:\n- 25 m sled pull (103/78 kg)\n\nBlock 3:\n- 40 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 4:\n- 400 m run\n\nBlock 5:\n- 225 m farmers carry (2x24/2x16 kg)"
    },
    "team": {
     "headline": "Team of 2: E3MOM for 45 min",
@@ -6540,7 +6540,7 @@
     "blocks": [
      {
       "items": [
-       "50 m sled push (152/102 kg)"
+       "37.5 m sled push (152/102 kg)"
       ],
       "label": "Block 1"
      },
@@ -6564,13 +6564,13 @@
      },
      {
       "items": [
-       "325 m farmers carry (2x24/2x16 kg)"
+       "275 m farmers carry (2x24/2x16 kg)"
       ],
       "label": "Block 5"
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "Team of 2: E3MOM for 45 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 50 m sled push (152/102 kg)\n\nBlock 2:\n- 37.5 m sled pull (103/78 kg)\n\nBlock 3:\n- 55 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 4:\n- 400 m run\n\nBlock 5:\n- 325 m farmers carry (2x24/2x16 kg)"
+    "text": "Team of 2: E3MOM for 45 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 3 times\n\nBlock 1:\n- 37.5 m sled push (152/102 kg)\n\nBlock 2:\n- 37.5 m sled pull (103/78 kg)\n\nBlock 3:\n- 55 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 4:\n- 400 m run\n\nBlock 5:\n- 275 m farmers carry (2x24/2x16 kg)"
    }
   },
   {
@@ -6598,14 +6598,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 30 wall balls (6/4 kg)",
-       "even rounds: 20 burpee broad jumps"
+       "odd rounds: 25 wall balls (6/4 kg)",
+       "even rounds: 16 burpee broad jumps"
       ],
       "scheme": "8 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 6 min x 8 rounds\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 30 wall balls (6/4 kg)\n- even rounds: 20 burpee broad jumps"
+    "text": "Every 6 min x 8 rounds\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 25 wall balls (6/4 kg)\n- even rounds: 16 burpee broad jumps"
    },
    "team": {
     "headline": "Team of 2: Every 6 min x 8 rounds",
@@ -6615,14 +6615,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 40 wall balls (6/4 kg)",
-       "even rounds: 30 burpee broad jumps"
+       "odd rounds: 30 wall balls (6/4 kg)",
+       "even rounds: 20 burpee broad jumps"
       ],
       "scheme": "8 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 6 min x 8 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 40 wall balls (6/4 kg)\n- even rounds: 30 burpee broad jumps"
+    "text": "Team of 2: Every 6 min x 8 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 30 wall balls (6/4 kg)\n- even rounds: 20 burpee broad jumps"
    }
   },
   {
@@ -7417,7 +7417,7 @@
     "sled pull"
    ],
    "solo": {
-    "headline": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min",
+    "headline": "Part A: every 3 min x 5 | Part B: AMRAP 26 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
@@ -7427,7 +7427,7 @@
        "12.5 m sled pull (103/78 kg)"
       ],
       "label": "Part A (15 min)",
-      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
+      "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min"
      },
      {
@@ -7442,10 +7442,10 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\n- 600 m run\n- 35 DB push press (2x15/10 kg)\n- 12 burpee broad jumps\n- 25 V-ups"
+    "text": "Part A: every 3 min x 5 | Part B: AMRAP 26 min\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\n- 600 m run\n- 35 DB push press (2x15/10 kg)\n- 12 burpee broad jumps\n- 25 V-ups"
    },
    "team": {
-    "headline": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min",
+    "headline": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 26 min",
     "howTo": "Same clock for both partners; how to share each part is shown on the part.",
     "scheme": null,
     "blocks": [
@@ -7455,9 +7455,9 @@
        "12.5 m sled pull (103/78 kg)"
       ],
       "label": "Part A (15 min)",
-      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
+      "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -7472,7 +7472,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 DB push press (2x15/10 kg)\n- 18 burpee broad jumps\n- 40 V-ups"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 DB push press (2x15/10 kg)\n- 18 burpee broad jumps\n- 40 V-ups"
    }
   },
   {
@@ -8036,13 +8036,13 @@
       "items": [
        "600 m run @ race pace",
        "odd rounds: 16 burpee box jump-overs (24/20 in)",
-       "even rounds: 25 m sled push (152/102 kg)"
+       "even rounds: 12.5 m sled push (152/102 kg)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 16 burpee box jump-overs (24/20 in)\n- even rounds: 25 m sled push (152/102 kg)"
+    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 16 burpee box jump-overs (24/20 in)\n- even rounds: 12.5 m sled push (152/102 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 6 min x 7 rounds",
@@ -8053,13 +8053,13 @@
       "items": [
        "600 m run @ race pace",
        "odd rounds: 20 burpee box jump-overs (24/20 in)",
-       "even rounds: 37.5 m sled push (152/102 kg)"
+       "even rounds: 25 m sled push (152/102 kg)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 20 burpee box jump-overs (24/20 in)\n- even rounds: 37.5 m sled push (152/102 kg)"
+    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 20 burpee box jump-overs (24/20 in)\n- even rounds: 25 m sled push (152/102 kg)"
    }
   },
   {
@@ -8443,16 +8443,16 @@
     "blocks": [
      {
       "items": [
-       "9/7 cal SkiErg",
-       "12.5 m sled pull (103/78 kg)",
-       "16 wall balls (6/4 kg)",
-       "200 m run"
+       "8/6 cal SkiErg",
+       "12.5 m sled pull (70/55 kg)",
+       "12 wall balls (6/4 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal SkiErg\n- 12.5 m sled pull (103/78 kg)\n- 16 wall balls (6/4 kg)\n- 200 m run"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 12.5 m sled pull (70/55 kg)\n- 12 wall balls (6/4 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -8461,16 +8461,16 @@
     "blocks": [
      {
       "items": [
-       "12/9 cal SkiErg",
-       "12.5 m sled pull (103/78 kg)",
-       "20 wall balls (6/4 kg)",
-       "200 m run"
+       "9/7 cal SkiErg",
+       "12.5 m sled pull (70/55 kg)",
+       "14 wall balls (6/4 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal SkiErg\n- 12.5 m sled pull (103/78 kg)\n- 20 wall balls (6/4 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal SkiErg\n- 12.5 m sled pull (70/55 kg)\n- 14 wall balls (6/4 kg)\n- 100 m run"
    }
   },
   {
@@ -8617,13 +8617,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate SkiErg > assault/echo bike > row",
-       "min 4: 14 wall balls (6/4 kg)",
+       "min 4: 12 wall balls (6/4 kg)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 44 min (11 rounds)\n\n- min 1-3: max cal, rotate SkiErg > assault/echo bike > row\n- min 4: 14 wall balls (6/4 kg)\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 44 min (11 rounds)\n\n- min 1-3: max cal, rotate SkiErg > assault/echo bike > row\n- min 4: 12 wall balls (6/4 kg)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 44 min (11 rounds)",
@@ -8924,7 +8924,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -8939,7 +8939,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 30 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (30 min) (AMRAP 30 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 burpees to target\n- 16 burpee broad jumps\n- 45 sit-ups"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 30 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (30 min) (AMRAP 30 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 burpees to target\n- 16 burpee broad jumps\n- 45 sit-ups"
    }
   },
   {
@@ -8984,14 +8984,14 @@
      {
       "items": [
        "400 m run @ race pace",
-       "odd rounds: 27/20 cal SkiErg",
+       "odd rounds: 25/19 cal SkiErg",
        "even rounds: 200 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 27/20 cal SkiErg\n- even rounds: 200 m farmers carry (2x24/2x16 kg)"
+    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 25/19 cal SkiErg\n- even rounds: 200 m farmers carry (2x24/2x16 kg)"
    }
   },
   {
@@ -9438,14 +9438,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 25 m sled push (152/102 kg)",
-       "even rounds: 25 m sled pull (103/78 kg)"
+       "odd rounds: 12.5 m sled push (152/102 kg)",
+       "even rounds: 12.5 m sled pull (103/78 kg)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 25 m sled push (152/102 kg)\n- even rounds: 25 m sled pull (103/78 kg)"
+    "text": "Every 6 min x 7 rounds\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 12.5 m sled push (152/102 kg)\n- even rounds: 12.5 m sled pull (103/78 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 6 min x 7 rounds",
@@ -9455,14 +9455,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 37.5 m sled push (152/102 kg)",
-       "even rounds: 37.5 m sled pull (103/78 kg)"
+       "odd rounds: 25 m sled push (152/102 kg)",
+       "even rounds: 25 m sled pull (103/78 kg)"
       ],
       "scheme": "7 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 37.5 m sled push (152/102 kg)\n- even rounds: 37.5 m sled pull (103/78 kg)"
+    "text": "Team of 2: Every 6 min x 7 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 25 m sled push (152/102 kg)\n- even rounds: 25 m sled pull (103/78 kg)"
    }
   },
   {
@@ -9869,15 +9869,15 @@
      {
       "items": [
        "8/6 cal SkiErg",
-       "14 alternating DB snatches (22.5/15 kg)",
-       "16 goblet lunges (22.5/15 kg)",
-       "10 burpees to target"
+       "12 alternating DB snatches (22.5/15 kg)",
+       "14 goblet lunges (22.5/15 kg)",
+       "8 burpees to target"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 14 alternating DB snatches (22.5/15 kg)\n- 16 goblet lunges (22.5/15 kg)\n- 10 burpees to target"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 8/6 cal SkiErg\n- 12 alternating DB snatches (22.5/15 kg)\n- 14 goblet lunges (22.5/15 kg)\n- 8 burpees to target"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -9886,16 +9886,16 @@
     "blocks": [
      {
       "items": [
-       "10/8 cal SkiErg",
-       "18 alternating DB snatches (22.5/15 kg)",
-       "20 goblet lunges (22.5/15 kg)",
-       "12 burpees to target"
+       "9/7 cal SkiErg",
+       "14 alternating DB snatches (22.5/15 kg)",
+       "16 goblet lunges (22.5/15 kg)",
+       "10 burpees to target"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal SkiErg\n- 18 alternating DB snatches (22.5/15 kg)\n- 20 goblet lunges (22.5/15 kg)\n- 12 burpees to target"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal SkiErg\n- 14 alternating DB snatches (22.5/15 kg)\n- 16 goblet lunges (22.5/15 kg)\n- 10 burpees to target"
    }
   },
   {
@@ -10064,13 +10064,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate assault/echo bike > SkiErg > row",
-       "min 4: 10 burpees to target",
+       "min 4: 8 burpees to target",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 10 burpees to target\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 8 burpees to target\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 48 min (12 rounds)",
@@ -10174,7 +10174,7 @@
      {
       "items": [
        "odd: 6 wall balls (6/4 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -10182,7 +10182,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 26 min easy run + EMOM 14 technique",
@@ -10198,7 +10198,7 @@
      {
       "items": [
        "odd: 6 wall balls (6/4 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -10207,7 +10207,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -10341,7 +10341,7 @@
       "label": "Part A (18 min)",
       "scheme": "Every 3 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -10356,7 +10356,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 27 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 20 m DB farmers lunges (2x22.5/15 kg)\n- 25 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 burpee box jump-overs (24/20 in)\n- 40 KB swings (24/16 kg)\n- 60 sit-ups"
+    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 27 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 20 m DB farmers lunges (2x22.5/15 kg)\n- 25 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 20 burpee box jump-overs (24/20 in)\n- 40 KB swings (24/16 kg)\n- 60 sit-ups"
    }
   },
   {
@@ -10401,14 +10401,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 37.5 m sled pull (103/78 kg)",
-       "even rounds: 37.5 m sled push (152/102 kg)"
+       "odd rounds: 25 m sled pull (103/78 kg)",
+       "even rounds: 25 m sled push (152/102 kg)"
       ],
       "scheme": "5 rounds, start a new round every 9 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 37.5 m sled pull (103/78 kg)\n- even rounds: 37.5 m sled push (152/102 kg)"
+    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 25 m sled pull (103/78 kg)\n- even rounds: 25 m sled push (152/102 kg)"
    }
   },
   {
@@ -10842,13 +10842,13 @@
      },
      {
       "items": [
-       "1500 m BikeErg"
+       "1250 m BikeErg"
       ],
       "label": "Block 4"
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "Team of 2: E3MOM for 48 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 4 blocks, 4 times\n\nBlock 1:\n- 200 m farmers carry (2x24/2x16 kg)\n\nBlock 2:\n- 55 KB swings (24/16 kg)\n\nBlock 3:\n- 40 goblet lunges (22.5/15 kg)\n\nBlock 4:\n- 1500 m BikeErg"
+    "text": "Team of 2: E3MOM for 48 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 4 blocks, 4 times\n\nBlock 1:\n- 200 m farmers carry (2x24/2x16 kg)\n\nBlock 2:\n- 55 KB swings (24/16 kg)\n\nBlock 3:\n- 40 goblet lunges (22.5/15 kg)\n\nBlock 4:\n- 1250 m BikeErg"
    }
   },
   {
@@ -11269,15 +11269,15 @@
      {
       "items": [
        "8/6 cal row",
-       "12.5 m sled pull (103/78 kg)",
-       "18 DB push press (2x15/10 kg)",
-       "200 m run"
+       "12.5 m sled pull (70/55 kg)",
+       "16 DB push press (2x15/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (103/78 kg)\n- 18 DB push press (2x15/10 kg)\n- 200 m run"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (70/55 kg)\n- 16 DB push press (2x15/10 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -11287,15 +11287,15 @@
      {
       "items": [
        "10/8 cal row",
-       "12.5 m sled pull (103/78 kg)",
-       "25 DB push press (2x15/10 kg)",
-       "200 m run"
+       "12.5 m sled pull (70/55 kg)",
+       "20 DB push press (2x15/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (103/78 kg)\n- 25 DB push press (2x15/10 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (70/55 kg)\n- 20 DB push press (2x15/10 kg)\n- 100 m run"
    }
   },
   {
@@ -11560,7 +11560,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled push (152/102 kg)",
+       "even: 12.5 m sled push (105/70 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -11568,7 +11568,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "30 min easy run + EMOM 16 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled push (152/102 kg)\n- light load, perfect race technique"
+    "text": "30 min easy run + EMOM 16 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled push (105/70 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 30 min easy run + EMOM 16 technique",
@@ -11584,7 +11584,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled push (152/102 kg)",
+       "even: 12.5 m sled push (105/70 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -11593,7 +11593,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 30 min easy run + EMOM 16 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled push (152/102 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 30 min easy run + EMOM 16 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled push (105/70 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -11687,7 +11687,7 @@
     "run"
    ],
    "solo": {
-    "headline": "Part A: every 2 min x 8 | Part B: AMRAP 25 min",
+    "headline": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
@@ -11696,8 +11696,8 @@
        "12.5 m heavy sled push (+10% race weight)",
        "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min"
      },
      {
@@ -11707,15 +11707,15 @@
        "16 burpee broad jumps",
        "25 push-ups"
       ],
-      "label": "Part B (25 min)",
-      "scheme": "AMRAP 25 min"
+      "label": "Part B (26 min)",
+      "scheme": "AMRAP 26 min"
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2 min x 8 | Part B: AMRAP 25 min\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (25 min) (AMRAP 25 min):\n- 400 m run\n- 20 alternating DB snatches (22.5/15 kg)\n- 16 burpee broad jumps\n- 25 push-ups"
+    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\n- 400 m run\n- 20 alternating DB snatches (22.5/15 kg)\n- 16 burpee broad jumps\n- 25 push-ups"
    },
    "team": {
-    "headline": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 25 min",
+    "headline": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min",
     "howTo": "Same clock for both partners; how to share each part is shown on the part.",
     "scheme": null,
     "blocks": [
@@ -11724,10 +11724,10 @@
        "12.5 m heavy sled push (+10% race weight)",
        "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -11736,13 +11736,13 @@
        "25 burpee broad jumps",
        "40 push-ups"
       ],
-      "label": "Part B (25 min)",
-      "scheme": "AMRAP 25 min",
+      "label": "Part B (26 min)",
+      "scheme": "AMRAP 26 min",
       "teamNote": "You go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works."
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 25 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (25 min) (AMRAP 25 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 30 alternating DB snatches (22.5/15 kg)\n- 25 burpee broad jumps\n- 40 push-ups"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 30 alternating DB snatches (22.5/15 kg)\n- 25 burpee broad jumps\n- 40 push-ups"
    }
   },
   {
@@ -12194,13 +12194,13 @@
     "blocks": [
      {
       "items": [
-       "900 m row"
+       "850 m row"
       ],
       "label": "Block 1"
      },
      {
       "items": [
-       "75 m sled push (152/102 kg)"
+       "50 m sled push (152/102 kg)"
       ],
       "label": "Block 2"
      },
@@ -12224,7 +12224,7 @@
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "Team of 2: E4MOM for 40 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 2 times\n\nBlock 1:\n- 900 m row\n\nBlock 2:\n- 75 m sled push (152/102 kg)\n\nBlock 3:\n- 70 m sandbag walking lunges (20/10 kg)\n\nBlock 4:\n- 75 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 5:\n- 50 m sled pull (103/78 kg)"
+    "text": "Team of 2: E4MOM for 40 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 5 blocks, 2 times\n\nBlock 1:\n- 850 m row\n\nBlock 2:\n- 50 m sled push (152/102 kg)\n\nBlock 3:\n- 70 m sandbag walking lunges (20/10 kg)\n\nBlock 4:\n- 75 m DB farmers lunges (2x22.5/15 kg)\n\nBlock 5:\n- 50 m sled pull (103/78 kg)"
    }
   },
   {
@@ -12252,14 +12252,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 14 burpee broad jumps",
-       "even rounds: 25 wall balls (6/4 kg)"
+       "odd rounds: 12 burpee broad jumps",
+       "even rounds: 20 wall balls (6/4 kg)"
       ],
       "scheme": "5 rounds, start a new round every 8 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 8 min x 5 rounds\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 14 burpee broad jumps\n- even rounds: 25 wall balls (6/4 kg)"
+    "text": "Every 8 min x 5 rounds\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 12 burpee broad jumps\n- even rounds: 20 wall balls (6/4 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 8 min x 5 rounds",
@@ -12269,14 +12269,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 20 burpee broad jumps",
-       "even rounds: 35 wall balls (6/4 kg)"
+       "odd rounds: 14 burpee broad jumps",
+       "even rounds: 25 wall balls (6/4 kg)"
       ],
       "scheme": "5 rounds, start a new round every 8 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 20 burpee broad jumps\n- even rounds: 35 wall balls (6/4 kg)"
+    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 14 burpee broad jumps\n- even rounds: 25 wall balls (6/4 kg)"
    }
   },
   {
@@ -12686,13 +12686,13 @@
        "9/7 cal assault/echo bike",
        "10 alternating DB snatches (22.5/15 kg)",
        "10 m DB farmers lunges (2x22.5/15 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal assault/echo bike\n- 10 alternating DB snatches (22.5/15 kg)\n- 10 m DB farmers lunges (2x22.5/15 kg)\n- 200 m run"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 9/7 cal assault/echo bike\n- 10 alternating DB snatches (22.5/15 kg)\n- 10 m DB farmers lunges (2x22.5/15 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -12704,13 +12704,13 @@
        "12/9 cal assault/echo bike",
        "12 alternating DB snatches (22.5/15 kg)",
        "15 m DB farmers lunges (2x22.5/15 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal assault/echo bike\n- 12 alternating DB snatches (22.5/15 kg)\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal assault/echo bike\n- 12 alternating DB snatches (22.5/15 kg)\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 100 m run"
    }
   },
   {
@@ -13134,17 +13134,17 @@
     "wall balls"
    ],
    "solo": {
-    "headline": "Part A: every 2 min x 8 | Part B: AMRAP 23 min",
+    "headline": "Part A: every 2.5 min x 6 | Part B: AMRAP 24 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "50 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min"
      },
      {
@@ -13154,27 +13154,27 @@
        "20 alternating DB snatches (22.5/15 kg)",
        "25 V-ups"
       ],
-      "label": "Part B (23 min)",
-      "scheme": "AMRAP 23 min"
+      "label": "Part B (24 min)",
+      "scheme": "AMRAP 24 min"
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2 min x 8 | Part B: AMRAP 23 min\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 50 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (23 min) (AMRAP 23 min):\n- 600 m run\n- 18 wall balls (6/4 kg)\n- 20 alternating DB snatches (22.5/15 kg)\n- 25 V-ups"
+    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 24 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (24 min) (AMRAP 24 min):\n- 600 m run\n- 18 wall balls (6/4 kg)\n- 20 alternating DB snatches (22.5/15 kg)\n- 25 V-ups"
    },
    "team": {
-    "headline": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 23 min",
+    "headline": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 24 min",
     "howTo": "Same clock for both partners; how to share each part is shown on the part.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "50 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -13183,13 +13183,13 @@
        "30 alternating DB snatches (22.5/15 kg)",
        "40 V-ups"
       ],
-      "label": "Part B (23 min)",
-      "scheme": "AMRAP 23 min",
+      "label": "Part B (24 min)",
+      "scheme": "AMRAP 24 min",
       "teamNote": "You go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works."
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 23 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 50 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (23 min) (AMRAP 23 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 wall balls (6/4 kg)\n- 30 alternating DB snatches (22.5/15 kg)\n- 40 V-ups"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 24 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (24 min) (AMRAP 24 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 wall balls (6/4 kg)\n- 30 alternating DB snatches (22.5/15 kg)\n- 40 V-ups"
    }
   },
   {
@@ -13234,14 +13234,14 @@
      {
       "items": [
        "1600 m run @ race pace",
-       "odd rounds: 21/16 cal SkiErg",
-       "even rounds: 24/18 cal row"
+       "odd rounds: 19/14 cal SkiErg",
+       "even rounds: 22/16 cal row"
       ],
       "scheme": "4 rounds, start a new round every 12 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 21/16 cal SkiErg\n- even rounds: 24/18 cal row"
+    "text": "Team of 2: Every 12 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 12 min:\n- 1600 m run @ race pace\n- odd rounds: 19/14 cal SkiErg\n- even rounds: 22/16 cal row"
    }
   },
   {
@@ -13732,14 +13732,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 55/41 cal row",
-       "even rounds: 70 m sandbag walking lunges (20/10 kg)"
+       "odd rounds: 45/34 cal row",
+       "even rounds: 60 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "4 rounds, start a new round every 10 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 55/41 cal row\n- even rounds: 70 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 45/34 cal row\n- even rounds: 60 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -14132,16 +14132,16 @@
     "blocks": [
      {
       "items": [
-       "14/10 cal assault/echo bike",
-       "15 m sandbag walking lunges (20/10 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "10 burpees to target"
+       "10/8 cal assault/echo bike",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "8 burpees to target"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 14/10 cal assault/echo bike\n- 15 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 10 burpees to target"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 10/8 cal assault/echo bike\n- 10 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled push (105/70 kg)\n- 8 burpees to target"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -14150,16 +14150,16 @@
     "blocks": [
      {
       "items": [
-       "18/14 cal assault/echo bike",
-       "20 m sandbag walking lunges (20/10 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "12 burpees to target"
+       "12/9 cal assault/echo bike",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "10 burpees to target"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 18/14 cal assault/echo bike\n- 20 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 12 burpees to target"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 12/9 cal assault/echo bike\n- 10 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled push (105/70 kg)\n- 10 burpees to target"
    }
   },
   {
@@ -14309,13 +14309,13 @@
      {
       "items": [
        "min 1-4: max cal, rotate assault/echo bike > row > SkiErg",
-       "min 5: 8 burpee box jump-overs (24/20 in)",
+       "min 5: 6 burpee box jump-overs (24/20 in)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate assault/echo bike > row > SkiErg\n- min 5: 8 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
+    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate assault/echo bike > row > SkiErg\n- min 5: 6 burpee box jump-overs (24/20 in)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 5 min for 45 min (9 rounds)",
@@ -14556,17 +14556,17 @@
     "sit-ups"
    ],
    "solo": {
-    "headline": "Part A: every 2 min x 8 | Part B: AMRAP 27 min",
+    "headline": "Part A: every 2.5 min x 6 | Part B: AMRAP 28 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "50 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min"
      },
      {
@@ -14576,27 +14576,27 @@
        "25 goblet lunges (22.5/15 kg)",
        "25 sit-ups"
       ],
-      "label": "Part B (27 min)",
-      "scheme": "AMRAP 27 min"
+      "label": "Part B (28 min)",
+      "scheme": "AMRAP 28 min"
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2 min x 8 | Part B: AMRAP 27 min\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 50 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\n- 400 m run\n- 25 DB push press (2x15/10 kg)\n- 25 goblet lunges (22.5/15 kg)\n- 25 sit-ups"
+    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 28 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (28 min) (AMRAP 28 min):\n- 400 m run\n- 25 DB push press (2x15/10 kg)\n- 25 goblet lunges (22.5/15 kg)\n- 25 sit-ups"
    },
    "team": {
-    "headline": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 27 min",
+    "headline": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 28 min",
     "howTo": "Same clock for both partners; how to share each part is shown on the part.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "50 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
-      "label": "Part A (16 min)",
-      "scheme": "Every 2 min x 8 sets, heavy but unbroken",
+      "label": "Part A (15 min)",
+      "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -14605,13 +14605,13 @@
        "40 goblet lunges (22.5/15 kg)",
        "40 sit-ups"
       ],
-      "label": "Part B (27 min)",
-      "scheme": "AMRAP 27 min",
+      "label": "Part B (28 min)",
+      "scheme": "AMRAP 28 min",
       "teamNote": "You go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works."
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2 min x 8 | Part B: AMRAP 27 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (16 min) (Every 2 min x 8 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 50 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (27 min) (AMRAP 27 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 40 DB push press (2x15/10 kg)\n- 40 goblet lunges (22.5/15 kg)\n- 40 sit-ups"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 28 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (28 min) (AMRAP 28 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 40 DB push press (2x15/10 kg)\n- 40 goblet lunges (22.5/15 kg)\n- 40 sit-ups"
    }
   },
   {
@@ -15148,14 +15148,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 21/16 cal row",
-       "even rounds: 30 m sandbag walking lunges (20/10 kg)"
+       "odd rounds: 17/13 cal row",
+       "even rounds: 25 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "5 rounds, start a new round every 8 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 21/16 cal row\n- even rounds: 30 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 17/13 cal row\n- even rounds: 25 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -15555,15 +15555,15 @@
      {
       "items": [
        "9/7 cal row",
-       "75 m farmers carry (2x24/2x16 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "8 burpee box jump-overs (24/20 in)"
+       "50 m farmers carry (2x24/2x16 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "6 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal row\n- 75 m farmers carry (2x24/2x16 kg)\n- 12.5 m sled push (152/102 kg)\n- 8 burpee box jump-overs (24/20 in)"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal row\n- 50 m farmers carry (2x24/2x16 kg)\n- 12.5 m sled push (105/70 kg)\n- 6 burpee box jump-overs (24/20 in)"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -15572,16 +15572,16 @@
     "blocks": [
      {
       "items": [
-       "12/9 cal row",
-       "100 m farmers carry (2x24/2x16 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "10 burpee box jump-overs (24/20 in)"
+       "11/8 cal row",
+       "75 m farmers carry (2x24/2x16 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "8 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 12/9 cal row\n- 100 m farmers carry (2x24/2x16 kg)\n- 12.5 m sled push (152/102 kg)\n- 10 burpee box jump-overs (24/20 in)"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 11/8 cal row\n- 75 m farmers carry (2x24/2x16 kg)\n- 12.5 m sled push (105/70 kg)\n- 8 burpee box jump-overs (24/20 in)"
    }
   },
   {
@@ -15744,13 +15744,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate assault/echo bike > row > SkiErg",
-       "min 4: 10 burpees to target",
+       "min 4: 8 burpees to target",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > row > SkiErg\n- min 4: 10 burpees to target\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > row > SkiErg\n- min 4: 8 burpees to target\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 48 min (12 rounds)",
@@ -15970,7 +15970,7 @@
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "100 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
       "label": "Part A (15 min)",
       "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
@@ -15988,7 +15988,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 100 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\n- 600 m run\n- 16 burpee broad jumps\n- 25 wall balls (6/4 kg)\n- 35 sit-ups"
+    "text": "Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\n- 600 m run\n- 16 burpee broad jumps\n- 25 wall balls (6/4 kg)\n- 35 sit-ups"
    },
    "team": {
     "headline": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min",
@@ -15998,12 +15998,12 @@
      {
       "items": [
        "12.5 m heavy sled push (+10% race weight)",
-       "100 m farmers carry (2x24/2x16 kg)"
+       "75 m farmers carry (2x24/2x16 kg)"
       ],
       "label": "Part A (15 min)",
       "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -16018,7 +16018,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 100 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 burpee broad jumps\n- 40 wall balls (6/4 kg)\n- 50 sit-ups"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 burpee broad jumps\n- 40 wall balls (6/4 kg)\n- 50 sit-ups"
    }
   },
   {
@@ -16540,13 +16540,13 @@
       "items": [
        "1000 m run @ race pace",
        "odd rounds: 14 burpee broad jumps",
-       "even rounds: 150 m farmers carry (2x24/2x16 kg)"
+       "even rounds: 125 m farmers carry (2x24/2x16 kg)"
       ],
       "scheme": "5 rounds, start a new round every 8 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 14 burpee broad jumps\n- even rounds: 150 m farmers carry (2x24/2x16 kg)"
+    "text": "Team of 2: Every 8 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 8 min:\n- 1000 m run @ race pace\n- odd rounds: 14 burpee broad jumps\n- even rounds: 125 m farmers carry (2x24/2x16 kg)"
    }
   },
   {
@@ -16988,16 +16988,16 @@
     "blocks": [
      {
       "items": [
-       "11/8 cal assault/echo bike",
-       "15 m DB farmers lunges (2x22.5/15 kg)",
-       "16 goblet lunges (22.5/15 kg)",
-       "200 m run"
+       "10/8 cal assault/echo bike",
+       "10 m DB farmers lunges (2x22.5/15 kg)",
+       "14 goblet lunges (22.5/15 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 11/8 cal assault/echo bike\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 16 goblet lunges (22.5/15 kg)\n- 200 m run"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal assault/echo bike\n- 10 m DB farmers lunges (2x22.5/15 kg)\n- 14 goblet lunges (22.5/15 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -17006,16 +17006,16 @@
     "blocks": [
      {
       "items": [
-       "14/10 cal assault/echo bike",
-       "20 m DB farmers lunges (2x22.5/15 kg)",
-       "20 goblet lunges (22.5/15 kg)",
-       "200 m run"
+       "12/9 cal assault/echo bike",
+       "15 m DB farmers lunges (2x22.5/15 kg)",
+       "16 goblet lunges (22.5/15 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 14/10 cal assault/echo bike\n- 20 m DB farmers lunges (2x22.5/15 kg)\n- 20 goblet lunges (22.5/15 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal assault/echo bike\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 16 goblet lunges (22.5/15 kg)\n- 100 m run"
    }
   },
   {
@@ -17453,7 +17453,7 @@
       "label": "Part A (18 min)",
       "scheme": "Every 3 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -17468,7 +17468,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 25 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 20 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (25 min) (AMRAP 25 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 225 m farmers carry (2x24/2x16 kg)\n- 25 m sled push (152/102 kg)\n- 45 push-ups"
+    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 25 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 20 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (25 min) (AMRAP 25 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 225 m farmers carry (2x24/2x16 kg)\n- 25 m sled push (152/102 kg)\n- 45 push-ups"
    }
   },
   {
@@ -17497,13 +17497,13 @@
       "items": [
        "400 m run @ race pace",
        "odd rounds: 175 m farmers carry (2x24/2x16 kg)",
-       "even rounds: 35 m sandbag walking lunges (20/10 kg)"
+       "even rounds: 30 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 5 min x 9 rounds\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 175 m farmers carry (2x24/2x16 kg)\n- even rounds: 35 m sandbag walking lunges (20/10 kg)"
+    "text": "Every 5 min x 9 rounds\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 175 m farmers carry (2x24/2x16 kg)\n- even rounds: 30 m sandbag walking lunges (20/10 kg)"
    },
    "team": {
     "headline": "Team of 2: Every 5 min x 9 rounds",
@@ -17513,14 +17513,14 @@
      {
       "items": [
        "400 m run @ race pace",
-       "odd rounds: 250 m farmers carry (2x24/2x16 kg)",
-       "even rounds: 50 m sandbag walking lunges (20/10 kg)"
+       "odd rounds: 200 m farmers carry (2x24/2x16 kg)",
+       "even rounds: 35 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "9 rounds, start a new round every 5 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 250 m farmers carry (2x24/2x16 kg)\n- even rounds: 50 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: Every 5 min x 9 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n9 rounds, start a new round every 5 min:\n- 400 m run @ race pace\n- odd rounds: 200 m farmers carry (2x24/2x16 kg)\n- even rounds: 35 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -18412,15 +18412,15 @@
      {
       "items": [
        "8/6 cal row",
-       "12.5 m sled pull (103/78 kg)",
+       "12.5 m sled pull (70/55 kg)",
        "10 m sandbag walking lunges (20/10 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 12 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 48\n\nMinute 1-4 rotation, 12 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (103/78 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 200 m run"
+    "text": "EMOM 48\n\nMinute 1-4 rotation, 12 rounds:\n- 8/6 cal row\n- 12.5 m sled pull (70/55 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 48",
@@ -18430,15 +18430,15 @@
      {
       "items": [
        "10/8 cal row",
-       "12.5 m sled pull (103/78 kg)",
-       "15 m sandbag walking lunges (20/10 kg)",
-       "200 m run"
+       "12.5 m sled pull (70/55 kg)",
+       "10 m sandbag walking lunges (20/10 kg)",
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 12 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 48\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 12 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (103/78 kg)\n- 15 m sandbag walking lunges (20/10 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 48\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 12 rounds:\n- 10/8 cal row\n- 12.5 m sled pull (70/55 kg)\n- 10 m sandbag walking lunges (20/10 kg)\n- 100 m run"
    }
   },
   {
@@ -18897,7 +18897,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 3 min x 5 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -18912,7 +18912,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 24 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 100 m farmers carry (2x24/2x16 kg)\n- 20 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (24 min) (AMRAP 24 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 m sled pull (103/78 kg)\n- 40 KB swings (24/16 kg)\n- 45 air squats"
+    "text": "Team of 2: Part A: every 3 min x 5 | Part B: AMRAP 24 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 3 min x 5 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 100 m farmers carry (2x24/2x16 kg)\n- 20 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (24 min) (AMRAP 24 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 m sled pull (103/78 kg)\n- 40 KB swings (24/16 kg)\n- 45 air squats"
    }
   },
   {
@@ -19424,19 +19424,19 @@
      },
      {
       "items": [
-       "900 m SkiErg"
+       "850 m SkiErg"
       ],
       "label": "Block 3"
      },
      {
       "items": [
-       "75 m sandbag walking lunges (20/10 kg)"
+       "70 m sandbag walking lunges (20/10 kg)"
       ],
       "label": "Block 4"
      }
     ],
     "scoring": "Complete every interval; note the slowest one",
-    "text": "Team of 2: E4MOM for 48 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 4 blocks, 3 times\n\nBlock 1:\n- 50 m sled push (152/102 kg)\n\nBlock 2:\n- 200 m run\n- 50 goblet lunges (22.5/15 kg)\n\nBlock 3:\n- 900 m SkiErg\n\nBlock 4:\n- 75 m sandbag walking lunges (20/10 kg)"
+    "text": "Team of 2: E4MOM for 48 min\nStart each interval together. Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\nRotate through the 4 blocks, 3 times\n\nBlock 1:\n- 50 m sled push (152/102 kg)\n\nBlock 2:\n- 200 m run\n- 50 goblet lunges (22.5/15 kg)\n\nBlock 3:\n- 850 m SkiErg\n\nBlock 4:\n- 70 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -19481,14 +19481,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 37.5 m sled push (152/102 kg)",
+       "odd rounds: 25 m sled push (152/102 kg)",
        "even rounds: 25 burpee broad jumps"
       ],
       "scheme": "5 rounds, start a new round every 9 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 37.5 m sled push (152/102 kg)\n- even rounds: 25 burpee broad jumps"
+    "text": "Team of 2: Every 9 min x 5 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds, start a new round every 9 min:\n- 1000 m run @ race pace\n- odd rounds: 25 m sled push (152/102 kg)\n- even rounds: 25 burpee broad jumps"
    }
   },
   {
@@ -19580,13 +19580,13 @@
      {
       "items": [
        "min 1-2: max cal, rotate assault/echo bike > SkiErg > row",
-       "min 3: 18 KB swings (24/16 kg)",
+       "min 3: 16 KB swings (24/16 kg)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 3 min for 45 min (15 rounds)\n\n- min 1-2: max cal, rotate assault/echo bike > SkiErg > row\n- min 3: 18 KB swings (24/16 kg)\n- @ max sustainable pace for all"
+    "text": "Every 3 min for 45 min (15 rounds)\n\n- min 1-2: max cal, rotate assault/echo bike > SkiErg > row\n- min 3: 16 KB swings (24/16 kg)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 3 min for 45 min (15 rounds)",
@@ -19806,16 +19806,16 @@
     "blocks": [
      {
       "items": [
-       "11/8 cal assault/echo bike",
-       "12.5 m sled pull (103/78 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "12 burpees"
+       "10/8 cal assault/echo bike",
+       "12.5 m sled pull (70/55 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "8 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 11/8 cal assault/echo bike\n- 12.5 m sled pull (103/78 kg)\n- 12.5 m sled push (152/102 kg)\n- 12 burpees"
+    "text": "EMOM 44\n\nMinute 1-4 rotation, 11 rounds:\n- 10/8 cal assault/echo bike\n- 12.5 m sled pull (70/55 kg)\n- 12.5 m sled push (105/70 kg)\n- 8 burpees"
    },
    "team": {
     "headline": "Team of 2: EMOM 44",
@@ -19824,16 +19824,16 @@
     "blocks": [
      {
       "items": [
-       "14/10 cal assault/echo bike",
-       "12.5 m sled pull (103/78 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "16 burpees"
+       "12/9 cal assault/echo bike",
+       "12.5 m sled pull (70/55 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "10 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 11 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 14/10 cal assault/echo bike\n- 12.5 m sled pull (103/78 kg)\n- 12.5 m sled push (152/102 kg)\n- 16 burpees"
+    "text": "Team of 2: EMOM 44\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 11 rounds:\n- 12/9 cal assault/echo bike\n- 12.5 m sled pull (70/55 kg)\n- 12.5 m sled push (105/70 kg)\n- 10 burpees"
    }
   },
   {
@@ -19977,13 +19977,13 @@
      {
       "items": [
        "min 1-4: max cal, rotate SkiErg > row > assault/echo bike",
-       "min 5: 20 KB swings (24/16 kg)",
+       "min 5: 16 KB swings (24/16 kg)",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate SkiErg > row > assault/echo bike\n- min 5: 20 KB swings (24/16 kg)\n- @ max sustainable pace for all"
+    "text": "Every 5 min for 45 min (9 rounds)\n\n- min 1-4: max cal, rotate SkiErg > row > assault/echo bike\n- min 5: 16 KB swings (24/16 kg)\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 5 min for 45 min (9 rounds)",
@@ -20271,7 +20271,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -20286,7 +20286,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 40 KB swings (24/16 kg)\n- 18 burpee broad jumps\n- 40 air squats"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 26 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 12.5 m heavy sled push (+10% race weight)\n- 75 m farmers carry (2x24/2x16 kg)\nRest 3 min\n\nPart B (26 min) (AMRAP 26 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 400 m run\n- 40 KB swings (24/16 kg)\n- 18 burpee broad jumps\n- 40 air squats"
    }
   },
   {
@@ -20774,13 +20774,13 @@
       "items": [
        "600 m run @ race pace",
        "odd rounds: 150 m farmers carry (2x24/2x16 kg)",
-       "even rounds: 18 burpee box jump-overs (24/20 in)"
+       "even rounds: 16 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "8 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 6 min x 8 rounds\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 150 m farmers carry (2x24/2x16 kg)\n- even rounds: 18 burpee box jump-overs (24/20 in)"
+    "text": "Every 6 min x 8 rounds\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 150 m farmers carry (2x24/2x16 kg)\n- even rounds: 16 burpee box jump-overs (24/20 in)"
    },
    "team": {
     "headline": "Team of 2: Every 6 min x 8 rounds",
@@ -20790,14 +20790,14 @@
      {
       "items": [
        "600 m run @ race pace",
-       "odd rounds: 200 m farmers carry (2x24/2x16 kg)",
-       "even rounds: 25 burpee box jump-overs (24/20 in)"
+       "odd rounds: 175 m farmers carry (2x24/2x16 kg)",
+       "even rounds: 20 burpee box jump-overs (24/20 in)"
       ],
       "scheme": "8 rounds, start a new round every 6 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 6 min x 8 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 200 m farmers carry (2x24/2x16 kg)\n- even rounds: 25 burpee box jump-overs (24/20 in)"
+    "text": "Team of 2: Every 6 min x 8 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n8 rounds, start a new round every 6 min:\n- 600 m run @ race pace\n- odd rounds: 175 m farmers carry (2x24/2x16 kg)\n- even rounds: 20 burpee box jump-overs (24/20 in)"
    }
   },
   {
@@ -21165,15 +21165,15 @@
      {
       "items": [
        "8/6 cal SkiErg",
-       "14 DB thrusters (2x15/10 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "10 burpees"
+       "12 DB thrusters (2x15/10 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "8 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 8/6 cal SkiErg\n- 14 DB thrusters (2x15/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 10 burpees"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 8/6 cal SkiErg\n- 12 DB thrusters (2x15/10 kg)\n- 12.5 m sled push (105/70 kg)\n- 8 burpees"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -21182,16 +21182,16 @@
     "blocks": [
      {
       "items": [
-       "10/8 cal SkiErg",
-       "18 DB thrusters (2x15/10 kg)",
-       "12.5 m sled push (152/102 kg)",
-       "12 burpees"
+       "9/7 cal SkiErg",
+       "14 DB thrusters (2x15/10 kg)",
+       "12.5 m sled push (105/70 kg)",
+       "10 burpees"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 10/8 cal SkiErg\n- 18 DB thrusters (2x15/10 kg)\n- 12.5 m sled push (152/102 kg)\n- 12 burpees"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal SkiErg\n- 14 DB thrusters (2x15/10 kg)\n- 12.5 m sled push (105/70 kg)\n- 10 burpees"
    }
   },
   {
@@ -21461,7 +21461,7 @@
      {
       "items": [
        "odd: 6 wall balls (6/4 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -21469,7 +21469,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "30 min easy run + EMOM 16 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "30 min easy run + EMOM 16 technique\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 30 min easy run + EMOM 16 technique",
@@ -21485,7 +21485,7 @@
      {
       "items": [
        "odd: 6 wall balls (6/4 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -21494,7 +21494,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 30 min easy run + EMOM 16 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 30 min easy run + EMOM 16 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 30 min easy run (zone 2)\n\nPart B (EMOM 16):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 6 wall balls (6/4 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -21628,7 +21628,7 @@
       "label": "Part A (18 min)",
       "scheme": "Every 3 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -21643,7 +21643,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 100 m farmers carry (2x24/2x16 kg)\n- 20 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 KB swings (24/16 kg)\n- 18 burpee broad jumps\n- 45 V-ups"
+    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 21 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 100 m farmers carry (2x24/2x16 kg)\n- 20 goblet lunges (22.5/15 kg)\nRest 3 min\n\nPart B (21 min) (AMRAP 21 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 50 KB swings (24/16 kg)\n- 18 burpee broad jumps\n- 45 V-ups"
    }
   },
   {
@@ -21802,13 +21802,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate SkiErg > assault/echo bike > row",
-       "min 4: 10 burpees to target",
+       "min 4: 8 burpees to target",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate SkiErg > assault/echo bike > row\n- min 4: 10 burpees to target\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate SkiErg > assault/echo bike > row\n- min 4: 8 burpees to target\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 48 min (12 rounds)",
@@ -22549,16 +22549,16 @@
     "blocks": [
      {
       "items": [
-       "9/7 cal SkiErg",
+       "8/6 cal SkiErg",
        "12 DB thrusters (2x15/10 kg)",
        "16 DB push press (2x15/10 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal SkiErg\n- 12 DB thrusters (2x15/10 kg)\n- 16 DB push press (2x15/10 kg)\n- 200 m run"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 8/6 cal SkiErg\n- 12 DB thrusters (2x15/10 kg)\n- 16 DB push press (2x15/10 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -22567,16 +22567,16 @@
     "blocks": [
      {
       "items": [
-       "12/9 cal SkiErg",
-       "16 DB thrusters (2x15/10 kg)",
+       "9/7 cal SkiErg",
+       "14 DB thrusters (2x15/10 kg)",
        "20 DB push press (2x15/10 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 12/9 cal SkiErg\n- 16 DB thrusters (2x15/10 kg)\n- 20 DB push press (2x15/10 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal SkiErg\n- 14 DB thrusters (2x15/10 kg)\n- 20 DB push press (2x15/10 kg)\n- 100 m run"
    }
   },
   {
@@ -22737,13 +22737,13 @@
      {
       "items": [
        "min 1-3: max cal, rotate assault/echo bike > SkiErg > row",
-       "min 4: 8 burpees over the rower",
+       "min 4: 6 burpees over the rower",
        "@ max sustainable pace for all"
       ]
      }
     ],
     "scoring": "Total calories",
-    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 8 burpees over the rower\n- @ max sustainable pace for all"
+    "text": "Every 4 min for 48 min (12 rounds)\n\n- min 1-3: max cal, rotate assault/echo bike > SkiErg > row\n- min 4: 6 burpees over the rower\n- @ max sustainable pace for all"
    },
    "team": {
     "headline": "Team of 2: Every 4 min for 48 min (12 rounds)",
@@ -22846,7 +22846,7 @@
      },
      {
       "items": [
-       "odd: 12.5 m sled pull (103/78 kg)",
+       "odd: 12.5 m sled pull (70/55 kg)",
        "even: 10 m sandbag walking lunges (20/10 kg)",
        "light load, perfect race technique"
       ],
@@ -22855,7 +22855,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 12.5 m sled pull (103/78 kg)\n- even: 10 m sandbag walking lunges (20/10 kg)\n- light load, perfect race technique"
+    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 12.5 m sled pull (70/55 kg)\n- even: 10 m sandbag walking lunges (20/10 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 26 min easy run + EMOM 14 technique",
@@ -22870,7 +22870,7 @@
      },
      {
       "items": [
-       "odd: 12.5 m sled pull (103/78 kg)",
+       "odd: 12.5 m sled pull (70/55 kg)",
        "even: 10 m sandbag walking lunges (20/10 kg)",
        "light load, perfect race technique"
       ],
@@ -22880,7 +22880,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 12.5 m sled pull (103/78 kg)\n- even: 10 m sandbag walking lunges (20/10 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 12.5 m sled pull (70/55 kg)\n- even: 10 m sandbag walking lunges (20/10 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -23014,7 +23014,7 @@
       "label": "Part A (18 min)",
       "scheme": "Every 3 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -23029,7 +23029,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 19 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 20 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (19 min) (AMRAP 19 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 45 DB push press (2x15/10 kg)\n- 25 burpees to target\n- 30 push-ups"
+    "text": "Team of 2: Part A: every 3 min x 6 | Part B: AMRAP 19 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (18 min) (Every 3 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 20 m sandbag walking lunges (20/10 kg)\n- 12.5 m sled pull (103/78 kg)\nRest 3 min\n\nPart B (19 min) (AMRAP 19 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 45 DB push press (2x15/10 kg)\n- 25 burpees to target\n- 30 push-ups"
    }
   },
   {
@@ -23057,14 +23057,14 @@
      {
       "items": [
        "800 m run @ race pace",
-       "odd rounds: 20/15 cal row",
-       "even rounds: 16 burpee broad jumps"
+       "odd rounds: 19/14 cal row",
+       "even rounds: 14 burpee broad jumps"
       ],
       "scheme": "6 rounds, start a new round every 7 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Every 7 min x 6 rounds\n\n6 rounds, start a new round every 7 min:\n- 800 m run @ race pace\n- odd rounds: 20/15 cal row\n- even rounds: 16 burpee broad jumps"
+    "text": "Every 7 min x 6 rounds\n\n6 rounds, start a new round every 7 min:\n- 800 m run @ race pace\n- odd rounds: 19/14 cal row\n- even rounds: 14 burpee broad jumps"
    },
    "team": {
     "headline": "Team of 2: Every 7 min x 6 rounds",
@@ -23074,14 +23074,14 @@
      {
       "items": [
        "800 m run @ race pace",
-       "odd rounds: 28/21 cal row",
-       "even rounds: 20 burpee broad jumps"
+       "odd rounds: 22/16 cal row",
+       "even rounds: 16 burpee broad jumps"
       ],
       "scheme": "6 rounds, start a new round every 7 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 7 min x 6 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds, start a new round every 7 min:\n- 800 m run @ race pace\n- odd rounds: 28/21 cal row\n- even rounds: 20 burpee broad jumps"
+    "text": "Team of 2: Every 7 min x 6 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds, start a new round every 7 min:\n- 800 m run @ race pace\n- odd rounds: 22/16 cal row\n- even rounds: 16 burpee broad jumps"
    }
   },
   {
@@ -23499,14 +23499,14 @@
      {
       "items": [
        "1000 m run @ race pace",
-       "odd rounds: 65 m sandbag walking lunges (20/10 kg)",
-       "even rounds: 43/32 cal SkiErg"
+       "odd rounds: 60 m sandbag walking lunges (20/10 kg)",
+       "even rounds: 41/31 cal SkiErg"
       ],
       "scheme": "4 rounds, start a new round every 10 min"
      }
     ],
     "scoring": "Slowest round; rest is whatever is left of the interval",
-    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 65 m sandbag walking lunges (20/10 kg)\n- even rounds: 43/32 cal SkiErg"
+    "text": "Team of 2: Every 10 min x 4 rounds\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n4 rounds, start a new round every 10 min:\n- 1000 m run @ race pace\n- odd rounds: 60 m sandbag walking lunges (20/10 kg)\n- even rounds: 41/31 cal SkiErg"
    }
   },
   {
@@ -23875,13 +23875,13 @@
        "7/5 cal SkiErg",
        "10 DB thrusters (2x15/10 kg)",
        "10 wall balls (6/4 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 7/5 cal SkiErg\n- 10 DB thrusters (2x15/10 kg)\n- 10 wall balls (6/4 kg)\n- 200 m run"
+    "text": "EMOM 40\n\nMinute 1-4 rotation, 10 rounds:\n- 7/5 cal SkiErg\n- 10 DB thrusters (2x15/10 kg)\n- 10 wall balls (6/4 kg)\n- 100 m run"
    },
    "team": {
     "headline": "Team of 2: EMOM 40",
@@ -23893,13 +23893,13 @@
        "9/7 cal SkiErg",
        "12 DB thrusters (2x15/10 kg)",
        "12 wall balls (6/4 kg)",
-       "200 m run"
+       "100 m run"
       ],
       "scheme": "Minute 1-4 rotation, 10 rounds"
      }
     ],
     "scoring": "Rounds completed inside the minute",
-    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal SkiErg\n- 12 DB thrusters (2x15/10 kg)\n- 12 wall balls (6/4 kg)\n- 200 m run"
+    "text": "Team of 2: EMOM 40\nYou go, I go: inside each minute, P1 starts and P2 finishes the reps (split as you wish). Any run is done together.\n\nMinute 1-4 rotation, 10 rounds:\n- 9/7 cal SkiErg\n- 12 DB thrusters (2x15/10 kg)\n- 12 wall balls (6/4 kg)\n- 100 m run"
    }
   },
   {
@@ -24188,7 +24188,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -24196,7 +24196,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "26 min easy run + EMOM 14 technique\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    },
    "team": {
     "headline": "Team of 2: 26 min easy run + EMOM 14 technique",
@@ -24212,7 +24212,7 @@
      {
       "items": [
        "odd: 50 m farmers carry (2x24/2x16 kg)",
-       "even: 12.5 m sled pull (103/78 kg)",
+       "even: 12.5 m sled pull (70/55 kg)",
        "light load, perfect race technique"
       ],
       "label": "Part B",
@@ -24221,7 +24221,7 @@
      }
     ],
     "scoring": "None, quality only",
-    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (103/78 kg)\n- light load, perfect race technique"
+    "text": "Team of 2: 26 min easy run + EMOM 14 technique\nDo it side by side at a pace where you can both talk the whole time.\n\nPart A:\n- 26 min easy run (zone 2)\n\nPart B (EMOM 14):\nP1 starts on the odd station and P2 on the even one; swap every minute and coach each other.\n- odd: 50 m farmers carry (2x24/2x16 kg)\n- even: 12.5 m sled pull (70/55 kg)\n- light load, perfect race technique"
    }
   },
   {
@@ -24355,7 +24355,7 @@
       "label": "Part A (15 min)",
       "scheme": "Every 2.5 min x 6 sets, heavy but unbroken",
       "rest": "Rest 3 min",
-      "teamNote": "You go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work."
+      "teamNote": "You go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo."
      },
      {
       "items": [
@@ -24370,7 +24370,7 @@
      }
     ],
     "scoring": "Part A load used; Part B rounds + reps",
-    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 28 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 18 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (28 min) (AMRAP 28 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 m sled push (152/102 kg)\n- 30 m sandbag walking lunges (20/10 kg)\n- 50 sit-ups"
+    "text": "Team of 2: Part A: every 2.5 min x 6 | Part B: AMRAP 28 min\nSame clock for both partners; how to share each part is shown on the part.\n\nPart A (15 min) (Every 2.5 min x 6 sets, heavy but unbroken):\nYou go, I go: P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.\n- 15 m DB farmers lunges (2x22.5/15 kg)\n- 18 DB push press (2x15/10 kg)\nRest 3 min\n\nPart B (28 min) (AMRAP 28 min):\nYou go, I go: P1 does a full round, then P2. Bigger rounds because you rest while your partner works.\n- 600 m run\n- 25 m sled push (152/102 kg)\n- 30 m sandbag walking lunges (20/10 kg)\n- 50 sit-ups"
    }
   }
  ]

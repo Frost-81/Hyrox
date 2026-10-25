@@ -105,6 +105,6 @@ export function todayTeaser(w, mode, units = 'kg') {
     <h2>${esc(w.title)}</h2>
     <div class="tags">${chip(MODE_TEXT[mode], 'mode')}${chip(`${w.durationMin} min`)}${chip(w.format)}${chip(INTENSITY[w.intensity] || w.intensity, INTENSITY_CLASS[w.intensity] || '')}</div>
     <p class="small">${txt(w[mode].headline, units)}</p>
-    <a class="btn primary" href="#wod">Open today's WOD</a>
+    <a class="btn primary" href="/wod">Open today's WOD</a>
   </section>`;
 }

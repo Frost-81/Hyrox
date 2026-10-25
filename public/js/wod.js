@@ -1,9 +1,9 @@
 // Workout of the Day: picking the day's workout from public/data/wods.json. Pure functions, no DOM.
-import { parseYmd, toYmd, WEEKDAYS } from './plan.js';
+import { parseYmd, toYmd, todayYmd, WEEKDAYS } from './plan.js';
 
 /** Day 1 of the 365-day cycle (a Monday). */
 export const START_DATE = '2026-11-02';
-export const WOD_URL = 'data/wods.json';
+export const WOD_URL = '/data/wods.json';
 export const MODES = ['solo', 'team'];
 
 const DAY = 86400000;
@@ -37,6 +37,15 @@ export const pickMode = (workout, savedMode) => (MODES.includes(savedMode) ? sav
 
 /** Subscribers see only the current week: any other date is pulled back to today. */
 export const clampToWeek = (ymd, today) => (weekDates(today).some((d) => d.ymd === ymd) ? ymd : today);
+
+/** Next week's workouts open on Sunday at this hour, local time. */
+export const RELEASE_HOUR = 18;
+
+/** A date in the week to show: today, or next Monday from Sunday 6 pm on. */
+export function wodWeekAnchor(now = new Date()) {
+  const today = todayYmd(now);
+  return now.getDay() === 0 && now.getHours() >= RELEASE_HOUR ? addDays(today, 1) : today;
+}
 
 let cache = null;
 /** Fetch the library once per page load. */

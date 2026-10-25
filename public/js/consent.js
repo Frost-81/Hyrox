@@ -1,9 +1,10 @@
 // Cookie and storage consent bar (Quebec Loi 25: privacy by default, clear choice, easy to change).
-// The site only uses essential storage today (sign-in, saved plan). Optional categories are off
-// until the visitor accepts them; check hasConsent('optional') before adding analytics or similar.
+// Essential storage (sign-in, saved plan) is always on. Optional categories (Google Analytics, see
+// analytics.js) are off until the visitor accepts them: check hasConsent('optional'), and listen for
+// the window 'consentchange' event to follow a change of mind.
 
 const KEY = 'hybrid:consent';
-const VERSION = 1;
+const VERSION = 2; // 2: Google Analytics added, so earlier answers are asked again
 
 function read() {
   try {
@@ -18,6 +19,7 @@ function write(optional) {
   try {
     localStorage.setItem(KEY, JSON.stringify({ v: VERSION, optional, date: new Date().toISOString() }));
   } catch { /* storage blocked: the bar shows again next visit */ }
+  window.dispatchEvent(new Event('consentchange'));
 }
 
 /** 'essential' is always true; 'optional' only after the visitor accepted it. */
@@ -35,8 +37,8 @@ function show() {
   bar.setAttribute('role', 'region');
   bar.setAttribute('aria-label', 'Cookie choices');
   bar.innerHTML = `
-    <p>We use only essential cookies and browser storage to sign you in and save your plan. No ads, no tracking.
-      <a href="/privacy#cookies">Privacy</a></p>
+    <p>We use essential cookies and browser storage to sign you in and save your plan. If you accept, Google Analytics
+      also counts visits so we can improve the site. No ads. <a href="/privacy#cookies">Privacy</a></p>
     <div class="consent-btns">
       <button type="button" class="btn small ghost" data-consent="essential">Essential only</button>
       <button type="button" class="btn small primary" data-consent="all">Accept</button>

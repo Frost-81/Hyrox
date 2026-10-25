@@ -6,7 +6,7 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import { SMTP_URL, MAIL, sendEmail, template, underLimits, clientIp } from './mail.js';
+import { SMTP_URL, MAIL, EMULATOR, sendEmail, template, underLimits, clientIp } from './mail.js';
 
 initializeApp();
 
@@ -18,15 +18,31 @@ const MAX_ALL = 400; // emails per hour in all (Namecheap allows 500)
 
 const opts = { region: 'us-central1', secrets: [SMTP_URL] };
 
-/** Firebase Hosting serves the same action page (/__/auth/action) on our domain, so links stay on it. */
-function onOurSite(link) {
-  const { pathname, search } = new URL(link);
-  return new URL(`${pathname}${search}`, MAIL.site).href;
+// The emulated site (firebase emulators:start) when testing, so its links open the local pages.
+const SITE = EMULATOR ? 'http://127.0.0.1:5000' : MAIL.site;
+// Pages a confirmation link may lead back to.
+const NEXT_PAGES = ['/', '/wod'];
+
+/**
+ * Our own page for an Auth link (public/auth-action.html), so it opens on our site, in our design,
+ * and leads back to the page the user came from. Only the mode and the one-time code are kept.
+ */
+function actionLink(link, next = '/') {
+  const from = new URL(link).searchParams;
+  const url = new URL('/auth-action', SITE);
+  url.searchParams.set('mode', from.get('mode'));
+  url.searchParams.set('oobCode', from.get('oobCode'));
+  if (NEXT_PAGES.includes(next) && next !== '/') url.searchParams.set('next', next);
+  if (EMULATOR) logger.info(`Email link: ${url.href}`);
+  return url.href;
 }
 
 // ---------- email verification ----------
 
-/** Emails the signed-in user a link that confirms their address. Returns { email, verified }. */
+/**
+ * { next? }: emails the signed-in user a link that confirms their address; next ('/' or '/wod') is the
+ * page the link leads back to. Returns { email, verified }.
+ */
 export const sendVerifyEmail = onCall(opts, async (request) => {
   if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
   const { email, emailVerified } = await getAuth().getUser(request.auth.uid);
@@ -54,7 +70,7 @@ export const sendVerifyEmail = onCall(opts, async (request) => {
     ...template({
       heading: 'Confirm your email',
       paragraphs: ['Welcome to HybridProg. Confirm this is your email address to finish creating your account.'],
-      button: { label: 'Confirm my email', url: onOurSite(link) },
+      button: { label: 'Confirm my email', url: actionLink(link, request.data?.next) },
       footnote: 'If you did not create a HybridProg account, ignore this email.',
     }),
   });
@@ -88,7 +104,7 @@ export const sendPasswordReset = onCall(opts, async (request) => {
     logger.error('Password reset link not made', { code: err.code, message: err.message });
     throw new HttpsError('unavailable', 'Could not send the email. Please try again in a few minutes.');
   }
-  const url = onOurSite(link);
+  const url = actionLink(link);
 
   await sendEmail({
     to: email,

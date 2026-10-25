@@ -24,9 +24,11 @@ MV = {
     'burpee_box': dict(name='burpee box jump-overs', unit='reps', sec=5.0, w='24/20 in'),
     'burpee_db':  dict(name='burpee dual-DB step-overs', unit='reps', sec=5.5, w='2x22.5/15 kg'),
     'burpee_tgt': dict(name='burpees to target', unit='reps', sec=4.2),
-    'sled_push':  dict(name='sled push', unit='m', sec=3.6, rnd=12.5, mn=12.5, w='152/102 kg'),
+    'sled_push':  dict(name='sled push', unit='m', sec=3.6, rnd=12.5, mn=12.5, w='152/102 kg', light='sled_push_l'),
+    'sled_push_l':dict(name='sled push', unit='m', sec=2.7, rnd=12.5, mn=12.5, w='105/70 kg'),
     'sled_push_h':dict(name='heavy sled push', unit='m', sec=4.4, rnd=12.5, mn=12.5, w='+10% race weight'),
-    'sled_pull':  dict(name='sled pull', unit='m', sec=4.0, rnd=12.5, mn=12.5, w='103/78 kg'),
+    'sled_pull':  dict(name='sled pull', unit='m', sec=4.0, rnd=12.5, mn=12.5, w='103/78 kg', light='sled_pull_l'),
+    'sled_pull_l':dict(name='sled pull', unit='m', sec=3.0, rnd=12.5, mn=12.5, w='70/55 kg'),
     'farmers':    dict(name='farmers carry', unit='m', sec=0.55, rnd=25, mn=50, w='2x24/2x16 kg'),
     'sb_lunge':   dict(name='sandbag walking lunges', unit='m', sec=3.0, rnd=5, mn=10, w='20/10 kg'),
     'lunge':      dict(name='walking lunges', unit='m', sec=2.4, rnd=5, mn=10),
@@ -43,6 +45,10 @@ MV = {
     'air_squat':  dict(name='air squats', unit='reps', sec=1.8),
 }
 TRANSITION = 10  # seconds between movements
+# Every fixed interval (EMOM, every n min, x min on) leaves at least this share of it to rest, so an
+# athlete about 25% slower than the estimates above still finishes the work inside the interval.
+REST_SHARE = 0.2
+FIT_MISSES = []  # intervals that still overflow after fitting (printed at the end)
 
 
 def rnd_qty(k, q):
@@ -121,14 +127,20 @@ class W:
         self.extra_est = None
         self.repeat = 1
 
-    def block(self, items, label=None, scheme=None, rest=None, tf=None, sf=None, team_how=None, reps=1):
+    def block(self, items, label=None, scheme=None, rest=None, tf=None, sf=None, team_how=None, reps=1,
+              window=None, per_item=False, lead=0, solo_pace=False):
+        """window: seconds in each fixed interval (or {mode: seconds}); the work is fitted to it.
+        per_item: each item after the first `lead` ones is its own interval, done after the lead items
+        (EMOM minutes, odd/even rounds); otherwise the whole block is one interval.
+        solo_pace: in the team version one partner does all of an interval's work, so time it as solo."""
         def collect(it):
             if isinstance(it, tuple):
                 self.d['movements'].add(MV[it[0]]['name'].split(' (')[0])
             elif isinstance(it, list):
                 for p in it: collect(p)
         for it in items: collect(it)
-        self.blocks.append(dict(items=items, label=label, scheme=scheme, rest=rest, tf=tf, sf=sf, team_how=team_how, reps=reps))
+        self.blocks.append(dict(items=items, label=label, scheme=scheme, rest=rest, tf=tf, sf=sf, team_how=team_how, reps=reps,
+                                window=window, per_item=per_item, lead=lead, solo_pace=solo_pace))
         return self
 
     def scale_for(self, b, mode):
@@ -138,7 +150,7 @@ class W:
             return b['tf'] if b['tf'] is not None else self.tf
         return b['sf'] if b['sf'] is not None else self.sf
 
-    def render_item(self, it, scale, mode, acc):
+    def render_item(self, it, scale, mode, acc, light=False):
         if callable(it):
             return it(scale)
         if isinstance(it, str):
@@ -146,13 +158,15 @@ class W:
             if it.startswith('S:'): return it[2:] if mode == 'solo' else None
             return it
         if isinstance(it, list):
-            parts = [self.render_item(p, scale, mode, acc) for p in it]
+            parts = [self.render_item(p, scale, mode, acc, light) for p in it]
             return ''.join(p for p in parts if p)
         k, q, *rest = it
         is_max = rest[0] if rest else False
         tail = rest[1] if len(rest) > 1 else ''
         if mode == 'solo' and k == 'wb_pp':
             k = 'wall_ball'
+        if light:
+            k = MV[k].get('light', k)
         if q is not None and k not in NO_SCALE and scale != 1.0:
             q = rnd_qty(k, q * scale)
         if q is not None:
@@ -164,6 +178,39 @@ class W:
             tail = tail[2:] if mode == 'solo' else ''
         return text(k, q, is_max, tail)
 
+    def item_est(self, it, scale, light, mode):
+        acc = [0.0]
+        self.render_item(it, scale, mode, acc, light)
+        return acc[0]
+
+    def fit_window(self, b, sc, mode):
+        """[scale, light] per item, so each fixed interval of the block leaves REST_SHARE of it to rest.
+        Station work shrinks first; a sled already down to one length switches to a lighter load."""
+        out = [[sc, False] for _ in b['items']]
+        win = b['window'].get(mode) if isinstance(b['window'], dict) else b['window']
+        if not win:
+            return out
+        n, lead = len(b['items']), b['lead']
+        pace = 'solo' if b['solo_pace'] else mode
+        groups = [list(range(lead)) + [i] for i in range(lead, n)] if b['per_item'] else [list(range(n))]
+        budget = (1 - REST_SHARE) * win
+        for g in groups:
+            work = [i for i in g if i >= lead or not b['per_item']]
+            for light in (False, True):
+                for i in work:
+                    out[i] = [sc, light]
+                for _ in range(40):
+                    t = sum(self.item_est(b['items'][i], *out[i], pace) for i in g)
+                    if t <= budget:
+                        break
+                    for i in work:
+                        out[i][0] *= 0.94
+                if t <= budget:
+                    break
+            if t > budget:
+                FIT_MISSES.append((self.headline if isinstance(self.headline, str) else self.headline(1.0), mode, win, round(t)))
+        return out
+
     def variant(self, mode):
         total = 0.0
         blocks = []
@@ -171,7 +218,8 @@ class W:
         for b in self.blocks:
             sc = self.scale_for(b, mode)
             acc = [0.0]
-            items = [x for x in (self.render_item(i, sc, mode, acc) for i in b['items']) if x]
+            fit = self.fit_window(b, sc, mode)
+            items = [x for x in (self.render_item(i, s, mode, acc, light) for i, (s, light) in zip(b['items'], fit)) if x]
             total += acc[0] * b['reps']
             nb = dict(items=items)
             if b['label']: nb['label'] = b['label']
@@ -217,7 +265,7 @@ def t_enmom(L, intensity):
         items = [('run', 400)]
         for s in sts:
             items.append((s, for_sec(s, budget / 3)))
-        w.block(items, scheme=f'{rounds} rounds, start every {n} min')
+        w.block(items, scheme=f'{rounds} rounds, start every {n} min', window=n * 60)
         w.d['scoring'] = 'Slowest round time (aim to have 1:30 or more rest each round)'
         w.d['movements'].add('run')
         return w
@@ -231,7 +279,7 @@ def t_enmom(L, intensity):
             # longer windows: pair a short run before the station
             q2 = for_sec(s, n * 60 * frac - est('run', 200) - TRANSITION)
             items = [('run', 200), (s, q2)]
-        w.block(items, label=f'Block {i+1}')
+        w.block(items, label=f'Block {i+1}', window=n * 60)
     w.d['scheme'] = f'Rotate through the {k} blocks, {rounds} times'
     w.d['scoring'] = 'Complete every interval; note the slowest one'
     return w
@@ -247,10 +295,10 @@ def t_emom_cycle(L, intensity):
     items = []
     for s in sts:
         if s == 'run':
-            items.append(('run', 200))
+            items.append(('run', 100))
         else:
             items.append((s, for_sec(s, rng.uniform(36, 44) * L)))
-    w.block(items, scheme=f'Minute 1-4 rotation, {T // 4} rounds')
+    w.block(items, scheme=f'Minute 1-4 rotation, {T // 4} rounds', window=60, per_item=True)
     w.d['scoring'] = 'Rounds completed inside the minute'
     return w
 
@@ -260,16 +308,22 @@ def t_strength_metcon(L, intensity):
     every, sets = rng.choice(a_opts)
     A = every * sets
     T = rng.choice([40, 42, 44, 45, 46, 48])
-    B = int(T - A - 3)
     pair = rng.choice([['sled_push_h', 'sled_pull'], ['sled_push_h', 'farmers'],
                        ['farmers', 'goblet_lunge'], ['sb_lunge', 'sled_pull'],
                        ['farmer_lunge', 'db_pp'], ['sled_push_h', 'sb_lunge']])
+    # Even the smallest amounts (one sled length) must leave rest in the interval: lengthen it if not.
+    while sum(est(p, rnd_qty(p, 0)) + TRANSITION for p in pair) > (1 - REST_SHARE) * every * 60:
+        every += 0.5
+    if every * sets != A:
+        sets = max(4, round(A / every))
+        A = every * sets
+    B = int(T - A - 3)
     w = W('Strength + AMRAP', f'Part A: every {fmt_num(every)} min x {sets} | Part B: AMRAP {B} min', T, intensity,
           'Strength endurance', team_how='Same clock for both partners; how to share each part is shown on the part.')
     items = [(p, for_sec(p, every * 60 * 0.3 * L)) for p in pair]
     w.block(items, label=f'Part A ({fmt_num(A)} min)', scheme=f'Every {fmt_num(every)} min x {sets} sets, heavy but unbroken',
-            rest='Rest 3 min', tf=1.0,
-            team_how=YGIG + 'P1 goes at the top of each interval, P2 starts the moment P1 finishes. Both do the full work.')
+            rest='Rest 3 min', tf=1.0, window=every * 60, solo_pace=True,
+            team_how=YGIG + 'P1 takes the odd intervals and P2 the even ones. With twice the rest, go heavier than solo.')
     met = [('run', rng.choice([400, 600])), ]
     for s in pick(ANY_ST, 2, exclude=pair) + pick(CORE, 1):
         met.append((s, for_sec(s, rng.uniform(55, 80) * L)))
@@ -290,7 +344,7 @@ def t_compromised(L, intensity):
     w.block([('run', run, False, '@ race pace'),
              ['odd rounds: ', (a, for_sec(a, rem * L))],
              ['even rounds: ', (b, for_sec(b, rem * L))]],
-            scheme=f'{r} rounds, start a new round every {n} min')
+            scheme=f'{r} rounds, start a new round every {n} min', window=n * 60, per_item=True, lead=1)
     w.d['scoring'] = 'Slowest round; rest is whatever is left of the interval'
     return w
 
@@ -515,7 +569,7 @@ def t_machine_rotation(L, intensity):
     q = for_sec(st, rng.uniform(35, 45) * L)
     w.block([f"min 1-{every-1}: max cal, rotate {' > '.join(MV[m]['name'] for m in machines)}",
              [f"min {every}: ", (st, q)],
-             '@ max sustainable pace for all'])
+             '@ max sustainable pace for all'], window=dict(solo=60, team=every * 60), per_item=True)
     w.d['movements'].update([MV[m]['name'] for m in machines])
     w.d['scoring'] = 'Total calories'
     return w
@@ -667,7 +721,7 @@ def t_easy_run_tech(L, intensity):
           team_how=EASY_TEAM)
     w.block([f'{run} min easy run (zone 2)'], label='Part A')
     w.block([['odd: ', (sts[0], for_sec(sts[0], 20))], ['even: ', (sts[1], for_sec(sts[1], 20))],
-             'light load, perfect race technique'], label='Part B', scheme=f'EMOM {emom}',
+             'light load, perfect race technique'], label='Part B', scheme=f'EMOM {emom}', window=60, per_item=True,
             team_how='P1 starts on the odd station and P2 on the even one; swap every minute and coach each other.')
     w.d['movements'].update(['run'])
     w.d['scoring'] = 'None, quality only'
@@ -825,7 +879,8 @@ meta = dict(
         'race weights (Men/Women Open)': 'Sled push 152/102 kg, sled pull 103/78 kg (sled included), farmers 2x24/2x16 kg, sandbag 20/10 kg, wall ball 6/4 kg.',
         'P1/P2': 'Partner 1 / partner 2 in the team version.',
         'Solo / Team': 'Every workout has a solo and a team-of-2 version. The team version adds work and says how to share it: split as you wish (one partner works at a time), you go / I go (alternate turns), or synchro (together). defaultMode is the version the workout was written for.',
-        'EnMOM': 'Every n minutes on the minute: start the work at the top of each interval, rest for what is left.',
+        'EnMOM': 'Every n minutes on the minute: start the work at the top of each interval, rest for what is left. '
+                 'The work is sized to leave about a fifth of each interval to rest; if you have under 10 s left, cut the reps or metres.',
         'AMRAP': 'As many rounds and reps as possible in the time.',
     },
     weeklyRotation=dict(zip(DAYS, [
@@ -842,6 +897,10 @@ meta = dict(
     },
     selection='index = (days since startDate) mod 365, day 1 = startDate (a Monday). Default startDate 2026-11-02.',
 )
+for miss in FIT_MISSES:
+    print('interval still too full (headline, mode, window s, work s):', miss)
+if FIT_MISSES:
+    sys.exit('not written: some intervals leave too little rest')
 out = dict(meta=meta, workouts=workouts)
 json.dump(out, open(sys.argv[1], 'w'), indent=1, ensure_ascii=False)
 print('ok', len(workouts))

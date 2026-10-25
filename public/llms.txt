@@ -1,0 +1,27 @@
+# Hybrid Plan Builder
+
+> Independent HYROX training: a personal 12-week HYROX training plan (CA$5, pay once) and a daily HYROX Workout of the Day (CA$5 a month), for every division (Open, Pro, Doubles). Hybrid Plan Builder is not affiliated with, sponsored or endorsed by HYROX.
+
+HYROX races are 8 x 1 km runs, each followed by a station: SkiErg, sled push, sled pull, burpee broad jumps, row, farmers carry, sandbag lunges and wall balls. Hybrid Plan Builder trains athletes for these races.
+
+## 12-week HYROX training plan
+
+- [12-Week HYROX Training Plan](https://hybridprog.com/): built from the athlete's race date, goal time, division, age group, optional 5k time and 5 or 6 training days.
+- Every session is dated from race day and filled in with the athlete's own run paces, heart-rate zones, station weights and strength targets.
+- 5k tests in weeks 1, 4 and 8 update the paces and the projected finish time.
+- Phases: building the foundation (weeks 1-4), strength and power with a half race simulation (weeks 5-8), race specificity with a full race simulation and a taper (weeks 9-11), race week (week 12).
+- Timed rounds are set from the athlete's own paces, so every round fits with rest to spare.
+- Works without a rower or SkiErg (sessions are swapped using a distance chart), in kilograms or pounds, and for races less than 12 weeks away.
+- One-time payment of CA$5 (Canadian dollars). No subscription.
+
+## HYROX Workout of the Day
+
+- [HYROX Workout of the Day](https://hybridprog.com/wod): a new workout every day, about 45 minutes, with a solo and a team-of-2 version.
+- Runs, sleds, wall balls, carries and ergs at race weights; strength endurance, run intervals, partner days, engine work, race simulations, easy aerobic and recovery days.
+- Each week opens on Sunday at 6 pm. CA$5 a month, cancel any time.
+
+## About
+
+- [Terms of Use](https://hybridprog.com/terms)
+- [Privacy Policy](https://hybridprog.com/privacy)
+- Contact: info@hybridprog.com

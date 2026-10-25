@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { wodIndex, workoutFor, weekDates, addDays, pickMode, clampToWeek } from '../public/js/wod.js';
 import { canUse, hasSubscription } from '../public/js/billing.js';
 import { planIdFor } from '../public/js/progress.js';
+import { planWeek } from '../public/js/render.js';
 
 const TODAY = '2026-10-22';
 const example = { raceDate: '2027-04-24', goal: '1:05', division: 'MO', age: '45-49', fiveK: '20:00', days: [0, 1, 2, 3, 4, 5] };
@@ -248,7 +249,8 @@ test('machine swaps follow the chart', () => {
 
   const noSki = buildPlan({ ...all, equipment: ['row'] }, TODAY);
   assert.match(linesOf(noSki, 'w2-end'), /Row: 20 min .*\(no SkiErg\)/);
-  assert.match(linesOf(noSki, 'w6-long'), /1000 m row \(no SkiErg\)/);
+  assert.match(linesOf(noSki, 'w9-long'), /1000 m row \(no SkiErg\)/);
+  assert.match(linesOf(noSki, 'w6-long'), /1\. 500 m row \(no SkiErg\)/, 'half simulation');
 
   const mixed = buildPlan({ ...all, division: 'XD', equipment: [] }, TODAY);
   assert.match(linesOf(mixed, 'w5-long'), /800\/1000 m \(men\/women\) run/);
@@ -398,6 +400,14 @@ test('WOD shows only the current week', () => {
   assert.equal(clampToWeek('2026-11-01', '2026-11-04'), '2026-11-04', 'last week is pulled back to today');
 });
 
+test('WOD: next week opens on Sunday at 6 pm local time', async () => {
+  const { wodWeekAnchor } = await import('../public/js/wod.js');
+  assert.equal(wodWeekAnchor(new Date(2026, 10, 8, 17, 59)), '2026-11-08', 'Sunday 5:59 pm: still this week');
+  assert.equal(wodWeekAnchor(new Date(2026, 10, 8, 18, 0)), '2026-11-09', 'Sunday 6 pm: next Monday');
+  assert.equal(wodWeekAnchor(new Date(2026, 10, 9, 7, 0)), '2026-11-09', 'Monday: this week');
+  assert.equal(wodWeekAnchor(new Date(2026, 10, 7, 20, 0)), '2026-11-07', 'Saturday evening: this week');
+});
+
 test('feature gates: one-time plan, WOD subscription', () => {
   const user = { uid: 'u' };
   assert.equal(canUse('fullPlan', { user: null, subs: new Set(['plan']) }), false);
@@ -409,6 +419,39 @@ test('feature gates: one-time plan, WOD subscription', () => {
   assert.equal(canUse('unknown-feature', { user, subs: new Set(['plan', 'wod']) }), false);
   assert.equal(hasSubscription(new Set(['plan'])), false, 'the plan is a one-time payment');
   assert.equal(hasSubscription(new Set(['plan', 'wod'])), true);
+});
+
+test('every week of the plan is open: no lock, and the 5k tests can be logged', () => {
+  const p = buildPlan(example, TODAY);
+  const test4 = allDays(p).find((d) => d.key === 'w4-long');
+  const html = planWeek(p, { weekIdx: p.weeks.findIndex((w) => w.n === 4), ymd: test4.ymd });
+  assert.match(html, /data-log="w4-long"/);
+  assert.doesNotMatch(html, /data-subscribe/);
+});
+
+test('pages: one h1, canonical link, description, FAQ data, and HYROX named with a non-affiliation note', () => {
+  const pages = { 'index.html': 'https://hybridprog.com/', 'wod.html': 'https://hybridprog.com/wod' };
+  for (const [file, url] of Object.entries(pages)) {
+    const html = readFileSync(new URL(`../public/${file}`, import.meta.url), 'utf8');
+    assert.equal(html.match(/<h1[\s>]/g)?.length, 1, `${file}: one h1`);
+    assert.ok(html.includes(`<link rel="canonical" href="${url}">`), `${file}: canonical`);
+    const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || '';
+    assert.ok(description.length >= 80 && description.length <= 160, `${file}: description is ${description.length} characters`);
+    // HYROX is named so its community finds the site, always with the note that the site is independent.
+    assert.match(html.match(/<title>(.*?)<\/title>/)[1], /HYROX/, `${file}: title`);
+    assert.match(description, /HYROX/, `${file}: description`);
+    assert.match(html, /<meta name="keywords" content="[^"]*HYROX/, `${file}: keywords`);
+    assert.match(html, /not affiliated with, sponsored or endorsed by HYROX/, `${file}: footer note`);
+    for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(json);
+    // Two separate products: the WOD page sells only the WOD.
+    if (file === 'wod.html') assert.doesNotMatch(html, /12[- ]week/i, 'the WOD page does not mention the 12-week plan');
+    // The FAQ structured data is valid and matches the questions on the page.
+    const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    const shown = [...html.matchAll(/<summary><h3>(.*?)<\/h3><\/summary>/g)].map((m) => m[1].replace(/&amp;/g, '&'));
+    assert.deepEqual(ld.mainEntity.map((q) => q.name), shown, `${file}: FAQ`);
+  }
+  const sitemap = readFileSync(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
+  for (const url of Object.values(pages)) assert.ok(sitemap.includes(`<loc>${url}</loc>`), url);
 });
 
 test('no trademark in user-facing plan text', () => {
@@ -521,4 +564,121 @@ test('pounds: station loads, lift targets, WOD text and body weight range', asyn
   assert.ok(validateInputs({ ...example, units: 'lb', bodyWeight: '60' }, TODAY).bodyWeight);
   assert.deepEqual(validateInputs({ ...example, units: 'lb', bodyWeight: '300' }, TODAY), {});
   assert.ok(validateInputs({ ...example, bodyWeight: '300' }, TODAY).bodyWeight, '300 kg is out of range');
+});
+
+test('wall balls use the official weights: 4 kg/9 lb, 6 kg/14 lb, 9 kg/20 lb', async () => {
+  const { textToUnits, wallBallWt } = await import('../public/js/plan.js');
+  assert.equal(wallBallWt(4, 'lb'), '9 lb');
+  assert.equal(wallBallWt(6, 'lb'), '14 lb');
+  assert.equal(wallBallWt(9, 'lb'), '20 lb');
+  assert.equal(wallBallWt(6, 'kg'), '6 kg');
+  // WOD library text.
+  assert.equal(textToUnits('- 20 wall balls (6/4 kg)', 'lb'), '- 20 wall balls (14/9 lb)');
+  assert.equal(textToUnits('- 30 wall balls ping-pong (partners alternate reps) (6/4 kg)', 'lb'), '- 30 wall balls ping-pong (partners alternate reps) (14/9 lb)');
+  assert.equal(textToUnits('- 20 KB swings (24/16 kg) + 20 wall balls (6/4 kg)', 'lb'), '- 20 KB swings (53/35 lb) + 20 wall balls (14/9 lb)');
+  assert.equal(textToUnits('sandbag 20/10 kg, wall ball 6/4 kg.', 'lb'), 'sandbag 44/22 lb, wall ball 14/9 lb.');
+  // The planner, per division.
+  const wbLine = (division) => allDays(buildPlan({ ...example, division, units: 'lb' }, TODAY))
+    .flatMap((d) => [...d.lines, ...(d.wod?.lines || [])]).find((l) => /wall balls @/i.test(l));
+  assert.match(wbLine('MO'), /@ 14 lb/);
+  assert.match(wbLine('WO'), /@ 9 lb/);
+  assert.match(wbLine('MP'), /@ 20 lb/);
+  assert.match(wbLine('WP'), /@ 14 lb/);
+});
+
+// ---------- timed rounds fit ----------
+
+const ATHLETES = [
+  { goal: '0:55', fiveK: '16:30' }, { goal: '1:08', fiveK: '21:00' }, { goal: '1:30', fiveK: '' },
+  { goal: '2:00', fiveK: '32:00' }, { goal: '2:30', fiveK: '50:00' }, { goal: '2:30', fiveK: '20:00' },
+];
+const plansForAll = () => ATHLETES.flatMap((a) => ['MO', 'WO'].map((division) => ({ a, p: buildPlan({ ...example, ...a, division, age: '30-34' }, TODAY) })));
+
+test('Hybrid clocks: every round fits with rest to spare, and the session keeps its length', async () => {
+  const { roundSeconds, restFor } = await import('../public/js/plan.js');
+  const { WEEKS } = await import('../public/js/sessions.js');
+  for (const { a, p } of plansForAll()) {
+    for (const w of p.weeks.filter((x) => x.n <= 11)) {
+      const day = w.days.find((d) => d.key === `w${w.n}-hyb`);
+      const work = roundSeconds(WEEKS[w.n - 1].sessions.find((s) => s.key === 'hyb').clock.work, { paces: p.paces, goal: p.splits.goal });
+      const head = day.lines[0];
+      const at = `${a.goal}/${a.fiveK || 'no 5k'} ${p.division.name} week ${w.n}: ${head}`;
+      let m;
+      if ((m = /^Every (\d+) min for (\d+) min \((\d+) rounds?\)/.exec(head))) {
+        assert.ok(m[1] * 60 - work >= restFor(work), `${at} (round ${fmtTime(work)})`);
+        assert.equal(+m[2], m[1] * m[3], at);
+        assert.ok(m[2] <= 48, at);
+      } else if ((m = /^(\d+) sets?, (\d+) min on \/ (\d+) min off/.exec(head))) {
+        assert.ok(m[2] * 60 - work >= 90, `${at} (round ${fmtTime(work)})`);
+        assert.ok(m[1] * m[2] + (m[1] - 1) * m[3] <= 50, at);
+      } else if ((m = /^(\d+) rounds? for time \((\d+)-min cap\)/.exec(head))) {
+        assert.ok(m[2] * 60 * 0.85 >= m[1] * work, `${at} (round ${fmtTime(work)})`);
+        assert.ok(m[2] <= 50, at);
+      } else assert.fail(`no clock: ${at}`);
+    }
+  }
+});
+
+test('Hybrid clocks: the timed work matches the session text', async () => {
+  const { WEEKS } = await import('../public/js/sessions.js');
+  for (const week of WEEKS) {
+    const s = week.sessions.find((x) => x.key === 'hyb');
+    const text = s.lines.join(' / ');
+    for (const [move, n, pace] of s.clock.work) {
+      if (move === 'run') assert.ok(text.includes(`${n >= 1000 ? `${n / 1000} km` : `${n} m`} run @ {${pace}}`), `week ${week.n}: ${n} m run`);
+      else assert.match(text, new RegExp(`(?<!\\d)${n}(?!\\d)`), `week ${week.n}: ${move} ${n}`);
+    }
+  }
+});
+
+test('reported: week 7 and week 10 Hybrid fit a 1:08 racer with a 21:00 5k', () => {
+  const p = buildPlan({ ...example, goal: '1:08', fiveK: '21:00', age: '30-34' }, TODAY);
+  assert.match(linesOf(p, 'w7-hyb'), /^Every 6 min for 42 min \(7 rounds\), each round: \/ 600 m run @ 4:32\/km/);
+  assert.match(linesOf(p, 'w10-hyb'), /^Every 9 min for 45 min \(5 rounds\): \/ 1 km run @ 5:02\/km/);
+});
+
+test('Friday EMOMs: every minute leaves rest, whatever the pace', async () => {
+  const { MOVE_SEC } = await import('../public/js/sessions.js');
+  const MOVE = { 'wall balls': 'wallBall', 'walking lunges': 'lunge', burpees: 'burpee', 'goblet squats': 'gobletSquat' };
+  for (const equipment of [undefined, []]) {
+    for (const { a, p } of plansForAll()) {
+      const plan = equipment ? buildPlan({ ...p.inputs, equipment }, TODAY) : p;
+      const level = plan.splits.goal / (70 * 60);
+      for (const d of allDays(plan).filter((x) => x.wod && /^EMOM/.test(x.wod.title))) {
+        for (const line of d.wod.lines) {
+          const [, item] = /^(?:Odd minutes|Even minutes|Minute \d): (?:easy )?(.+)$/.exec(line);
+          let m, sec;
+          if ((m = /^(\d+) m (row|SkiErg)\b/.exec(item))) sec = (m[1] / 500) * plan.paces[m[2] === 'row' ? 'row' : 'ski'].steady;
+          else if ((m = /^(\d+)(?:\/\d+)? m(?: \(men\/women\))? run\b/.exec(item))) sec = (m[1] / 1000) * plan.paces.steady;
+          else if ((m = /^(\d+) (wall balls|walking lunges|burpees|goblet squats)\b/.exec(item))) sec = m[1] * MOVE_SEC[MOVE[m[2]]] * level;
+          else assert.fail(`unknown EMOM work: ${line}`);
+          assert.ok(sec + 10 <= 48, `${a.goal} ${d.key}: ${line} takes ${Math.round(sec)} s`);
+        }
+      }
+    }
+  }
+});
+
+test('one half and one full race simulation', () => {
+  const p = buildPlan({ ...example, age: '30-34' }, TODAY);
+  const sims = allDays(p).filter((d) => /Simulation/.test(d.label));
+  assert.deepEqual(sims.map((d) => [d.key, d.label]), [['w6-long', 'Half Simulation'], ['w9-long', 'Full Simulation']]);
+  const half = linesOf(p, 'w6-long');
+  assert.match(half, /500 m run @ 4:05\/km/);
+  assert.match(half, /2\. Sled push 25 m @ 152 kg \(1:30\)/);
+  assert.match(half, /8\. Wall balls half the race reps @ 6 kg \(2:25\)/);
+  const full = linesOf(p, 'w9-long');
+  assert.match(full, /1 km run @ 4:05\/km/);
+  assert.match(full, /2\. Sled push 50 m @ 152 kg \(2:59\)/);
+});
+
+test('WOD library: no run in a one-minute EMOM window is longer than 100 m', () => {
+  for (const w of WODS.workouts.filter((x) => x.format === 'EMOM')) {
+    for (const mode of ['solo', 'team']) {
+      for (const item of w[mode].blocks[0].items) {
+        const m = /^(\d+) m run\b/.exec(item);
+        if (m) assert.ok(+m[1] <= 100, `day ${w.day} ${mode}: ${item}`);
+      }
+    }
+  }
 });

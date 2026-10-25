@@ -1,38 +1,29 @@
-import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, UNITS, unitsOf, textToUnits, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime, fmtLongDate, fmtTime, parseYmd } from './plan.js';
-import { summaryCard, splitsCard, pacesCard, swapCard, noticeCards, glossaryCard, planWeek, dayStrip, paywall } from './render.js';
-import { planIdFor, loadInputs, saveInputs, clearInputs, getUnits, setUnits, getLogs, replaceLogs, clearLogs, getWodMode, setWodMode, forgetUser } from './progress.js';
+// The 12-week plan page (index.html): the plan form, the week view, 5k test logs and the list of race plans.
+// Signing in, buying and the toast live in site.js. Only owners of the plan (a one-time purchase) see the
+// form and their plan; everyone else sees the buy card and the information about the plan.
+import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, UNITS, unitsOf, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime, fmtLongDate, fmtTime, parseYmd } from './plan.js';
+import { summaryCard, splitsCard, pacesCard, swapCard, noticeCards, glossaryCard, planWeek } from './render.js';
+import { planIdFor, loadInputs, saveInputs, clearInputs, getUnits, setUnits, getLogs, replaceLogs, clearLogs, getWodMode } from './progress.js';
 import { applyTest } from './hr.js';
-import { loadWods, workoutFor, weekDates, pickMode, clampToWeek } from './wod.js';
-import { wodCard, planNote, infoPanel, todayTeaser } from './wodRender.js';
-import { canUse, hasSubscription, portalLoginUrl, PRODUCTS } from './billing.js';
+import { loadWods, workoutFor, pickMode } from './wod.js';
+import { todayTeaser } from './wodRender.js';
+import { $, state as site, access, accessStatus, toast, startSite } from './site.js';
 import * as cloud from './cloud.js';
 
-const $ = (sel) => document.querySelector(sel);
 const form = $('#plan-form');
-const dialog = $('#auth-dialog');
 
 const state = {
   plan: null,
   planId: null,
-  user: null,
-  subs: new Set(), // products the user has paid for: 'plan' (one-time), 'wod' (active subscription)
-  subsKnown: false,
   cloudPlans: [],
-  authAvailable: true,
-  pendingProduct: null, // subscribe to this after signing in
-  createMode: false,
   view: { weekIdx: 0, ymd: null }, // the week and day shown in the plan
 };
 
-const wod = { data: null, ymd: todayYmd(), savedMode: null };
-let stopSubs = () => {};
 let editMode = null; // null | 'edit' | 'new'
-let signedInFromDialog = false;
-let verify = null; // { user } while the dialog waits for a new account to confirm its email
-let authKnown = false; // until Firebase reports, don't flash the signed-out WOD view
+let plansLoadedFor = null; // the account whose saved plans were loaded
+let plansLoading = false;
 
-const uid = () => state.user?.uid || null;
-const access = (feature) => canUse(feature, { user: state.user, subs: state.subs });
+const uid = () => site.user?.uid || null;
 
 // ---------- form ----------
 
@@ -116,17 +107,6 @@ form.addEventListener('change', (e) => {
   setUnitsRadio(to);
 });
 
-/** kg/lb picked on the WOD page: remember it and show the plan in the same units. */
-function changeUnits(units) {
-  setUnits(units);
-  if (state.plan && state.plan.units !== units) {
-    const inp = state.plan.inputs;
-    rebuild({ ...inp, units, bodyWeight: convertBodyWeight(inp.bodyWeight, units) });
-  }
-  renderWod();
-  renderTeaser();
-}
-
 const currentUnits = () => state.plan?.units || getUnits();
 
 function updateDoublesHint() {
@@ -134,14 +114,14 @@ function updateDoublesHint() {
 }
 form.elements.division.addEventListener('change', updateDoublesHint);
 
-/** With a plan built, the landing page and form are hidden; Edit and New plan bring the form back. */
+/** Edit and New plan bring the form back in place of the plan. */
 function setEditing(mode) {
   editMode = mode;
-  document.body.classList.toggle('editing', !!mode);
-  $('#form-title').textContent = mode === 'edit' ? 'Update your plan' : mode === 'new' ? 'New plan' : 'Your details';
+  $('#form-title').textContent = mode === 'edit' ? 'Update your plan' : mode === 'new' ? 'New plan' : 'Build your plan';
   $('#build-btn').textContent = mode === 'edit' ? 'Update my plan' : 'Build my plan';
   $('#form-hint').hidden = mode !== 'edit';
   $('#cancel-edit-btn').hidden = !mode;
+  updateView();
   if (mode) {
     window.scrollTo(0, 0);
     form.focus({ preventScroll: true });
@@ -174,6 +154,7 @@ function showErrors(errors) {
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  if (!access('fullPlan')) return;
   const inp = readForm();
   const errors = validateInputs(inp);
   showErrors(errors);
@@ -187,13 +168,38 @@ form.addEventListener('submit', (e) => {
   build(inp);
   window.scrollTo(0, 0);
   if (updating) toast('Plan updated. Your 5k test results are kept.');
-  if (state.user) syncCurrentPlan();
+  syncCurrentPlan();
 });
 
 $('#cancel-edit-btn').addEventListener('click', () => {
   if (state.plan) fillForm(state.plan.inputs);
   setEditing(null);
 });
+
+// ---------- what the page shows ----------
+
+const WAIT_TEXT = {
+  loading: 'Loading your plan…',
+  unlocking: 'Payment received. Unlocking your plan…',
+  slow: 'Your payment went through, but unlocking is taking longer than usual. Refresh the page in a minute, or email info@hybridprog.com.',
+};
+
+/** One of: the buy card (with the page's information below it), a waiting card, the form, or the plan. */
+function updateView() {
+  let status = accessStatus('plan');
+  const owns = status === 'owned';
+  if (owns && !state.plan && plansLoading) status = 'loading'; // the account's saved plans are on their way
+  const showPlan = owns && !!state.plan && !editMode;
+  $('#plan-buy').hidden = status !== 'locked';
+  $('#plan-info').hidden = status !== 'locked';
+  $('#plan-wait').hidden = !WAIT_TEXT[status];
+  $('#plan-wait').classList.toggle('slow', status === 'slow');
+  if (WAIT_TEXT[status]) $('#plan-wait-text').textContent = WAIT_TEXT[status];
+  form.hidden = status !== 'owned' || showPlan;
+  $('#results').hidden = !showPlan;
+  document.body.classList.toggle('owns-plan', owns);
+  if (showPlan) render();
+}
 
 // ---------- plan ----------
 
@@ -209,28 +215,19 @@ function build(inp, { keepView = false } = {}) {
   state.planId = planIdFor(inp);
   const w = state.plan.weeks[prev.weekIdx];
   state.view = keepView && w?.days.some((d) => d.ymd === prev.ymd) ? prev : defaultView(state.plan);
-  document.body.classList.add('has-plan');
   setEditing(null);
-  render();
 }
 
-/** Signed out or plan not bought: summary + the first week. Bought: every week. */
 function render() {
   const { plan } = state;
-  if (!plan) return;
   $('#plan-out').innerHTML = summaryCard(plan) + noticeCards(plan);
   renderWeek();
   $('#info-out').innerHTML = splitsCard(plan) + pacesCard(plan) + swapCard(plan) + glossaryCard();
-  $('#results').hidden = false;
   updatePicker();
 }
 
 function renderWeek() {
-  $('#plan-week-out').innerHTML = planWeek(state.plan, {
-    ...state.view,
-    locked: !access('fullPlan'),
-    logs: getLogs(uid(), state.planId),
-  });
+  $('#plan-week-out').innerHTML = planWeek(state.plan, { ...state.view, logs: getLogs(uid(), state.planId) });
 }
 
 /** Rebuild after an input change, keeping the day shown. */
@@ -241,6 +238,14 @@ function rebuild(inputs) {
   syncCurrentPlan();
 }
 
+/** No plan shown: owners get the empty form. */
+function clearPlan() {
+  state.plan = null;
+  state.planId = null;
+  resetForm();
+  setEditing(null);
+}
+
 $('#plan-week-out').addEventListener('click', (e) => {
   const step = e.target.closest('[data-plan-week]');
   const day = e.target.closest('[data-plan-day]');
@@ -249,9 +254,8 @@ $('#plan-week-out').addEventListener('click', (e) => {
     const weekIdx = state.view.weekIdx + Number(step.dataset.planWeek);
     const w = state.plan.weeks[weekIdx];
     if (!w) return;
-    // Keep the same weekday when changing week.
-    const dayIdx = state.plan.weeks[state.view.weekIdx].days.findIndex((d) => d.ymd === state.view.ymd);
-    state.view = { weekIdx, ymd: w.days[Math.max(0, dayIdx)].ymd };
+    // A new week opens on its Monday.
+    state.view = { weekIdx, ymd: w.days[0].ymd };
   } else if (day) {
     state.view = { ...state.view, ymd: day.dataset.planDay };
   } else if (e.target.closest('[data-plan-today]')) {
@@ -334,7 +338,7 @@ $('#delete-btn-plan').addEventListener('click', async () => {
   if (!window.confirm(`Delete your plan for the race on ${state.plan.raceLabel}? Your 5k test results for it are deleted too.`)) return;
   const id = state.planId;
   try {
-    if (state.user && isSaved()) await cloud.deletePlan(uid(), id);
+    if (site.user && isSaved()) await cloud.deletePlan(uid(), id);
   } catch (err) {
     console.error(err);
     toast('Could not delete the plan right now. Please try again.');
@@ -343,36 +347,15 @@ $('#delete-btn-plan').addEventListener('click', async () => {
   clearLogs(uid(), id);
   clearInputs();
   state.cloudPlans = state.cloudPlans.filter((p) => p.id !== id);
-  if (state.cloudPlans.length) {
-    loadCloudPlan(state.cloudPlans[0]);
-  } else {
-    showLanding();
-  }
+  if (state.cloudPlans.length) loadCloudPlan(state.cloudPlans[0]);
+  else clearPlan();
   toast('Plan deleted.');
 });
-
-/** Back to the empty landing page: no plan shown, empty form. */
-function showLanding() {
-  state.plan = null;
-  state.planId = null;
-  $('#results').hidden = true;
-  document.body.classList.remove('has-plan');
-  resetForm();
-  setEditing(null);
-  renderTeaser();
-}
-
-/** The home page: the Plan tab, scrolled to the top, without the #wod hash. */
-function goHome() {
-  if (location.hash) history.pushState(null, '', `${location.pathname}${location.search}`);
-  route();
-  window.scrollTo(0, 0);
-}
 
 function updatePicker() {
   const picker = $('#plan-picker');
   const plans = state.cloudPlans;
-  picker.hidden = !state.user || plans.length === 0;
+  picker.hidden = !site.user || plans.length === 0;
   const label = (inp) => `Race ${fmtLongDate(parseYmd(inp.raceDate))} · ${inp.goal}`;
   const options = plans.map((p) => `<option value="${p.id}"${p.id === state.planId ? ' selected' : ''}>${label(p.inputs)}</option>`);
   // A plan built but not yet saved still shows in the list.
@@ -385,187 +368,18 @@ $('#plan-picker').addEventListener('change', (e) => {
   if (p) loadCloudPlan(p);
 });
 
-// ---------- purchases ----------
-
-async function subscribe(product) {
-  if (!state.user) {
-    state.pendingProduct = product;
-    openAuth();
-    return;
-  }
-  if (state.subs.has(product)) { toast(`You already have the ${PRODUCTS[product].name}.`); return; }
-  toast('Opening secure checkout…');
-  try {
-    await cloud.startCheckout(product);
-  } catch (err) {
-    console.error(err);
-    toast(fnError(err, 'Could not open checkout right now. Please try again.'));
-  }
-}
-
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-subscribe]');
-  if (btn) subscribe(btn.dataset.subscribe);
-});
-
-$('#billing-btn').addEventListener('click', async () => {
-  try {
-    toast('Opening your subscription settings…');
-    await cloud.openBillingPortal();
-  } catch (err) {
-    console.error(err);
-    const url = portalLoginUrl(state.user?.email);
-    if (url) toast('Could not open your subscription settings here.', { action: 'Open Stripe', onAction: () => window.open(url, '_blank', 'noopener') });
-    else toast('Could not open your subscription settings. Email info@hybridprog.com and we will help.');
-  }
-});
-
-/** The fallback links to Stripe's portal login (account menu and footer), with the user's email filled in. */
-function updatePortalLinks() {
-  const url = portalLoginUrl(state.user?.email);
-  document.querySelectorAll('[data-portal-link]').forEach((el) => {
-    el.hidden = !url;
-    if (el.tagName === 'A' && url) el.href = url;
-  });
-}
-
-/** Back from Stripe Checkout: ?paid=plan or ?paid=wod. */
-function checkPaidReturn() {
-  const params = new URLSearchParams(location.search);
-  const paid = params.get('paid');
-  if (!paid || !PRODUCTS[paid]) return;
-  history.replaceState(null, '', `${location.pathname}${location.hash}`);
-  toast(`Thanks! Your ${PRODUCTS[paid].name} unlocks in a few seconds.`);
-}
-
-// ---------- Plan / WOD views ----------
-
-function route() {
-  const isWod = location.hash === '#wod';
-  $('#plan-view').hidden = isWod;
-  $('#wod-view').hidden = !isWod;
-  document.body.classList.toggle('wod-mode', isWod);
-  for (const a of document.querySelectorAll('[data-tab]')) {
-    if (a.dataset.tab === (isWod ? 'wod' : 'plan')) a.setAttribute('aria-current', 'page');
-    else a.removeAttribute('aria-current');
-  }
-  if (isWod) {
-    window.scrollTo(0, 0);
-    showWod();
-  }
-}
-window.addEventListener('hashchange', route);
-
-async function getWods() {
-  wod.data = await loadWods();
-  return wod.data;
-}
-
-async function showWod() {
-  const out = $('#wod-out');
-  if (!authKnown || (state.user && !state.subsKnown)) return; // "Loading…" stays until access is known
-  if (!access('wod')) {
-    out.innerHTML = paywall('wod');
-    return;
-  }
-  try {
-    await getWods();
-    renderWod();
-  } catch (err) {
-    console.error(err);
-    out.innerHTML = '<p class="error">The workouts could not be loaded. Check your connection and try again.</p>';
-  }
-}
-
-function currentWorkout() {
-  const w = workoutFor(wod.data, wod.ymd);
-  return { w, mode: pickMode(w, wod.savedMode) };
-}
-
-function planDayOn(ymd) {
-  if (!state.plan || !access('fullPlan')) return null;
-  for (const wk of state.plan.weeks) for (const d of wk.days) if (d.ymd === ymd) return d;
-  return null;
-}
-
-/** Only the current week's workouts are shown. */
-function renderWod() {
-  if (!wod.data || $('#wod-view').hidden || !access('wod')) return;
-  const today = todayYmd();
-  wod.ymd = clampToWeek(wod.ymd, today);
-  const { w, mode } = currentWorkout();
-  $('#wod-out').innerHTML = dayStrip(weekDates(today), { selected: wod.ymd, today, attr: 'wod-day' })
-    + wodCard(w, mode, wod.ymd, { today, units: currentUnits() })
-    + planNote(planDayOn(wod.ymd))
-    + infoPanel(wod.data.meta, currentUnits());
-}
-
-/** The small card on the landing page (WOD subscribers only). */
-async function renderTeaser() {
-  const el = $('#wod-teaser');
-  if (!access('wod')) { el.innerHTML = ''; return; }
-  try {
-    const data = await getWods();
-    const w = workoutFor(data, todayYmd());
-    el.innerHTML = todayTeaser(w, pickMode(w, wod.savedMode), currentUnits());
-  } catch {
-    el.innerHTML = '';
-  }
-}
-
-$('#wod-out').addEventListener('click', (e) => {
-  const day = e.target.closest('[data-wod-day]');
-  const mode = e.target.closest('[data-wod-mode]');
-  const units = e.target.closest('[data-wod-units]');
-  if (day) { wod.ymd = day.dataset.wodDay; renderWod(); return; }
-  if (mode) { setMode(mode.dataset.wodMode); return; }
-  if (units) { changeUnits(units.dataset.wodUnits); return; }
-  if (e.target.closest('[data-wod-copy]')) copyWod();
-});
-
-function setMode(m) {
-  wod.savedMode = m;
-  setWodMode(uid(), m);
-  renderWod();
-  renderTeaser();
-  if (state.user) cloud.saveWodMode(uid(), m).catch((err) => console.warn('Could not save WOD mode:', err));
-}
-
-async function copyWod() {
-  const { w, mode } = currentWorkout();
-  try {
-    await navigator.clipboard.writeText(`${w.title}\n${textToUnits(w[mode].text, currentUnits())}`);
-    toast('Workout copied.');
-  } catch {
-    toast('Could not copy. Select the text and copy it instead.');
-  }
-}
-
-/** The Solo/Team choice, from the account (or this device). */
-async function loadWodMode() {
-  wod.savedMode = getWodMode(uid());
-  try {
-    const settings = await cloud.getSettings(uid());
-    if (settings.wodMode) wod.savedMode = settings.wodMode;
-    else if (wod.savedMode) cloud.saveWodMode(uid(), wod.savedMode).catch(() => {});
-    setWodMode(uid(), wod.savedMode);
-  } catch (err) {
-    console.warn('Could not load WOD settings:', err);
-  }
-}
-
-// ---------- accounts ----------
+// ---------- the account's plans ----------
 
 const isSaved = () => state.cloudPlans.some((p) => p.id === state.planId);
 
 /** Save the current plan to the account and merge the 5k test logs both ways. */
 async function syncCurrentPlan() {
-  if (!state.user || !state.plan) return;
+  if (!site.user || !state.plan || !access('fullPlan')) return;
   try {
     const logs = await cloud.savePlan(uid(), state.planId, cleanInputs(state.plan.inputs), getLogs(uid(), state.planId));
     replaceLogs(uid(), state.planId, logs);
     await refreshPlanList();
-    render();
+    updateView();
   } catch (err) {
     console.error(err);
     toast('Could not save your plan to your account right now. It is still kept on this device.');
@@ -573,70 +387,23 @@ async function syncCurrentPlan() {
 }
 
 async function refreshPlanList() {
-  state.cloudPlans = await cloud.listPlans(state.user.uid);
+  state.cloudPlans = await cloud.listPlans(uid());
   updatePicker();
 }
 
 function loadCloudPlan(p) {
+  setUnits(unitsOf(p.inputs));
   fillForm(p.inputs);
   saveInputs(p.inputs);
   replaceLogs(uid(), p.id, { ...getLogs(uid(), p.id), ...(p.logs || {}) });
   build(p.inputs);
 }
 
-/** Purchases changed (or first arrived): re-render whatever they unlock. */
-function onSubs(subs) {
-  state.subs = subs;
-  state.subsKnown = true;
-  $('#billing-btn').hidden = !hasSubscription(subs);
-  render();
-  renderTeaser();
-  if (location.hash === '#wod') showWod();
-  if (state.pendingProduct) {
-    const p = state.pendingProduct;
-    state.pendingProduct = null;
-    subscribe(p);
-  }
-}
-
-async function onUser(user) {
-  if (cloud.needsVerify(user)) {
-    // Not signed in until the email is confirmed (Firestore refuses until then).
-    startVerify(user);
-    user = null;
-  }
-  const signedOut = !!state.user && !user;
-  authKnown = true;
-  state.user = user;
-  stopSubs();
-  stopSubs = () => {};
-  state.subs = new Set();
-  state.subsKnown = false;
-  $('#account').hidden = false;
-  $('#account-email').textContent = user ? (user.email || 'Signed in') : '';
-  $('#sign-in-btn').hidden = !!user;
-  $('#account-menu').hidden = !user;
-  $('#account-menu').open = false;
-  $('#billing-btn').hidden = true;
-  updatePortalLinks();
-  if (!user) {
-    state.cloudPlans = [];
-    wod.savedMode = null;
-    if (signedOut) {
-      // Signing out goes home and leaves nothing of the account's plan on this device.
-      clearInputs();
-      showLanding();
-      goHome();
-      return;
-    }
-    if (state.plan) render(); // the locked preview of a plan built without an account
-    renderTeaser();
-    if (location.hash === '#wod') showWod();
-    return;
-  }
-  cloud.watchSubs(user.uid, onSubs).then((stop) => { stopSubs = stop; });
+/** Once the plan is owned: save the plan on this device to the account, or open the newest saved one. */
+async function loadAccountPlans() {
+  plansLoadedFor = uid();
+  plansLoading = true;
   try {
-    await loadWodMode();
     if (state.plan) {
       await syncCurrentPlan();
     } else {
@@ -646,239 +413,67 @@ async function onUser(user) {
   } catch (err) {
     console.error(err);
     toast('Signed in, but your saved plans could not be loaded.');
+  } finally {
+    plansLoading = false;
+    updateView();
   }
 }
-
-function openAuth() {
-  if (!state.authAvailable) {
-    toast('Sign-in is unavailable right now, please try again later.');
-    return;
-  }
-  $('#auth-error').textContent = '';
-  $('#auth-note').hidden = true;
-  showPassword(false);
-  dialog.showModal();
-}
-
-/** The eye in the password box: shows the password as text, or hides it again. */
-function showPassword(show) {
-  $('#password').type = show ? 'text' : 'password';
-  $('#pw-toggle').setAttribute('aria-pressed', String(show));
-  $('#pw-toggle').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
-}
-
-$('#pw-toggle').addEventListener('click', () => {
-  showPassword($('#password').type === 'password');
-  $('#password').focus();
-});
-
-dialog.addEventListener('close', () => {
-  // Closed without signing in: forget the subscribe that was waiting for it.
-  if (!signedInFromDialog) state.pendingProduct = null;
-  signedInFromDialog = false;
-  if (verify) {
-    // Closed before confirming the email: the account doesn't stay half signed in.
-    cloud.signOutUser();
-    verify = null;
-  }
-  showAuthStep('main');
-});
-
-$('#sign-in-btn').addEventListener('click', () => openAuth());
-$('#sign-out-btn').addEventListener('click', () => cloud.signOutUser());
-
-// Close the account menu when clicking elsewhere.
-document.addEventListener('click', (e) => {
-  const menu = $('#account-menu');
-  if (menu.open && !menu.contains(e.target)) menu.open = false;
-});
-
-$('#delete-btn').addEventListener('click', async () => {
-  const user = state.user;
-  if (!user) return;
-  if (!window.confirm('Delete your account and all your plans and 5k results? This cannot be undone. Cancel any subscription first under Manage subscription.')) return;
-  try {
-    await cloud.deleteMyAccount(user);
-    forgetUser(user.uid);
-    toast('Your account and data were deleted.');
-  } catch (err) {
-    if (err.code === 'auth/requires-recent-login') {
-      await cloud.signOutUser();
-      openAuth();
-      toast('For your security, sign in again, then choose Delete my account.');
-    } else {
-      console.error(err);
-      toast('Could not delete your account right now. Email info@hybridprog.com and we will do it for you.');
-    }
-  }
-});
-
-$('#mode-toggle').addEventListener('click', () => {
-  state.createMode = !state.createMode;
-  $('#email-submit').textContent = state.createMode ? 'Create account' : 'Sign in';
-  $('#mode-text').textContent = state.createMode ? 'Already have an account?' : 'New here?';
-  $('#mode-toggle').textContent = state.createMode ? 'Sign in' : 'Create an account';
-  $('#password').autocomplete = state.createMode ? 'new-password' : 'current-password';
-  $('#agree-row').hidden = !state.createMode;
-  $('#forgot-btn').hidden = state.createMode;
-});
-
-$('#forgot-btn').addEventListener('click', async () => {
-  const email = $('#email').value.trim();
-  $('#auth-error').textContent = '';
-  $('#auth-note').hidden = true;
-  if (!$('#email').checkValidity() || !email) {
-    $('#auth-error').textContent = 'Enter your email above, then choose Forgot password.';
-    $('#email').focus();
-    return;
-  }
-  try {
-    await cloud.sendPasswordReset(email);
-  } catch (err) {
-    // Unknown emails succeed too (functions/index.js), so the form can't tell who has an account.
-    $('#auth-error').textContent = fnError(err, 'Could not send the email. Please try again.');
-    return;
-  }
-  $('#auth-note').textContent = `If ${email} has an account, a link to reset your password is on its way. Check your spam folder too.`;
-  $('#auth-note').hidden = false;
-});
-
-const AUTH_ERRORS = {
-  'auth/invalid-credential': 'Email or password is wrong.',
-  'auth/wrong-password': 'Email or password is wrong.',
-  'auth/user-not-found': 'No account with that email. Create one below.',
-  'auth/email-already-in-use': 'That email already has an account. Sign in instead.',
-  'auth/weak-password': 'Use at least 6 characters.',
-  'auth/invalid-email': 'That email address looks wrong.',
-  'auth/popup-closed-by-user': 'Sign-in window was closed.',
-  'auth/operation-not-allowed': 'This sign-in method is not switched on yet.',
-  'auth/too-many-requests': 'Too many attempts. Wait a few minutes and try again.',
-};
-
-async function runAuth(fn) {
-  $('#auth-error').textContent = '';
-  try {
-    const { user } = await fn();
-    if (cloud.needsVerify(user)) {
-      startVerify(user, true);
-      return;
-    }
-    signedInFromDialog = true;
-    dialog.close();
-  } catch (err) {
-    $('#auth-error').textContent = AUTH_ERRORS[err.code] || 'Sign-in failed. Please try again.';
-  }
-}
-
-$('#google-btn').addEventListener('click', () => runAuth(() => cloud.signInGoogle()));
-$('#email-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (state.createMode && !$('#agree').checked) {
-    $('#auth-error').textContent = 'Please agree to the Terms and Privacy Policy to create an account.';
-    return;
-  }
-  runAuth(() => cloud.signInEmail($('#email').value.trim(), $('#password').value, state.createMode));
-});
-
-// ---------- email verification ----------
-
-/** The message one of our Cloud Functions sent, or the fallback for anything unexpected. */
-const fnError = (err, fallback) => (err.code && err.code !== 'functions/internal' && err.message) || fallback;
-
-function showAuthStep(step) {
-  $('#auth-main').hidden = step !== 'main';
-  $('#verify-step').hidden = step !== 'verify';
-}
-
-async function sendVerifyLink() {
-  $('#verify-error').textContent = '';
-  $('#verify-text').textContent = 'Sending a link to your email…';
-  try {
-    const email = await cloud.sendVerifyEmail();
-    $('#verify-text').textContent = `We emailed a link to ${email}. Open it to confirm your email, then come back here. Check your junk or spam folder too.`;
-  } catch (err) {
-    $('#verify-text').textContent = '';
-    $('#verify-error').textContent = fnError(err, 'Could not send the email. Please try again.');
-  }
-}
-
-/** Ask a new email and password account to confirm its address, emailing the link if send. */
-function startVerify(user, send = false) {
-  if (verify?.user.uid !== user.uid) {
-    verify = { user };
-    $('#verify-error').textContent = '';
-    $('#verify-text').textContent = `Confirm ${user.email} to finish signing in. We can email you a link.`;
-    showAuthStep('verify');
-    if (!dialog.open) dialog.showModal();
-  }
-  if (send) sendVerifyLink();
-}
-
-/** Once the link was opened (often in another tab): finish signing in. */
-async function finishVerify({ quiet = false } = {}) {
-  if (!verify) return;
-  const { user } = verify;
-  $('#verify-error').textContent = '';
-  try {
-    if (!(await cloud.checkVerified(user))) {
-      if (!quiet) $('#verify-error').textContent = 'Your email is not confirmed yet. Open the link we sent, then try again.';
-      return;
-    }
-  } catch {
-    if (!quiet) $('#verify-error').textContent = 'Could not check right now. Please try again.';
-    return;
-  }
-  if (verify?.user !== user) return;
-  verify = null;
-  signedInFromDialog = true;
-  dialog.close();
-  toast('Email confirmed. You are signed in.');
-  onUser(user);
-}
-
-$('#verify-done').addEventListener('click', () => finishVerify());
-$('#verify-resend').addEventListener('click', () => sendVerifyLink());
-// Coming back from the tab where the link was opened.
-window.addEventListener('focus', () => finishVerify({ quiet: true }));
-
-// ---------- misc ----------
 
 /** Firestore rejects undefined values, so drop them before saving. */
 function cleanInputs(inp) {
   return Object.fromEntries(Object.entries(inp).filter(([, v]) => v !== undefined));
 }
 
-let toastTimer;
-/** A short message; pass { action, onAction } for a button such as Undo. */
-function toast(msg, { action = null, onAction = null } = {}) {
-  const el = $('#toast');
-  const btn = $('#toast-action');
-  $('#toast-msg').textContent = msg;
-  btn.hidden = !action;
-  btn.textContent = action || '';
-  btn.onclick = action ? () => { el.classList.remove('show'); onAction(); } : null;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), action ? 8000 : 3500);
+// ---------- Today's WOD (WOD subscribers) ----------
+
+async function renderTeaser() {
+  const el = $('#wod-teaser');
+  if (!access('wod')) { el.innerHTML = ''; return; }
+  try {
+    const data = await loadWods();
+    const w = workoutFor(data, todayYmd());
+    el.innerHTML = todayTeaser(w, pickMode(w, getWodMode(uid())), currentUnits());
+  } catch {
+    el.innerHTML = '';
+  }
 }
 
 // ---------- start ----------
 
+function onUser(user, { signedOut }) {
+  if (user) return; // the account's plans load once the plan is known to be owned (onAccess)
+  state.cloudPlans = [];
+  plansLoadedFor = null;
+  if (signedOut) clearPlan();
+}
+
+function onAccess() {
+  if (access('fullPlan') && plansLoadedFor !== uid()) loadAccountPlans();
+  updateView();
+  renderTeaser();
+}
+
+/** Back from the WOD page: follow a kg/lb switch made there (unless the form is open), and its Solo/Team choice. */
+function onShow() {
+  const units = getUnits(currentUnits());
+  if (state.plan && !editMode && units !== state.plan.units) {
+    rebuild({ ...state.plan.inputs, units, bodyWeight: convertBodyWeight(state.plan.inputs.bodyWeight, units) });
+  }
+  renderTeaser();
+}
+
 setupForm();
 const saved = loadInputs();
 if (saved) {
-  fillForm(saved);
+  // kg/lb picked on the WOD page since the plan was saved: show the plan in the same units.
+  const units = getUnits(unitsOf(saved));
+  const inp = units === unitsOf(saved) ? saved : { ...saved, units, bodyWeight: convertBodyWeight(saved.bodyWeight, units) };
+  fillForm(inp);
   // Older saved plans may lack the age group or division: use the defaults fillForm picked.
-  const repaired = { ...saved, age: form.elements.age.value, division: form.elements.division.value };
+  const repaired = { ...inp, age: form.elements.age.value, division: form.elements.division.value };
   if (!Object.keys(validateInputs(repaired)).length) {
     saveInputs(repaired);
     build(repaired);
   }
 }
-checkPaidReturn();
-updatePortalLinks();
-route();
-cloud.watchUser(onUser).then((ok) => {
-  state.authAvailable = ok;
-  if (!ok) { authKnown = true; route(); }
-});
+startSite({ page: 'plan', onUser, onAccess, onShow });

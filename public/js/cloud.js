@@ -48,9 +48,17 @@ export async function watchUser(onUser) {
   }
 }
 
+/** { user, isNew }: isNew when this sign-in just created the account. */
 export async function signInGoogle() {
   const { auth, a } = await load();
-  return a.signInWithPopup(auth, new a.GoogleAuthProvider());
+  const cred = await a.signInWithPopup(auth, new a.GoogleAuthProvider());
+  return { user: cred.user, isNew: !!a.getAdditionalUserInfo(cred)?.isNewUser };
+}
+
+/** Removes an account created moments ago, e.g. when the Terms were not accepted. */
+export async function deleteNewUser(user) {
+  const { a } = await load();
+  await a.deleteUser(user);
 }
 
 export async function signInEmail(email, password, create) {
@@ -74,9 +82,9 @@ export async function sendPasswordReset(email) {
 export const needsVerify = (user) =>
   !!user && !user.emailVerified && user.providerData.some((p) => p.providerId === 'password');
 
-/** Emails a link that confirms the address. Returns the address it went to. */
-export async function sendVerifyEmail() {
-  const { data } = await (await callable('sendVerifyEmail'))();
+/** Emails a link that confirms the address; next is the page to go on to ('/' or '/wod'). Returns the address. */
+export async function sendVerifyEmail(next = '/') {
+  const { data } = await (await callable('sendVerifyEmail'))({ next });
   return data.email;
 }
 
@@ -86,6 +94,38 @@ export async function checkVerified(user) {
   if (!user.emailVerified) return false;
   await user.getIdToken(true); // so Firestore sees email_verified
   return true;
+}
+
+// ---------- links in our emails (public/auth-action.html) ----------
+
+/** The user signed in on this browser, once Firebase has restored the session, or null. */
+export async function currentUser() {
+  const { auth } = await load();
+  await auth.authStateReady();
+  return auth.currentUser;
+}
+
+/** The email address an email link is for (throws if the link expired or was already used). */
+export async function actionCodeEmail(code) {
+  const { auth, a } = await load();
+  return (await a.checkActionCode(auth, code)).data.email;
+}
+
+/** Confirms the email address of the account the link was sent to. */
+export async function applyEmailCode(code) {
+  const { auth, a } = await load();
+  await a.applyActionCode(auth, code);
+}
+
+/** The email address a password reset link is for (throws if the link expired or was used). */
+export async function resetCodeEmail(code) {
+  const { auth, a } = await load();
+  return a.verifyPasswordResetCode(auth, code);
+}
+
+export async function setNewPassword(code, password) {
+  const { auth, a } = await load();
+  await a.confirmPasswordReset(auth, code, password);
 }
 
 export async function signOutUser() {

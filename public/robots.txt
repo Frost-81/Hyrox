@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /auth-action
+
+Sitemap: https://hybridprog.com/sitemap.xml

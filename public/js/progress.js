@@ -32,9 +32,22 @@ export const planIdFor = (inputs) => `race-${inputs.raceDate}`;
 export const loadInputs = () => read(INPUTS_KEY, null);
 
 // kg or lb for this device, used by the WOD page and as the default for a new plan.
+// fallback: what to use when nothing was picked on this device yet.
 const UNITS_KEY = 'hyrox:units';
-export const getUnits = () => (read(UNITS_KEY, 'kg') === 'lb' ? 'lb' : 'kg');
+export const getUnits = (fallback = 'kg') => {
+  const u = read(UNITS_KEY, fallback);
+  return u === 'kg' || u === 'lb' ? u : fallback;
+};
 export const setUnits = (units) => write(UNITS_KEY, units);
+
+// The products ('plan', 'wod') the signed-in user owned last time, so a page can show "loading"
+// instead of flashing its buy card while sign-in and purchases load. Cleared on sign-out.
+const ACCESS_KEY = 'hyrox:access';
+export const getAccessHint = () => {
+  const v = read(ACCESS_KEY, []);
+  return Array.isArray(v) ? v : [];
+};
+export const setAccessHint = (products) => (products.length ? write(ACCESS_KEY, products) : remove(ACCESS_KEY));
 export const saveInputs = (inputs) => write(INPUTS_KEY, inputs);
 export const clearInputs = () => remove(INPUTS_KEY);
 
