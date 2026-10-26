@@ -443,7 +443,10 @@ test('pages: one h1, canonical link, description, FAQ data, and HYROX named for 
     assert.match(html, /<meta name="keywords" content="[^"]*HYROX/, `${file}: keywords`);
     assert.doesNotMatch(html.slice(html.indexOf('<body')), /hyrox/i, `${file}: no HYROX in the page text`);
     assert.match(html, /not affiliated with, sponsored or endorsed by any race organiser/, `${file}: footer note`);
-    for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(json);
+    const lds = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(([, json]) => JSON.parse(json));
+    // Google's merchant listings ask every offer for shipping (free and instant here) and a refund policy.
+    const product = lds.flatMap((ld) => ld['@graph'] || []).find((x) => x['@type'] === 'Product');
+    assert.ok(product.offers.shippingDetails && product.offers.hasMerchantReturnPolicy, `${file}: offer shipping and returns`);
     // Two separate products: the WOD page sells only the WOD.
     if (file === 'wod.html') assert.doesNotMatch(html, /12[- ]week/i, 'the WOD page does not mention the 12-week plan');
     // The FAQ structured data is valid and matches the questions on the page.

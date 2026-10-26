@@ -42,7 +42,7 @@ export function wodCard(w, mode, ymd, { today = null, units = 'kg' } = {}) {
   <section class="card wod-card" aria-live="polite">
     <div class="wod-top">
       <div>
-        <p class="wod-day">${isToday ? 'Today · ' : ''}${dayName(ymd)} ${esc(fmtDate(parseYmd(ymd)))} · Day ${w.day}</p>
+        <p class="wod-day">${isToday ? 'Today · ' : ''}${dayName(ymd)} ${esc(fmtDate(parseYmd(ymd)))}</p>
         <h2>${esc(w.title)}</h2>
       </div>
       <div class="seg" role="radiogroup" aria-label="Workout version">

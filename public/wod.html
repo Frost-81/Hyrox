@@ -88,6 +88,24 @@
           "priceCurrency": "CAD",
           "url": "https://hybridprog.com/wod",
           "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "CAD" },
+            "shippingDestination": [
+              { "@type": "DefinedRegion", "addressCountry": "CA" },
+              { "@type": "DefinedRegion", "addressCountry": "US" }
+            ],
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": ["CA", "US"],
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+          },
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
             "price": "5.00",

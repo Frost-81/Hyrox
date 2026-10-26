@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>12-Week HYROX Training Plan, Built for You · Hybrid Plan Builder</title>
   <meta name="description" content="A personal 12-week HYROX training plan: your own paces, heart-rate zones, station weights and dates, kept up to date by 5k tests. Pay once, $5.">
-  <meta name="keywords" content="HYROX training plan, HYROX program, HYROX training program, 12 week HYROX plan, HYROX workout plan, HYROX doubles training, HYROX Pro training, hybrid race training plan">
+  <meta name="keywords" content="12 weeks HYROX training plan, 12 week HYROX training plan, HYROX training plan, HYROX program, HYROX training program, 12 week HYROX plan, HYROX workout plan, HYROX doubles training, HYROX Pro training, hybrid race training plan">
   <link rel="canonical" href="https://hybridprog.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hybrid Plan Builder">
@@ -91,7 +91,25 @@
           "price": "5.00",
           "priceCurrency": "CAD",
           "url": "https://hybridprog.com/",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "CAD" },
+            "shippingDestination": [
+              { "@type": "DefinedRegion", "addressCountry": "CA" },
+              { "@type": "DefinedRegion", "addressCountry": "US" }
+            ],
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": ["CA", "US"],
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+          }
         }
       }
     ]
