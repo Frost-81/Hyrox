@@ -135,13 +135,17 @@ export async function signOutUser() {
 
 const planRef = ({ db, f }, uid, planId) => f.doc(db, 'users', uid, 'plans', planId);
 
-/** Save inputs and merge the 5k test logs into the cloud copy. Returns the merged logs. */
+/** The account's 5k test logs with this device's on top; a log set to null (an undone test) is removed. */
+export const mergeLogs = (saved, local) =>
+  Object.fromEntries(Object.entries({ ...saved, ...local }).filter(([, v]) => v !== null));
+
+/** Save inputs and merge the 5k test logs into the cloud copy (mergeLogs). Returns the merged logs. */
 export async function savePlan(uid, planId, inputs, logs = {}) {
   const c = await load();
   const ref = planRef(c, uid, planId);
   const snap = await c.f.getDoc(ref);
   const existing = snap.exists() ? snap.data() : null;
-  const mergedLogs = { ...(existing?.logs || {}), ...logs };
+  const mergedLogs = mergeLogs(existing?.logs || {}, logs);
   await c.f.setDoc(ref, {
     inputs,
     done: existing?.done || {}, // ticks are no longer used; kept so older plans stay valid

@@ -5,7 +5,8 @@ import { hrProfile, applyTest } from '../public/js/hr.js';
 import { readFileSync } from 'node:fs';
 import { wodIndex, workoutFor, weekDates, addDays, pickMode, clampToWeek } from '../public/js/wod.js';
 import { canUse, hasSubscription } from '../public/js/billing.js';
-import { planIdFor } from '../public/js/progress.js';
+import { planIdFor, markUnsaved, isUnsaved, clearUnsaved, clearInputs } from '../public/js/progress.js';
+import { mergeLogs } from '../public/js/cloud.js';
 import { planWeek } from '../public/js/render.js';
 
 const TODAY = '2026-10-22';
@@ -19,20 +20,22 @@ test('spec example: dates, race pace, wall ball target', () => {
   assert.equal(p.weeks[0].days[0].ymd, '2027-02-01');
   assert.equal(p.weeks[0].days[0].weekday, 'Mon');
   assert.equal(p.weeks[2].label, 'Week 3 · Feb 15–21');
-  assert.equal(fmtTime(p.paces.race), '4:05');
-  assert.equal(fmtTime(p.splits.perStation.find((s) => s.key === 'wb').time), '4:50');
+  assert.equal(fmtTime(p.paces.race), '4:00');
+  assert.equal(fmtTime(p.splits.perStation.find((s) => s.key === 'wb').time), '4:48');
   assert.equal(dayOf(p, '2027-04-24').label, 'RACE DAY!');
   assert.ok(p.preBlock, 'race is >12 weeks away so the before-12-weeks card shows');
   assert.equal(p.shortened, null);
 });
 
-test('splits add up to the goal time', () => {
-  const p = buildPlan(example, TODAY);
-  const s = p.splits;
-  assert.ok(Math.abs(s.run + s.stations + s.roxzone - parseHM('1:05')) < 1);
-  const stationSum = s.perStation.reduce((a, x) => a + x.time, 0);
-  // The spec's station shares add up to 100.1%, so allow a couple of seconds.
-  assert.ok(Math.abs(stationSum - s.stations) < 3);
+test('splits add up to the goal time, in every division and at any goal', () => {
+  for (const division of Object.keys(DIVISIONS)) {
+    for (const goal of ['0:55', '1:05', '1:23', '1:47', '2:30']) {
+      const s = buildPlan({ ...example, division, goal }, TODAY).splits;
+      assert.ok(Math.abs(s.run + s.stations + s.roxzone - parseHM(goal)) < 1, `${division} ${goal}`);
+      assert.ok(Math.abs(s.perStation.reduce((a, x) => a + x.time, 0) - s.stations) < 1, `${division} ${goal}`);
+      assert.ok(s.perStation.every((x) => x.time > 0), `${division} ${goal}`);
+    }
+  }
 });
 
 test('paces from the 5k time', () => {
@@ -330,12 +333,59 @@ test('a logged 5k test updates the plan, keeps its id and sets the projection', 
   assert.equal(applyTest(inp, { fiveK: '21:10' }).hr5k, undefined);
 });
 
+test('reported: a plan deleted on the phone stays deleted when the desktop opens', () => {
+  // The desktop's copy of a plan is saved back to the account only when a save from it never landed;
+  // otherwise the account's plans win (loadAccountPlans in app.js), so a plan deleted elsewhere is dropped.
+  const items = new Map();
+  Object.defineProperty(globalThis, 'localStorage', {
+    configurable: true,
+    value: { getItem: (k) => items.get(k) ?? null, setItem: (k, v) => items.set(k, String(v)), removeItem: (k) => items.delete(k) },
+  });
+  const id = planIdFor(example);
+  assert.ok(!isUnsaved('u1', id), 'a plan that was saved, or loaded from the account');
+  markUnsaved('u1', id);
+  assert.ok(isUnsaved('u1', id));
+  assert.ok(!isUnsaved('u2', id), 'another account on the same device');
+  assert.ok(!isUnsaved('u1', 'race-2027-05-01'), 'another plan');
+  assert.ok(!isUnsaved(null, id), 'signed out');
+  clearUnsaved();
+  assert.ok(!isUnsaved('u1', id), 'the save landed');
+  markUnsaved('u1', id);
+  clearInputs();
+  assert.ok(!isUnsaved('u1', id), 'signing out or deleting the plan forgets it on this device');
+});
+
+test('5k test logs: saving keeps results from other devices, and an undone first result is removed', () => {
+  const saved = { 'w1-end': { fiveK: '22:18' }, 'w4-long': { fiveK: '21:40', hr: 172 } };
+  // Logged on another device: kept. This device's result for the same test wins.
+  assert.deepEqual(mergeLogs(saved, { 'w4-long': { fiveK: '21:30' } }), { 'w1-end': { fiveK: '22:18' }, 'w4-long': { fiveK: '21:30' } });
+  // Undo of a first result: null on this device until the account's copy drops it.
+  assert.deepEqual(mergeLogs(saved, { 'w4-long': null }), { 'w1-end': { fiveK: '22:18' } });
+  assert.deepEqual(mergeLogs({}, { 'w8-long': null }), {});
+});
+
 test('projected finish from a 5k time', () => {
-  assert.equal(fmtTime(projectFinish(20 * 60)), '1:14:00');
+  assert.equal(fmtTime(projectFinish(20 * 60)), '1:13:00');
   assert.equal(fmtTime(projectFinish(25 * 60)), '1:33:00');
   assert.ok(projectFinish(19 * 60) < projectFinish(20 * 60));
   const none = buildPlan({ ...example, fiveK: '' }, TODAY);
   assert.deepEqual(none.projection, { time: null, from: null, vsGoal: null });
+});
+
+test('reported: a 22:18 5k projects about 1:09 in Mixed Doubles (raced 1:08:27 in Ottawa), 1:22 in Men Open', () => {
+  const plan = (division) => buildPlan({ ...example, division, goal: '1:10', fiveK: '22:18', age: '35-39' }, TODAY);
+  assert.equal(fmtTime(plan('XD').projection.time), '1:09:00');
+  assert.equal(fmtTime(plan('MO').projection.time), '1:22:00');
+  // Doubles partners share the stations, so the same 5k goes further.
+  for (const [single, double] of [['MO', 'MD'], ['WO', 'WD']]) {
+    assert.ok(projectFinish(22 * 60, double) < projectFinish(22 * 60, single) - 5 * 60, `${double} vs ${single}`);
+  }
+  // A 1:10 Men Open race looks like the 1:10 finishers in Ottawa: 34:31 running, 2:25 sled push, 5:14 wall balls.
+  const s = plan('MO').splits;
+  const station = (key) => s.perStation.find((x) => x.key === key).time;
+  assert.ok(Math.abs(s.run - (34 * 60 + 31)) < 30, fmtTime(s.run));
+  assert.ok(Math.abs(station('push') - 145) < 15, fmtTime(station('push')));
+  assert.ok(Math.abs(station('wb') - 314) < 15, fmtTime(station('wb')));
 });
 
 // ---------- time input mask ----------
@@ -668,12 +718,12 @@ test('one half and one full race simulation', () => {
   const sims = allDays(p).filter((d) => /Simulation/.test(d.label));
   assert.deepEqual(sims.map((d) => [d.key, d.label]), [['w6-long', 'Half Simulation'], ['w9-long', 'Full Simulation']]);
   const half = linesOf(p, 'w6-long');
-  assert.match(half, /500 m run @ 4:05\/km/);
-  assert.match(half, /2\. Sled push 25 m @ 152 kg \(1:30\)/);
-  assert.match(half, /8\. Wall balls half the race reps @ 6 kg \(2:25\)/);
+  assert.match(half, /500 m run @ 4:00\/km/);
+  assert.match(half, /2\. Sled push 25 m @ 152 kg \(1:05\)/);
+  assert.match(half, /8\. Wall balls half the race reps @ 6 kg \(2:24\)/);
   const full = linesOf(p, 'w9-long');
-  assert.match(full, /1 km run @ 4:05\/km/);
-  assert.match(full, /2\. Sled push 50 m @ 152 kg \(2:59\)/);
+  assert.match(full, /1 km run @ 4:00\/km/);
+  assert.match(full, /2\. Sled push 50 m @ 152 kg \(2:11\)/);
 });
 
 test('WOD library: no run in a one-minute EMOM window is longer than 100 m', () => {

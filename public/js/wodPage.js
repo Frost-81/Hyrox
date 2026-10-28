@@ -2,7 +2,7 @@
 // Subscribers see the current week's workouts; everyone else sees the buy card and the information below it.
 import { todayYmd, textToUnits, buildPlan, validateInputs } from './plan.js';
 import { dayStrip } from './render.js';
-import { getUnits, setUnits, getWodMode, setWodMode, loadInputs } from './progress.js';
+import { getUnits, setUnits, getWodMode, setWodMode, loadInputs, planIdFor, isUnsaved } from './progress.js';
 import { loadWods, workoutFor, weekDates, pickMode, clampToWeek, wodWeekAnchor } from './wod.js';
 import { wodCard, planNote, infoPanel } from './wodRender.js';
 import { $, state as site, access, accessStatus, toast, startSite } from './site.js';
@@ -116,15 +116,20 @@ function localPlan() {
   return saved && !Object.keys(validateInputs(saved)).length ? buildPlan(saved) : null;
 }
 
-/** No plan on this device yet (e.g. a new phone): use the newest one in the account. */
+/**
+ * The account's copy of the plan on this device, which may have been changed or deleted on another device,
+ * or the account's newest plan (e.g. on a new phone). A change the account never got stays as it is here.
+ */
 async function lookUpPlan() {
   planLookedUpFor = uid();
   try {
-    const [newest] = await cloud.listPlans(uid());
-    if (newest && !plan) {
-      plan = buildPlan(newest.inputs);
-      renderWod();
-    }
+    const plans = await cloud.listPlans(uid());
+    const local = loadInputs();
+    const id = local && planIdFor(local);
+    if (id && isUnsaved(uid(), id)) return;
+    const p = plans.find((x) => x.id === id) || plans[0];
+    plan = p ? buildPlan(p.inputs) : null;
+    renderWod();
   } catch (err) {
     console.warn('Could not load your plan:', err);
   }
@@ -144,13 +149,13 @@ function onUser(user, { signedOut }) {
 
 function onAccess() {
   updateView();
-  if (access('fullPlan') && !plan && planLookedUpFor !== uid()) lookUpPlan();
+  if (access('fullPlan') && planLookedUpFor !== uid()) lookUpPlan();
 }
 
 /** Back from the plan page, which may have built, changed or deleted the plan, or switched kg/lb. */
 function onShow() {
   plan = localPlan();
-  planLookedUpFor = null; // no plan on this device: look in the account again
+  if (!plan) planLookedUpFor = null; // no plan on this device: look in the account again
   onAccess();
 }
 

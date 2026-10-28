@@ -3,7 +3,7 @@
 // form and their plan; everyone else sees the buy card and the information about the plan.
 import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, UNITS, unitsOf, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime, fmtLongDate, fmtTime, parseYmd } from './plan.js';
 import { summaryCard, splitsCard, pacesCard, swapCard, noticeCards, glossaryCard, planWeek } from './render.js';
-import { planIdFor, loadInputs, saveInputs, clearInputs, getUnits, setUnits, getLogs, replaceLogs, clearLogs, getWodMode } from './progress.js';
+import { planIdFor, loadInputs, saveInputs, clearInputs, markUnsaved, isUnsaved, clearUnsaved, getUnits, setUnits, getLogs, replaceLogs, clearLogs, getWodMode } from './progress.js';
 import { applyTest } from './hr.js';
 import { loadWods, workoutFor, pickMode } from './wod.js';
 import { todayTeaser } from './wodRender.js';
@@ -108,6 +108,12 @@ form.addEventListener('change', (e) => {
 });
 
 const currentUnits = () => state.plan?.units || getUnits();
+
+/** A saved plan's inputs in the kg/lb last picked on this device (the WOD page has a switch too). */
+function inDeviceUnits(inp) {
+  const units = getUnits(unitsOf(inp));
+  return units === unitsOf(inp) ? inp : { ...inp, units, bodyWeight: convertBodyWeight(inp.bodyWeight, units) };
+}
 
 function updateDoublesHint() {
   $('#doubles-hint').hidden = !DIVISIONS[form.elements.division.value]?.doubles;
@@ -303,17 +309,19 @@ $('#log-form').addEventListener('submit', (e) => {
   const errors = validateInputs(next);
   if (errors.fiveK || errors.hr5k) { $('#log-error').textContent = errors.fiveK || errors.hr5k; return; }
 
+  const key = loggingKey;
   const before = { inputs: state.plan.inputs, logs: getLogs(uid(), state.planId) };
   const entry = { fiveK };
   if (hr) entry.hr = Number(hr);
-  replaceLogs(uid(), state.planId, { ...before.logs, [loggingKey]: entry });
+  replaceLogs(uid(), state.planId, { ...before.logs, [key]: entry });
   logDialog.close();
   rebuild(next);
   const p = state.plan.projection;
   toast(`Saved. Paces updated${p.time ? ` and your projected finish is now ${fmtTime(p.time)}` : ''}.`, {
     action: 'Undo',
     onAction: () => {
-      replaceLogs(uid(), state.planId, before.logs);
+      // A first result is set to null rather than left out, so the account's copy drops it too (savePlan).
+      replaceLogs(uid(), state.planId, { ...before.logs, [key]: before.logs[key] ?? null });
       rebuild(before.inputs);
       toast('Back to your previous result.');
     },
@@ -338,7 +346,8 @@ $('#delete-btn-plan').addEventListener('click', async () => {
   if (!window.confirm(`Delete your plan for the race on ${state.plan.raceLabel}? Your 5k test results for it are deleted too.`)) return;
   const id = state.planId;
   try {
-    if (site.user && isSaved()) await cloud.deletePlan(uid(), id);
+    await saving; // a save still on its way would bring the plan back after the delete
+    if (site.user && state.cloudPlans.some((p) => p.id === id)) await cloud.deletePlan(uid(), id);
   } catch (err) {
     console.error(err);
     toast('Could not delete the plan right now. Please try again.');
@@ -372,12 +381,30 @@ $('#plan-picker').addEventListener('change', (e) => {
 
 const isSaved = () => state.cloudPlans.some((p) => p.id === state.planId);
 
-/** Save the current plan to the account and merge the 5k test logs both ways. */
-async function syncCurrentPlan() {
-  if (!site.user || !state.plan || !access('fullPlan')) return;
+let saving = Promise.resolve();
+
+/**
+ * Save the current plan to the account and merge the 5k test logs both ways. Saves run one after another,
+ * so a change (or its Undo) always lands after the one before it.
+ */
+function syncCurrentPlan() {
+  if (!site.user || !state.plan || !access('fullPlan')) return saving;
+  const { plan, planId } = state;
+  // If the save never lands, the next visit saves this device's copy instead of opening the account's.
+  markUnsaved(uid(), planId);
+  saving = saving.then(() => savePlanNow(plan, planId));
+  return saving;
+}
+
+async function savePlanNow(plan, planId) {
+  if (!site.user) return;
   try {
-    const logs = await cloud.savePlan(uid(), state.planId, cleanInputs(state.plan.inputs), getLogs(uid(), state.planId));
-    replaceLogs(uid(), state.planId, logs);
+    const logs = await cloud.savePlan(uid(), planId, cleanInputs(plan.inputs), getLogs(uid(), planId));
+    // A change made meanwhile is saved next; until then this device's logs and mark stay as they are.
+    if (state.plan === plan) {
+      replaceLogs(uid(), planId, logs);
+      clearUnsaved();
+    }
     await refreshPlanList();
     updateView();
   } catch (err) {
@@ -391,24 +418,36 @@ async function refreshPlanList() {
   updatePicker();
 }
 
-function loadCloudPlan(p) {
+function loadCloudPlan(p, opts) {
   setUnits(unitsOf(p.inputs));
   fillForm(p.inputs);
   saveInputs(p.inputs);
   replaceLogs(uid(), p.id, { ...getLogs(uid(), p.id), ...(p.logs || {}) });
-  build(p.inputs);
+  build(p.inputs, opts);
 }
 
-/** Once the plan is owned: save the plan on this device to the account, or open the newest saved one. */
+/**
+ * Once the plan is owned: open the account's copy of the plan on this device, or its newest plan. The account
+ * wins, since the plan may have been changed or deleted on another device; this device's copy is saved
+ * instead only when it has a change the account never got.
+ */
 async function loadAccountPlans() {
   plansLoadedFor = uid();
   plansLoading = true;
   try {
-    if (state.plan) {
+    if (state.plan && isUnsaved(uid(), state.planId)) {
       await syncCurrentPlan();
     } else {
       await refreshPlanList();
-      if (state.cloudPlans.length) loadCloudPlan(state.cloudPlans[0]);
+      const same = state.cloudPlans.find((p) => p.id === state.planId);
+      // Deleted on another device: drop it here too, so it isn't saved back to the account.
+      if (state.plan && !same) clearLogs(uid(), state.planId);
+      const next = same ? { ...same, inputs: inDeviceUnits(same.inputs) } : state.cloudPlans[0];
+      if (next) loadCloudPlan(next, { keepView: !!same });
+      else if (state.plan) {
+        clearInputs();
+        clearPlan();
+      }
     }
   } catch (err) {
     console.error(err);
@@ -466,8 +505,7 @@ setupForm();
 const saved = loadInputs();
 if (saved) {
   // kg/lb picked on the WOD page since the plan was saved: show the plan in the same units.
-  const units = getUnits(unitsOf(saved));
-  const inp = units === unitsOf(saved) ? saved : { ...saved, units, bodyWeight: convertBodyWeight(saved.bodyWeight, units) };
+  const inp = inDeviceUnits(saved);
   fillForm(inp);
   // Older saved plans may lack the age group or division: use the defaults fillForm picked.
   const repaired = { ...inp, age: form.elements.age.value, division: form.elements.division.value };

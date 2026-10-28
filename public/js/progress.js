@@ -49,7 +49,22 @@ export const getAccessHint = () => {
 };
 export const setAccessHint = (products) => (products.length ? write(ACCESS_KEY, products) : remove(ACCESS_KEY));
 export const saveInputs = (inputs) => write(INPUTS_KEY, inputs);
-export const clearInputs = () => remove(INPUTS_KEY);
+
+// A change to the plan on this device that the account has not saved yet (the save failed or was cut short).
+// Only then does this device's copy win over the account's when the account's plans load.
+const UNSAVED_KEY = 'hyrox:unsaved';
+export const markUnsaved = (uid, planId) => write(UNSAVED_KEY, { uid, planId });
+export const isUnsaved = (uid, planId) => {
+  const v = read(UNSAVED_KEY, null);
+  return !!uid && v?.uid === uid && v?.planId === planId;
+};
+export const clearUnsaved = () => remove(UNSAVED_KEY);
+
+/** Forget the plan on this device (signing out, deleting the plan). */
+export const clearInputs = () => {
+  remove(INPUTS_KEY);
+  clearUnsaved();
+};
 
 // 5k test logs, cached per user so accounts on a shared device never mix: { "w1-end": { fiveK, hr? } }.
 const LOGS_PREFIX = 'hyrox:logs:';

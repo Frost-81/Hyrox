@@ -34,16 +34,16 @@ export const AGE_GROUPS = ['16-24', '25-29', '30-34', '35-39', '40-44', '45-49',
 export const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Share of the station total, in race order. half: the distance in a half simulation.
+// The stations in race order. half: the distance in a half simulation.
 export const STATIONS = [
-  { key: 'ski', name: 'SkiErg', dist: '1000 m', half: '500 m', share: 0.144 },
-  { key: 'push', name: 'Sled push', dist: '50 m', half: '25 m', share: 0.103 },
-  { key: 'pull', name: 'Sled pull', dist: '50 m', half: '25 m', share: 0.138 },
-  { key: 'bbj', name: 'Burpee broad jumps', dist: '80 m', half: '40 m', share: 0.121 },
-  { key: 'row', name: 'Row', dist: '1000 m', half: '500 m', share: 0.147 },
-  { key: 'farm', name: 'Farmers carry', dist: '200 m', half: '100 m', share: 0.052 },
-  { key: 'lunge', name: 'Sandbag lunges', dist: '100 m', half: '50 m', share: 0.129 },
-  { key: 'wb', name: 'Wall balls', dist: 'race reps', half: 'half the race reps', share: 0.167 },
+  { key: 'ski', name: 'SkiErg', dist: '1000 m', half: '500 m' },
+  { key: 'push', name: 'Sled push', dist: '50 m', half: '25 m' },
+  { key: 'pull', name: 'Sled pull', dist: '50 m', half: '25 m' },
+  { key: 'bbj', name: 'Burpee broad jumps', dist: '80 m', half: '40 m' },
+  { key: 'row', name: 'Row', dist: '1000 m', half: '500 m' },
+  { key: 'farm', name: 'Farmers carry', dist: '200 m', half: '100 m' },
+  { key: 'lunge', name: 'Sandbag lunges', dist: '100 m', half: '50 m' },
+  { key: 'wb', name: 'Wall balls', dist: 'race reps', half: 'half the race reps' },
 ];
 
 const DAY = 86400000;
@@ -204,26 +204,96 @@ export function validateInputs(inp, today = todayYmd()) {
 
 // ---------- numbers ----------
 
-export function computeSplits(goalSec) {
-  const run = goalSec * 0.503;
-  const stations = goalSec * 0.446;
+// How a finish time splits up, from race results on hyresult.com (each division's results over all seasons,
+// checked against the Ottawa 2026 race; see the README). Rows: [finish minutes, running %, Roxzone %, [each
+// station's % of the station time, in race order]]; running and Roxzone are shares of the finish and the
+// stations get the rest. Between rows the shares are interpolated; before the first row or after the last
+// they stay as in that row.
+const SPLIT_TABLE = {
+  MO: [
+    [60, 49.4, 6.7, [15.6, 7.4, 12.6, 12.6, 16.6, 5.8, 12.8, 16.6]],
+    [70, 49.1, 7.4, [13.9, 7.9, 12.9, 13.7, 14.8, 5.8, 13.6, 17.2]],
+    [90, 48.2, 8.5, [12.0, 8.2, 13.3, 15.0, 12.9, 5.8, 14.2, 18.7]],
+    [115, 47.3, 9.5, [10.4, 8.3, 13.5, 15.6, 11.3, 5.9, 14.6, 20.4]],
+  ],
+  WO: [
+    [70, 50.2, 6.9, [16.0, 6.8, 14.0, 14.9, 16.7, 5.9, 12.2, 13.4]],
+    [80, 49.9, 7.5, [14.6, 7.1, 14.2, 15.7, 15.2, 5.9, 12.6, 14.7]],
+    [95, 49.3, 8.2, [13.2, 7.2, 14.4, 16.7, 13.8, 5.8, 12.9, 16.0]],
+    [125, 48.3, 9.2, [11.3, 7.2, 14.6, 17.8, 12.0, 5.7, 13.4, 17.9]],
+  ],
+  MP: [
+    [60, 48.3, 6.4, [14.3, 9.6, 14.7, 10.8, 15.1, 5.9, 12.8, 16.8]],
+    [65, 47.6, 6.8, [13.5, 9.9, 14.9, 11.2, 14.3, 5.8, 13.1, 17.2]],
+    [80, 46.4, 7.5, [11.8, 10.2, 15.7, 11.9, 12.6, 6.0, 13.6, 18.3]],
+    [105, 45.0, 8.7, [9.8, 10.5, 16.9, 12.2, 10.7, 6.2, 13.8, 19.8]],
+  ],
+  WP: [
+    [65, 48.2, 6.3, [15.0, 9.4, 14.4, 12.1, 15.7, 6.3, 12.4, 14.7]],
+    [70, 48.0, 6.7, [14.3, 9.7, 14.5, 12.5, 14.9, 6.4, 12.7, 15.1]],
+    [85, 47.2, 7.4, [12.7, 10.1, 15.1, 13.1, 13.3, 6.7, 13.1, 16.0]],
+    [115, 45.8, 8.7, [10.6, 10.5, 15.8, 13.8, 11.2, 7.0, 13.5, 17.6]],
+  ],
+  MD: [
+    [55, 55.3, 6.9, [17.6, 6.4, 11.0, 10.1, 19.3, 6.2, 12.3, 17.1]],
+    [65, 55.8, 8.0, [16.3, 6.7, 11.9, 11.2, 18.1, 6.3, 12.9, 16.5]],
+    [75, 56.0, 8.8, [15.4, 6.9, 12.5, 11.9, 17.2, 6.3, 13.4, 16.4]],
+    [95, 55.8, 10.3, [14.0, 7.1, 13.0, 12.8, 15.7, 6.2, 14.2, 17.0]],
+  ],
+  WD: [
+    [65, 56.1, 7.1, [18.3, 5.9, 13.1, 12.2, 19.7, 6.2, 11.6, 13.1]],
+    [75, 56.5, 8.0, [16.9, 6.0, 13.5, 13.1, 18.3, 6.2, 12.0, 14.0]],
+    [90, 56.4, 9.0, [15.7, 6.2, 14.0, 14.2, 17.0, 6.2, 12.5, 14.2]],
+    [110, 56.1, 10.2, [14.4, 6.2, 14.3, 15.4, 15.7, 6.0, 13.1, 14.9]],
+  ],
+  XD: [
+    [60, 55.1, 7.2, [16.9, 7.0, 12.5, 10.6, 18.4, 6.2, 12.5, 15.9]],
+    [70, 55.5, 7.9, [15.9, 7.3, 13.1, 11.4, 17.4, 6.3, 13.2, 15.5]],
+    [85, 55.5, 8.9, [14.7, 7.5, 13.7, 12.3, 16.2, 6.3, 13.9, 15.6]],
+    [105, 55.0, 10.0, [13.3, 7.8, 14.0, 12.9, 14.8, 6.0, 14.4, 16.8]],
+  ],
+};
+
+/** [running %, Roxzone %, station %s] for a finish time in seconds, from the division's rows. */
+function sharesAt(division, sec) {
+  const rows = SPLIT_TABLE[division] || SPLIT_TABLE.MO;
+  const min = sec / 60;
+  const next = rows.findIndex((r) => r[0] >= min);
+  if (next === 0) return rows[0].slice(1);
+  if (next < 0) return rows.at(-1).slice(1);
+  const [a, b] = [rows[next - 1], rows[next]];
+  const f = (min - a[0]) / (b[0] - a[0]);
+  const mix = (x, y) => x + (y - x) * f;
+  return [mix(a[1], b[1]), mix(a[2], b[2]), a[3].map((x, i) => mix(x, b[3][i]))];
+}
+
+export function computeSplits(goalSec, division = 'MO') {
+  const [runPct, roxPct, stationPct] = sharesAt(division, goalSec);
+  const run = (goalSec * runPct) / 100;
+  const roxzone = (goalSec * roxPct) / 100;
+  const stations = goalSec - run - roxzone;
+  const pctTotal = stationPct.reduce((sum, x) => sum + x, 0);
   return {
     goal: goalSec,
     run,
     runPerKm: run / 8,
     stations,
-    roxzone: goalSec * 0.051,
-    perStation: STATIONS.map((s) => ({ ...s, time: stations * s.share })),
+    roxzone,
+    perStation: STATIONS.map((s, i) => ({ ...s, time: (stations * stationPct[i]) / pctTotal })),
   };
 }
 
-// Race-day km pace is about 17% slower than 5k pace (running on tired legs between stations),
-// and running is 50.3% of the finish time (the same split computeSplits uses).
-const RACE_RUN_FACTOR = 1.17;
+// Race-day km pace from 5k pace: about 12% slower in singles (over an hour of racing, on legs tired from the
+// stations) and 7% slower in doubles, where partners share the station work.
+const RACE_RUN_FACTOR = { singles: 1.12, doubles: 1.07 };
 
 /** Rough finish time from a 5k time, both in seconds; rounded to the minute since it is an estimate. */
-export function projectFinish(fiveKSec) {
-  return Math.round(((fiveKSec / 5) * RACE_RUN_FACTOR * 8) / 0.503 / 60) * 60;
+export function projectFinish(fiveKSec, division = 'MO') {
+  const run = (fiveKSec / 5) * RACE_RUN_FACTOR[DIVISIONS[division]?.doubles ? 'doubles' : 'singles'] * 8;
+  // Running's share of the finish depends on the finish time itself, so close in on it.
+  let finish = run / 0.5;
+  for (let i = 0; i < 4; i++) finish = run / (sharesAt(division, finish)[0] / 100);
+  return Math.round(finish / 60) * 60;
 }
 
 /** adjust: seconds per km added to easy and to steady/threshold paces (from heart-rate suggestions). */
@@ -445,7 +515,9 @@ export function machineText(spec, ctx, values) {
       return `${reps}${n} m ${use === 'ski' ? 'SkiErg' : 'row'}${split}${swapNote}`;
     }
     const mw = (d) => (d.includes('/') ? `${d} m (men/women)` : `${d} m`);
-    const run = `${reps}${mw(convert(n, null, sex))} run${effort ? ` @ ${values[effort]}` : ''}`;
+    // A timed window is run for the same time at a steady pace, rounded down so the minute keeps its rest.
+    const runM = m[3] === 's' ? `${Math.max(50, Math.floor(((+m[2] / ctx.paces.steady) * 1000) / 50) * 50)}` : convert(n, null, sex);
+    const run = `${reps}${mw(runM)} run${effort ? ` @ ${values[effort]}` : ''}`;
     const bike = has('bike') ? ` or ${reps}${mw(convert(n, BIKE_PER_RUN, sex))} bike` : '';
     return `${run}${bike}${swapNote}`;
   }
@@ -554,7 +626,7 @@ export function adjustSessions(week, { fiveDay, is45, testWeek = 1 }) {
 export function buildPlan(inp, today = todayYmd()) {
   const div = DIVISIONS[inp.division];
   const goal = parseHM(inp.goal);
-  const splits = computeSplits(goal);
+  const splits = computeSplits(goal, inp.division);
   const paces = computePaces(splits, parseMS(normalizeTime(inp.fiveK)), inp.paceAdjust);
   const hr = hrProfile(inp);
   const equipment = Array.isArray(inp.equipment) ? inp.equipment : MACHINES;
@@ -627,7 +699,7 @@ export function buildPlan(inp, today = todayYmd()) {
 
   const daysToRace = Math.round((race - todayMs) / DAY);
   const fiveKSec = parseMS(normalizeTime(inp.fiveK));
-  const projected = fiveKSec ? projectFinish(fiveKSec) : null;
+  const projected = fiveKSec ? projectFinish(fiveKSec, inp.division) : null;
   return {
     projection: projected
       ? { time: projected, from: inp.fiveKFromTest ? 'test' : 'entered', vsGoal: projected - goal }
