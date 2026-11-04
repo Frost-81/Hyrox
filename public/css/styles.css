@@ -113,13 +113,15 @@ a { color: inherit; }
 
 .site-header {
   position: sticky; top: 0; z-index: 10;
-  background: rgb(10 10 10 / 78%); color: var(--on-ink);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  /* Glass: a faint light tint, so it reads as a bar even over the black page. What's behind it is
+     dimmed just enough that the text stays readable over anything, even pure white. */
+  background: rgb(255 255 255 / 8%); color: var(--on-ink);
+  -webkit-backdrop-filter: blur(8px) brightness(.36); backdrop-filter: blur(8px) brightness(.36);
   border-top: 3px solid var(--yellow);
   border-bottom: 1px solid var(--line);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header { background: rgb(10 10 10 / 94%); }
+  .site-header { background: rgb(10 10 10 / 88%); }
 }
 .header-row { display: flex; align-items: center; gap: 6px; min-height: 54px; }
 .brand {
@@ -138,7 +140,7 @@ a { color: inherit; }
 .tabs a {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px;
   font-family: var(--font-mono); font-weight: 700; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
-  text-decoration: none; color: var(--on-ink-soft);
+  text-decoration: none; color: rgb(244 244 241 / 92%);
   border-bottom: 2px solid transparent;
 }
 .tabs a:hover { color: #fff; }
