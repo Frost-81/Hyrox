@@ -622,6 +622,18 @@ test('pages: one h1, canonical link, description, FAQ data, and HYROX named for 
   for (const url of Object.values(pages)) assert.ok(sitemap.includes(`<loc>${url}</loc>`), url);
 });
 
+test('firestore.rules allows every field the plan form and the 5k tests save', () => {
+  const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+  const allowed = read('firestore.rules').match(/i\.keys\(\)\.hasOnly\(\[([\s\S]*?)\]\)/)[1].match(/'\w+'/g).map((k) => k.slice(1, -1));
+  const app = read('public/js/app.js');
+  const start = app.indexOf('function readForm');
+  const form = app.slice(start, app.indexOf('return inp;', start));
+  const fields = [...form.matchAll(/^ {4}(\w+):/gm), ...form.matchAll(/inp\.(\w+) =/g), ...read('public/js/hr.js').matchAll(/next\.(\w+) =/g)].map((m) => m[1]);
+  assert.ok(fields.length >= 13, `found only ${fields.join(', ')}`);
+  // A field missing here would make every save of that plan fail for the customer.
+  for (const f of fields) assert.ok(allowed.includes(f), `${f} is saved by the site but not allowed by validInputs in firestore.rules`);
+});
+
 test('no trademark in user-facing plan text', () => {
   const p = buildPlan(example, TODAY);
   const text = allDays(p).flatMap((d) => [d.label, ...d.lines, ...(d.wod?.lines || [])]).join(' ') + p.weeks.map((w) => w.title).join(' ');

@@ -52,7 +52,7 @@ Google Analytics 4 (`G-P0GFWB3X3R`, `analytics.js`) loads only after a visitor c
 | `public/privacy.html`, `public/terms.html`, `public/js/legal.js` | Privacy Policy and Terms of Use, served at `/privacy` and `/terms`, written for users in any country. Their ✕ (`legal.js`) goes back to the page the reader came from, or closes the tab the sign-in window opened. |
 | `public/data/wods.json` | The 365-workout library. Do not edit by hand; see `tools/wod/`. |
 | `tools/wod/` | The WOD generator (`generate_wods.py`), the readable library (`wod-library.md`) and `rebrand.mjs`, which removes the race organiser's name from the generated text. Not deployed. |
-| `firestore.rules` | Users can read and write only their own `users/{uid}/plans` and `settings`, with field checks (old `wodResults` can only be read or deleted). Payment data (`customers/{uid}`) is read-only for its owner and written only by the functions. Everything else is denied. |
+| `firestore.rules` | Users can read and delete only their own `users/{uid}/plans`, and save them only once they have bought the plan (`customers/{uid}.access.plan`), with strict field checks. A new field in a plan's inputs must be added to `validInputs` there, or saves fail (a test checks this). `settings/prefs` is the user's own, with field checks; old `wodResults` can only be read or deleted. Payment data (`customers/{uid}`) is read-only for its owner and written only by the functions. Everything else is denied. |
 | `tests/plan.test.mjs` | Engine, WOD and gating tests. |
 
 ## Run locally

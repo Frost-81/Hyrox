@@ -1,11 +1,45 @@
 rules_version = '2';
 
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Ownership comes from the path ({uid}), so no document holds a uid field that could be changed.
+//
+// users/{uid}/plans/{planId}, where planId is "race-" + inputs.raceDate (planIdFor in public/js/progress.js)
+//   - inputs: map (required) - the athlete's choices; only raceDate is required, because older plans may lack the rest
+//   - done: map (required, no longer used) - empty on new plans; older plans keep theirs unchanged
+//   - logs: map (required, at most 64 entries) - 5k tests, { "w1-end": { fiveK, hr? } }
+//   - createdAt: timestamp (required, set by the server, then never changes; older plans may get theirs on the next save)
+//   - updatedAt: timestamp (required, set by the server on every save)
+//
+// users/{uid}/settings/prefs
+//   - wodMode: 'solo' | 'team' (required)
+//   - updatedAt: timestamp (required, set by the server on every save)
+//
+// users/{uid}/wodResults/{resultId} - no longer written; the owner can read and delete old ones
+//
+// customers/{uid} - { stripeId, access: { plan, wod }, updatedAt }, written only by the Cloud Functions
+//
+// mailLimits/{id} - used only by the Cloud Functions
+//
+// The Cloud Functions use the Admin SDK, which these rules don't apply to.
+// ===============================================================
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // A signed-in user can read and write only their own plans.
+    // The owner can read and delete their plans, and save them once they have bought the plan.
     match /users/{uid}/plans/{planId} {
       allow read, delete: if isOwner(uid);
-      allow create, update: if isOwner(uid) && validPlan(request.resource.data);
+      allow create: if isOwner(uid) && boughtPlan(uid)
+        && validPlan(request.resource.data)
+        && planId == 'race-' + request.resource.data.inputs.raceDate
+        && request.resource.data.done.size() == 0
+        && request.resource.data.createdAt == request.time;
+      allow update: if isOwner(uid) && boughtPlan(uid)
+        && validPlan(request.resource.data)
+        && request.resource.data.done == resource.data.get('done', {})
+        && request.resource.data.createdAt == resource.data.get('createdAt', request.time);
     }
 
     // Preferences, e.g. the Workout of the Day mode: users/{uid}/settings/prefs.
@@ -20,36 +54,81 @@ service cloud.firestore {
       allow read, delete: if isOwner(uid);
     }
 
-    // What the user has paid for: { stripeId, access: { plan, wod } }. Only the Stripe webhook
-    // (functions/payments.js) writes it, with the Admin SDK; the owner can read it.
+    // What the user has paid for. Only the Stripe webhook (functions/payments.js) writes it; the owner can read it.
     match /customers/{uid} {
       allow read: if isOwner(uid);
     }
 
-    // Everything else is denied (no other match blocks), including mailLimits/{id},
-    // which only the Cloud Functions use.
+    // Everything else is denied (no other match blocks), including mailLimits/{id}.
+
+    // ---------------------------------------------------------- who
 
     function isOwner(uid) {
       return request.auth != null && request.auth.uid == uid && emailConfirmed();
     }
 
-    // Email and password accounts must confirm their address first (functions/index.js emails the link).
+    // Google accounts are confirmed by Google. Email and password accounts must confirm their
+    // address first (functions/index.js emails the link). No other kind of account gets in.
     function emailConfirmed() {
-      return request.auth.token.firebase.sign_in_provider != 'password'
+      return request.auth.token.firebase.sign_in_provider == 'google.com'
         || request.auth.token.get('email_verified', false) == true;
     }
 
+    function boughtPlan(uid) {
+      return get(/databases/$(database)/documents/customers/$(uid)).data.get(['access', 'plan'], false) == true;
+    }
+
+    // ---------------------------------------------------------- what
+
+    // Rules can't look inside every entry of a map or list, so logs and dismissed are limited by count only.
     function validPlan(d) {
       return d.keys().hasOnly(['inputs', 'done', 'logs', 'createdAt', 'updatedAt'])
-        && d.inputs is map
+        && d.keys().hasAll(['inputs', 'done', 'logs', 'createdAt', 'updatedAt'])
+        && validInputs(d.inputs)
         && d.done is map
-        && d.done.size() <= 200
-        && (!('logs' in d) || (d.logs is map && d.logs.size() <= 200));
+        && d.logs is map
+        && d.logs.size() <= 64
+        && d.updatedAt == request.time;
+    }
+
+    function validInputs(i) {
+      return i is map
+        // Every field a saved plan has ever held: dismissed, paceAdjust and startTest only on older plans.
+        && i.keys().hasOnly(['raceDate', 'goal', 'division', 'age', 'fiveK', 'days', 'equipment', 'bodyWeight', 'units',
+                             'maxHR', 'hr5k', 'fiveKFromTest', 'paceAdjust', 'dismissed', 'startTest'])
+        && i.raceDate is string
+        && i.raceDate.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && shortValue(i.get('goal', ''))
+        && shortValue(i.get('division', ''))
+        && shortValue(i.get('age', ''))
+        && shortValue(i.get('fiveK', ''))
+        && shortValue(i.get('bodyWeight', ''))
+        && shortValue(i.get('maxHR', ''))
+        && shortValue(i.get('hr5k', ''))
+        && shortValue(i.get('startTest', ''))
+        && i.get('fiveKFromTest', false) is bool
+        && i.get('units', 'kg') in ['kg', 'lb']
+        && i.get('days', []) is list
+        && i.get('days', []).toSet().hasOnly([0, 1, 2, 3, 4, 5, 6])
+        && i.get('equipment', []) is list
+        && i.get('equipment', []).toSet().hasOnly(['row', 'ski', 'bike'])
+        && i.get('paceAdjust', {}) is map
+        && i.get('paceAdjust', {}).keys().hasOnly(['easy', 'hard'])
+        && i.get('paceAdjust', {}).get('easy', 0) is number
+        && i.get('paceAdjust', {}).get('hard', 0) is number
+        && i.get('dismissed', []) is list
+        && i.get('dismissed', []).size() <= 64;
+    }
+
+    // A number, or a few characters of text such as "1:30" or "45-49". Empty and null are fine.
+    function shortValue(v) {
+      return v == null || v is bool || v is number || (v is string && v.size() <= 16);
     }
 
     function validSettings(d) {
       return d.keys().hasOnly(['wodMode', 'updatedAt'])
-        && (!('wodMode' in d) || d.wodMode in ['solo', 'team']);
+        && d.wodMode in ['solo', 'team']
+        && d.updatedAt == request.time;
     }
   }
 }
