@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, maskTime, DIVISIONS, liftShare, projectFinish } from '../public/js/plan.js';
+import { buildPlan, validateInputs, fmtTime, parseHM, normalizeTime, maskTime, DIVISIONS, liftShare, projectFinish, textToUnits, UNITS } from '../public/js/plan.js';
 import { hrProfile, applyTest } from '../public/js/hr.js';
 import { readFileSync } from 'node:fs';
 import { wodIndex, workoutFor, weekDates, addDays, pickMode, clampToWeek } from '../public/js/wod.js';
@@ -8,6 +8,8 @@ import { canUse, hasSubscription } from '../public/js/billing.js';
 import { planIdFor, markUnsaved, isUnsaved, clearUnsaved, clearInputs } from '../public/js/progress.js';
 import { mergeLogs } from '../public/js/cloud.js';
 import { planWeek } from '../public/js/render.js';
+import { wodCard, blockHead } from '../public/js/wodRender.js';
+import { wodLine, planLine } from '../public/js/lines.js';
 
 const TODAY = '2026-10-22';
 const example = { raceDate: '2027-04-24', goal: '1:05', division: 'MO', age: '45-49', fiveK: '20:00', days: [0, 1, 2, 3, 4, 5] };
@@ -479,8 +481,120 @@ test('every week of the plan is open: no lock, and the 5k tests can be logged', 
   assert.doesNotMatch(html, /data-subscribe/);
 });
 
+test('WOD card: lines split into movement and load', () => {
+  assert.deepEqual(wodLine('25 m sled push (335/225 lb)'), { move: '25 m Sled push', load: '335 / 225 lb', note: '', text: false });
+  assert.equal(wodLine('15 m DB farmers lunges (2x50/33 lb)').load, '2×50 / 2×33 lb');
+  assert.equal(wodLine('18 DB push press (2x33/2x22 lb)').load, '2×33 / 2×22 lb');
+  assert.equal(wodLine('40 burpee box jump-overs (24/20 in)').load, '24 / 20 in');
+  assert.deepEqual(wodLine('600 m run'), { move: '600 m Run', load: '', note: '', text: false });
+  assert.deepEqual(wodLine('8/6 cal SkiErg'), { move: '8/6 cal SkiErg', load: '', note: '', text: false });
+  // A weight in the middle of the line still moves to the right.
+  assert.deepEqual(wodLine('max wall balls (6/4 kg) in the time left'), { move: 'Max wall balls in the time left', load: '6 / 4 kg', note: '', text: false });
+  // Words in brackets, and partner notes.
+  assert.deepEqual(wodLine('400 m run synchro (run together)'), { move: '400 m Run synchro', load: 'run together', note: '', text: true });
+  assert.deepEqual(wodLine('40 m sled pull (103/78 kg) => split as you wish'), { move: '40 m Sled pull', load: '103 / 78 kg', note: 'split as you wish', text: false });
+  // Two movements keep their weights in place, so each stays beside its own movement.
+  assert.deepEqual(wodLine('15 box step-overs (24/20 in) + 14 KB swings (24/16 kg) => P1'), { move: '15 Box step-overs (24/20 in) + 14 KB swings (24/16 kg)', load: 'P1', note: '', text: true });
+  assert.equal(wodLine('10 wall balls (6/4 kg) + 8 burpees').load, '');
+  assert.equal(wodLine('4 burpees over the rower + 4 burpee box jump-overs (24/20 in)').load, '');
+  // Brackets inside the line stay there.
+  assert.equal(wodLine('calf raises off a step (slow): 30 s').move, 'Calf raises off a step (slow): 30 s');
+});
+
+test('plan card: lines split into movement and load', () => {
+  assert.deepEqual(planLine('Back Squat: 3 sets of 5 reps @ 65/52.5 kg (men/women), about 80%/65% of body weight (increase weight)'),
+    { move: 'Back Squat', load: '65 / 52.5 kg', note: '3 sets of 5 reps (men/women), about 80%/65% of body weight (increase weight)', text: false });
+  assert.deepEqual(planLine('Front Squat: 3 sets of 8 reps @ about 55% of body weight'),
+    { move: 'Front Squat', load: 'about 55% of body weight', note: '3 sets of 8 reps', text: true });
+  assert.equal(planLine('Walking Lunges with Dumbbells: 3 sets of 12 reps per leg @ 2 x 20/15 kg (men/women), about 25%/20% of body weight each').load, '2×20 / 2×15 kg');
+  assert.deepEqual(planLine('Practice Wall Balls: 6 sets of 15 reps @ 14 lb, 60 s rest. Focus on consistent height and power'),
+    { move: 'Practice Wall Balls', load: '14 lb', note: '6 sets of 15 reps, 60 s rest. Focus on consistent height and power', text: false });
+  assert.deepEqual(planLine('1 km run @ 4:44/km'), { move: '1 km Run', load: '4:44/km', note: '', text: false });
+  assert.equal(planLine('12 wall balls @ 14 lb').load, '14 lb');
+  // A weight stays beside its own movement when the line has two.
+  assert.deepEqual(planLine('Strength: 4 sets of 10 goblet squats @ 24 kg + 10 dumbbell rows per arm, 90 s rest between sets'),
+    { move: 'Strength', load: '', note: '4 sets of 10 goblet squats @ 24 kg + 10 dumbbell rows per arm, 90 s rest between sets', text: false });
+  // A long aside in brackets goes under the line; a short one stays on the right.
+  assert.deepEqual(planLine('Practice one or two race stations at a very light intensity (e.g. 50 m sled push, 10 wall balls). Focus on perfect form'),
+    { move: 'Practice one or two race stations at a very light intensity', load: '', note: 'E.g. 50 m sled push, 10 wall balls. Focus on perfect form', text: false });
+  assert.equal(planLine('Calf raises 3 x 15 slow + tibialis raises 2 x 15 (tendon care)').load, 'tendon care');
+  // Timing isn't a name, and a line with several efforts stays whole.
+  assert.equal(planLine('Odd minutes: 10 wall balls @ 14 lb').move, 'Odd minutes: 10 wall balls');
+  assert.equal(planLine('Mock Race: 2 km Run @ 5:14/km + 500 m row + 2 km Run @ 5:14/km. Focus on maintaining effort').load, '');
+  // A line ending in a colon introduces the ones below it; other sentences split at the first full stop.
+  assert.deepEqual(planLine('Every 4 min for 24 min (6 rounds), crisp, not hard (taper week):'), { move: 'Every 4 min for 24 min (6 rounds), crisp, not hard (taper week)', load: '', note: '', text: false, lead: true });
+  const test = planLine('5 km test: run it as fast as you can hold at an even pace. No target: this shows where you are today, not your goal');
+  assert.equal(test.note, 'No target: this shows where you are today, not your goal');
+  assert.equal(planLine('Row 12.5 km easy').note, '');
+});
+
+test('plan card: every session line, in every division and units, keeps every number it had', () => {
+  const numbers = (s) => String(s).match(/\d+(?:[.:]\d+)*/g) || [];
+  const unescape = (s) => s.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+  for (const division of Object.keys(DIVISIONS)) {
+    for (const units of UNITS) {
+      for (const bodyWeight of [undefined, 80]) {
+        const p = buildPlan({ ...example, division, units, bodyWeight }, TODAY);
+        for (const [i, w] of p.weeks.entries()) {
+          for (const d of w.days) {
+            const page = unescape(planWeek(p, { weekIdx: i, ymd: d.ymd }).replace(/<[^>]*>/g, ' '));
+            assert.doesNotMatch(page, /undefined|NaN|\[object/, `${division} week ${w.n} ${d.label}`);
+            assert.ok(page.includes(d.label), `${d.label}: title`);
+            for (const line of [...d.lines, ...(d.wod?.lines || [])]) {
+              const { move, load, note } = planLine(line);
+              const after = numbers(`${move} ${load} ${note}`);
+              for (const n of numbers(line)) assert.ok(after.includes(n), `${n} lost from "${line}"`);
+              assert.ok(move.length > 0, `empty movement from "${line}"`);
+              for (const part of [move, load, note]) if (part) assert.ok(page.includes(part), `"${part}" not on the card`);
+            }
+          }
+        }
+      }
+    }
+  }
+});
+
+test('WOD help text has no developer words', () => {
+  assert.doesNotMatch(JSON.stringify(WODS.meta), /defaultMode/);
+});
+
+test('WOD card: part headings', () => {
+  assert.deepEqual(blockHead({ label: 'Part A (15 min)', scheme: 'Every 2.5 min x 6 sets, heavy but unbroken' }), { title: 'Part A · 15 min', side: 'Every 2.5 min x 6 sets', sub: 'Heavy but unbroken' });
+  assert.deepEqual(blockHead({ label: 'Part B (28 min)', scheme: 'AMRAP 28 min' }), { title: 'Part B · AMRAP 28 min', side: '', sub: '' });
+  assert.deepEqual(blockHead({ label: 'Block 1', scheme: '6 rounds' }), { title: 'Block 1 · 6 rounds', side: '', sub: '' });
+  assert.deepEqual(blockHead({ scheme: '7 rounds, start a new round every 3 min' }), { title: '7 rounds', side: '', sub: 'Start a new round every 3 min' });
+  assert.deepEqual(blockHead({}), { title: '', side: '', sub: '' });
+});
+
+test('WOD card: every workout, solo and team, in kg and lb, shows every number it should', () => {
+  const numbers = (s) => String(s).match(/\d+(?:\.\d+)?/g) || [];
+  const shown = (html) => html.replace(/<[^>]*>/g, ' ')
+    .replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+  for (const w of WODS.workouts) {
+    for (const mode of ['solo', 'team']) {
+      for (const units of UNITS) {
+        const page = shown(wodCard(w, mode, TODAY, { today: TODAY, units }));
+        assert.doesNotMatch(page, /undefined|null|NaN|\[object/, `${w.title} ${mode} ${units}`);
+        assert.ok(page.includes(w.title), `${w.title}: title`);
+        for (const b of w[mode].blocks) {
+          for (const item of b.items) {
+            const line = textToUnits(item, units);
+            const { move, load, note } = wodLine(line);
+            const after = numbers(`${move} ${load} ${note}`);
+            for (const n of numbers(line)) assert.ok(after.includes(n), `${w.title} ${mode} ${units}: ${n} lost from "${line}"`);
+            assert.ok(move.length > 0, `${w.title}: empty movement from "${line}"`);
+            assert.ok(page.includes(move), `${w.title}: "${move}" not on the card`);
+            if (load) assert.ok(page.includes(load), `${w.title}: "${load}" not on the card`);
+          }
+          if (b.rest) assert.ok(page.includes(textToUnits(b.rest, units)), `${w.title}: rest`);
+        }
+      }
+    }
+  }
+});
+
 test('pages: one h1, canonical link, description, FAQ data, and HYROX named for search but not on the page', () => {
-  const pages = { 'index.html': 'https://hybridprog.com/', 'wod.html': 'https://hybridprog.com/wod' };
+  const pages = { 'index.html': 'https://hybridprog.com/', 'plan.html': 'https://hybridprog.com/plan' };
   for (const [file, url] of Object.entries(pages)) {
     const html = readFileSync(new URL(`../public/${file}`, import.meta.url), 'utf8');
     assert.equal(html.match(/<h1[\s>]/g)?.length, 1, `${file}: one h1`);
@@ -497,8 +611,8 @@ test('pages: one h1, canonical link, description, FAQ data, and HYROX named for 
     // Google's merchant listings ask every offer for shipping (free and instant here) and a refund policy.
     const product = lds.flatMap((ld) => ld['@graph'] || []).find((x) => x['@type'] === 'Product');
     assert.ok(product.offers.shippingDetails && product.offers.hasMerchantReturnPolicy, `${file}: offer shipping and returns`);
-    // Two separate products: the WOD page sells only the WOD.
-    if (file === 'wod.html') assert.doesNotMatch(html, /12[- ]week/i, 'the WOD page does not mention the 12-week plan');
+    // Two products: each page sells its own, with one band leading to the other.
+    assert.ok(html.includes(`<a class="cross-band" href="${file === 'index.html' ? '/plan' : '/'}">`), `${file}: links to the other product`);
     // The FAQ structured data is valid and matches the questions on the page.
     const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
     const shown = [...html.matchAll(/<summary><h3>(.*?)<\/h3><\/summary>/g)].map((m) => m[1].replace(/&amp;/g, '&'));

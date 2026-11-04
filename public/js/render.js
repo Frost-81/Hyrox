@@ -1,6 +1,7 @@
 // HTML builders for the plan output. Everything user-supplied goes through esc().
 import { fmtTime, fmtDate, SWAP_CHART } from './plan.js';
 import { fmtZone } from './hr.js';
+import { planLine } from './lines.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -196,54 +197,68 @@ export function planWeek(plan, { weekIdx, ymd, logs = {} }) {
   }) + dayCard(day, w, { today, log: logs[day.key], backToToday: todayInPlan && day.ymd !== today });
 }
 
-/** The day's card, laid out like the WOD card: date and week, title, then tags (effort colour, week theme, phase). */
+/** One line on a session card: the movement, with its load or pace on the right. Takes wodLine or planLine's result. */
+export function sheetRow({ move, load, note, text, lead }) {
+  if (lead) return `
+        <li class="sheet-lead"><span class="sheet-move">${esc(move)}</span></li>`;
+  return `
+        <li>
+          <span class="sheet-move${move.length > 58 ? ' long' : ''}">${esc(move)}${note ? `<span class="sheet-note">${esc(note)}</span>` : ''}</span>
+          ${load ? `<span class="sheet-load${text ? ' words' : ''}">${esc(load)}</span>` : ''}
+        </li>`;
+}
+
+const sheetRows = (lines) => `<ul class="sheet-rows">${lines.map((l) => sheetRow(planLine(l))).join('')}
+      </ul>`;
+
+/** The day's card, in the same design as the WOD card: date, title, week theme, then the session in panels. */
 function dayCard(d, w, { today, log, backToToday }) {
-  const when = `${d.ymd === today ? 'Today · ' : ''}${FULL_DAY[d.weekday]} ${esc(fmtDate(d.date))} · Week ${w.n} of 12`;
-  const top = (title) => `
-    <div class="wod-top">
-      <div>
-        <p class="wod-day">${when}</p>
-        <h2>${title}</h2>
-      </div>
-      ${backToToday ? '<button type="button" class="btn small ghost" data-plan-today aria-label="Back to today">Today</button>' : ''}
-    </div>`;
+  const when = `${d.ymd === today ? 'Today · ' : ''}${FULL_DAY[d.weekday]} ${esc(fmtDate(d.date))}`;
   // In race week the phase and the week's title say the same thing.
   const same = (a, b) => a.toLowerCase().replace(/\W/g, '') === b.toLowerCase().replace(/\W/g, '');
-  const weekTags = `<span class="tag">${esc(w.title)}</span>${same(w.title, w.phaseName) ? '' : `<span class="tag">${esc(w.phaseName)}</span>`}`;
+  const meta = [EFFORT_TEXT[d.effort], !same(w.title, w.phaseName) && w.phaseName, d.test && '5k test'].filter(Boolean);
+  const head = (title) => `
+    <div class="sheet-top">
+      <p class="sheet-day"><span class="sheet-mark" aria-hidden="true"><img src="/img/logo.png" alt="" width="34" height="34"></span>${when}</p>
+      <span class="sheet-pill">Week ${w.n} of 12</span>
+    </div>
+    <h2>${title}</h2>
+    <p class="sheet-headline">${esc(w.title)}</p>
+    <p class="sheet-meta"><span class="dot effort-${d.effort}"></span>${meta.map(esc).join(' · ')}</p>
+    ${backToToday ? '<div class="sheet-controls no-print"><button type="button" class="btn small ghost" data-plan-today>Back to today</button></div>' : ''}`;
   if (d.effort === 'rest') {
     return `
-  <section class="card wod-card day-card" aria-live="polite">
-    ${top('Rest')}
-    <div class="tags"><span class="tag effort-rest">Rest</span>${weekTags}</div>
-    <p>No training today. Sleep well, eat well, and go for an easy walk if you like.</p>
+  <section class="card wod-sheet day-card" aria-live="polite">
+    ${head('Rest')}
+    <div class="sheet-part sheet-text"><p>No training today. Sleep well, eat well, and go for an easy walk if you like.</p></div>
   </section>`;
   }
+  const notes = [
+    w.clash && 'Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.',
+    d.note,
+  ].filter(Boolean);
   const testLog = d.test ? `
-    ${log?.fiveK ? `<p class="logged small">✓ Logged: 5k ${esc(log.fiveK)}${log.hr ? ` · ${esc(log.hr)} bpm` : ''}</p>` : ''}
-    <div class="row-btns">
-      <button type="button" class="btn primary" data-log="${esc(d.key)}">${log?.fiveK ? 'Edit 5k result' : 'Log 5k result'}</button>
+    <div class="sheet-foot">
+      ${log?.fiveK ? `<p class="logged">✓ Logged: 5k ${esc(log.fiveK)}${log.hr ? ` · ${esc(log.hr)} bpm` : ''}</p>` : '<span></span>'}
+      <button type="button" class="btn primary sheet-copy no-print" data-log="${esc(d.key)}">${log?.fiveK ? 'Edit 5k result' : 'Log 5k result'}</button>
     </div>` : '';
   return `
-  <section class="card wod-card day-card" aria-live="polite">
-    ${top(esc(d.label))}
-    <div class="tags">
-      <span class="tag effort-${d.effort}">${EFFORT_TEXT[d.effort]}</span>
-      ${weekTags}
-      ${d.test ? '<span class="tag bench">5k test</span>' : ''}
+  <section class="card wod-sheet day-card" aria-live="polite">
+    ${head(esc(d.label))}
+    ${notes.map((n) => `<p class="sheet-howto">${esc(n)}</p>`).join('')}
+    <div class="sheet-part">
+      ${sheetRows(d.lines)}
     </div>
-    ${w.clash ? '<p class="note small">Your chosen days put two hard sessions back-to-back this week. Take the second one a little easier if you feel flat.</p>' : ''}
-    ${d.note ? `<p class="note small">${esc(d.note)}</p>` : ''}
-    <ul class="lines">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-    ${d.wod ? wodBlock(d.wod) : ''}
+    ${d.wod ? wodPart(d.wod) : ''}
     ${testLog}
   </section>`;
 }
 
-function wodBlock(wod) {
+function wodPart(wod) {
   return `
-    <div class="wod">
-      <p class="wod-title">Then: WOD · ${esc(wod.title)}</p>
-      <ul class="lines">${wod.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-      ${wod.note ? `<p class="small muted">${esc(wod.note)}</p>` : ''}
+    <div class="sheet-part">
+      <div class="sheet-part-head"><h3>Then: WOD · ${esc(wod.title)}</h3></div>
+      ${wod.note ? `<p class="sheet-part-sub">${esc(wod.note)}</p>` : ''}
+      ${sheetRows(wod.lines)}
     </div>`;
 }

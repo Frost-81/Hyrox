@@ -372,7 +372,7 @@ $('#reset-form').addEventListener('submit', async (e) => {
 // ---------- email confirmation ----------
 
 /** The page the confirmation link leads back to. */
-const thisPage = () => (document.body.dataset.page === 'wod' ? '/wod' : '/');
+const thisPage = () => (document.body.dataset.page === 'plan' ? '/plan' : '/');
 
 async function sendVerifyLink() {
   $('#verify-error').textContent = '';
@@ -649,13 +649,13 @@ async function handleUser(user) {
 }
 
 // ---------- moving between the pages ----------
-// Plan (/) and WOD (/wod) are two real pages, each with its own title, description and FAQ data for search
+// WOD (/) and Plan (/plan) are two real pages, each with its own title, description and FAQ data for search
 // engines. Moving between them stays in this document: the other page's view (its <div class="view">) is
 // fetched once and kept, and its module started, so the header, sign-in and purchases don't load again.
 
 const PAGES = {
-  plan: { path: '/', module: './app.js' },
-  wod: { path: '/wod', module: './wodPage.js' },
+  wod: { path: '/', module: './wodPage.js' },
+  plan: { path: '/plan', module: './app.js' },
 };
 // What the head says about a page, swapped along with the view (the browser's Share button uses the canonical link).
 const PAGE_HEAD = 'meta[name="description"], meta[name="keywords"], link[rel="canonical"], meta[property^="og:"], script[type="application/ld+json"]';
@@ -666,7 +666,7 @@ const loaded = {}; // page → { title, head } once its view is in this document
 const scrollOf = {}; // page → how far down it was, for Back and Forward
 let navSeq = 0;
 
-/** The page at a path ('/', '/index.html', '/wod', '/wod.html'), or null for any other path. */
+/** The page at a path ('/', '/index.html', '/plan', '/plan.html'), or null for any other path. */
 function pageAt(pathname) {
   const path = pathname.replace(/(\/index)?\.html$/, '').replace(/\/+$/, '') || '/';
   return Object.keys(PAGES).find((k) => PAGES[k].path === path) || null;
@@ -802,6 +802,7 @@ export function startSite(hooks) {
   let linkStep = signInLinkStep();
   updatePortalLinks();
   notifyAccess();
+  document.documentElement.classList.remove('owner-view'); // the hint in <head>: the page has decided for itself now
   authReady.then(() => {
     if (linkStep && !state.user && !verify && !dialog.open) openAuth({ mode: 'signin', step: linkStep });
     linkStep = null;

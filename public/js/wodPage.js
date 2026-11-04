@@ -1,4 +1,4 @@
-// The Workout of the Day page (wod.html). Signing in, buying and the toast live in site.js.
+// The Workout of the Day page, the home page (index.html). Signing in, buying and the toast live in site.js.
 // Subscribers see the current week's workouts; everyone else sees the buy card and the information below it.
 import { todayYmd, textToUnits, buildPlan, validateInputs } from './plan.js';
 import { dayStrip } from './render.js';

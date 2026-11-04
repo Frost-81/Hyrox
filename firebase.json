@@ -3,6 +3,9 @@
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
+    "redirects": [
+      { "regex": "^/wod(\\.html|/)?$", "destination": "/", "type": 301 }
+    ],
     "headers": [
       {
         "source": "**/*.@(html|js|css)",

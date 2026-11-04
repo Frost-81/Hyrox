@@ -21,7 +21,7 @@ const opts = { region: 'us-central1', secrets: [SMTP_URL] };
 // The emulated site (firebase emulators:start) when testing, so its links open the local pages.
 const SITE = EMULATOR ? 'http://127.0.0.1:5000' : MAIL.site;
 // Pages a confirmation link may lead back to.
-const NEXT_PAGES = ['/', '/wod'];
+const NEXT_PAGES = ['/', '/plan'];
 
 /**
  * Our own page for an Auth link (public/auth-action.html), so it opens on our site, in our design,
@@ -40,7 +40,7 @@ function actionLink(link, next = '/') {
 // ---------- email verification ----------
 
 /**
- * { next? }: emails the signed-in user a link that confirms their address; next ('/' or '/wod') is the
+ * { next? }: emails the signed-in user a link that confirms their address; next ('/' or '/plan') is the
  * page the link leads back to. Returns { email, verified }.
  */
 export const sendVerifyEmail = onCall(opts, async (request) => {

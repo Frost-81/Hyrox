@@ -82,7 +82,7 @@ export async function sendPasswordReset(email) {
 export const needsVerify = (user) =>
   !!user && !user.emailVerified && user.providerData.some((p) => p.providerId === 'password');
 
-/** Emails a link that confirms the address; next is the page to go on to ('/' or '/wod'). Returns the address. */
+/** Emails a link that confirms the address; next is the page to go on to ('/' or '/plan'). Returns the address. */
 export async function sendVerifyEmail(next = '/') {
   const { data } = await (await callable('sendVerifyEmail'))({ next });
   return data.email;

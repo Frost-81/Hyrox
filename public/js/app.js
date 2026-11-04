@@ -1,4 +1,4 @@
-// The 12-week plan page (index.html): the plan form, the week view, 5k test logs and the list of race plans.
+// The 12-week plan page (plan.html): the plan form, the week view, 5k test logs and the list of race plans.
 // Signing in, buying and the toast live in site.js. Only owners of the plan (a one-time purchase) see the
 // form and their plan; everyone else sees the buy card and the information about the plan.
 import { AGE_GROUPS, WEEKDAYS, DIVISIONS, MACHINES, UNITS, unitsOf, buildPlan, validateInputs, todayYmd, normalizeTime, maskTime, fmtLongDate, fmtTime, parseYmd } from './plan.js';

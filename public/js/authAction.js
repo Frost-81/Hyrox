@@ -1,6 +1,6 @@
 // The page our emails link to (/auth-action): confirms an email address or sets a new password, then
 // leads back to the site. The links are made in functions/index.js (actionLink) and carry
-// ?mode=verifyEmail|resetPassword&oobCode=…, plus &next=/wod when the user signed up on the WOD page.
+// ?mode=verifyEmail|resetPassword&oobCode=…, plus &next=/plan when the user signed up on the plan page.
 import * as cloud from './cloud.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -9,7 +9,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const params = new URLSearchParams(location.search);
 const mode = params.get('mode');
 const code = params.get('oobCode');
-const next = params.get('next') === '/wod' ? '/wod' : '/';
+const next = params.get('next') === '/plan' ? '/plan' : '/';
 const card = $('#action-card');
 
 /** A result: a tick (ok) or an exclamation mark, a heading, a line of text and one button. */

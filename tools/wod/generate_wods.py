@@ -878,7 +878,7 @@ meta = dict(
         'M/W': 'Numbers written a/b are men/women (e.g. 20/15 cal, 6/4 kg).',
         'race weights (Men/Women Open)': 'Sled push 152/102 kg, sled pull 103/78 kg (sled included), farmers 2x24/2x16 kg, sandbag 20/10 kg, wall ball 6/4 kg.',
         'P1/P2': 'Partner 1 / partner 2 in the team version.',
-        'Solo / Team': 'Every workout has a solo and a team-of-2 version. The team version adds work and says how to share it: split as you wish (one partner works at a time), you go / I go (alternate turns), or synchro (together). defaultMode is the version the workout was written for.',
+        'Solo / Team': 'Every workout has a solo and a team-of-2 version. The team version adds work and says how to share it: split as you wish (one partner works at a time), you go / I go (alternate turns), or synchro (together). Until you pick one, a workout opens on the version it was written for.',
         'EnMOM': 'Every n minutes on the minute: start the work at the top of each interval, rest for what is left. '
                  'The work is sized to leave about a fifth of each interval to rest; if you have under 10 s left, cut the reps or metres.',
         'AMRAP': 'As many rounds and reps as possible in the time.',

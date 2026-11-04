@@ -3,44 +3,43 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>12-Week HYROX Training Plan, Built for You · Hybrid Plan Builder</title>
-  <meta name="description" content="A personal 12-week HYROX training plan: your own paces, heart-rate zones, station weights and dates, kept up to date by 5k tests. Pay once, $5.">
-  <meta name="keywords" content="12 weeks HYROX training plan, 12 week HYROX training plan, HYROX training plan, HYROX program, HYROX training program, 12 week HYROX plan, HYROX workout plan, HYROX doubles training, HYROX Pro training, hybrid race training plan">
+  <title>HYROX Workout of the Day, Solo or Team of 2 · Hybrid Training</title>
+  <meta name="description" content="A new HYROX workout every day, about 45 minutes: runs, sleds, wall balls, carries and ergs. Solo and team-of-2 versions. $5 a month, cancel any time.">
+  <meta name="keywords" content="HYROX workout, HYROX workout of the day, HYROX WOD, HYROX training, HYROX partner workout, HYROX doubles workout, hybrid workout of the day">
   <link rel="canonical" href="https://hybridprog.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Hybrid Plan Builder">
-  <meta property="og:title" content="12-Week HYROX Training Plan, Built for You">
-  <meta property="og:description" content="A HYROX training program with your own paces, heart-rate zones, station weights and dates for every session, built from your race date and goal time.">
+  <meta property="og:site_name" content="Hybrid Training">
+  <meta property="og:title" content="HYROX Workout of the Day">
+  <meta property="og:description" content="A new HYROX workout every day, solo or with a partner, built around the race-day stations.">
   <meta property="og:url" content="https://hybridprog.com/">
   <meta property="og:image" content="https://hybridprog.com/img/sled-push.jpg">
   <meta property="og:image:alt" content="Loaded sleds lined up on a HYROX race floor while an athlete pushes in the next lane">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#FFD60A">
-  <!-- The Workout of the Day used to be at /#wod; it has its own page now. -->
-  <script>if (location.hash === '#wod') location.replace('/wod' + location.search);</script>
+  <meta name="theme-color" content="#0a0a0a">
+  <!-- Subscribers go straight to their workouts: no big hero first. site.js takes over from this hint as soon as it starts. -->
+  <script>try { if (JSON.parse(localStorage.getItem('hyrox:access') || '[]').includes('wod')) document.documentElement.classList.add('owner-view'); } catch {}</script>
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="preload" as="image" href="/img/sled-push.jpg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="preload" as="image" href="/img/hero-rope.jpg" media="(max-width: 999px)">
+  <link rel="preload" as="image" href="/img/hero-rope-wide.jpg" media="(min-width: 1000px)">
   <link rel="stylesheet" href="/css/styles.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Is this a hybrid race training program?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is a 12-week training program built for hybrid fitness races: 8 x 1 km runs, each followed by a station (SkiErg, sled push, sled pull, burpee broad jumps, row, farmers carry, sandbag lunges and wall balls), at the weights of your division. It is not an official program of any race: Hybrid Plan Builder is independent and not affiliated with or endorsed by any race organiser." } },
-      { "@type": "Question", "name": "Who is the 12-week plan for?", "acceptedAnswer": { "@type": "Answer", "text": "Anyone training for a hybrid fitness race of 8 x 1 km runs and 8 stations, from first-timers to athletes chasing a faster time. Pick your division (Open, Pro or Doubles) and age group, and the plan sets the weights and recovery to match." } },
-      { "@type": "Question", "name": "My race is less than 12 weeks away. Can I still use it?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The plan starts at the current week and leaves out the earlier ones. The first week shown includes a 5k test to set your paces, and the taper is kept in full." } },
-      { "@type": "Question", "name": "My race is more than 12 weeks away. What do I do until then?", "acceptedAnswer": { "@type": "Answer", "text": "The plan shows the date your 12 weeks start and how to build your base until then." } },
-      { "@type": "Question", "name": "I don't have a rower or SkiErg. Does the plan still work?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Untick the machines you don't have. Those sessions are swapped for running or another machine using a distance chart, so the amount of work stays the same." } },
-      { "@type": "Question", "name": "Does it work for doubles?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Choose Men, Women or Mixed Doubles. You run every kilometre together and share the station work, but each partner should still follow the full plan." } },
-      { "@type": "Question", "name": "Is it a subscription?", "acceptedAnswer": { "@type": "Answer", "text": "No. You pay $5 once for the 12-week plan. It stays unlocked on your account, on any device." } },
-      { "@type": "Question", "name": "Can I change my goal or training days later?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, at any time. Your plan updates straight away and your 5k test results are kept. You can also keep a plan for more than one race." } },
-      { "@type": "Question", "name": "Kilograms or pounds?", "acceptedAnswer": { "@type": "Answer", "text": "Either. Switch at any time and every weight in the plan is converted." } }
+      { "@type": "Question", "name": "Are these hybrid race workouts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. They are built for hybrid race training: runs plus the race stations (SkiErg, sled push and pull, burpee broad jumps, row, farmers carry, sandbag lunges and wall balls) at race weights. Hybrid Training is independent and not affiliated with or endorsed by any race organiser." } },
+      { "@type": "Question", "name": "How long is each workout?", "acceptedAnswer": { "@type": "Answer", "text": "They average 45 minutes of main work. Add a 10-minute warm-up and a 5-minute cool-down." } },
+      { "@type": "Question", "name": "Do I need a partner?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every workout has a solo version and a team-of-2 version. Pick the one that suits you that day." } },
+      { "@type": "Question", "name": "What equipment do I need?", "acceptedAnswer": { "@type": "Answer", "text": "A gym with the usual race equipment is ideal: rower, SkiErg, sled, kettlebells, sandbag and wall ball. Missing something? Every piece of equipment has an alternative, such as rowing the same metres when there is no SkiErg." } },
+      { "@type": "Question", "name": "Can I see the workouts ahead of time?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The whole week, Monday to Sunday, opens on Sunday at 6 pm your time, so you can plan your sessions." } },
+      { "@type": "Question", "name": "Do I have to record my scores?", "acceptedAnswer": { "@type": "Answer", "text": "No. Each workout says how it is scored, so you can track it in your own notes if you like." } },
+      { "@type": "Question", "name": "Can I cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, any time, from Account, Manage subscription. The Workout of the Day is $5 a month." } }
     ]
   }
   </script>
@@ -51,7 +50,7 @@
       {
         "@type": "Organization",
         "@id": "https://hybridprog.com/#org",
-        "name": "Hybrid Plan Builder",
+        "name": "Hybrid Training",
         "url": "https://hybridprog.com/",
         "email": "info@hybridprog.com",
         "logo": "https://hybridprog.com/img/apple-touch-icon.png"
@@ -59,7 +58,7 @@
       {
         "@type": "WebSite",
         "@id": "https://hybridprog.com/#website",
-        "name": "Hybrid Plan Builder",
+        "name": "Hybrid Training",
         "url": "https://hybridprog.com/",
         "publisher": {
           "@id": "https://hybridprog.com/#org"
@@ -70,21 +69,21 @@
         "@type": "WebPage",
         "@id": "https://hybridprog.com/",
         "url": "https://hybridprog.com/",
-        "name": "12-Week HYROX Training Plan",
+        "name": "HYROX Workout of the Day",
         "isPartOf": {
           "@id": "https://hybridprog.com/#website"
         },
-        "about": "HYROX race training"
+        "about": "HYROX workouts"
       },
       {
         "@type": "Product",
-        "@id": "https://hybridprog.com/#plan",
-        "name": "12-Week HYROX Training Plan",
-        "description": "A personal 12-week HYROX training plan: your own run paces, heart-rate zones, station weights and dates for every session, kept up to date by 5k tests. Pay once.",
-        "image": "https://hybridprog.com/img/sled-push.jpg",
+        "@id": "https://hybridprog.com/#wod",
+        "name": "HYROX Workout of the Day",
+        "description": "A new HYROX workout every day, about 45 minutes, in a solo and a team-of-2 version. Monthly subscription, cancel any time.",
+        "image": "https://hybridprog.com/img/wall-balls.jpg",
         "brand": {
           "@type": "Brand",
-          "name": "Hybrid Plan Builder"
+          "name": "Hybrid Training"
         },
         "offers": {
           "@type": "Offer",
@@ -109,6 +108,12 @@
             "@type": "MerchantReturnPolicy",
             "applicableCountry": ["CA", "US"],
             "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+          },
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "5.00",
+            "priceCurrency": "CAD",
+            "billingDuration": "P1M"
           }
         }
       }
@@ -116,13 +121,13 @@
   }
   </script>
 </head>
-<body class="photo-page" data-page="plan">
+<body data-page="wod">
   <header class="site-header">
     <div class="wrap header-row">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><img src="/img/logo.png" alt="" width="34" height="34"></span><span class="brand-text">Hybrid Plan Builder</span></a>
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><img src="/img/logo.png" alt="" width="34" height="34"></span><span class="brand-text">Hybrid Training</span></a>
       <nav class="tabs no-print" aria-label="Sections">
-        <a href="/" aria-current="page">Plan</a>
-        <a href="/wod">WOD</a>
+        <a href="/" aria-current="page">WOD</a>
+        <a href="/plan">Plan</a>
       </nav>
       <div class="account no-print" id="account" hidden>
         <button type="button" class="btn small" id="sign-in-btn">Sign in</button>
@@ -139,356 +144,230 @@
     </div>
   </header>
 
-  <!-- Everything that belongs to this page. Moving to /wod (site.js) fetches that page's view and
+  <!-- Everything that belongs to this page. Moving to /plan (site.js) fetches that page's view and
        shows it in place of this one, so the header stays put. -->
-  <div class="view" data-view="plan">
-  <main class="wrap page-main" id="top">
-    <div class="page-head">
-      <p class="eyebrow">Hybrid training · 12 weeks · your pace</p>
-      <h1>12-week hybrid training plan<span class="logo-mark" aria-hidden="true"></span></h1>
-      <p class="page-lede">Your own pace, station weights and dates for every session, built from your race date and goal time.</p>
+  <div class="view" data-view="wod">
+  <main class="page-main">
+    <div class="hero">
+      <div class="wrap hero-inner">
+        <div class="page-head">
+          <p class="eyebrow">Hybrid training · solo or team of 2</p>
+          <h1>Workout of the Day</h1>
+        </div>
+
+        <picture class="hero-photo no-print">
+          <source media="(min-width: 1000px)" srcset="/img/hero-rope-wide.jpg" width="2400" height="1600">
+          <img src="/img/hero-rope.jpg" alt="Athletes hauling a heavy rope hand over hand across the race floor" width="1000" height="1430" fetchpriority="high" decoding="async">
+        </picture>
+
+        <section class="card buy-card no-print" id="wod-buy" aria-labelledby="wod-buy-title">
+          <div class="buy-top">
+            <h2 id="wod-buy-title">A new workout every day</h2>
+            <p class="price"><strong>$5</strong> a month</p>
+          </div>
+          <ul class="checks">
+            <li>A new hybrid workout every day, about 45 minutes</li>
+            <li>Solo and team-of-2 versions of every workout</li>
+            <li>Runs, sleds, wall balls, carries and ergs at race weights</li>
+            <li>Next week opens every Sunday evening, in kg or lb</li>
+          </ul>
+          <button type="button" class="btn primary big" data-subscribe="wod">Subscribe · $5/month</button>
+          <p class="fine">Cancel any time.</p>
+        </section>
+      </div>
     </div>
 
-    <section class="card buy-card no-print" id="plan-buy" aria-labelledby="plan-buy-title">
-      <div class="buy-top">
-        <h2 id="plan-buy-title">Get your 12-week plan</h2>
-        <p class="price"><strong>$5</strong> one-time fee</p>
-      </div>
-      <ul class="checks">
-        <li>Every session for 12 weeks, dated from your race day</li>
-        <li>Your own run paces, heart-rate zones and station weights</li>
-        <li>5k tests in weeks 1, 4 and 8 update your paces and projected finish</li>
-        <li>Fits 5 or 6 training days and the machines you have</li>
-      </ul>
-      <button type="button" class="btn primary big" data-subscribe="plan">Get the 12-week plan · $5</button>
-      <p class="small muted fine">Yours to keep. No subscription. Use it on any device.</p>
-    </section>
-
-    <section class="card wait-card no-print" id="plan-wait" aria-live="polite" hidden>
+    <div class="tool">
+    <section class="card wait-card no-print" id="wod-wait" aria-live="polite" hidden>
       <span class="spinner" aria-hidden="true"></span>
-      <p id="plan-wait-text">Loading your plan…</p>
+      <p id="wod-wait-text">Loading your workouts…</p>
     </section>
 
-    <form id="plan-form" class="card form no-print" novalidate tabindex="-1" hidden>
-      <h2 id="form-title">Build your plan</h2>
-      <p class="hint" id="form-hint" hidden>Change your goal, training days or machines at any time. Your 5k test results are kept.</p>
-      <div class="grid">
-        <div class="field">
-          <label for="raceDate">Race date</label>
-          <input type="date" id="raceDate" name="raceDate" required>
-          <p class="error" data-error-for="raceDate"></p>
-        </div>
-        <div class="field">
-          <label for="goal">Goal finish time <span class="muted">(h:mm)</span></label>
-          <input type="text" id="goal" name="goal" inputmode="numeric" placeholder="1:30" autocomplete="off" maxlength="5" required data-time>
-          <p class="hint">Just type the numbers, e.g. 130 for 1:30.</p>
-          <p class="error" data-error-for="goal"></p>
-        </div>
-        <div class="field">
-          <label for="division">Division</label>
-          <select id="division" name="division">
-            <optgroup label="Singles">
-              <option value="MO">Men Open</option>
-              <option value="WO">Women Open</option>
-              <option value="MP">Men Pro</option>
-              <option value="WP">Women Pro</option>
-            </optgroup>
-            <optgroup label="Doubles">
-              <option value="MD">Men Doubles</option>
-              <option value="WD">Women Doubles</option>
-              <option value="XD">Mixed Doubles</option>
-            </optgroup>
-          </select>
-          <p class="hint" id="doubles-hint" hidden>In doubles you run every km together and share the station work. Each partner should still follow the full plan.</p>
-          <p class="error" data-error-for="division"></p>
-        </div>
-        <div class="field">
-          <label for="age">Age group</label>
-          <select id="age" name="age">
-            <option value="16-24">16-24</option>
-            <option value="25-29">25-29</option>
-            <option value="30-34" selected>30-34</option>
-            <option value="35-39">35-39</option>
-            <option value="40-44">40-44</option>
-            <option value="45-49">45-49</option>
-            <option value="50-54">50-54</option>
-            <option value="55-59">55-59</option>
-            <option value="60-64">60-64</option>
-            <option value="65-69">65-69</option>
-            <option value="70+">70+</option>
-          </select>
-          <p class="error" data-error-for="age"></p>
-        </div>
-        <div class="field">
-          <label for="fiveK">Current 5k time <span class="muted">(mm:ss, optional)</span></label>
-          <input type="text" id="fiveK" name="fiveK" inputmode="numeric" placeholder="25:00" autocomplete="off" maxlength="5" data-time>
-          <p class="hint">Type 2500 for 25:00. Leave empty and we'll estimate it from your goal; your week 1 test sets it.</p>
-          <p class="error" data-error-for="fiveK"></p>
-        </div>
-        <div class="field">
-          <label for="bodyWeight">Body weight <span class="muted">(<span data-unit-label>kg</span>, optional)</span></label>
-          <input type="number" id="bodyWeight" name="bodyWeight" inputmode="decimal" step="0.5" placeholder="e.g. 75" autocomplete="off">
-          <p class="hint">Turns your strength targets into weights. Leave empty to see them as a % of body weight.</p>
-          <p class="error" data-error-for="bodyWeight"></p>
-        </div>
-        <fieldset class="field">
-          <legend>Weights in</legend>
-          <div class="chips">
-            <label class="chip"><input type="radio" name="units" value="kg" checked><span>kg</span></label>
-            <label class="chip"><input type="radio" name="units" value="lb"><span>lb</span></label>
-          </div>
-          <p class="hint">Used for your body weight, lifts, station loads and the WOD.</p>
-        </fieldset>
-      </div>
-
-      <fieldset class="field days-field">
-        <legend>Which days can you train? <span class="muted">(pick 5 or 6)</span></legend>
-        <div class="chips" id="day-chips"></div>
-        <p class="hint">Your long run or race practice goes on your last day of the week. We avoid putting hard sessions on back-to-back days.</p>
-        <p class="error" data-error-for="days"></p>
-      </fieldset>
-
-      <fieldset class="field">
-        <legend>Which machines can you use?</legend>
-        <div class="chips" id="machine-chips">
-          <label class="chip"><input type="checkbox" name="equipment" value="row" checked><span>Rower</span></label>
-          <label class="chip"><input type="checkbox" name="equipment" value="ski" checked><span>SkiErg</span></label>
-          <label class="chip"><input type="checkbox" name="equipment" value="bike" checked><span>Bike</span></label>
-        </div>
-        <p class="hint">Untick what you don't have. We swap those sessions for running or another machine.</p>
-      </fieldset>
-
-      <button type="submit" class="btn primary big" id="build-btn">Build my plan</button>
-      <button type="button" class="btn big ghost cancel-btn" id="cancel-edit-btn" hidden>Cancel</button>
-    </form>
-
-    <div id="results" hidden>
-      <div class="toolbar no-print" role="toolbar" aria-label="Plan actions">
-        <select id="plan-picker" aria-label="Your race plans" hidden></select>
-        <button type="button" class="btn" id="edit-btn" title="Change your goal, days or machines">Edit</button>
-        <button type="button" class="btn" id="new-btn" title="Start a plan for another race">New plan</button>
-        <button type="button" class="btn" id="delete-btn-plan" title="Delete this plan">Delete</button>
-      </div>
-      <div id="plan-week-out"></div>
-      <div id="plan-out"></div>
-      <div id="info-out"></div>
-      <div id="wod-teaser"></div>
+    <div id="wod-out" hidden>
+      <section class="card wait-card"><span class="spinner" aria-hidden="true"></span><p>Loading this week's workouts…</p></section>
+    </div>
     </div>
   </main>
 
-  <div class="info-band no-print" id="plan-info">
-    <div class="wrap">
-      <section class="info-section" aria-labelledby="get-title">
-        <p class="eyebrow">What you get</p>
-        <h2 id="get-title">A complete race plan, made for you</h2>
-        <p class="section-lede">Hybrid fitness races put 8 x 1 km runs together with 8 stations: SkiErg, sled push, sled pull, burpee broad jumps, rowing, farmers carry, sandbag lunges and wall balls. This plan trains you for all of it. Enter your race date, goal time and training days once, and every session is written out for you.</p>
-        <div class="feature-grid">
+  <div class="info-band no-print" id="wod-info">
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track"><span>Runs</span><span>SkiErg</span><span>Sled push</span><span>Sled pull</span><span>Burpee broad jumps</span><span>Row</span><span>Farmers carry</span><span>Sandbag lunges</span><span>Wall balls</span><span>Solo or team of 2</span></div>
+      <div class="ticker-track"><span>Runs</span><span>SkiErg</span><span>Sled push</span><span>Sled pull</span><span>Burpee broad jumps</span><span>Row</span><span>Farmers carry</span><span>Sandbag lunges</span><span>Wall balls</span><span>Solo or team of 2</span></div>
+    </div>
+
+    <section class="statement" aria-labelledby="wod-line-title">
+      <div class="wrap">
+        <p class="eyebrow">Every day</p>
+        <h2 id="wod-line-title"><span>Open the page.</span> <span>Pick solo or team.</span> <span>Go.</span></h2>
+        <p>Each workout mixes running with the stations of a hybrid fitness race: SkiErg, sleds, burpee broad jumps, rowing, farmers carry, sandbag lunges and wall balls.</p>
+        <dl class="cells figures">
+          <div><dt>New workouts a week</dt><dd>7</dd></div>
+          <div><dt>Minutes of main work, on average</dt><dd>45</dd></div>
+          <div><dt>Versions of each: solo and team</dt><dd>2</dd></div>
+          <div><dt>Sunday, your time: next week opens</dt><dd>6 PM</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="info-section" aria-labelledby="wod-get-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">What you get</p>
+          <h2 id="wod-get-title">Race-ready training, every day</h2>
+        </div>
+        <div class="cells feature-grid">
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6M12 2v3"/></svg></span>
-            <h3>Paces made for you</h3>
-            <p>Easy, steady, threshold, race and 5k paces per km, plus heart-rate zones, worked out from your goal time and your 5k.</p>
+            <h3>A new week every Sunday</h3>
+            <p>The whole week of workouts opens on Sunday at 6 pm, your time, so you can plan your training.</p>
           </article>
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7v10M18 7v10M3 9.5v5M21 9.5v5M6 12h12"/></svg></span>
-            <h3>Weights for your division</h3>
-            <p>Sled, farmers carry, sandbag and wall-ball loads for Open, Pro and Doubles, built up week by week, with strength targets from your body weight.</p>
+            <h3>Solo or team of 2</h3>
+            <p>Every workout comes in both versions, with clear rules for sharing the work with a partner.</p>
           </article>
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
-            <h3>Every session on a date</h3>
-            <p>The plan counts back from race day, so you always know today's session. Open it on your phone at the gym.</p>
+            <h3>About 45 minutes</h3>
+            <p>Main work that fits a lunch hour or an evening session. Add a short warm-up and cool-down.</p>
           </article>
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
-            <h3>5k tests that keep it honest</h3>
-            <p>Tests in weeks 1, 4 and 8 update your paces, heart-rate zones and projected finish time as you get fitter.</p>
+            <h3>Built for race day</h3>
+            <p>Runs, sleds, wall balls, carries and ergs at race weights, so every session counts toward your race.</p>
           </article>
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></span>
-            <h3>Works with your gym</h3>
-            <p>No rower or SkiErg? Those sessions are swapped for running or another machine with a distance chart, so the work stays the same.</p>
+            <h3>kg or lb</h3>
+            <p>Switch units with one tap and every weight in the workout is converted.</p>
           </article>
           <article class="feature">
-            <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span>
-            <h3>Fits your life</h3>
-            <p>Train 5 or 6 days a week. Hard sessions are kept apart, and athletes over 45 get extra recovery. Weights in kg or lb.</p>
+            <h3>On your phone</h3>
+            <p>See this week's workouts and copy any of them to your phone for the gym.</p>
           </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="info-section" aria-labelledby="phases-title">
-        <p class="eyebrow">How the 12 weeks are built</p>
-        <h2 id="phases-title">Three phases to race day</h2>
-        <p class="section-lede">Each phase builds on the last: first a solid base, then strength and race-specific work, then pacing and a taper so you start your race fresh.</p>
-        <ol class="phase-cards">
-          <li class="phase">
-            <p class="phase-weeks">Weeks 1–4</p>
-            <h3>Building the foundation</h3>
-            <p>Get used to the training, set your paces with a 5k test, then add volume and the first harder sessions. Week 4 is lighter so your body absorbs the work.</p>
-            <ul class="phase-list">
-              <li><span>1</span>Adaptation &amp; assessment</li>
-              <li><span>2</span>Increasing volume</li>
-              <li><span>3</span>Introducing intensity</li>
-              <li><span>4</span>Consolidation &amp; mild deload</li>
-            </ul>
-          </li>
-          <li class="phase">
-            <p class="phase-weeks">Weeks 5–8</p>
-            <h3>Strength &amp; power</h3>
-            <p>Race-specific blocks begin: runs straight into stations, heavier strength work and station loads that build to an overload in week 7, and a half race simulation in week 6. A second 5k test closes week 8.</p>
-            <ul class="phase-list">
-              <li><span>5</span>Introducing race specifics</li>
-              <li><span>6</span>Building strength endurance</li>
-              <li><span>7</span>Increasing load &amp; intensity</li>
-              <li><span>8</span>Peak strength &amp; refinement</li>
-            </ul>
-          </li>
-          <li class="phase">
-            <p class="phase-weeks">Weeks 9–12</p>
-            <h3>Specificity &amp; peaking</h3>
-            <p>Race pacing and a full race simulation, then a taper that cuts the volume while keeping you sharp, and a race week that gets you to the start line fresh.</p>
-            <ul class="phase-list">
-              <li><span>9</span>Race specificity &amp; pacing</li>
-              <li><span>10</span>Fine-tuning &amp; stamina</li>
-              <li><span>11</span>Taper &amp; activation</li>
-              <li><span>12</span>Race week</li>
-            </ul>
-          </li>
-        </ol>
-      </section>
-
-      <figure class="banner"><img src="/img/kettlebells.jpg" alt="A row of 16 kg kettlebells lined up on the race floor" width="1800" height="1200" loading="lazy" decoding="async"></figure>
-
-      <section class="info-section" aria-labelledby="week-title">
-        <p class="eyebrow">A typical week</p>
-        <h2 id="week-title">Six sessions, one rest day</h2>
-        <p class="section-lede">Every week follows the same rhythm, so training fits around work and family. Each session comes with your paces, weights and distances filled in.</p>
-        <ul class="week-rows">
-          <li><span class="wr-day">Mon</span><span class="wr-bar effort-mixed" aria-hidden="true"></span><p><strong>Endurance.</strong> Running or machine intervals that build your engine. Easier and harder weeks alternate, and week 1 starts with a 5k test.</p></li>
-          <li><span class="wr-day">Tue</span><span class="wr-bar effort-moderate" aria-hidden="true"></span><p><strong>Strength.</strong> Squats, presses, deadlifts and pulls, with target weights set from your body weight.</p></li>
-          <li><span class="wr-day">Wed</span><span class="wr-bar effort-easy" aria-hidden="true"></span><p><strong>Active recovery.</strong> About 45 minutes of easy cardio, mobility and foam rolling.</p></li>
-          <li><span class="wr-day">Thu</span><span class="wr-bar effort-hard" aria-hidden="true"></span><p><strong>Hybrid.</strong> Runs and stations back to back, written like a workout of the day, about 40–45 minutes.</p></li>
-          <li><span class="wr-day">Fri</span><span class="wr-bar effort-moderate" aria-hidden="true"></span><p><strong>Skill + WOD.</strong> Station technique and strength, then one short workout of the day.</p></li>
-          <li><span class="wr-day">Sat</span><span class="wr-bar effort-mixed" aria-hidden="true"></span><p><strong>Long session.</strong> A long easy run in the first weeks; 5k tests and race simulations later on.</p></li>
-          <li><span class="wr-day">Sun</span><span class="wr-bar effort-rest" aria-hidden="true"></span><p><strong>Rest.</strong> Sleep, eat well and go for a walk if you like.</p></li>
+    <section class="info-section" aria-labelledby="workout-title">
+      <div class="wrap section-split">
+        <div class="section-head">
+          <p class="eyebrow">Every workout</p>
+          <h2 id="workout-title">What a workout looks like</h2>
+          <p class="section-lede">Each day is one complete hybrid workout, ready to go. Warm up, do the work, cool down.</p>
+        </div>
+        <ul class="week-rows facts">
+          <li><span class="wr-day">Format</span><p>For time, AMRAP, EMOM, intervals, runner chippers, race simulations, and easier aerobic and recovery days.</p></li>
+          <li><span class="wr-day">Moves</span><p>Running, SkiErg, rowing, bike, sled push and pull, burpee broad jumps, farmers carry, sandbag lunges, wall balls, kettlebells and more.</p></li>
+          <li><span class="wr-day">Length</span><p>Workouts average 45 minutes of main work, plus a 10-minute warm-up and a 5-minute cool-down.</p></li>
+          <li><span class="wr-day">Score</span><p>Each workout says how to score it: time, rounds, reps, metres or calories.</p></li>
+          <li><span class="wr-day">Versions</span><p>Solo and team of 2, with weights for men and women in kg or lb.</p></li>
         </ul>
-        <p class="legend small">
-          <span class="dot effort-hard"></span>Hard
-          <span class="dot effort-moderate"></span>Moderate
-          <span class="dot effort-easy"></span>Easy
-          <span class="dot effort-rest"></span>Rest
-        </p>
-        <p class="note small">Pick any 5 or 6 days. Your long session goes on your last training day, hard sessions are kept off back-to-back days where possible, and on 5 days the recovery session is dropped.</p>
-      </section>
+      </div>
+    </section>
 
-      <section class="info-section" aria-labelledby="focus-title">
-        <p class="eyebrow">What it focuses on</p>
-        <h2 id="focus-title">Everything race day asks of you</h2>
-        <div class="splits-list">
-          <div class="split">
-            <div class="split-media"><img src="/img/finish.jpg" alt="The finish line sign at a race venue" width="2000" height="1333" loading="lazy" decoding="async"></div>
-            <div>
-              <h3>Running on tired legs</h3>
-              <p>Half of your race is running. Easy mileage builds the base, threshold and 5k-pace work raise your speed, and mock race blocks teach you to run well straight after a station.</p>
-            </div>
-          </div>
-          <div class="split">
-            <div class="split-media"><img src="/img/sled-push.jpg" class="crop-top" alt="Loaded sleds lined up while an athlete pushes in the next lane" width="2400" height="1600" loading="lazy" decoding="async"></div>
-            <div>
-              <h3>Strong at every station</h3>
-              <p>Sled loads start at 80% of race weight and build to a 110% overload in week 7, so race day feels lighter, then drop for the taper. Strength days keep your legs and grip ready for the sleds, carries and lunges.</p>
-            </div>
-          </div>
+    <figure class="banner"><img src="/img/kettlebells.jpg" alt="A row of 16 kg kettlebells lined up on the race floor" width="1800" height="1200" loading="lazy" decoding="async"></figure>
+
+    <section class="info-section" aria-labelledby="wod-how-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2 id="wod-how-title">Open it and go</h2>
+        </div>
+        <div class="splits-list three">
           <div class="split">
             <div class="split-media"><img src="/img/rower.jpg" alt="Rowing machines lined up at a race venue" width="1000" height="666" loading="lazy" decoding="async"></div>
             <div>
-              <h3>An engine for the machines</h3>
-              <p>SkiErg and rowing intervals come with a target split per 500 m, and the bike fills in when you need a swap. Your engine carries you through the whole race.</p>
+              <h3>No planning needed</h3>
+              <p>Open the page, pick solo or team, choose kg or lb, and start. Today's workout is waiting for you, with every distance, rep and weight written out.</p>
+            </div>
+          </div>
+          <div class="split">
+            <div class="split-media"><img src="/img/medball-closeup.jpg" alt="Close-up of a wall ball with the race floor behind it" width="1600" height="1066" loading="lazy" decoding="async"></div>
+            <div>
+              <h3>Train solo or with a partner</h3>
+              <p>Team workouts say how to share the work: split it as you wish, take turns (you go, I go), or move together in synchro. Pick solo or team once and it stays that way.</p>
             </div>
           </div>
           <div class="split">
             <div class="split-media"><img src="/img/wall-balls.jpg" alt="Wall balls waiting in their lanes on the race floor" width="1000" height="1498" loading="lazy" decoding="async"></div>
             <div>
-              <h3>Pacing and recovery</h3>
-              <p>Your race splits show what your goal time means for each run and station, and simulations let you rehearse the whole race. An active recovery day, a lighter week 4 and a proper taper keep you fresh.</p>
+              <h3>Works with what you have</h3>
+              <p>No sled? Push a heavy dumbbell or a prowler on turf. No SkiErg? Row the same metres. No track? Use a treadmill at 1% incline.</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="info-section" aria-labelledby="how-title">
-        <p class="eyebrow">How it works</p>
-        <h2 id="how-title">Start in a few minutes</h2>
-        <ol class="steps">
-          <li><h3>Get the plan</h3><p>Create a free account and pay $5 once. No subscription.</p></li>
-          <li><h3>Tell us about your race</h3><p>Race date, goal time, division, age group, training days and the machines you have.</p></li>
-          <li><h3>Train and test</h3><p>Open each day's session on any device. Log your 5k tests and your paces and projected finish update straight away.</p></li>
-        </ol>
-      </section>
-
-      <section class="info-section" aria-labelledby="faq-title">
-        <p class="eyebrow">Questions</p>
-        <h2 id="faq-title">Frequently asked questions</h2>
-        <div class="faq">
-          <details class="card glossary"><summary><h3>Is this a hybrid race training program?</h3></summary><p>Yes. It is a 12-week training program built for hybrid fitness races: 8 x 1 km runs, each followed by a station (SkiErg, sled push, sled pull, burpee broad jumps, row, farmers carry, sandbag lunges and wall balls), at the weights of your division. It is not an official program of any race: Hybrid Plan Builder is independent and not affiliated with or endorsed by any race organiser.</p></details>
-          <details class="card glossary"><summary><h3>Who is the 12-week plan for?</h3></summary><p>Anyone training for a hybrid fitness race of 8 x 1 km runs and 8 stations, from first-timers to athletes chasing a faster time. Pick your division (Open, Pro or Doubles) and age group, and the plan sets the weights and recovery to match.</p></details>
-          <details class="card glossary"><summary><h3>My race is less than 12 weeks away. Can I still use it?</h3></summary><p>Yes. The plan starts at the current week and leaves out the earlier ones. The first week shown includes a 5k test to set your paces, and the taper is kept in full.</p></details>
-          <details class="card glossary"><summary><h3>My race is more than 12 weeks away. What do I do until then?</h3></summary><p>The plan shows the date your 12 weeks start and how to build your base until then.</p></details>
-          <details class="card glossary"><summary><h3>I don't have a rower or SkiErg. Does the plan still work?</h3></summary><p>Yes. Untick the machines you don't have. Those sessions are swapped for running or another machine using a distance chart, so the amount of work stays the same.</p></details>
-          <details class="card glossary"><summary><h3>Does it work for doubles?</h3></summary><p>Yes. Choose Men, Women or Mixed Doubles. You run every kilometre together and share the station work, but each partner should still follow the full plan.</p></details>
-          <details class="card glossary"><summary><h3>Is it a subscription?</h3></summary><p>No. You pay $5 once for the 12-week plan. It stays unlocked on your account, on any device.</p></details>
-          <details class="card glossary"><summary><h3>Can I change my goal or training days later?</h3></summary><p>Yes, at any time. Your plan updates straight away and your 5k test results are kept. You can also keep a plan for more than one race.</p></details>
-          <details class="card glossary"><summary><h3>Kilograms or pounds?</h3></summary><p>Either. Switch at any time and every weight in the plan is converted.</p></details>
+    <section class="info-section" aria-labelledby="wod-faq-title">
+      <div class="wrap section-split">
+        <div class="section-head">
+          <p class="eyebrow">Questions</p>
+          <h2 id="wod-faq-title">Frequently asked questions</h2>
         </div>
-      </section>
+        <div class="faq">
+          <details class="card glossary"><summary><h3>Are these hybrid race workouts?</h3></summary><p>Yes. They are built for hybrid race training: runs plus the race stations (SkiErg, sled push and pull, burpee broad jumps, row, farmers carry, sandbag lunges and wall balls) at race weights. Hybrid Training is independent and not affiliated with or endorsed by any race organiser.</p></details>
+          <details class="card glossary"><summary><h3>How long is each workout?</h3></summary><p>They average 45 minutes of main work. Add a 10-minute warm-up and a 5-minute cool-down.</p></details>
+          <details class="card glossary"><summary><h3>Do I need a partner?</h3></summary><p>No. Every workout has a solo version and a team-of-2 version. Pick the one that suits you that day.</p></details>
+          <details class="card glossary"><summary><h3>What equipment do I need?</h3></summary><p>A gym with the usual race equipment is ideal: rower, SkiErg, sled, kettlebells, sandbag and wall ball. Missing something? Every piece of equipment has an alternative, such as rowing the same metres when there is no SkiErg.</p></details>
+          <details class="card glossary"><summary><h3>Can I see the workouts ahead of time?</h3></summary><p>Yes. The whole week, Monday to Sunday, opens on Sunday at 6 pm your time, so you can plan your sessions.</p></details>
+          <details class="card glossary"><summary><h3>Do I have to record my scores?</h3></summary><p>No. Each workout says how it is scored, so you can track it in your own notes if you like.</p></details>
+          <details class="card glossary"><summary><h3>Can I cancel?</h3></summary><p>Yes, any time, from Account › Manage subscription. The Workout of the Day is $5 a month.</p></details>
+        </div>
+      </div>
+    </section>
 
-      <section class="cta-card" aria-labelledby="cta-title">
-        <h2 id="cta-title">Ready for race day?</h2>
-        <p>Twelve weeks of training, written for your race, your goal and your gym.</p>
-        <button type="button" class="btn primary big" data-subscribe="plan">Get the 12-week plan · $5</button>
-        <p class="small fine">One-time fee, yours to keep. No subscription.</p>
-      </section>
+    <section class="cta-band" aria-labelledby="wod-cta-title">
+      <img class="cta-photo" src="/img/chalk.jpg" alt="" width="1800" height="1301" loading="lazy" decoding="async">
+      <div class="wrap">
+        <h2 id="wod-cta-title">Your next workout is ready</h2>
+        <p>A new hybrid workout every day, solo or with a partner.</p>
+        <button type="button" class="btn primary big" data-subscribe="wod">Subscribe · $5/month</button>
+        <p class="small fine">Cancel any time.</p>
+      </div>
+    </section>
 
-      <a class="card cross-link" href="/wod">
-        <span class="eyebrow">Also from us</span>
-        <strong>Workout of the Day</strong>
-        <span>A new hybrid workout every day, about 45 minutes, solo or with a partner.</span>
-        <span class="cross-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
+    <a class="cross-band" href="/plan">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow">Also from us</p>
+          <h2>12-week training plan</h2>
+          <p>Your own pace, station weights and dates for every session, built from your race date and goal time. Pay once, $5.</p>
+        </div>
+        <span class="cross-btn">See the plan <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
   </div>
-
-  <dialog id="log-dialog" class="no-print">
-    <form method="dialog" class="dialog-close"><button class="btn small ghost" aria-label="Close">✕</button></form>
-    <h2>Log your 5k test</h2>
-    <p class="muted" id="log-session"></p>
-    <form id="log-form">
-      <div class="field">
-        <label for="log-fivek">5k time <span class="muted">(mm:ss)</span></label>
-        <input type="text" id="log-fivek" inputmode="numeric" placeholder="25:00" autocomplete="off" maxlength="5" data-time>
-        <p class="hint">Your paces and projected finish update as soon as you save.</p>
-      </div>
-      <div class="field">
-        <label for="log-hr">Average heart rate <span class="muted">(bpm, optional)</span></label>
-        <input type="number" id="log-hr" inputmode="numeric" min="60" max="230" placeholder="e.g. 145">
-        <p class="hint">Your average from your watch for the 5 km. It sets your heart-rate zones.</p>
-      </div>
-      <p class="error" id="log-error" role="alert"></p>
-      <button type="submit" class="btn primary big">Save result</button>
-    </form>
-  </dialog>
   </div>
 
   <footer class="site-footer">
     <div class="wrap">
-      <p><strong>General guidance, not medical advice.</strong> Check with a doctor before starting a new training programme.</p>
-      <p class="small">Station weights follow common race standards; check the official rulebook of your event. Hybrid Plan Builder is independent and is not affiliated with, sponsored or endorsed by any race organiser.</p>
-      <p class="footer-links small"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="#" data-cookie-settings>Cookie settings</a><span data-portal-link hidden> · <a data-portal-link target="_blank" rel="noopener">Manage your subscription</a></span> · <a href="mailto:info@hybridprog.com">info@hybridprog.com</a></p>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><img src="/img/logo.png" alt="" width="34" height="34"></span><span class="brand-text">Hybrid Training</span></a>
+        </div>
+        <nav class="footer-col" aria-label="Training">
+          <p class="footer-title">Training</p>
+          <a href="/">Workout of the Day</a>
+          <a href="/plan">Training plan</a>
+        </nav>
+        <nav class="footer-col" aria-label="Legal">
+          <p class="footer-title">Legal</p>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="#" data-cookie-settings>Cookie settings</a>
+          <span data-portal-link hidden><a data-portal-link target="_blank" rel="noopener">Manage your subscription</a></span>
+        </nav>
+        <div class="footer-col">
+          <p class="footer-title">Contact</p>
+          <a href="mailto:info@hybridprog.com">info@hybridprog.com</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p><strong>General guidance, not medical advice.</strong> Check with a doctor before starting a new training programme.</p>
+        <p>Station weights follow common race standards; check the official rulebook of your event. Hybrid Training is independent and is not affiliated with, sponsored or endorsed by any race organiser.</p>
+      </div>
     </div>
   </footer>
 
   <script type="module" src="/js/consent.js"></script>
   <script type="module" src="/js/analytics.js"></script>
-  <script type="module" src="/js/app.js"></script>
+  <script type="module" src="/js/wodPage.js"></script>
 </body>
 </html>
