@@ -131,7 +131,6 @@ export function infoPanel(meta, units = 'kg') {
     ${meta.note ? `<p class="muted small">${esc(meta.note)}</p>` : ''}
     <h3>Notation</h3><dl>${list(meta.notation)}</dl>
     <h3>The weekly rotation</h3><dl>${list(meta.weeklyRotation)}</dl>
-    ${meta.cycle ? `<p class="small">${esc(meta.cycle)}</p>` : ''}
     <h3>No equipment? Swap it</h3><dl>${list(meta.substitutions)}</dl>
   </details>`;
 }

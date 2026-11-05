@@ -245,7 +245,7 @@ def mx(k):
 
 
 # ---------------------------------------------------------------- templates
-# Each returns a W. `L` = load multiplier for the week.
+# Each returns a W. `L` = load multiplier (LOAD, the same for every week).
 # Team versions of solo workouts add volume (tf) and say how partners share it;
 # solo versions of team workouts scale volume down (sf).
 
@@ -615,8 +615,8 @@ HALF_FRONT = [('ski', 1000), ('sled_push', 50), ('sled_pull', 50), ('bbj_m', 80)
 HALF_BACK = [('row', 1000), ('farmers', 200), ('sb_lunge', 100), ('wall_ball', 100)]
 
 
-def t_half_sim(L, intensity, which=None, benchmark=False):
-    which = which or rng.choice(['front', 'back', 'odd', 'even', 'all-half'])
+def t_half_sim(L, intensity):
+    which = rng.choice(['front', 'back', 'odd', 'even', 'all-half'])
     if which == 'front':
         sts, run, name = HALF_FRONT, 1000, 'Race front half'
     elif which == 'back':
@@ -634,11 +634,8 @@ def t_half_sim(L, intensity, which=None, benchmark=False):
         items.append((s, rnd_qty(s, q)))
     e = seq_est(items)
     cap = min(48, max(40, math.ceil(e / 60 / 0.85)))
-    if benchmark:
-        tf, how = 1.0, 'Doubles race rules: run every km together, split each station as you wish.'
-    else:
-        tf, how = 1.3, 'Doubles style with 30% more station work: ' + TEAM_SPLIT
-    w = W('Simulation', f'{name}, for time, time cap {cap} min', cap, intensity, 'Race simulation', tf=tf, team_how=how)
+    w = W('Simulation', f'{name}, for time, time cap {cap} min', cap, intensity, 'Race simulation', tf=1.3,
+          team_how='Doubles style with 30% more station work: ' + TEAM_SPLIT)
     w.block(items, scheme='race weights, race order')
     w.d['scoring'] = 'Time; note each run split'
     return w
@@ -688,7 +685,7 @@ def t_rounds_rest(L, intensity):
     return w
 
 
-# ---- light Saturday
+# ---- light Thursday
 EASY_TEAM = 'Do it side by side at a pace where you can both talk the whole time.'
 
 
@@ -767,16 +764,19 @@ def t_recovery(L, intensity):
 
 # ---------------------------------------------------------------- week plan
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+# People pick the workouts they like and choose their own days; they don't follow every day in order. So the
+# weekend is not a rest period: workouts are moderate or hard, and only Thursday and Sunday are easier.
 THEMES = {
     0: [t_enmom, t_emom_cycle, t_strength_metcon],
     1: [t_compromised, t_max_distance, t_run_ladder],
     2: [t_team_amrap, t_team_synchro, t_team_relay, t_team_runner],
-    3: [t_max_reps_sets, t_machine_rotation, t_descending],
+    3: [t_zone2_mixed, t_easy_run_tech, t_steady_intervals],
     4: [t_half_sim, t_chipper_then, t_rounds_rest, t_run_ladder],
-    5: [t_zone2_mixed, t_easy_run_tech, t_steady_intervals],
+    5: [t_max_reps_sets, t_machine_rotation, t_descending],
     6: [t_recovery],
 }
-CYCLE = {1: 0.92, 2: 1.0, 3: 1.08, 0: 0.8}  # week % 4
+# No build-up or lighter weeks: a workout someone picks is the same size whichever week it falls in.
+LOAD = 1.0
 
 ADJ = ['Iron', 'Red Line', 'Ottawa', 'Rideau', 'Glacier', 'Northern', 'Granite', 'Thunder', 'Steel', 'Maple',
        'Lumber', 'Frostbite', 'Canal', 'Midnight', 'Blackout', 'Engine', 'Sled', 'Burner', 'Long', 'Final',
@@ -826,48 +826,37 @@ def build_variants(w):
 
 
 workouts, seen = [], set()
-benchmarks = {}
 fit_report = []
-for day in range(1, 366):
+# Every 4th week's Friday is built last. These days used to be fixed benchmarks that drew no random numbers, so
+# building them last gave them new workouts and left every other workout in the library as it was.
+BUILT_LAST = [7 * wi - 2 for wi in range(4, 53, 4)]
+for day in [d for d in range(1, 366) if d not in BUILT_LAST] + BUILT_LAST:
     wi = (day - 1) // 7 + 1
     dow = (day - 1) % 7
-    L = CYCLE[wi % 4]
-    deload = wi % 4 == 0
-    intensity = 'hard' if dow in (1, 4) else ('moderate' if dow in (0, 2, 3) else None)
-    if deload and intensity == 'hard' and dow == 1:
-        intensity = 'moderate'
+    intensity = 'hard' if dow in (1, 4) else ('moderate' if dow in (0, 2, 5) else None)
     tpls = THEMES[dow]
-    benchmark = None
     for attempt in range(200):
-        if dow == 4 and deload:
-            which = ['front', 'back'][(wi // 4 - 1) % 2]
-            w = t_half_sim(1.0, 'hard', which, benchmark=True)
-            benchmark = f'Benchmark {which.upper()}'
-        else:
-            t = tpls[(wi + attempt) % len(tpls)] if attempt < len(tpls) else rng.choice(tpls)
-            try:
-                w = t(L, intensity)
-            except Retry:
-                continue
+        t = tpls[(wi + attempt) % len(tpls)] if attempt < len(tpls) else rng.choice(tpls)
+        try:
+            w = t(LOAD, intensity)
+        except Retry:
+            continue
         d = w.d
         solo, team, rs, rt = build_variants(w)
         key = hashlib.md5((solo['text'] + team['text']).encode()).hexdigest()
-        if benchmark or (key not in seen and 40 <= d['durationMin'] <= 48):
+        if key not in seen and 40 <= d['durationMin'] <= 48:
             break
     assert 40 <= d['durationMin'] <= 48, (day, d)
+    assert key not in seen, (day, 'no new workout found')
     seen.add(key)
     if rs is not None:
         fit_report.append((day, d['format'], w.native, round(rs, 2), round(rt, 2)))
-    if benchmark:
-        title = benchmarks.setdefault(benchmark, 'Benchmark: ' + ('Front Half' if 'FRONT' in benchmark else 'Back Half'))
-    else:
-        title = name_pool.pop()
     workouts.append(dict(
-        day=day, week=wi, weekday=DAYS[dow], title=title, theme=d['theme'],
+        day=day, week=wi, weekday=DAYS[dow], title=name_pool.pop(), theme=d['theme'],
         format=d['format'], durationMin=d['durationMin'], intensity=d['intensity'],
-        deloadWeek=deload, benchmark=bool(benchmark), defaultMode=w.native,
-        movements=sorted(d['movements']), solo=solo, team=team,
+        defaultMode=w.native, movements=sorted(d['movements']), solo=solo, team=team,
     ))
+workouts.sort(key=lambda w: w['day'])
 
 json.dump(fit_report, open('fit_report.json', 'w'))
 
@@ -885,15 +874,14 @@ meta = dict(
     },
     weeklyRotation=dict(zip(DAYS, [
         'Strength endurance (moderate)', 'Run + station intervals (hard)', 'Partner day: written for teams of 2 (moderate), solo version included',
-        'Engine: ergs, burpees, wall balls (moderate)', 'For time / race simulation (hard)', 'Light aerobic (easy)',
+        'Light aerobic (easy)', 'For time / race simulation (hard)', 'Engine: ergs, burpees, wall balls (moderate)',
         'Active recovery (optional)'])),
-    cycle='4-week waves: week 1 base, week 2 +8%, week 3 +16%, week 4 lighter (-20%) with a Friday benchmark that alternates Race front half and back half so scores can be compared.',
     substitutions={
         'no sled': 'Heavy DB/KB bear crawl push or prowler on turf; pull = heavy rope pull or 2x heavy KB walking backwards.',
         'no SkiErg': 'Row same metres, or 2x the calories on the assault bike.',
         'no BikeErg': 'Assault/echo bike: 1000 m BikeErg ~ 15/12 cal.',
         'no running track': 'Treadmill at 1% incline.',
-        'masters 45+': 'Cap hard days at two per week (Tue + Fri). Do Mon/Wed/Thu at a steady 7/10.',
+        'masters 45+': 'Cap hard days at two per week (Tue + Fri). Do Mon/Wed/Sat at a steady 7/10.',
     },
     selection='index = (days since startDate) mod 365, day 1 = startDate (a Monday). Default startDate 2026-11-02.',
 )

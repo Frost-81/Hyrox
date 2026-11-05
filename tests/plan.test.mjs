@@ -442,8 +442,27 @@ test('WOD: weekly rotation, default modes and team version has more work', () =>
   assert.equal(pickMode(wed, null), 'team');
   assert.equal(pickMode(wed, 'solo'), 'solo');
   assert.equal(pickMode(workoutFor(WODS, '2026-11-02'), null), 'solo');
-  assert.equal(workoutFor(WODS, '2026-11-07').intensity, 'easy');
+  assert.equal(workoutFor(WODS, '2026-11-05').intensity, 'easy');
+  assert.equal(workoutFor(WODS, '2026-11-08').intensity, 'recovery');
   assert.doesNotMatch(JSON.stringify(WODS), /hyrox/i);
+});
+
+test('WOD: the same effort every week, moderate to hard with only Thursday and Sunday easier', () => {
+  const EFFORT = { Monday: 'moderate', Tuesday: 'hard', Wednesday: 'moderate', Thursday: 'easy', Friday: 'hard', Saturday: 'moderate', Sunday: 'recovery' };
+  const WEEK = Object.keys(EFFORT);
+  WODS.workouts.forEach((w, i) => {
+    assert.equal(w.day, i + 1);
+    assert.equal(w.weekday, WEEK[i % 7], `day ${w.day} is on its calendar weekday`);
+    assert.equal(w.intensity, EFFORT[w.weekday], `day ${w.day} ${w.weekday}`);
+  });
+});
+
+test('WOD: a different workout every day of the year', () => {
+  const all = WODS.workouts;
+  assert.equal(new Set(all.map((w) => w.solo.text)).size, 365, 'solo');
+  assert.equal(new Set(all.map((w) => w.team.text)).size, 365, 'team');
+  assert.equal(new Set(all.map((w) => w.title)).size, 365, 'titles');
+  assert.doesNotMatch(JSON.stringify(WODS), /benchmark/i);
 });
 
 test('WOD shows only the current week', () => {
