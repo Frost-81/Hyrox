@@ -188,15 +188,18 @@ a { color: inherit; }
   position: relative; isolation: isolate; overflow: hidden; background: var(--ink); color: var(--on-ink);
   margin-top: calc(var(--header-h) * -1); padding-top: var(--header-h);
 }
-.hero-inner { display: flex; flex-direction: column; padding-block: 24px 40px; }
+.hero-inner { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 14px 40px; }
 .page-head { position: relative; z-index: 2; }
 .page-head h1 { font-size: clamp(2.5rem, 12.6vw, 4.6rem); line-height: 1.03; margin: 0 0 .28em; }
 .page-lede { font-size: 1rem; line-height: 1.5; max-width: 34em; color: var(--on-ink-soft); margin: 0; }
+/* Phones: the buy card's checklist says the same, and the card needs the room to fit on the first screen. */
+@media (max-width: 599px) { .page-lede { display: none; } }
 
-/* Phones and tablets: the photo in the page flow, between the heading and the card. */
+/* Phones and tablets: the photo under the heading, sharing a grid cell with the card so the card can
+   sit near the top of the screen and the hero still ends after the photo's fade. */
 .hero-photo {
   --w: min(100vw, 560px);
-  position: relative; z-index: 0; display: block; flex: none; align-self: center;
+  position: relative; z-index: 0; display: block; grid-area: 2 / 1; justify-self: center;
   width: var(--w); margin-top: -10px;
 }
 .hero-photo img { display: block; width: 100%; height: auto; }
@@ -216,10 +219,10 @@ a { color: inherit; }
   }
 }
 
-/* The buy card floats over the lower part of the photo, and you can see it through the glass. */
+/* The buy card floats over the photo, and you can see it through the glass. */
 .card.buy-card {
-  position: relative; z-index: 1;
-  margin: calc(var(--overlap, 0px) * -1) auto 0; width: 100%; max-width: 600px;
+  position: relative; z-index: 1; grid-area: 2 / 1; align-self: start;
+  margin: 14px auto 0; width: 100%; max-width: 600px;
   padding: 20px 18px 16px;
   color: var(--on-ink); --focus: var(--yellow);
   background: rgb(10 10 10 / 52%);
@@ -230,8 +233,6 @@ a { color: inherit; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .card.buy-card { background: rgb(10 10 10 / 80%); }
 }
-.hero { --overlap: calc(min(100vw, 560px) * var(--overlap-share, .56)); }
-[data-view="plan"] .hero { --overlap-share: .84; }
 .buy-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
 .buy-top h2 { font-size: clamp(1.15rem, 6vw, 1.95rem); line-height: 1.1; margin: 0; white-space: nowrap; }
 .price {
@@ -247,7 +248,7 @@ a { color: inherit; }
 
 /* Desktop: the photo fills the hero, its subject on the right, the words and card on the left. */
 @media (min-width: 1000px) {
-  .hero { display: flex; align-items: center; min-height: clamp(726px, 100svh, 926px); --overlap: 0px; }
+  .hero { display: flex; align-items: center; min-height: clamp(726px, 100svh, 926px); }
   .hero-inner { padding-block: 40px; }
   .page-head, .card.buy-card { width: min(600px, 47vw); margin-inline: 0; }
   .page-head h1 { font-size: clamp(3.8rem, 6vw, 5.2rem); }
