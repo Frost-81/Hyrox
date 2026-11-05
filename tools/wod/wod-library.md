@@ -142,28 +142,28 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 5 · Friday · Storm Rally
-*Race simulation · 42 min · hard*
+### Day 5 · Friday · Glacier Ridge
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 42 min
+7 rounds for time, time cap 40 min
 
 7 rounds:
-- 15/11 cal SkiErg
+- 15/11 cal assault/echo bike
 - 400 m run
-- 12 burpees
+- 16 wall balls (6/4 kg)
 rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 42 min
+Team of 2: 7 rounds for time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
 7 rounds:
-- 21/16 cal SkiErg
+- 21/16 cal assault/echo bike
 - 400 m run
-- 16 burpees
+- 20 wall balls (6/4 kg)
 rest 1 min between rounds
 ```
 Score: Time
@@ -362,31 +362,43 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 12 · Friday · Frostbite March
-*Race simulation · 43 min · hard*
+### Day 12 · Friday · Midnight Wave
+*Compromised running · 45 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 43 min
+For time, time cap 45 min
 
-7 rounds:
-- 20/15 cal row
-- 400 m run
-- 12 burpees
-rest 1 min between rounds
+- 800 m run
+- 55 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 37/28 cal row
+- 800 m run
+- 75 KB swings (24/16 kg)
+- 800 m run
+- 37/28 cal row
+- 800 m run
+- 55 m sandbag walking lunges (20/10 kg)
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 43 min
+Team of 2: For time, time cap 45 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal row
-- 400 m run
-- 16 burpees
-rest 1 min between rounds
+- 800 m run
+- 70 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 48/36 cal row
+- 800 m run
+- 100 KB swings (24/16 kg)
+- 800 m run
+- 48/36 cal row
+- 800 m run
+- 70 m sandbag walking lunges (20/10 kg)
+- 800 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 13 · Saturday · Northern Gauntlet
 *Engine · 40 min · moderate*
@@ -572,39 +584,43 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 19 · Friday · Prairie Circuit
-*Race simulation · 45 min · hard*
+### Day 19 · Friday · Prairie Climb
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-Race odd stations, for time, time cap 45 min
+For time, time cap 40 min
 
-race weights, race order:
-- 1000 m run
-- 1000 m SkiErg
+once through, in this order:
 - 1000 m run
 - 50 m sled pull (103/78 kg)
-- 1000 m run
+- 50 DB thrusters (2x15/10 kg)
+- 60 KB swings (24/16 kg)
+- 60 m burpee broad jumps
+- 200 m farmers carry (2x24/2x16 kg)
 - 1000 m row
+- 50 m sled push (152/102 kg)
+- 40 burpee box jump-overs (24/20 in)
 - 1000 m run
-- 100 m sandbag walking lunges (20/10 kg)
 ```
 **Team of 2**
 ```
-Team of 2: Race odd stations, for time, time cap 45 min
-Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: For time, time cap 40 min
+Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-race weights, race order:
-- 1000 m run
-- 1300 m SkiErg
+once through, in this order:
 - 1000 m run
 - 75 m sled pull (103/78 kg)
-- 1000 m run
+- 65 DB thrusters (2x15/10 kg)
+- 80 KB swings (24/16 kg)
+- 80 m burpee broad jumps
+- 250 m farmers carry (2x24/2x16 kg)
 - 1300 m row
+- 75 m sled push (152/102 kg)
+- 50 burpee box jump-overs (24/20 in)
 - 1000 m run
-- 130 m sandbag walking lunges (20/10 kg)
 ```
-Score: Time; note each run split
+Score: Time
 
 ### Day 20 · Saturday · Quick Chase
 *Engine · 43 min · moderate*
@@ -822,31 +838,39 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 26 · Friday · Glacier Ridge
-*Race simulation · 41 min · hard*
+### Day 26 · Friday · Rideau Circuit
+*Race simulation · 44 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 41 min
+Race back half, for time, time cap 44 min
 
-7 rounds:
-- 15/11 cal row
-- 400 m run
-- 12 burpees
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1000 m row
+- 1000 m run
+- 200 m farmers carry (2x24/2x16 kg)
+- 1000 m run
+- 100 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 100 wall balls (6/4 kg)
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 41 min
-Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: Race back half, for time, time cap 44 min
+Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal row
-- 400 m run
-- 16 burpees
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1300 m row
+- 1000 m run
+- 250 m farmers carry (2x24/2x16 kg)
+- 1000 m run
+- 130 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 130 wall balls (6/4 kg)
 ```
-Score: Time
+Score: Time; note each run split
 
 ### Day 27 · Saturday · Blackout Engine
 *Engine · 45 min · moderate*
@@ -1061,31 +1085,41 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 33 · Friday · Wild Engine
-*Race simulation · 44 min · hard*
+### Day 33 · Friday · Heavy Gauntlet
+*Compromised running · 48 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 44 min
+For time, time cap 48 min
 
-6 rounds:
-- 20/15 cal row
-- 600 m run
-- 12 burpees
-rest 1 min between rounds
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 500 m SkiErg
+- 30 wall balls (6/4 kg)
+- 40 KB swings (24/16 kg)
+
+then finish with:
+- 1600 m run
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 44 min
+Team of 2: For time, time cap 48 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 28/21 cal row
-- 600 m run
-- 16 burpees
-rest 1 min between rounds
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 650 m SkiErg
+- 40 wall balls (6/4 kg)
+- 50 KB swings (24/16 kg)
+
+then finish with:
+- 1600 m run
 ```
-Score: Time
+Score: Time; note both run times
 
 ### Day 34 · Saturday · Frostbite Wave
 *Engine · 46 min · moderate*
@@ -1329,29 +1363,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 40 · Friday · Long Express
+### Day 40 · Friday · Sled Run
 *Race simulation · 41 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 41 min
+For time, time cap 41 min
 
-7 rounds:
-- 20/15 cal assault/echo bike
-- 400 m run
-- 8 burpee broad jumps
-rest 1 min between rounds
+3 rounds of:
+- 34/26 cal SkiErg
+- 65-45-25 wall balls (6/4 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 23/17 cal SkiErg
+- 20 burpees over the rower
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 41 min
+Team of 2: For time, time cap 41 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal assault/echo bike
-- 400 m run
-- 12 burpee broad jumps
-rest 1 min between rounds
+3 rounds of:
+- 44/33 cal SkiErg
+- 85-60-30 wall balls (6/4 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 30/22 cal SkiErg
+- 25 burpees over the rower
 ```
 Score: Time
 
@@ -1556,47 +1600,53 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 47 · Friday · Silent Push
-*Compromised running · 42 min · hard*
+### Day 47 · Friday · Steel Haul
+*Race simulation · 46 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+3 blocks for time, rest 2 min between, time cap 46 min
 
-- 400 m run
-- 45 wall balls (6/4 kg)
-- 600 m run
-- 37.5 m sled push (152/102 kg)
-- 800 m run
-- 55 KB swings (24/16 kg)
+Block 1:
 - 1000 m run
-- 55 KB swings (24/16 kg)
-- 800 m run
-- 37.5 m sled push (152/102 kg)
-- 600 m run
-- 45 wall balls (6/4 kg)
-- 400 m run
+- 60 DB thrusters (2x15/10 kg)
+- 80 KB swings (24/16 kg)
+rest 2 min
+
+Block 2:
+- 1000 m run
+- 35 burpee broad jumps
+- 50 m sled push (152/102 kg)
+rest 2 min
+
+Block 3:
+- 1000 m run
+- 35 burpee box jump-overs (24/20 in)
+- 40/30 cal SkiErg
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
+Team of 2: 3 blocks for time, rest 2 min between, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 400 m run
-- 60 wall balls (6/4 kg)
-- 600 m run
-- 50 m sled push (152/102 kg)
-- 800 m run
-- 70 KB swings (24/16 kg)
+Block 1:
 - 1000 m run
-- 70 KB swings (24/16 kg)
-- 800 m run
-- 50 m sled push (152/102 kg)
-- 600 m run
-- 60 wall balls (6/4 kg)
-- 400 m run
+- 80 DB thrusters (2x15/10 kg)
+- 105 KB swings (24/16 kg)
+rest 2 min
+
+Block 2:
+- 1000 m run
+- 45 burpee broad jumps
+- 75 m sled push (152/102 kg)
+rest 2 min
+
+Block 3:
+- 1000 m run
+- 45 burpee box jump-overs (24/20 in)
+- 52/39 cal SkiErg
 ```
-Score: Time (or work done at the cap)
+Score: Time, rest included
 
 ### Day 48 · Saturday · Lumber Engine
 *Engine · 44 min · moderate*
@@ -1786,28 +1836,28 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 54 · Friday · Midnight Wave
-*Race simulation · 44 min · hard*
+### Day 54 · Friday · Wolf Vault
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 44 min
+5 rounds for time, time cap 40 min
 
-7 rounds:
+5 rounds:
 - 20/15 cal SkiErg
-- 400 m run
-- 18 goblet lunges (22.5/15 kg)
+- 600 m run
+- 12 burpees
 rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 44 min
+Team of 2: 5 rounds for time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
+5 rounds:
 - 28/21 cal SkiErg
-- 400 m run
-- 25 goblet lunges (22.5/15 kg)
+- 600 m run
+- 16 burpees
 rest 1 min between rounds
 ```
 Score: Time
@@ -1999,41 +2049,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 61 · Friday · Thunder Ladder
-*Race simulation · 40 min · hard*
+### Day 61 · Friday · Northern March
+*Compromised running · 42 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+For time, time cap 42 min
 
-3 rounds of:
-- 29/22 cal SkiErg
-- 55-40-20 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 20/15 cal SkiErg
-- 18 burpees to target
+- 1000 m run
+- 45 burpees
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 45 burpees
+- 1000 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: For time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 38/28 cal SkiErg
-- 70-50-25 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 26/20 cal SkiErg
-- 25 burpees to target
+- 1000 m run
+- 55 burpees
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 55 burpees
+- 1000 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 62 · Saturday · Copper Mile
 *Engine · 40 min · moderate*
@@ -2226,29 +2274,39 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 68 · Friday · Ottawa Crossing
-*Race simulation · 42 min · hard*
+### Day 68 · Friday · Midnight Storm
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 42 min
+For time, time cap 40 min
 
-6 rounds:
-- 15/11 cal SkiErg
-- 600 m run
-- 16 box step-overs (24/20 in)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 55 DB thrusters (2x15/10 kg)
+- 85 wall balls (6/4 kg)
+- 1150 m SkiErg
+- 70 KB swings (24/16 kg)
+- 50 m sled push (152/102 kg)
+- 225 m farmers carry (2x24/2x16 kg)
+- 45 burpee box jump-overs (24/20 in)
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 42 min
+Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 21/16 cal SkiErg
-- 600 m run
-- 20 box step-overs (24/20 in)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 70 DB thrusters (2x15/10 kg)
+- 110 wall balls (6/4 kg)
+- 1500 m SkiErg
+- 90 KB swings (24/16 kg)
+- 75 m sled push (152/102 kg)
+- 300 m farmers carry (2x24/2x16 kg)
+- 60 burpee box jump-overs (24/20 in)
+- 800 m run
 ```
 Score: Time
 
@@ -2428,53 +2486,37 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 75 · Friday · Northern Bridge
-*Race simulation · 45 min · hard*
+### Day 75 · Friday · Wild Wave
+*Race simulation · 41 min · hard*
 
 **Solo**
 ```
-All 8 race stations at half volume, for time, time cap 45 min
+Race strength stations, for time, time cap 41 min
 
 race weights, race order:
-- 500 m run
-- 500 m SkiErg
-- 500 m run
-- 25 m sled push (152/102 kg)
-- 500 m run
-- 25 m sled pull (103/78 kg)
-- 500 m run
-- 40 m burpee broad jumps
-- 500 m run
-- 500 m row
-- 500 m run
-- 100 m farmers carry (2x24/2x16 kg)
-- 500 m run
-- 50 m sandbag walking lunges (20/10 kg)
-- 500 m run
-- 50 wall balls (6/4 kg)
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 50 m sled pull (103/78 kg)
+- 1000 m run
+- 200 m farmers carry (2x24/2x16 kg)
+- 1000 m run
+- 100 m sandbag walking lunges (20/10 kg)
 ```
 **Team of 2**
 ```
-Team of 2: All 8 race stations at half volume, for time, time cap 45 min
+Team of 2: Race strength stations, for time, time cap 41 min
 Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
 race weights, race order:
-- 500 m run
-- 650 m SkiErg
-- 500 m run
-- 37.5 m sled push (152/102 kg)
-- 500 m run
-- 37.5 m sled pull (103/78 kg)
-- 500 m run
-- 50 m burpee broad jumps
-- 500 m run
-- 650 m row
-- 500 m run
-- 125 m farmers carry (2x24/2x16 kg)
-- 500 m run
-- 65 m sandbag walking lunges (20/10 kg)
-- 500 m run
-- 65 wall balls (6/4 kg)
+- 1000 m run
+- 75 m sled push (152/102 kg)
+- 1000 m run
+- 75 m sled pull (103/78 kg)
+- 1000 m run
+- 250 m farmers carry (2x24/2x16 kg)
+- 1000 m run
+- 130 m sandbag walking lunges (20/10 kg)
 ```
 Score: Time; note each run split
 
@@ -2739,39 +2781,41 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 82 · Friday · Prairie Climb
-*Race simulation · 42 min · hard*
+### Day 82 · Friday · Heavy Loop
+*Compromised running · 44 min · hard*
 
 **Solo**
 ```
-Race even stations, for time, time cap 42 min
+For time, time cap 44 min
 
-race weights, race order:
-- 1000 m run
-- 50 m sled push (152/102 kg)
-- 1000 m run
-- 80 m burpee broad jumps
-- 1000 m run
-- 200 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 100 wall balls (6/4 kg)
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 1000 m BikeErg
+- 30 wall balls (6/4 kg)
+- 25 m sled push (152/102 kg)
+
+then finish with:
+- 1600 m run
 ```
 **Team of 2**
 ```
-Team of 2: Race even stations, for time, time cap 42 min
-Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: For time, time cap 44 min
+Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-race weights, race order:
-- 1000 m run
-- 75 m sled push (152/102 kg)
-- 1000 m run
-- 100 m burpee broad jumps
-- 1000 m run
-- 250 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 130 wall balls (6/4 kg)
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 1250 m BikeErg
+- 40 wall balls (6/4 kg)
+- 37.5 m sled push (152/102 kg)
+
+then finish with:
+- 1600 m run
 ```
-Score: Time; note each run split
+Score: Time; note both run times
 
 ### Day 83 · Saturday · Steel Furnace
 *Engine · 43 min · moderate*
@@ -2991,29 +3035,39 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 89 · Friday · Steel Breaker
-*Race simulation · 42 min · hard*
+### Day 89 · Friday · Steel Crossing
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 42 min
+For time, time cap 40 min
 
-6 rounds:
-- 15/11 cal SkiErg
-- 600 m run
-- 18 goblet lunges (22.5/15 kg)
-rest 1 min between rounds
+3 rounds of:
+- 31/23 cal assault/echo bike
+- 60-40-25 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 22/16 cal SkiErg
+- 20 burpees over the rower
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 42 min
+Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 21/16 cal SkiErg
-- 600 m run
-- 25 goblet lunges (22.5/15 kg)
-rest 1 min between rounds
+3 rounds of:
+- 40/30 cal assault/echo bike
+- 80-50-30 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 29/22 cal SkiErg
+- 25 burpees over the rower
 ```
 Score: Time
 
@@ -3211,31 +3265,53 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 96 · Friday · Midnight Vault
-*Race simulation · 42 min · hard*
+### Day 96 · Friday · Steel Gauntlet
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 42 min
+3 blocks for time, rest 2 min between, time cap 40 min
 
-7 rounds:
-- 15/11 cal SkiErg
-- 400 m run
-- 16 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+Block 1:
+- 1000 m run
+- 275 m farmers carry (2x24/2x16 kg)
+- 37.5 m sled push (152/102 kg)
+rest 2 min
+
+Block 2:
+- 1000 m run
+- 37/28 cal row
+- 33/25 cal SkiErg
+rest 2 min
+
+Block 3:
+- 1000 m run
+- 30 burpee box jump-overs (24/20 in)
+- 50 wall balls (6/4 kg)
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 42 min
+Team of 2: 3 blocks for time, rest 2 min between, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal SkiErg
-- 400 m run
-- 20 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+Block 1:
+- 1000 m run
+- 350 m farmers carry (2x24/2x16 kg)
+- 50 m sled push (152/102 kg)
+rest 2 min
+
+Block 2:
+- 1000 m run
+- 48/36 cal row
+- 43/32 cal SkiErg
+rest 2 min
+
+Block 3:
+- 1000 m run
+- 40 burpee box jump-overs (24/20 in)
+- 65 wall balls (6/4 kg)
 ```
-Score: Time
+Score: Time, rest included
 
 ### Day 97 · Saturday · Steel Shift
 *Engine · 46 min · moderate*
@@ -3463,47 +3539,31 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 103 · Friday · Frostbite Storm
-*Compromised running · 46 min · hard*
+### Day 103 · Friday · Silent Loop
+*Race simulation · 43 min · hard*
 
 **Solo**
 ```
-For time, time cap 46 min
+7 rounds for time, time cap 43 min
 
+7 rounds:
+- 20/15 cal SkiErg
 - 400 m run
-- 36/27 cal row
-- 600 m run
-- 37.5 m sled push (152/102 kg)
-- 800 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 37.5 m sled push (152/102 kg)
-- 600 m run
-- 36/27 cal row
-- 400 m run
+- 8 burpee broad jumps
+rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 46 min
+Team of 2: 7 rounds for time, time cap 43 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
+7 rounds:
+- 26/20 cal SkiErg
 - 400 m run
-- 47/35 cal row
-- 600 m run
-- 50 m sled push (152/102 kg)
-- 800 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 50 m sled push (152/102 kg)
-- 600 m run
-- 47/35 cal row
-- 400 m run
+- 10 burpee broad jumps
+rest 1 min between rounds
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 104 · Saturday · Red Line Climb
 *Engine · 42 min · moderate*
@@ -3747,31 +3807,43 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 110 · Friday · Rideau Circuit
-*Race simulation · 44 min · hard*
+### Day 110 · Friday · Quick March
+*Compromised running · 46 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 44 min
+For time, time cap 46 min
 
-7 rounds:
-- 20/15 cal SkiErg
-- 400 m run
-- 20 KB swings (24/16 kg)
-rest 1 min between rounds
+- 800 m run
+- 42/32 cal row
+- 800 m run
+- 50 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 55 wall balls (6/4 kg)
+- 800 m run
+- 50 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 42/32 cal row
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 44 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal SkiErg
-- 400 m run
-- 30 KB swings (24/16 kg)
-rest 1 min between rounds
+- 800 m run
+- 55/41 cal row
+- 800 m run
+- 65 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 70 wall balls (6/4 kg)
+- 800 m run
+- 65 m sandbag walking lunges (20/10 kg)
+- 800 m run
+- 55/41 cal row
+- 800 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 111 · Saturday · Hollow Current
 *Engine · 44 min · moderate*
@@ -3978,29 +4050,39 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 117 · Friday · Midnight Mile
+### Day 117 · Friday · Hollow Ridge
 *Race simulation · 44 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 44 min
+For time, time cap 44 min
 
-7 rounds:
-- 20/15 cal SkiErg
-- 400 m run
-- 16 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+once through, in this order:
+- 1200 m run
+- 200 m farmers carry (2x24/2x16 kg)
+- 1000 m SkiErg
+- 40 burpee box jump-overs (24/20 in)
+- 50 m sled pull (103/78 kg)
+- 60 m burpee broad jumps
+- 50 m sled push (152/102 kg)
+- 1000 m row
+- 1200 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 44 min
+Team of 2: For time, time cap 44 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal SkiErg
-- 400 m run
-- 20 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+once through, in this order:
+- 1200 m run
+- 250 m farmers carry (2x24/2x16 kg)
+- 1300 m SkiErg
+- 50 burpee box jump-overs (24/20 in)
+- 75 m sled pull (103/78 kg)
+- 80 m burpee broad jumps
+- 75 m sled push (152/102 kg)
+- 1300 m row
+- 1200 m run
 ```
 Score: Time
 
@@ -4212,31 +4294,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 124 · Friday · Burner Bridge
-*Race simulation · 40 min · hard*
+### Day 124 · Friday · Northern Ladder
+*Race simulation · 43 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 40 min
+Race front half, for time, time cap 43 min
 
-7 rounds:
-- 15/11 cal assault/echo bike
-- 400 m run
-- 16 box step-overs (24/20 in)
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1000 m SkiErg
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 50 m sled pull (103/78 kg)
+- 1000 m run
+- 80 m burpee broad jumps
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 40 min
-Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: Race front half, for time, time cap 43 min
+Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal assault/echo bike
-- 400 m run
-- 20 box step-overs (24/20 in)
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1300 m SkiErg
+- 1000 m run
+- 75 m sled push (152/102 kg)
+- 1000 m run
+- 75 m sled pull (103/78 kg)
+- 1000 m run
+- 100 m burpee broad jumps
 ```
-Score: Time
+Score: Time; note each run split
 
 ### Day 125 · Saturday · Thunder Wave
 *Engine · 45 min · moderate*
@@ -4413,43 +4503,41 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 131 · Friday · Steel Push
-*Compromised running · 44 min · hard*
+### Day 131 · Friday · Red Line Mile
+*Compromised running · 45 min · hard*
 
 **Solo**
 ```
-For time, time cap 44 min
+For time, time cap 45 min
 
-- 800 m run
-- 40 burpees
-- 800 m run
-- 37/28 cal SkiErg
-- 800 m run
-- 37.5 m sled push (152/102 kg)
-- 800 m run
-- 37/28 cal SkiErg
-- 800 m run
-- 40 burpees
-- 800 m run
+Start with:
+- 2000 m run
+
+then 4 rounds of:
+- 500 m SkiErg
+- 16 burpees
+- 25 KB swings (24/16 kg)
+
+then finish with:
+- 2000 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 44 min
+Team of 2: For time, time cap 45 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 800 m run
-- 50 burpees
-- 800 m run
-- 48/36 cal SkiErg
-- 800 m run
-- 50 m sled push (152/102 kg)
-- 800 m run
-- 48/36 cal SkiErg
-- 800 m run
-- 50 burpees
-- 800 m run
+Start with:
+- 2000 m run
+
+then 4 rounds of:
+- 650 m SkiErg
+- 20 burpees
+- 30 KB swings (24/16 kg)
+
+then finish with:
+- 2000 m run
 ```
-Score: Time (or work done at the cap)
+Score: Time; note both run times
 
 ### Day 132 · Saturday · Lumber Pull
 *Engine · 45 min · moderate*
@@ -4651,29 +4739,39 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 138 · Friday · Heavy Gauntlet
-*Race simulation · 44 min · hard*
+### Day 138 · Friday · Rideau Engine
+*Race simulation · 41 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 44 min
+For time, time cap 41 min
 
-6 rounds:
-- 20/15 cal SkiErg
-- 600 m run
-- 8 burpee broad jumps
-rest 1 min between rounds
+3 rounds of:
+- 34/26 cal SkiErg
+- 65-45-25 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 23/17 cal row
+- 20 burpees over the rower
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 44 min
+Team of 2: For time, time cap 41 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 28/21 cal SkiErg
-- 600 m run
-- 12 burpee broad jumps
-rest 1 min between rounds
+3 rounds of:
+- 44/33 cal SkiErg
+- 85-60-30 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 30/22 cal row
+- 25 burpees over the rower
 ```
 Score: Time
 
@@ -4901,41 +4999,65 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 145 · Friday · Final Circuit
-*Race simulation · 40 min · hard*
+### Day 145 · Friday · Red Line Circuit
+*Race simulation · 48 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+4 blocks for time, rest 2 min between, time cap 48 min
 
-3 rounds of:
-- 31/23 cal SkiErg
-- 60-40-25 wall balls (6/4 kg)
+Block 1:
+- 800 m run
+- 40 wall balls (6/4 kg)
+- 25 burpee box jump-overs (24/20 in)
+rest 2 min
 
-then:
-- 2000 m SkiErg
+Block 2:
+- 800 m run
+- 29/22 cal row
+- 26/20 cal SkiErg
+rest 2 min
 
-then 3 rounds of:
-- 21/16 cal assault/echo bike
-- 20 burpees over the rower
+Block 3:
+- 800 m run
+- 40 DB thrusters (2x15/10 kg)
+- 55 KB swings (24/16 kg)
+rest 2 min
+
+Block 4:
+- 800 m run
+- 25 m sled pull (103/78 kg)
+- 25 burpee broad jumps
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: 4 blocks for time, rest 2 min between, time cap 48 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 40/30 cal SkiErg
-- 80-50-30 wall balls (6/4 kg)
+Block 1:
+- 800 m run
+- 50 wall balls (6/4 kg)
+- 30 burpee box jump-overs (24/20 in)
+rest 2 min
 
-then:
-- 2000 m SkiErg
+Block 2:
+- 800 m run
+- 38/28 cal row
+- 34/26 cal SkiErg
+rest 2 min
 
-then 3 rounds of:
-- 27/20 cal assault/echo bike
-- 25 burpees over the rower
+Block 3:
+- 800 m run
+- 50 DB thrusters (2x15/10 kg)
+- 70 KB swings (24/16 kg)
+rest 2 min
+
+Block 4:
+- 800 m run
+- 37.5 m sled pull (103/78 kg)
+- 30 burpee broad jumps
 ```
-Score: Time
+Score: Time, rest included
 
 ### Day 146 · Saturday · Red Line Gauntlet
 *Engine · 48 min · moderate*
@@ -5130,43 +5252,31 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 152 · Friday · Prairie Line
-*Compromised running · 40 min · hard*
+### Day 152 · Friday · Wolf Shift
+*Race simulation · 43 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+7 rounds for time, time cap 43 min
 
-- 800 m run
-- 40 wall balls (6/4 kg)
-- 800 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 25 burpee broad jumps
-- 800 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 40 wall balls (6/4 kg)
-- 800 m run
+7 rounds:
+- 20/15 cal row
+- 400 m run
+- 12 burpees
+rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: 7 rounds for time, time cap 43 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 800 m run
-- 50 wall balls (6/4 kg)
-- 800 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 30 burpee broad jumps
-- 800 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 50 wall balls (6/4 kg)
-- 800 m run
+7 rounds:
+- 28/21 cal row
+- 400 m run
+- 16 burpees
+rest 1 min between rounds
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 153 · Saturday · Glacier Breaker
 *Engine · 44 min · moderate*
@@ -5344,41 +5454,45 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 159 · Friday · Blackout Drift
-*Compromised running · 45 min · hard*
+### Day 159 · Friday · Frostbite Loop
+*Compromised running · 48 min · hard*
 
 **Solo**
 ```
-For time, time cap 45 min
+For time, time cap 48 min
 
+- 400 m run
+- 50 wall balls (6/4 kg)
+- 600 m run
+- 37.5 m sled push (152/102 kg)
 - 800 m run
-- 37/28 cal row
+- 50 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 50 m sandbag walking lunges (20/10 kg)
 - 800 m run
-- 30 burpee broad jumps
-- 800 m run
-- 50 m sled push (152/102 kg)
-- 800 m run
-- 30 burpee broad jumps
-- 800 m run
-- 37/28 cal row
-- 800 m run
+- 37.5 m sled push (152/102 kg)
+- 600 m run
+- 50 wall balls (6/4 kg)
+- 400 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 45 min
+Team of 2: For time, time cap 48 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
+- 400 m run
+- 65 wall balls (6/4 kg)
+- 600 m run
+- 50 m sled push (152/102 kg)
 - 800 m run
-- 48/36 cal row
+- 65 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 65 m sandbag walking lunges (20/10 kg)
 - 800 m run
-- 40 burpee broad jumps
-- 800 m run
-- 75 m sled push (152/102 kg)
-- 800 m run
-- 40 burpee broad jumps
-- 800 m run
-- 48/36 cal row
-- 800 m run
+- 50 m sled push (152/102 kg)
+- 600 m run
+- 65 wall balls (6/4 kg)
+- 400 m run
 ```
 Score: Time (or work done at the cap)
 
@@ -5584,29 +5698,41 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 166 · Friday · Sled Run
-*Race simulation · 42 min · hard*
+### Day 166 · Friday · Burner Circuit
+*Race simulation · 46 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 42 min
+For time, time cap 46 min
 
-7 rounds:
-- 15/11 cal SkiErg
-- 400 m run
-- 16 box step-overs (24/20 in)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 75 wall balls (6/4 kg)
+- 200 m farmers carry (2x24/2x16 kg)
+- 1000 m SkiErg
+- 75 m sandbag walking lunges (20/10 kg)
+- 1000 m row
+- 50 m sled pull (103/78 kg)
+- 50 m sled push (152/102 kg)
+- 40 burpee box jump-overs (24/20 in)
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 42 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal SkiErg
-- 400 m run
-- 20 box step-overs (24/20 in)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 100 wall balls (6/4 kg)
+- 250 m farmers carry (2x24/2x16 kg)
+- 1300 m SkiErg
+- 100 m sandbag walking lunges (20/10 kg)
+- 1300 m row
+- 75 m sled pull (103/78 kg)
+- 75 m sled push (152/102 kg)
+- 50 burpee box jump-overs (24/20 in)
+- 800 m run
 ```
 Score: Time
 
@@ -5826,31 +5952,55 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 173 · Friday · Heavy Rally
-*Race simulation · 40 min · hard*
+### Day 173 · Friday · Canal Line
+*Race simulation · 45 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 40 min
+All 8 race stations at half volume, for time, time cap 45 min
 
-7 rounds:
-- 15/11 cal assault/echo bike
-- 400 m run
-- 20 KB swings (24/16 kg)
-rest 1 min between rounds
+race weights, race order:
+- 500 m run
+- 500 m SkiErg
+- 500 m run
+- 25 m sled push (152/102 kg)
+- 500 m run
+- 25 m sled pull (103/78 kg)
+- 500 m run
+- 40 m burpee broad jumps
+- 500 m run
+- 500 m row
+- 500 m run
+- 100 m farmers carry (2x24/2x16 kg)
+- 500 m run
+- 50 m sandbag walking lunges (20/10 kg)
+- 500 m run
+- 50 wall balls (6/4 kg)
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 40 min
-Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: All 8 race stations at half volume, for time, time cap 45 min
+Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal assault/echo bike
-- 400 m run
-- 30 KB swings (24/16 kg)
-rest 1 min between rounds
+race weights, race order:
+- 500 m run
+- 650 m SkiErg
+- 500 m run
+- 37.5 m sled push (152/102 kg)
+- 500 m run
+- 37.5 m sled pull (103/78 kg)
+- 500 m run
+- 50 m burpee broad jumps
+- 500 m run
+- 650 m row
+- 500 m run
+- 125 m farmers carry (2x24/2x16 kg)
+- 500 m run
+- 65 m sandbag walking lunges (20/10 kg)
+- 500 m run
+- 65 wall balls (6/4 kg)
 ```
-Score: Time
+Score: Time; note each run split
 
 ### Day 174 · Saturday · Canal Loop
 *Engine · 45 min · moderate*
@@ -6046,47 +6196,41 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 180 · Friday · Glacier Rush
-*Compromised running · 44 min · hard*
+### Day 180 · Friday · Thunder March
+*Compromised running · 46 min · hard*
 
 **Solo**
 ```
-For time, time cap 44 min
+For time, time cap 46 min
 
-- 400 m run
-- 39/29 cal row
-- 600 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 275 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 275 m farmers carry (2x24/2x16 kg)
-- 800 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 600 m run
-- 39/29 cal row
-- 400 m run
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 1000 m BikeErg
+- 25 m sled push (152/102 kg)
+- 25 burpees
+
+then finish with:
+- 1600 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 44 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 400 m run
-- 51/38 cal row
-- 600 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 350 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 350 m farmers carry (2x24/2x16 kg)
-- 800 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 600 m run
-- 51/38 cal row
-- 400 m run
+Start with:
+- 1600 m run
+
+then 4 rounds of:
+- 1250 m BikeErg
+- 37.5 m sled push (152/102 kg)
+- 30 burpees
+
+then finish with:
+- 1600 m run
 ```
-Score: Time (or work done at the cap)
+Score: Time; note both run times
 
 ### Day 181 · Saturday · Storm Engine
 *Engine · 40 min · moderate*
@@ -6268,43 +6412,41 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 187 · Friday · Maple Push
-*Compromised running · 42 min · hard*
+### Day 187 · Friday · Wolf Engine
+*Race simulation · 41 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+For time, time cap 41 min
 
-- 800 m run
-- 35/26 cal SkiErg
-- 800 m run
-- 60 KB swings (24/16 kg)
-- 800 m run
-- 35 burpee broad jumps
-- 800 m run
-- 60 KB swings (24/16 kg)
-- 800 m run
-- 35/26 cal SkiErg
-- 800 m run
+3 rounds of:
+- 34/26 cal SkiErg
+- 65-45-25 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 23/17 cal assault/echo bike
+- 20 burpee dual-DB step-overs (2x22.5/15 kg)
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
+Team of 2: For time, time cap 41 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 800 m run
-- 46/34 cal SkiErg
-- 800 m run
-- 80 KB swings (24/16 kg)
-- 800 m run
-- 45 burpee broad jumps
-- 800 m run
-- 80 KB swings (24/16 kg)
-- 800 m run
-- 46/34 cal SkiErg
-- 800 m run
+3 rounds of:
+- 44/33 cal SkiErg
+- 85-60-30 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 30/22 cal assault/echo bike
+- 25 burpee dual-DB step-overs (2x22.5/15 kg)
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 188 · Saturday · Ottawa Chase
 *Engine · 42 min · moderate*
@@ -6535,41 +6677,53 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 194 · Friday · Steel Haul
-*Race simulation · 40 min · hard*
+### Day 194 · Friday · Heavy Grind
+*Race simulation · 45 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+3 blocks for time, rest 2 min between, time cap 45 min
 
-3 rounds of:
-- 30/22 cal SkiErg
-- 45-35-25 KB swings (24/16 kg)
+Block 1:
+- 1000 m run
+- 60 DB thrusters (2x15/10 kg)
+- 35 burpee broad jumps
+rest 2 min
 
-then:
-- 2000 m run
+Block 2:
+- 1000 m run
+- 40/30 cal SkiErg
+- 45/34 cal row
+rest 2 min
 
-then 3 rounds of:
-- 21/16 cal row
-- 18 burpee dual-DB step-overs (2x22.5/15 kg)
+Block 3:
+- 1000 m run
+- 50 m sled push (152/102 kg)
+- 80 KB swings (24/16 kg)
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: 3 blocks for time, rest 2 min between, time cap 45 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 39/29 cal SkiErg
-- 60-45-30 KB swings (24/16 kg)
+Block 1:
+- 1000 m run
+- 80 DB thrusters (2x15/10 kg)
+- 45 burpee broad jumps
+rest 2 min
 
-then:
-- 2000 m run
+Block 2:
+- 1000 m run
+- 52/39 cal SkiErg
+- 58/44 cal row
+rest 2 min
 
-then 3 rounds of:
-- 27/20 cal row
-- 25 burpee dual-DB step-overs (2x22.5/15 kg)
+Block 3:
+- 1000 m run
+- 75 m sled push (152/102 kg)
+- 105 KB swings (24/16 kg)
 ```
-Score: Time
+Score: Time, rest included
 
 ### Day 195 · Saturday · Wolf March
 *Engine · 44 min · moderate*
@@ -6772,28 +6926,28 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 201 · Friday · Prairie Storm
-*Race simulation · 43 min · hard*
+### Day 201 · Friday · Double Line
+*Race simulation · 44 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 43 min
+7 rounds for time, time cap 44 min
 
 7 rounds:
-- 20/15 cal row
+- 20/15 cal SkiErg
 - 400 m run
-- 18 goblet lunges (22.5/15 kg)
+- 16 box step-overs (24/20 in)
 rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 43 min
+Team of 2: 7 rounds for time, time cap 44 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
 7 rounds:
-- 28/21 cal row
+- 28/21 cal SkiErg
 - 400 m run
-- 25 goblet lunges (22.5/15 kg)
+- 20 box step-overs (24/20 in)
 rest 1 min between rounds
 ```
 Score: Time
@@ -7036,31 +7190,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 208 · Friday · Wild Bridge
-*Race simulation · 44 min · hard*
+### Day 208 · Friday · Lumber Loop
+*Compromised running · 42 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 44 min
+For time, time cap 42 min
 
-7 rounds:
-- 20/15 cal SkiErg
-- 400 m run
-- 12 burpees
-rest 1 min between rounds
+- 1000 m run
+- 75 KB swings (24/16 kg)
+- 1000 m run
+- 35 burpee broad jumps
+- 1000 m run
+- 35 burpee broad jumps
+- 1000 m run
+- 75 KB swings (24/16 kg)
+- 1000 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 44 min
+Team of 2: For time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal SkiErg
-- 400 m run
-- 16 burpees
-rest 1 min between rounds
+- 1000 m run
+- 100 KB swings (24/16 kg)
+- 1000 m run
+- 45 burpee broad jumps
+- 1000 m run
+- 45 burpee broad jumps
+- 1000 m run
+- 100 KB swings (24/16 kg)
+- 1000 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 209 · Saturday · Glacier Push
 *Engine · 45 min · moderate*
@@ -7237,39 +7399,43 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 215 · Friday · Iron Current
-*Compromised running · 42 min · hard*
+### Day 215 · Friday · Sled Ridge
+*Race simulation · 46 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+For time, time cap 46 min
 
+once through, in this order:
 - 1000 m run
-- 75 KB swings (24/16 kg)
-- 1000 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 75 KB swings (24/16 kg)
+- 75 m sandbag walking lunges (20/10 kg)
+- 50 DB thrusters (2x15/10 kg)
+- 200 m farmers carry (2x24/2x16 kg)
+- 60 m burpee broad jumps
+- 75 wall balls (6/4 kg)
+- 60 KB swings (24/16 kg)
+- 1000 m row
+- 1000 m SkiErg
 - 1000 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
+once through, in this order:
 - 1000 m run
-- 100 KB swings (24/16 kg)
-- 1000 m run
-- 80 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 80 m sandbag walking lunges (20/10 kg)
-- 1000 m run
-- 100 KB swings (24/16 kg)
+- 100 m sandbag walking lunges (20/10 kg)
+- 65 DB thrusters (2x15/10 kg)
+- 250 m farmers carry (2x24/2x16 kg)
+- 80 m burpee broad jumps
+- 100 wall balls (6/4 kg)
+- 80 KB swings (24/16 kg)
+- 1300 m row
+- 1300 m SkiErg
 - 1000 m run
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 216 · Saturday · Quick Express
 *Engine · 48 min · moderate*
@@ -7459,41 +7625,39 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 222 · Friday · Wolf Vault
-*Race simulation · 42 min · hard*
+### Day 222 · Friday · Wild Breaker
+*Race simulation · 45 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+Race odd stations, for time, time cap 45 min
 
-3 rounds of:
-- 30/22 cal SkiErg
-- 60-40-25 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 21/16 cal SkiErg
-- 18 burpees to target
+race weights, race order:
+- 1000 m run
+- 1000 m SkiErg
+- 1000 m run
+- 50 m sled pull (103/78 kg)
+- 1000 m run
+- 1000 m row
+- 1000 m run
+- 100 m sandbag walking lunges (20/10 kg)
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
-Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: Race odd stations, for time, time cap 45 min
+Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 39/29 cal SkiErg
-- 80-50-30 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 27/20 cal SkiErg
-- 25 burpees to target
+race weights, race order:
+- 1000 m run
+- 1300 m SkiErg
+- 1000 m run
+- 75 m sled pull (103/78 kg)
+- 1000 m run
+- 1300 m row
+- 1000 m run
+- 130 m sandbag walking lunges (20/10 kg)
 ```
-Score: Time
+Score: Time; note each run split
 
 ### Day 223 · Saturday · Lumber Climb
 *Engine · 43 min · moderate*
@@ -7724,31 +7888,41 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 229 · Friday · Double Crossing
-*Race simulation · 42 min · hard*
+### Day 229 · Friday · Lumber Ladder
+*Compromised running · 40 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 42 min
+For time, time cap 40 min
 
-6 rounds:
-- 20/15 cal assault/echo bike
-- 600 m run
-- 16 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+Start with:
+- 2400 m run
+
+then 3 rounds of:
+- 1000 m BikeErg
+- 14 burpees
+- 20 goblet lunges (22.5/15 kg)
+
+then finish with:
+- 2400 m run
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 42 min
+Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 28/21 cal assault/echo bike
-- 600 m run
-- 20 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+Start with:
+- 2400 m run
+
+then 3 rounds of:
+- 1250 m BikeErg
+- 18 burpees
+- 25 goblet lunges (22.5/15 kg)
+
+then finish with:
+- 2400 m run
 ```
-Score: Time
+Score: Time; note both run times
 
 ### Day 230 · Saturday · Copper Drift
 *Engine · 46 min · moderate*
@@ -7983,39 +8157,41 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 236 · Friday · Copper Shift
-*Compromised running · 40 min · hard*
+### Day 236 · Friday · Canal Ridge
+*Race simulation · 42 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+For time, time cap 42 min
 
-- 1000 m run
-- 34/26 cal row
-- 1000 m run
-- 300 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 300 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 34/26 cal row
-- 1000 m run
+3 rounds of:
+- 34/26 cal SkiErg
+- 50-40-25 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 23/17 cal row
+- 20 burpees over the rower
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: For time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 1000 m run
-- 44/33 cal row
-- 1000 m run
-- 400 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 400 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 44/33 cal row
-- 1000 m run
+3 rounds of:
+- 44/33 cal SkiErg
+- 65-50-30 DB thrusters (2x15/10 kg)
+
+then:
+- 2000 m SkiErg
+
+then 3 rounds of:
+- 30/22 cal row
+- 25 burpees over the rower
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 237 · Saturday · Maple Ladder
 *Engine · 40 min · moderate*
@@ -8207,39 +8383,53 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 243 · Friday · Long Climb
-*Race simulation · 43 min · hard*
+### Day 243 · Friday · Final Vault
+*Race simulation · 45 min · hard*
 
 **Solo**
 ```
-Race front half, for time, time cap 43 min
+3 blocks for time, rest 3 min between, time cap 45 min
 
-race weights, race order:
-- 1000 m run
-- 1000 m SkiErg
-- 1000 m run
-- 50 m sled push (152/102 kg)
-- 1000 m run
+Block 1:
+- 800 m run
+- 40 burpee box jump-overs (24/20 in)
+- 40 burpee broad jumps
+rest 3 min
+
+Block 2:
+- 800 m run
+- 42/32 cal SkiErg
+- 85 KB swings (24/16 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 65 DB thrusters (2x15/10 kg)
 - 50 m sled pull (103/78 kg)
-- 1000 m run
-- 80 m burpee broad jumps
 ```
 **Team of 2**
 ```
-Team of 2: Race front half, for time, time cap 43 min
-Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: 3 blocks for time, rest 3 min between, time cap 45 min
+Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-race weights, race order:
-- 1000 m run
-- 1300 m SkiErg
-- 1000 m run
-- 75 m sled push (152/102 kg)
-- 1000 m run
+Block 1:
+- 800 m run
+- 50 burpee box jump-overs (24/20 in)
+- 50 burpee broad jumps
+rest 3 min
+
+Block 2:
+- 800 m run
+- 55/41 cal SkiErg
+- 110 KB swings (24/16 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 85 DB thrusters (2x15/10 kg)
 - 75 m sled pull (103/78 kg)
-- 1000 m run
-- 100 m burpee broad jumps
 ```
-Score: Time; note each run split
+Score: Time, rest included
 
 ### Day 244 · Saturday · Wild Rush
 *Engine · 43 min · moderate*
@@ -8466,47 +8656,31 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 250 · Friday · Northern March
-*Compromised running · 44 min · hard*
+### Day 250 · Friday · Lumber Push
+*Race simulation · 43 min · hard*
 
 **Solo**
 ```
-For time, time cap 44 min
+7 rounds for time, time cap 43 min
 
+7 rounds:
+- 20/15 cal row
 - 400 m run
-- 35 burpees
-- 600 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 38/28 cal row
-- 1000 m run
-- 38/28 cal row
-- 800 m run
-- 45 m sandbag walking lunges (20/10 kg)
-- 600 m run
-- 35 burpees
-- 400 m run
+- 18 goblet lunges (22.5/15 kg)
+rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 44 min
+Team of 2: 7 rounds for time, time cap 43 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
+7 rounds:
+- 28/21 cal row
 - 400 m run
-- 45 burpees
-- 600 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 800 m run
-- 49/37 cal row
-- 1000 m run
-- 49/37 cal row
-- 800 m run
-- 60 m sandbag walking lunges (20/10 kg)
-- 600 m run
-- 45 burpees
-- 400 m run
+- 25 goblet lunges (22.5/15 kg)
+rest 1 min between rounds
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 251 · Saturday · Copper Crossing
 *Engine · 45 min · moderate*
@@ -8683,41 +8857,43 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 257 · Friday · Quick Ridge
-*Race simulation · 42 min · hard*
+### Day 257 · Friday · Thunder Signal
+*Compromised running · 44 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+For time, time cap 44 min
 
-3 rounds of:
-- 34/26 cal SkiErg
-- 65-45-25 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 23/17 cal assault/echo bike
-- 20 burpee box jump-overs (24/20 in)
+- 800 m run
+- 50 wall balls (6/4 kg)
+- 800 m run
+- 40/30 cal row
+- 800 m run
+- 65 KB swings (24/16 kg)
+- 800 m run
+- 40/30 cal row
+- 800 m run
+- 50 wall balls (6/4 kg)
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
+Team of 2: For time, time cap 44 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 44/33 cal SkiErg
-- 85-60-30 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 30/22 cal assault/echo bike
-- 25 burpee box jump-overs (24/20 in)
+- 800 m run
+- 65 wall balls (6/4 kg)
+- 800 m run
+- 52/39 cal row
+- 800 m run
+- 85 KB swings (24/16 kg)
+- 800 m run
+- 52/39 cal row
+- 800 m run
+- 65 wall balls (6/4 kg)
+- 800 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 258 · Saturday · Ottawa Line
 *Engine · 45 min · moderate*
@@ -8909,29 +9085,41 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 264 · Friday · Steel Grind
-*Race simulation · 42 min · hard*
+### Day 264 · Friday · Double Haul
+*Race simulation · 45 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 42 min
+For time, time cap 45 min
 
-7 rounds:
-- 15/11 cal SkiErg
-- 400 m run
-- 16 wall balls (6/4 kg)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 50 DB thrusters (2x15/10 kg)
+- 50 m sled push (152/102 kg)
+- 40 burpee box jump-overs (24/20 in)
+- 1000 m row
+- 1000 m SkiErg
+- 50 m sled pull (103/78 kg)
+- 75 m sandbag walking lunges (20/10 kg)
+- 75 wall balls (6/4 kg)
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 42 min
+Team of 2: For time, time cap 45 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal SkiErg
-- 400 m run
-- 20 wall balls (6/4 kg)
-rest 1 min between rounds
+once through, in this order:
+- 800 m run
+- 65 DB thrusters (2x15/10 kg)
+- 75 m sled push (152/102 kg)
+- 50 burpee box jump-overs (24/20 in)
+- 1300 m row
+- 1300 m SkiErg
+- 75 m sled pull (103/78 kg)
+- 100 m sandbag walking lunges (20/10 kg)
+- 100 wall balls (6/4 kg)
+- 800 m run
 ```
 Score: Time
 
@@ -9099,35 +9287,35 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 271 · Friday · Wolf Express
-*Race simulation · 44 min · hard*
+### Day 271 · Friday · Storm Furnace
+*Race simulation · 42 min · hard*
 
 **Solo**
 ```
-Race back half, for time, time cap 44 min
+Race even stations, for time, time cap 42 min
 
 race weights, race order:
 - 1000 m run
-- 1000 m row
+- 50 m sled push (152/102 kg)
+- 1000 m run
+- 80 m burpee broad jumps
 - 1000 m run
 - 200 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 100 m sandbag walking lunges (20/10 kg)
 - 1000 m run
 - 100 wall balls (6/4 kg)
 ```
 **Team of 2**
 ```
-Team of 2: Race back half, for time, time cap 44 min
+Team of 2: Race even stations, for time, time cap 42 min
 Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
 race weights, race order:
 - 1000 m run
-- 1300 m row
+- 75 m sled push (152/102 kg)
+- 1000 m run
+- 100 m burpee broad jumps
 - 1000 m run
 - 250 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 130 m sandbag walking lunges (20/10 kg)
 - 1000 m run
 - 130 wall balls (6/4 kg)
 ```
@@ -9326,31 +9514,41 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 278 · Friday · Midnight Storm
-*Race simulation · 43 min · hard*
+### Day 278 · Friday · Storm Grind
+*Compromised running · 44 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 43 min
+For time, time cap 44 min
 
-7 rounds:
-- 20/15 cal row
-- 400 m run
-- 16 box step-overs (24/20 in)
-rest 1 min between rounds
+Start with:
+- 2000 m run
+
+then 5 rounds of:
+- 1000 m BikeErg
+- 14 box step-overs (24/20 in)
+- 18 KB swings (24/16 kg)
+
+then finish with:
+- 2000 m run
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 43 min
+Team of 2: For time, time cap 44 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 28/21 cal row
-- 400 m run
-- 20 box step-overs (24/20 in)
-rest 1 min between rounds
+Start with:
+- 2000 m run
+
+then 5 rounds of:
+- 1250 m BikeErg
+- 18 box step-overs (24/20 in)
+- 25 KB swings (24/16 kg)
+
+then finish with:
+- 2000 m run
 ```
-Score: Time
+Score: Time; note both run times
 
 ### Day 279 · Saturday · Lumber Storm
 *Engine · 45 min · moderate*
@@ -9547,29 +9745,39 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 285 · Friday · Engine Breaker
-*Race simulation · 42 min · hard*
+### Day 285 · Friday · Double Mile
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 42 min
+For time, time cap 40 min
 
-6 rounds:
-- 20/15 cal assault/echo bike
-- 600 m run
-- 12 burpees
-rest 1 min between rounds
+3 rounds of:
+- 31/23 cal assault/echo bike
+- 60-40-25 goblet lunges (22.5/15 kg)
+
+then:
+- 2000 m run
+
+then 3 rounds of:
+- 22/16 cal assault/echo bike
+- 20 burpee box jump-overs (24/20 in)
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 42 min
+Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 28/21 cal assault/echo bike
-- 600 m run
-- 16 burpees
-rest 1 min between rounds
+3 rounds of:
+- 40/30 cal assault/echo bike
+- 80-50-30 goblet lunges (22.5/15 kg)
+
+then:
+- 2000 m run
+
+then 3 rounds of:
+- 29/22 cal assault/echo bike
+- 25 burpee box jump-overs (24/20 in)
 ```
 Score: Time
 
@@ -9781,31 +9989,53 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 292 · Friday · Blackout Express
-*Race simulation · 41 min · hard*
+### Day 292 · Friday · Canal Current
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 41 min
+3 blocks for time, rest 3 min between, time cap 40 min
 
-7 rounds:
-- 15/11 cal row
-- 400 m run
-- 16 wall balls (6/4 kg)
-rest 1 min between rounds
+Block 1:
+- 800 m run
+- 55 wall balls (6/4 kg)
+- 37/28 cal SkiErg
+rest 3 min
+
+Block 2:
+- 800 m run
+- 55 DB thrusters (2x15/10 kg)
+- 50 m sled push (152/102 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 37.5 m sled pull (103/78 kg)
+- 42/32 cal row
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 41 min
+Team of 2: 3 blocks for time, rest 3 min between, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal row
-- 400 m run
-- 20 wall balls (6/4 kg)
-rest 1 min between rounds
+Block 1:
+- 800 m run
+- 70 wall balls (6/4 kg)
+- 48/36 cal SkiErg
+rest 3 min
+
+Block 2:
+- 800 m run
+- 70 DB thrusters (2x15/10 kg)
+- 75 m sled push (152/102 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 50 m sled pull (103/78 kg)
+- 55/41 cal row
 ```
-Score: Time
+Score: Time, rest included
 
 ### Day 293 · Saturday · Northern Loop
 *Engine · 43 min · moderate*
@@ -10010,39 +10240,31 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 299 · Friday · Thunder Express
-*Compromised running · 42 min · hard*
+### Day 299 · Friday · Blackout Current
+*Race simulation · 42 min · hard*
 
 **Solo**
 ```
-For time, time cap 42 min
+7 rounds for time, time cap 42 min
 
-- 1000 m run
-- 37.5 m sled push (152/102 kg)
-- 1000 m run
-- 325 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 325 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 37.5 m sled push (152/102 kg)
-- 1000 m run
+7 rounds:
+- 15/11 cal SkiErg
+- 400 m run
+- 16 box step-overs (24/20 in)
+rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 42 min
+Team of 2: 7 rounds for time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-- 1000 m run
-- 50 m sled push (152/102 kg)
-- 1000 m run
-- 425 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 425 m farmers carry (2x24/2x16 kg)
-- 1000 m run
-- 50 m sled push (152/102 kg)
-- 1000 m run
+7 rounds:
+- 21/16 cal SkiErg
+- 400 m run
+- 20 box step-overs (24/20 in)
+rest 1 min between rounds
 ```
-Score: Time (or work done at the cap)
+Score: Time
 
 ### Day 300 · Saturday · Sled Storm
 *Engine · 45 min · moderate*
@@ -10257,41 +10479,39 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 306 · Friday · Wild Wave
-*Race simulation · 40 min · hard*
+### Day 306 · Friday · Red Line Shift
+*Compromised running · 42 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+For time, time cap 42 min
 
-3 rounds of:
-- 33/25 cal SkiErg
-- 40-30-25 goblet lunges (22.5/15 kg)
-
-then:
-- 1600 m run
-
-then 3 rounds of:
-- 23/17 cal SkiErg
-- 20 burpee broad jumps
+- 1000 m run
+- 60 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 30 burpee broad jumps
+- 1000 m run
+- 30 burpee broad jumps
+- 1000 m run
+- 60 m sandbag walking lunges (20/10 kg)
+- 1000 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: For time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 43/32 cal SkiErg
-- 50-40-30 goblet lunges (22.5/15 kg)
-
-then:
-- 1600 m run
-
-then 3 rounds of:
-- 30/22 cal SkiErg
-- 25 burpee broad jumps
+- 1000 m run
+- 80 m sandbag walking lunges (20/10 kg)
+- 1000 m run
+- 40 burpee broad jumps
+- 1000 m run
+- 40 burpee broad jumps
+- 1000 m run
+- 80 m sandbag walking lunges (20/10 kg)
+- 1000 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 307 · Saturday · Sled Rush
 *Engine · 48 min · moderate*
@@ -10490,39 +10710,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 313 · Friday · Steel Wave
+### Day 313 · Friday · Final Mile
 *Race simulation · 40 min · hard*
 
 **Solo**
 ```
 For time, time cap 40 min
 
-3 rounds of:
-- 34/26 cal SkiErg
-- 50-40-25 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 23/17 cal assault/echo bike
-- 20 burpees to target
+once through, in this order:
+- 1000 m run
+- 200 m farmers carry (2x24/2x16 kg)
+- 50 DB thrusters (2x15/10 kg)
+- 50 m sled push (152/102 kg)
+- 60 m burpee broad jumps
+- 1000 m SkiErg
+- 75 m sandbag walking lunges (20/10 kg)
+- 50 m sled pull (103/78 kg)
+- 1000 m run
 ```
 **Team of 2**
 ```
 Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 44/33 cal SkiErg
-- 65-50-30 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 30/22 cal assault/echo bike
-- 25 burpees to target
+once through, in this order:
+- 1000 m run
+- 250 m farmers carry (2x24/2x16 kg)
+- 65 DB thrusters (2x15/10 kg)
+- 75 m sled push (152/102 kg)
+- 80 m burpee broad jumps
+- 1300 m SkiErg
+- 100 m sandbag walking lunges (20/10 kg)
+- 75 m sled pull (103/78 kg)
+- 1000 m run
 ```
 Score: Time
 
@@ -10755,31 +10975,39 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 320 · Friday · Granite Chase
-*Race simulation · 41 min · hard*
+### Day 320 · Friday · Glacier Crossing
+*Race simulation · 46 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 41 min
+Race engine stations, for time, time cap 46 min
 
-6 rounds:
-- 15/11 cal assault/echo bike
-- 600 m run
-- 16 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1000 m SkiErg
+- 1000 m run
+- 80 m burpee broad jumps
+- 1000 m run
+- 1000 m row
+- 1000 m run
+- 100 wall balls (6/4 kg)
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 41 min
-Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
+Team of 2: Race engine stations, for time, time cap 46 min
+Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 21/16 cal assault/echo bike
-- 600 m run
-- 20 DB thrusters (2x15/10 kg)
-rest 1 min between rounds
+race weights, race order:
+- 1000 m run
+- 1300 m SkiErg
+- 1000 m run
+- 100 m burpee broad jumps
+- 1000 m run
+- 1300 m row
+- 1000 m run
+- 130 wall balls (6/4 kg)
 ```
-Score: Time
+Score: Time; note each run split
 
 ### Day 321 · Saturday · Iron Breaker
 *Engine · 45 min · moderate*
@@ -10975,41 +11203,41 @@ Work at the same time: one partner on each machine, swap every interval.
 ```
 Score: Average pace
 
-### Day 327 · Friday · Granite Haul
-*Race simulation · 40 min · hard*
+### Day 327 · Friday · Maple Storm
+*Compromised running · 46 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+For time, time cap 46 min
 
-3 rounds of:
-- 34/26 cal SkiErg
-- 65-45-25 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m row
+Start with:
+- 2400 m run
 
 then 3 rounds of:
-- 23/17 cal row
-- 20 burpees over the rower
+- 500 m row
+- 25 goblet lunges (22.5/15 kg)
+- 25 m sled push (152/102 kg)
+
+then finish with:
+- 2400 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 44/33 cal SkiErg
-- 85-60-30 DB thrusters (2x15/10 kg)
-
-then:
-- 2000 m row
+Start with:
+- 2400 m run
 
 then 3 rounds of:
-- 30/22 cal row
-- 25 burpees over the rower
+- 650 m row
+- 30 goblet lunges (22.5/15 kg)
+- 37.5 m sled push (152/102 kg)
+
+then finish with:
+- 2400 m run
 ```
-Score: Time
+Score: Time; note both run times
 
 ### Day 328 · Saturday · Lumber Ridge
 *Engine · 43 min · moderate*
@@ -11262,29 +11490,39 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 334 · Friday · Heavy Loop
-*Race simulation · 43 min · hard*
+### Day 334 · Friday · Blackout Storm
+*Race simulation · 40 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 43 min
+For time, time cap 40 min
 
-6 rounds:
-- 20/15 cal row
-- 600 m run
-- 20 KB swings (24/16 kg)
-rest 1 min between rounds
+3 rounds of:
+- 34/26 cal SkiErg
+- 50-40-25 KB swings (24/16 kg)
+
+then:
+- 1600 m run
+
+then 3 rounds of:
+- 23/17 cal SkiErg
+- 20 burpee box jump-overs (24/20 in)
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 43 min
+Team of 2: For time, time cap 40 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-6 rounds:
-- 28/21 cal row
-- 600 m run
-- 30 KB swings (24/16 kg)
-rest 1 min between rounds
+3 rounds of:
+- 44/33 cal SkiErg
+- 65-50-30 KB swings (24/16 kg)
+
+then:
+- 1600 m run
+
+then 3 rounds of:
+- 30/22 cal SkiErg
+- 25 burpee box jump-overs (24/20 in)
 ```
 Score: Time
 
@@ -11461,31 +11699,53 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 341 · Friday · Midnight Ridge
-*Race simulation · 40 min · hard*
+### Day 341 · Friday · Double Wave
+*Race simulation · 48 min · hard*
 
 **Solo**
 ```
-7 rounds for time, time cap 40 min
+3 blocks for time, rest 3 min between, time cap 48 min
 
-7 rounds:
-- 15/11 cal row
-- 400 m run
-- 20 KB swings (24/16 kg)
-rest 1 min between rounds
+Block 1:
+- 800 m run
+- 47/35 cal row
+- 40 burpee box jump-overs (24/20 in)
+rest 3 min
+
+Block 2:
+- 800 m run
+- 65 wall balls (6/4 kg)
+- 50 m sled push (152/102 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 50 m sled pull (103/78 kg)
+- 65 DB thrusters (2x15/10 kg)
 ```
 **Team of 2**
 ```
-Team of 2: 7 rounds for time, time cap 40 min
+Team of 2: 3 blocks for time, rest 3 min between, time cap 48 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-7 rounds:
-- 21/16 cal row
-- 400 m run
-- 30 KB swings (24/16 kg)
-rest 1 min between rounds
+Block 1:
+- 800 m run
+- 61/46 cal row
+- 50 burpee box jump-overs (24/20 in)
+rest 3 min
+
+Block 2:
+- 800 m run
+- 85 wall balls (6/4 kg)
+- 75 m sled push (152/102 kg)
+rest 3 min
+
+Block 3:
+- 800 m run
+- 75 m sled pull (103/78 kg)
+- 85 DB thrusters (2x15/10 kg)
 ```
-Score: Time
+Score: Time, rest included
 
 ### Day 342 · Saturday · Rideau Drift
 *Engine · 45 min · moderate*
@@ -11683,28 +11943,28 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 348 · Friday · Red Line Bridge
-*Race simulation · 40 min · hard*
+### Day 348 · Friday · Sled Pull
+*Race simulation · 42 min · hard*
 
 **Solo**
 ```
-6 rounds for time, time cap 40 min
+6 rounds for time, time cap 42 min
 
 6 rounds:
-- 15/11 cal assault/echo bike
+- 20/15 cal assault/echo bike
 - 600 m run
-- 8 burpee broad jumps
+- 20 KB swings (24/16 kg)
 rest 1 min between rounds
 ```
 **Team of 2**
 ```
-Team of 2: 6 rounds for time, time cap 40 min
+Team of 2: 6 rounds for time, time cap 42 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
 6 rounds:
-- 21/16 cal assault/echo bike
+- 28/21 cal assault/echo bike
 - 600 m run
-- 12 burpee broad jumps
+- 30 KB swings (24/16 kg)
 rest 1 min between rounds
 ```
 Score: Time
@@ -11923,31 +12183,43 @@ Do it side by side at a pace where you can both talk the whole time.
 ```
 Score: Total distance at an easy effort
 
-### Day 355 · Friday · Wolf Line
-*Race simulation · 44 min · hard*
+### Day 355 · Friday · Thunder Drift
+*Compromised running · 46 min · hard*
 
 **Solo**
 ```
-8 rounds for time, time cap 44 min
+For time, time cap 46 min
 
-8 rounds:
-- 15/11 cal assault/echo bike
-- 400 m run
-- 8 burpee broad jumps
-rest 1 min between rounds
+- 800 m run
+- 35/26 cal SkiErg
+- 800 m run
+- 35 burpee broad jumps
+- 800 m run
+- 325 m farmers carry (2x24/2x16 kg)
+- 800 m run
+- 35 burpee broad jumps
+- 800 m run
+- 35/26 cal SkiErg
+- 800 m run
 ```
 **Team of 2**
 ```
-Team of 2: 8 rounds for time, time cap 44 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-8 rounds:
-- 21/16 cal assault/echo bike
-- 400 m run
-- 12 burpee broad jumps
-rest 1 min between rounds
+- 800 m run
+- 46/34 cal SkiErg
+- 800 m run
+- 45 burpee broad jumps
+- 800 m run
+- 425 m farmers carry (2x24/2x16 kg)
+- 800 m run
+- 45 burpee broad jumps
+- 800 m run
+- 46/34 cal SkiErg
+- 800 m run
 ```
-Score: Time
+Score: Time (or work done at the cap)
 
 ### Day 356 · Saturday · Rideau Mile
 *Engine · 46 min · moderate*
@@ -12205,39 +12477,39 @@ P1 starts on the odd station and P2 on the even one; swap every minute and coach
 ```
 Score: None, quality only
 
-### Day 362 · Friday · Steel Crossing
-*Race simulation · 40 min · hard*
+### Day 362 · Friday · Canal Crossing
+*Race simulation · 46 min · hard*
 
 **Solo**
 ```
-For time, time cap 40 min
+For time, time cap 46 min
 
-3 rounds of:
-- 34/26 cal assault/echo bike
-- 50-40-25 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 23/17 cal SkiErg
-- 20 burpees over the rower
+once through, in this order:
+- 1000 m run
+- 65 KB swings (24/16 kg)
+- 1100 m SkiErg
+- 85 m sandbag walking lunges (20/10 kg)
+- 70 m burpee broad jumps
+- 45 burpee box jump-overs (24/20 in)
+- 50 m sled pull (103/78 kg)
+- 85 wall balls (6/4 kg)
+- 1000 m run
 ```
 **Team of 2**
 ```
-Team of 2: For time, time cap 40 min
+Team of 2: For time, time cap 46 min
 Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.
 
-3 rounds of:
-- 44/33 cal assault/echo bike
-- 65-50-30 wall balls (6/4 kg)
-
-then:
-- 2000 m run
-
-then 3 rounds of:
-- 30/22 cal SkiErg
-- 25 burpees over the rower
+once through, in this order:
+- 1000 m run
+- 85 KB swings (24/16 kg)
+- 1450 m SkiErg
+- 110 m sandbag walking lunges (20/10 kg)
+- 90 m burpee broad jumps
+- 60 burpee box jump-overs (24/20 in)
+- 75 m sled pull (103/78 kg)
+- 110 wall balls (6/4 kg)
+- 1000 m run
 ```
 Score: Time
 

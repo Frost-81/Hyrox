@@ -20,7 +20,7 @@
    "Tuesday": "Run + station intervals (hard)",
    "Wednesday": "Partner day: written for teams of 2 (moderate), solo version included",
    "Thursday": "Light aerobic (easy)",
-   "Friday": "For time / race simulation (hard)",
+   "Friday": "For time: a different format each week, from chippers to race simulations (hard)",
    "Saturday": "Engine: ergs, burpees, wall balls (moderate)",
    "Sunday": "Active recovery (optional)"
   },
@@ -291,52 +291,52 @@
    "day": 5,
    "week": 1,
    "weekday": "Friday",
-   "title": "Storm Rally",
+   "title": "Glacier Ridge",
    "theme": "Race simulation",
    "format": "Rounds for time",
-   "durationMin": 42,
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
-    "burpees",
-    "run"
+    "assault/echo bike",
+    "run",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 42 min",
+    "headline": "7 rounds for time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
+       "15/11 cal assault/echo bike",
        "400 m run",
-       "12 burpees"
+       "16 wall balls (6/4 kg)"
       ],
       "scheme": "7 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 42 min\n\n7 rounds:\n- 15/11 cal SkiErg\n- 400 m run\n- 12 burpees\nrest 1 min between rounds"
+    "text": "7 rounds for time, time cap 40 min\n\n7 rounds:\n- 15/11 cal assault/echo bike\n- 400 m run\n- 16 wall balls (6/4 kg)\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 42 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
+       "21/16 cal assault/echo bike",
        "400 m run",
-       "16 burpees"
+       "20 wall balls (6/4 kg)"
       ],
       "scheme": "7 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal SkiErg\n- 400 m run\n- 16 burpees\nrest 1 min between rounds"
+    "text": "Team of 2: 7 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal assault/echo bike\n- 400 m run\n- 20 wall balls (6/4 kg)\nrest 1 min between rounds"
    }
   },
   {
@@ -714,52 +714,65 @@
    "day": 12,
    "week": 2,
    "weekday": "Friday",
-   "title": "Frostbite March",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 43,
+   "title": "Midnight Wave",
+   "theme": "Compromised running",
+   "format": "For time",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpees",
+    "KB swings",
     "row",
-    "run"
+    "run",
+    "sandbag walking lunges"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 43 min",
+    "headline": "For time, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal row",
-       "400 m run",
-       "12 burpees"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "55 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "37/28 cal row",
+       "800 m run",
+       "75 KB swings (24/16 kg)",
+       "800 m run",
+       "37/28 cal row",
+       "800 m run",
+       "55 m sandbag walking lunges (20/10 kg)",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal row\n- 400 m run\n- 12 burpees\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 45 min\n\n- 800 m run\n- 55 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 37/28 cal row\n- 800 m run\n- 75 KB swings (24/16 kg)\n- 800 m run\n- 37/28 cal row\n- 800 m run\n- 55 m sandbag walking lunges (20/10 kg)\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
+    "headline": "Team of 2: For time, time cap 45 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal row",
-       "400 m run",
-       "16 burpees"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "70 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "48/36 cal row",
+       "800 m run",
+       "100 KB swings (24/16 kg)",
+       "800 m run",
+       "48/36 cal row",
+       "800 m run",
+       "70 m sandbag walking lunges (20/10 kg)",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal row\n- 400 m run\n- 16 burpees\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 70 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 48/36 cal row\n- 800 m run\n- 100 KB swings (24/16 kg)\n- 800 m run\n- 48/36 cal row\n- 800 m run\n- 70 m sandbag walking lunges (20/10 kg)\n- 800 m run"
    }
   },
   {
@@ -1131,62 +1144,70 @@
    "day": 19,
    "week": 3,
    "weekday": "Friday",
-   "title": "Prairie Circuit",
+   "title": "Prairie Climb",
    "theme": "Race simulation",
-   "format": "Simulation",
-   "durationMin": 45,
+   "format": "Chipper",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
+    "DB thrusters",
+    "KB swings",
+    "burpee box jump-overs",
+    "burpee broad jumps",
+    "farmers carry",
     "row",
     "run",
-    "sandbag walking lunges",
-    "sled pull"
+    "sled pull",
+    "sled push"
    ],
    "solo": {
-    "headline": "Race odd stations, for time, time cap 45 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "1000 m SkiErg",
-       "1000 m run",
        "50 m sled pull (103/78 kg)",
-       "1000 m run",
+       "50 DB thrusters (2x15/10 kg)",
+       "60 KB swings (24/16 kg)",
+       "60 m burpee broad jumps",
+       "200 m farmers carry (2x24/2x16 kg)",
        "1000 m row",
-       "1000 m run",
-       "100 m sandbag walking lunges (20/10 kg)"
+       "50 m sled push (152/102 kg)",
+       "40 burpee box jump-overs (24/20 in)",
+       "1000 m run"
       ],
-      "scheme": "race weights, race order"
+      "scheme": "once through, in this order"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Race odd stations, for time, time cap 45 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m SkiErg\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 1000 m run\n- 1000 m row\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)"
+    "scoring": "Time",
+    "text": "For time, time cap 40 min\n\nonce through, in this order:\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 50 DB thrusters (2x15/10 kg)\n- 60 KB swings (24/16 kg)\n- 60 m burpee broad jumps\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m row\n- 50 m sled push (152/102 kg)\n- 40 burpee box jump-overs (24/20 in)\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: Race odd stations, for time, time cap 45 min",
-    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: For time, time cap 40 min",
+    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "1300 m SkiErg",
-       "1000 m run",
        "75 m sled pull (103/78 kg)",
-       "1000 m run",
+       "65 DB thrusters (2x15/10 kg)",
+       "80 KB swings (24/16 kg)",
+       "80 m burpee broad jumps",
+       "250 m farmers carry (2x24/2x16 kg)",
        "1300 m row",
-       "1000 m run",
-       "130 m sandbag walking lunges (20/10 kg)"
+       "75 m sled push (152/102 kg)",
+       "50 burpee box jump-overs (24/20 in)",
+       "1000 m run"
       ],
-      "scheme": "race weights, race order"
+      "scheme": "once through, in this order"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Team of 2: Race odd stations, for time, time cap 45 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m SkiErg\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 1000 m run\n- 1300 m row\n- 1000 m run\n- 130 m sandbag walking lunges (20/10 kg)"
+    "scoring": "Time",
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 65 DB thrusters (2x15/10 kg)\n- 80 KB swings (24/16 kg)\n- 80 m burpee broad jumps\n- 250 m farmers carry (2x24/2x16 kg)\n- 1300 m row\n- 75 m sled push (152/102 kg)\n- 50 burpee box jump-overs (24/20 in)\n- 1000 m run"
    }
   },
   {
@@ -1607,52 +1628,62 @@
    "day": 26,
    "week": 4,
    "weekday": "Friday",
-   "title": "Glacier Ridge",
+   "title": "Rideau Circuit",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 41,
+   "format": "Simulation",
+   "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpees",
+    "farmers carry",
     "row",
-    "run"
+    "run",
+    "sandbag walking lunges",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 41 min",
+    "headline": "Race back half, for time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal row",
-       "400 m run",
-       "12 burpees"
+       "1000 m run",
+       "1000 m row",
+       "1000 m run",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "1000 m run",
+       "100 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "100 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 41 min\n\n7 rounds:\n- 15/11 cal row\n- 400 m run\n- 12 burpees\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Race back half, for time, time cap 44 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m row\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 100 wall balls (6/4 kg)"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 41 min",
-    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: Race back half, for time, time cap 44 min",
+    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal row",
-       "400 m run",
-       "16 burpees"
+       "1000 m run",
+       "1300 m row",
+       "1000 m run",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "1000 m run",
+       "130 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "130 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal row\n- 400 m run\n- 16 burpees\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Team of 2: Race back half, for time, time cap 44 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m row\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 130 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 130 wall balls (6/4 kg)"
    }
   },
   {
@@ -2051,52 +2082,75 @@
    "day": 33,
    "week": 5,
    "weekday": "Friday",
-   "title": "Wild Engine",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 44,
+   "title": "Heavy Gauntlet",
+   "theme": "Compromised running",
+   "format": "Bookends",
+   "durationMin": 48,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpees",
-    "row",
-    "run"
+    "KB swings",
+    "SkiErg",
+    "run",
+    "wall balls"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 48 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal row",
-       "600 m run",
-       "12 burpees"
+       "1600 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "500 m SkiErg",
+       "30 wall balls (6/4 kg)",
+       "40 KB swings (24/16 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "6 rounds for time, time cap 44 min\n\n6 rounds:\n- 20/15 cal row\n- 600 m run\n- 12 burpees\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 48 min\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 500 m SkiErg\n- 30 wall balls (6/4 kg)\n- 40 KB swings (24/16 kg)\n\nthen finish with:\n- 1600 m run"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 48 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal row",
-       "600 m run",
-       "16 burpees"
+       "1600 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "650 m SkiErg",
+       "40 wall balls (6/4 kg)",
+       "50 KB swings (24/16 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal row\n- 600 m run\n- 16 burpees\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 48 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 650 m SkiErg\n- 40 wall balls (6/4 kg)\n- 50 KB swings (24/16 kg)\n\nthen finish with:\n- 1600 m run"
    }
   },
   {
@@ -2553,52 +2607,74 @@
    "day": 40,
    "week": 6,
    "weekday": "Friday",
-   "title": "Long Express",
+   "title": "Sled Run",
    "theme": "Race simulation",
-   "format": "Rounds for time",
+   "format": "Three parts",
    "durationMin": 41,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "assault/echo bike",
-    "burpee broad jumps",
-    "run"
+    "SkiErg",
+    "burpees over the rower",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 41 min",
+    "headline": "For time, time cap 41 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal assault/echo bike",
-       "400 m run",
-       "8 burpee broad jumps"
+       "34/26 cal SkiErg",
+       "65-45-25 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "23/17 cal SkiErg",
+       "20 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 41 min\n\n7 rounds:\n- 20/15 cal assault/echo bike\n- 400 m run\n- 8 burpee broad jumps\nrest 1 min between rounds"
+    "text": "For time, time cap 41 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 65-45-25 wall balls (6/4 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 23/17 cal SkiErg\n- 20 burpees over the rower"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 41 min",
+    "headline": "Team of 2: For time, time cap 41 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal assault/echo bike",
-       "400 m run",
-       "12 burpee broad jumps"
+       "44/33 cal SkiErg",
+       "85-60-30 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "30/22 cal SkiErg",
+       "25 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal assault/echo bike\n- 400 m run\n- 12 burpee broad jumps\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 85-60-30 wall balls (6/4 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 30/22 cal SkiErg\n- 25 burpees over the rower"
    }
   },
   {
@@ -2992,69 +3068,90 @@
    "day": 47,
    "week": 7,
    "weekday": "Friday",
-   "title": "Silent Push",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 42,
+   "title": "Steel Haul",
+   "theme": "Race simulation",
+   "format": "Blocks for time",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "KB swings",
+    "SkiErg",
+    "burpee box jump-overs",
+    "burpee broad jumps",
     "run",
-    "sled push",
-    "wall balls"
+    "sled push"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "3 blocks for time, rest 2 min between, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "400 m run",
-       "45 wall balls (6/4 kg)",
-       "600 m run",
-       "37.5 m sled push (152/102 kg)",
-       "800 m run",
-       "55 KB swings (24/16 kg)",
        "1000 m run",
-       "55 KB swings (24/16 kg)",
-       "800 m run",
-       "37.5 m sled push (152/102 kg)",
-       "600 m run",
-       "45 wall balls (6/4 kg)",
-       "400 m run"
-      ]
+       "60 DB thrusters (2x15/10 kg)",
+       "80 KB swings (24/16 kg)"
+      ],
+      "label": "Block 1",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "35 burpee broad jumps",
+       "50 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "35 burpee box jump-overs (24/20 in)",
+       "40/30 cal SkiErg"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 42 min\n\n- 400 m run\n- 45 wall balls (6/4 kg)\n- 600 m run\n- 37.5 m sled push (152/102 kg)\n- 800 m run\n- 55 KB swings (24/16 kg)\n- 1000 m run\n- 55 KB swings (24/16 kg)\n- 800 m run\n- 37.5 m sled push (152/102 kg)\n- 600 m run\n- 45 wall balls (6/4 kg)\n- 400 m run"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 2 min between, time cap 46 min\n\nBlock 1:\n- 1000 m run\n- 60 DB thrusters (2x15/10 kg)\n- 80 KB swings (24/16 kg)\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 35 burpee broad jumps\n- 50 m sled push (152/102 kg)\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 35 burpee box jump-overs (24/20 in)\n- 40/30 cal SkiErg"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
+    "headline": "Team of 2: 3 blocks for time, rest 2 min between, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "400 m run",
-       "60 wall balls (6/4 kg)",
-       "600 m run",
-       "50 m sled push (152/102 kg)",
-       "800 m run",
-       "70 KB swings (24/16 kg)",
        "1000 m run",
-       "70 KB swings (24/16 kg)",
-       "800 m run",
-       "50 m sled push (152/102 kg)",
-       "600 m run",
-       "60 wall balls (6/4 kg)",
-       "400 m run"
-      ]
+       "80 DB thrusters (2x15/10 kg)",
+       "105 KB swings (24/16 kg)"
+      ],
+      "label": "Block 1",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "45 burpee broad jumps",
+       "75 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "45 burpee box jump-overs (24/20 in)",
+       "52/39 cal SkiErg"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 400 m run\n- 60 wall balls (6/4 kg)\n- 600 m run\n- 50 m sled push (152/102 kg)\n- 800 m run\n- 70 KB swings (24/16 kg)\n- 1000 m run\n- 70 KB swings (24/16 kg)\n- 800 m run\n- 50 m sled push (152/102 kg)\n- 600 m run\n- 60 wall balls (6/4 kg)\n- 400 m run"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 2 min between, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 1000 m run\n- 80 DB thrusters (2x15/10 kg)\n- 105 KB swings (24/16 kg)\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 45 burpee broad jumps\n- 75 m sled push (152/102 kg)\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 45 burpee box jump-overs (24/20 in)\n- 52/39 cal SkiErg"
    }
   },
   {
@@ -3437,52 +3534,52 @@
    "day": 54,
    "week": 8,
    "weekday": "Friday",
-   "title": "Midnight Wave",
+   "title": "Wolf Vault",
    "theme": "Race simulation",
    "format": "Rounds for time",
-   "durationMin": 44,
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
     "SkiErg",
-    "goblet lunges",
+    "burpees",
     "run"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 44 min",
+    "headline": "5 rounds for time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "20/15 cal SkiErg",
-       "400 m run",
-       "18 goblet lunges (22.5/15 kg)"
+       "600 m run",
+       "12 burpees"
       ],
-      "scheme": "7 rounds",
+      "scheme": "5 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 44 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 18 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "5 rounds for time, time cap 40 min\n\n5 rounds:\n- 20/15 cal SkiErg\n- 600 m run\n- 12 burpees\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 44 min",
+    "headline": "Team of 2: 5 rounds for time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "28/21 cal SkiErg",
-       "400 m run",
-       "25 goblet lunges (22.5/15 kg)"
+       "600 m run",
+       "16 burpees"
       ],
-      "scheme": "7 rounds",
+      "scheme": "5 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal SkiErg\n- 400 m run\n- 25 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: 5 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n5 rounds:\n- 28/21 cal SkiErg\n- 600 m run\n- 16 burpees\nrest 1 min between rounds"
    }
   },
   {
@@ -3843,75 +3940,60 @@
    "day": 61,
    "week": 9,
    "weekday": "Friday",
-   "title": "Thunder Ladder",
-   "theme": "Race simulation",
+   "title": "Northern March",
+   "theme": "Compromised running",
    "format": "For time",
-   "durationMin": 40,
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
-    "burpees to target",
+    "burpees",
     "run",
-    "wall balls"
+    "sled push"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "For time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "29/22 cal SkiErg",
-       "55-40-20 wall balls (6/4 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "20/15 cal SkiErg",
-       "18 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+       "1000 m run",
+       "45 burpees",
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "45 burpees",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 29/22 cal SkiErg\n- 55-40-20 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 20/15 cal SkiErg\n- 18 burpees to target"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 42 min\n\n- 1000 m run\n- 45 burpees\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 45 burpees\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: For time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "38/28 cal SkiErg",
-       "70-50-25 wall balls (6/4 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "26/20 cal SkiErg",
-       "25 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+       "1000 m run",
+       "55 burpees",
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "55 burpees",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 38/28 cal SkiErg\n- 70-50-25 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 26/20 cal SkiErg\n- 25 burpees to target"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 55 burpees\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 55 burpees\n- 1000 m run"
    }
   },
   {
@@ -4283,52 +4365,67 @@
    "day": 68,
    "week": 10,
    "weekday": "Friday",
-   "title": "Ottawa Crossing",
+   "title": "Midnight Storm",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Chipper",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
+    "KB swings",
     "SkiErg",
-    "box step-overs",
-    "run"
+    "burpee box jump-overs",
+    "farmers carry",
+    "run",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
-       "600 m run",
-       "16 box step-overs (24/20 in)"
+       "800 m run",
+       "55 DB thrusters (2x15/10 kg)",
+       "85 wall balls (6/4 kg)",
+       "1150 m SkiErg",
+       "70 KB swings (24/16 kg)",
+       "50 m sled push (152/102 kg)",
+       "225 m farmers carry (2x24/2x16 kg)",
+       "45 burpee box jump-overs (24/20 in)",
+       "800 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 42 min\n\n6 rounds:\n- 15/11 cal SkiErg\n- 600 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "text": "For time, time cap 40 min\n\nonce through, in this order:\n- 800 m run\n- 55 DB thrusters (2x15/10 kg)\n- 85 wall balls (6/4 kg)\n- 1150 m SkiErg\n- 70 KB swings (24/16 kg)\n- 50 m sled push (152/102 kg)\n- 225 m farmers carry (2x24/2x16 kg)\n- 45 burpee box jump-overs (24/20 in)\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
-       "600 m run",
-       "20 box step-overs (24/20 in)"
+       "800 m run",
+       "70 DB thrusters (2x15/10 kg)",
+       "110 wall balls (6/4 kg)",
+       "1500 m SkiErg",
+       "90 KB swings (24/16 kg)",
+       "75 m sled push (152/102 kg)",
+       "300 m farmers carry (2x24/2x16 kg)",
+       "60 burpee box jump-overs (24/20 in)",
+       "800 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 21/16 cal SkiErg\n- 600 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 800 m run\n- 70 DB thrusters (2x15/10 kg)\n- 110 wall balls (6/4 kg)\n- 1500 m SkiErg\n- 90 KB swings (24/16 kg)\n- 75 m sled push (152/102 kg)\n- 300 m farmers carry (2x24/2x16 kg)\n- 60 burpee box jump-overs (24/20 in)\n- 800 m run"
    }
   },
   {
@@ -4687,82 +4784,62 @@
    "day": 75,
    "week": 11,
    "weekday": "Friday",
-   "title": "Northern Bridge",
+   "title": "Wild Wave",
    "theme": "Race simulation",
    "format": "Simulation",
-   "durationMin": 45,
+   "durationMin": 41,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
-    "burpee broad jumps",
     "farmers carry",
-    "row",
     "run",
     "sandbag walking lunges",
     "sled pull",
-    "sled push",
-    "wall balls"
+    "sled push"
    ],
    "solo": {
-    "headline": "All 8 race stations at half volume, for time, time cap 45 min",
+    "headline": "Race strength stations, for time, time cap 41 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "500 m run",
-       "500 m SkiErg",
-       "500 m run",
-       "25 m sled push (152/102 kg)",
-       "500 m run",
-       "25 m sled pull (103/78 kg)",
-       "500 m run",
-       "40 m burpee broad jumps",
-       "500 m run",
-       "500 m row",
-       "500 m run",
-       "100 m farmers carry (2x24/2x16 kg)",
-       "500 m run",
-       "50 m sandbag walking lunges (20/10 kg)",
-       "500 m run",
-       "50 wall balls (6/4 kg)"
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "50 m sled pull (103/78 kg)",
+       "1000 m run",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "1000 m run",
+       "100 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "race weights, race order"
      }
     ],
     "scoring": "Time; note each run split",
-    "text": "All 8 race stations at half volume, for time, time cap 45 min\n\nrace weights, race order:\n- 500 m run\n- 500 m SkiErg\n- 500 m run\n- 25 m sled push (152/102 kg)\n- 500 m run\n- 25 m sled pull (103/78 kg)\n- 500 m run\n- 40 m burpee broad jumps\n- 500 m run\n- 500 m row\n- 500 m run\n- 100 m farmers carry (2x24/2x16 kg)\n- 500 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 500 m run\n- 50 wall balls (6/4 kg)"
+    "text": "Race strength stations, for time, time cap 41 min\n\nrace weights, race order:\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)"
    },
    "team": {
-    "headline": "Team of 2: All 8 race stations at half volume, for time, time cap 45 min",
+    "headline": "Team of 2: Race strength stations, for time, time cap 41 min",
     "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "500 m run",
-       "650 m SkiErg",
-       "500 m run",
-       "37.5 m sled push (152/102 kg)",
-       "500 m run",
-       "37.5 m sled pull (103/78 kg)",
-       "500 m run",
-       "50 m burpee broad jumps",
-       "500 m run",
-       "650 m row",
-       "500 m run",
-       "125 m farmers carry (2x24/2x16 kg)",
-       "500 m run",
-       "65 m sandbag walking lunges (20/10 kg)",
-       "500 m run",
-       "65 wall balls (6/4 kg)"
+       "1000 m run",
+       "75 m sled push (152/102 kg)",
+       "1000 m run",
+       "75 m sled pull (103/78 kg)",
+       "1000 m run",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "1000 m run",
+       "130 m sandbag walking lunges (20/10 kg)"
       ],
       "scheme": "race weights, race order"
      }
     ],
     "scoring": "Time; note each run split",
-    "text": "Team of 2: All 8 race stations at half volume, for time, time cap 45 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 500 m run\n- 650 m SkiErg\n- 500 m run\n- 37.5 m sled push (152/102 kg)\n- 500 m run\n- 37.5 m sled pull (103/78 kg)\n- 500 m run\n- 50 m burpee broad jumps\n- 500 m run\n- 650 m row\n- 500 m run\n- 125 m farmers carry (2x24/2x16 kg)\n- 500 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 500 m run\n- 65 wall balls (6/4 kg)"
+    "text": "Team of 2: Race strength stations, for time, time cap 41 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 130 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -5265,62 +5342,75 @@
    "day": 82,
    "week": 12,
    "weekday": "Friday",
-   "title": "Prairie Climb",
-   "theme": "Race simulation",
-   "format": "Simulation",
-   "durationMin": 42,
+   "title": "Heavy Loop",
+   "theme": "Compromised running",
+   "format": "Bookends",
+   "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpee broad jumps",
-    "farmers carry",
+    "BikeErg",
     "run",
     "sled push",
     "wall balls"
    ],
    "solo": {
-    "headline": "Race even stations, for time, time cap 42 min",
+    "headline": "For time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "50 m sled push (152/102 kg)",
-       "1000 m run",
-       "80 m burpee broad jumps",
-       "1000 m run",
-       "200 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "100 wall balls (6/4 kg)"
+       "1600 m run"
       ],
-      "scheme": "race weights, race order"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1000 m BikeErg",
+       "30 wall balls (6/4 kg)",
+       "25 m sled push (152/102 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Race even stations, for time, time cap 42 min\n\nrace weights, race order:\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 80 m burpee broad jumps\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 100 wall balls (6/4 kg)"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 44 min\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 1000 m BikeErg\n- 30 wall balls (6/4 kg)\n- 25 m sled push (152/102 kg)\n\nthen finish with:\n- 1600 m run"
    },
    "team": {
-    "headline": "Team of 2: Race even stations, for time, time cap 42 min",
-    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: For time, time cap 44 min",
+    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "75 m sled push (152/102 kg)",
-       "1000 m run",
-       "100 m burpee broad jumps",
-       "1000 m run",
-       "250 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "130 wall balls (6/4 kg)"
+       "1600 m run"
       ],
-      "scheme": "race weights, race order"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1250 m BikeErg",
+       "40 wall balls (6/4 kg)",
+       "37.5 m sled push (152/102 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Team of 2: Race even stations, for time, time cap 42 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 1000 m run\n- 100 m burpee broad jumps\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 130 wall balls (6/4 kg)"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 1250 m BikeErg\n- 40 wall balls (6/4 kg)\n- 37.5 m sled push (152/102 kg)\n\nthen finish with:\n- 1600 m run"
    }
   },
   {
@@ -5733,52 +5823,75 @@
    "day": 89,
    "week": 13,
    "weekday": "Friday",
-   "title": "Steel Breaker",
+   "title": "Steel Crossing",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Three parts",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "SkiErg",
-    "goblet lunges",
-    "run"
+    "assault/echo bike",
+    "burpees over the rower"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
-       "600 m run",
-       "18 goblet lunges (22.5/15 kg)"
+       "31/23 cal assault/echo bike",
+       "60-40-25 DB thrusters (2x15/10 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "22/16 cal SkiErg",
+       "20 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 42 min\n\n6 rounds:\n- 15/11 cal SkiErg\n- 600 m run\n- 18 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 31/23 cal assault/echo bike\n- 60-40-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 22/16 cal SkiErg\n- 20 burpees over the rower"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
-       "600 m run",
-       "25 goblet lunges (22.5/15 kg)"
+       "40/30 cal assault/echo bike",
+       "80-50-30 DB thrusters (2x15/10 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "29/22 cal SkiErg",
+       "25 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 21/16 cal SkiErg\n- 600 m run\n- 25 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 40/30 cal assault/echo bike\n- 80-50-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 29/22 cal SkiErg\n- 25 burpees over the rower"
    }
   },
   {
@@ -6156,52 +6269,90 @@
    "day": 96,
    "week": 14,
    "weekday": "Friday",
-   "title": "Midnight Vault",
+   "title": "Steel Gauntlet",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Blocks for time",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
     "SkiErg",
-    "run"
+    "burpee box jump-overs",
+    "farmers carry",
+    "row",
+    "run",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 42 min",
+    "headline": "3 blocks for time, rest 2 min between, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
-       "400 m run",
-       "16 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "275 m farmers carry (2x24/2x16 kg)",
+       "37.5 m sled push (152/102 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "37/28 cal row",
+       "33/25 cal SkiErg"
+      ],
+      "label": "Block 2",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "30 burpee box jump-overs (24/20 in)",
+       "50 wall balls (6/4 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 42 min\n\n7 rounds:\n- 15/11 cal SkiErg\n- 400 m run\n- 16 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 2 min between, time cap 40 min\n\nBlock 1:\n- 1000 m run\n- 275 m farmers carry (2x24/2x16 kg)\n- 37.5 m sled push (152/102 kg)\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 37/28 cal row\n- 33/25 cal SkiErg\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 30 burpee box jump-overs (24/20 in)\n- 50 wall balls (6/4 kg)"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 42 min",
+    "headline": "Team of 2: 3 blocks for time, rest 2 min between, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
-       "400 m run",
-       "20 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "350 m farmers carry (2x24/2x16 kg)",
+       "50 m sled push (152/102 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "48/36 cal row",
+       "43/32 cal SkiErg"
+      ],
+      "label": "Block 2",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "1000 m run",
+       "40 burpee box jump-overs (24/20 in)",
+       "65 wall balls (6/4 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal SkiErg\n- 400 m run\n- 20 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 2 min between, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 1000 m run\n- 350 m farmers carry (2x24/2x16 kg)\n- 50 m sled push (152/102 kg)\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 48/36 cal row\n- 43/32 cal SkiErg\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 40 burpee box jump-overs (24/20 in)\n- 65 wall balls (6/4 kg)"
    }
   },
   {
@@ -6642,69 +6793,52 @@
    "day": 103,
    "week": 15,
    "weekday": "Friday",
-   "title": "Frostbite Storm",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 46,
+   "title": "Silent Loop",
+   "theme": "Race simulation",
+   "format": "Rounds for time",
+   "durationMin": 43,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "row",
-    "run",
-    "sandbag walking lunges",
-    "sled push"
+    "SkiErg",
+    "burpee broad jumps",
+    "run"
    ],
    "solo": {
-    "headline": "For time, time cap 46 min",
+    "headline": "7 rounds for time, time cap 43 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "20/15 cal SkiErg",
        "400 m run",
-       "36/27 cal row",
-       "600 m run",
-       "37.5 m sled push (152/102 kg)",
-       "800 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "37.5 m sled push (152/102 kg)",
-       "600 m run",
-       "36/27 cal row",
-       "400 m run"
-      ]
+       "8 burpee broad jumps"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 46 min\n\n- 400 m run\n- 36/27 cal row\n- 600 m run\n- 37.5 m sled push (152/102 kg)\n- 800 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 37.5 m sled push (152/102 kg)\n- 600 m run\n- 36/27 cal row\n- 400 m run"
+    "scoring": "Time",
+    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 8 burpee broad jumps\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 46 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "26/20 cal SkiErg",
        "400 m run",
-       "47/35 cal row",
-       "600 m run",
-       "50 m sled push (152/102 kg)",
-       "800 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "50 m sled push (152/102 kg)",
-       "600 m run",
-       "47/35 cal row",
-       "400 m run"
-      ]
+       "10 burpee broad jumps"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 400 m run\n- 47/35 cal row\n- 600 m run\n- 50 m sled push (152/102 kg)\n- 800 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 50 m sled push (152/102 kg)\n- 600 m run\n- 47/35 cal row\n- 400 m run"
+    "scoring": "Time",
+    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 26/20 cal SkiErg\n- 400 m run\n- 10 burpee broad jumps\nrest 1 min between rounds"
    }
   },
   {
@@ -7168,52 +7302,65 @@
    "day": 110,
    "week": 16,
    "weekday": "Friday",
-   "title": "Rideau Circuit",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 44,
+   "title": "Quick March",
+   "theme": "Compromised running",
+   "format": "For time",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "KB swings",
-    "SkiErg",
-    "run"
+    "row",
+    "run",
+    "sandbag walking lunges",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal SkiErg",
-       "400 m run",
-       "20 KB swings (24/16 kg)"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "42/32 cal row",
+       "800 m run",
+       "50 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "55 wall balls (6/4 kg)",
+       "800 m run",
+       "50 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "42/32 cal row",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 44 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 20 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 46 min\n\n- 800 m run\n- 42/32 cal row\n- 800 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 55 wall balls (6/4 kg)\n- 800 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 42/32 cal row\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal SkiErg",
-       "400 m run",
-       "30 KB swings (24/16 kg)"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "55/41 cal row",
+       "800 m run",
+       "65 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "70 wall balls (6/4 kg)",
+       "800 m run",
+       "65 m sandbag walking lunges (20/10 kg)",
+       "800 m run",
+       "55/41 cal row",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal SkiErg\n- 400 m run\n- 30 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 55/41 cal row\n- 800 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 70 wall balls (6/4 kg)\n- 800 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 55/41 cal row\n- 800 m run"
    }
   },
   {
@@ -7602,52 +7749,67 @@
    "day": 117,
    "week": 17,
    "weekday": "Friday",
-   "title": "Midnight Mile",
+   "title": "Hollow Ridge",
    "theme": "Race simulation",
-   "format": "Rounds for time",
+   "format": "Chipper",
    "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
     "SkiErg",
-    "run"
+    "burpee box jump-overs",
+    "burpee broad jumps",
+    "farmers carry",
+    "row",
+    "run",
+    "sled pull",
+    "sled push"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal SkiErg",
-       "400 m run",
-       "16 DB thrusters (2x15/10 kg)"
+       "1200 m run",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "1000 m SkiErg",
+       "40 burpee box jump-overs (24/20 in)",
+       "50 m sled pull (103/78 kg)",
+       "60 m burpee broad jumps",
+       "50 m sled push (152/102 kg)",
+       "1000 m row",
+       "1200 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 44 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 16 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "text": "For time, time cap 44 min\n\nonce through, in this order:\n- 1200 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m SkiErg\n- 40 burpee box jump-overs (24/20 in)\n- 50 m sled pull (103/78 kg)\n- 60 m burpee broad jumps\n- 50 m sled push (152/102 kg)\n- 1000 m row\n- 1200 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 44 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal SkiErg",
-       "400 m run",
-       "20 DB thrusters (2x15/10 kg)"
+       "1200 m run",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "1300 m SkiErg",
+       "50 burpee box jump-overs (24/20 in)",
+       "75 m sled pull (103/78 kg)",
+       "80 m burpee broad jumps",
+       "75 m sled push (152/102 kg)",
+       "1300 m row",
+       "1200 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal SkiErg\n- 400 m run\n- 20 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 1200 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1300 m SkiErg\n- 50 burpee box jump-overs (24/20 in)\n- 75 m sled pull (103/78 kg)\n- 80 m burpee broad jumps\n- 75 m sled push (152/102 kg)\n- 1300 m row\n- 1200 m run"
    }
   },
   {
@@ -8044,52 +8206,62 @@
    "day": 124,
    "week": 18,
    "weekday": "Friday",
-   "title": "Burner Bridge",
+   "title": "Northern Ladder",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 40,
+   "format": "Simulation",
+   "durationMin": 43,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "assault/echo bike",
-    "box step-overs",
-    "run"
+    "SkiErg",
+    "burpee broad jumps",
+    "run",
+    "sled pull",
+    "sled push"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 40 min",
+    "headline": "Race front half, for time, time cap 43 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal assault/echo bike",
-       "400 m run",
-       "16 box step-overs (24/20 in)"
+       "1000 m run",
+       "1000 m SkiErg",
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "50 m sled pull (103/78 kg)",
+       "1000 m run",
+       "80 m burpee broad jumps"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 40 min\n\n7 rounds:\n- 15/11 cal assault/echo bike\n- 400 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Race front half, for time, time cap 43 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m SkiErg\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 1000 m run\n- 80 m burpee broad jumps"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 40 min",
-    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: Race front half, for time, time cap 43 min",
+    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal assault/echo bike",
-       "400 m run",
-       "20 box step-overs (24/20 in)"
+       "1000 m run",
+       "1300 m SkiErg",
+       "1000 m run",
+       "75 m sled push (152/102 kg)",
+       "1000 m run",
+       "75 m sled pull (103/78 kg)",
+       "1000 m run",
+       "100 m burpee broad jumps"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal assault/echo bike\n- 400 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Team of 2: Race front half, for time, time cap 43 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m SkiErg\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 1000 m run\n- 100 m burpee broad jumps"
    }
   },
   {
@@ -8445,65 +8617,75 @@
    "day": 131,
    "week": 19,
    "weekday": "Friday",
-   "title": "Steel Push",
+   "title": "Red Line Mile",
    "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 44,
+   "format": "Bookends",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "KB swings",
     "SkiErg",
     "burpees",
-    "run",
-    "sled push"
+    "run"
    ],
    "solo": {
-    "headline": "For time, time cap 44 min",
+    "headline": "For time, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "40 burpees",
-       "800 m run",
-       "37/28 cal SkiErg",
-       "800 m run",
-       "37.5 m sled push (152/102 kg)",
-       "800 m run",
-       "37/28 cal SkiErg",
-       "800 m run",
-       "40 burpees",
-       "800 m run"
-      ]
+       "2000 m run"
+      ],
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "500 m SkiErg",
+       "16 burpees",
+       "25 KB swings (24/16 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 44 min\n\n- 800 m run\n- 40 burpees\n- 800 m run\n- 37/28 cal SkiErg\n- 800 m run\n- 37.5 m sled push (152/102 kg)\n- 800 m run\n- 37/28 cal SkiErg\n- 800 m run\n- 40 burpees\n- 800 m run"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 45 min\n\nStart with:\n- 2000 m run\n\nthen 4 rounds of:\n- 500 m SkiErg\n- 16 burpees\n- 25 KB swings (24/16 kg)\n\nthen finish with:\n- 2000 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 45 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "50 burpees",
-       "800 m run",
-       "48/36 cal SkiErg",
-       "800 m run",
-       "50 m sled push (152/102 kg)",
-       "800 m run",
-       "48/36 cal SkiErg",
-       "800 m run",
-       "50 burpees",
-       "800 m run"
-      ]
+       "2000 m run"
+      ],
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "650 m SkiErg",
+       "20 burpees",
+       "30 KB swings (24/16 kg)"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 50 burpees\n- 800 m run\n- 48/36 cal SkiErg\n- 800 m run\n- 50 m sled push (152/102 kg)\n- 800 m run\n- 48/36 cal SkiErg\n- 800 m run\n- 50 burpees\n- 800 m run"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 2000 m run\n\nthen 4 rounds of:\n- 650 m SkiErg\n- 20 burpees\n- 30 KB swings (24/16 kg)\n\nthen finish with:\n- 2000 m run"
    }
   },
   {
@@ -8906,52 +9088,75 @@
    "day": 138,
    "week": 20,
    "weekday": "Friday",
-   "title": "Heavy Gauntlet",
+   "title": "Rideau Engine",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 44,
+   "format": "Three parts",
+   "durationMin": 41,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "SkiErg",
-    "burpee broad jumps",
-    "run"
+    "burpees over the rower",
+    "row"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 41 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal SkiErg",
-       "600 m run",
-       "8 burpee broad jumps"
+       "34/26 cal SkiErg",
+       "65-45-25 DB thrusters (2x15/10 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "23/17 cal row",
+       "20 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 44 min\n\n6 rounds:\n- 20/15 cal SkiErg\n- 600 m run\n- 8 burpee broad jumps\nrest 1 min between rounds"
+    "text": "For time, time cap 41 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 65-45-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 23/17 cal row\n- 20 burpees over the rower"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 41 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal SkiErg",
-       "600 m run",
-       "12 burpee broad jumps"
+       "44/33 cal SkiErg",
+       "85-60-30 DB thrusters (2x15/10 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "30/22 cal row",
+       "25 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal SkiErg\n- 600 m run\n- 12 burpee broad jumps\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 85-60-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 30/22 cal row\n- 25 burpees over the rower"
    }
   },
   {
@@ -9374,75 +9579,110 @@
    "day": 145,
    "week": 21,
    "weekday": "Friday",
-   "title": "Final Circuit",
+   "title": "Red Line Circuit",
    "theme": "Race simulation",
-   "format": "For time",
-   "durationMin": 40,
+   "format": "Blocks for time",
+   "durationMin": 48,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
+    "KB swings",
     "SkiErg",
-    "assault/echo bike",
-    "burpees over the rower",
+    "burpee box jump-overs",
+    "burpee broad jumps",
+    "row",
+    "run",
+    "sled pull",
     "wall balls"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "4 blocks for time, rest 2 min between, time cap 48 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "31/23 cal SkiErg",
-       "60-40-25 wall balls (6/4 kg)"
+       "800 m run",
+       "40 wall balls (6/4 kg)",
+       "25 burpee box jump-overs (24/20 in)"
       ],
-      "label": "3 rounds of"
+      "label": "Block 1",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "2000 m SkiErg"
+       "800 m run",
+       "29/22 cal row",
+       "26/20 cal SkiErg"
       ],
-      "label": "then"
+      "label": "Block 2",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "21/16 cal assault/echo bike",
-       "20 burpees over the rower"
+       "800 m run",
+       "40 DB thrusters (2x15/10 kg)",
+       "55 KB swings (24/16 kg)"
       ],
-      "label": "then 3 rounds of"
+      "label": "Block 3",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "25 m sled pull (103/78 kg)",
+       "25 burpee broad jumps"
+      ],
+      "label": "Block 4"
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 31/23 cal SkiErg\n- 60-40-25 wall balls (6/4 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 21/16 cal assault/echo bike\n- 20 burpees over the rower"
+    "scoring": "Time, rest included",
+    "text": "4 blocks for time, rest 2 min between, time cap 48 min\n\nBlock 1:\n- 800 m run\n- 40 wall balls (6/4 kg)\n- 25 burpee box jump-overs (24/20 in)\nrest 2 min\n\nBlock 2:\n- 800 m run\n- 29/22 cal row\n- 26/20 cal SkiErg\nrest 2 min\n\nBlock 3:\n- 800 m run\n- 40 DB thrusters (2x15/10 kg)\n- 55 KB swings (24/16 kg)\nrest 2 min\n\nBlock 4:\n- 800 m run\n- 25 m sled pull (103/78 kg)\n- 25 burpee broad jumps"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: 4 blocks for time, rest 2 min between, time cap 48 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "40/30 cal SkiErg",
-       "80-50-30 wall balls (6/4 kg)"
+       "800 m run",
+       "50 wall balls (6/4 kg)",
+       "30 burpee box jump-overs (24/20 in)"
       ],
-      "label": "3 rounds of"
+      "label": "Block 1",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "2000 m SkiErg"
+       "800 m run",
+       "38/28 cal row",
+       "34/26 cal SkiErg"
       ],
-      "label": "then"
+      "label": "Block 2",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "27/20 cal assault/echo bike",
-       "25 burpees over the rower"
+       "800 m run",
+       "50 DB thrusters (2x15/10 kg)",
+       "70 KB swings (24/16 kg)"
       ],
-      "label": "then 3 rounds of"
+      "label": "Block 3",
+      "rest": "rest 2 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "37.5 m sled pull (103/78 kg)",
+       "30 burpee broad jumps"
+      ],
+      "label": "Block 4"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 40/30 cal SkiErg\n- 80-50-30 wall balls (6/4 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 27/20 cal assault/echo bike\n- 25 burpees over the rower"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 4 blocks for time, rest 2 min between, time cap 48 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 800 m run\n- 50 wall balls (6/4 kg)\n- 30 burpee box jump-overs (24/20 in)\nrest 2 min\n\nBlock 2:\n- 800 m run\n- 38/28 cal row\n- 34/26 cal SkiErg\nrest 2 min\n\nBlock 3:\n- 800 m run\n- 50 DB thrusters (2x15/10 kg)\n- 70 KB swings (24/16 kg)\nrest 2 min\n\nBlock 4:\n- 800 m run\n- 37.5 m sled pull (103/78 kg)\n- 30 burpee broad jumps"
    }
   },
   {
@@ -9817,65 +10057,52 @@
    "day": 152,
    "week": 22,
    "weekday": "Friday",
-   "title": "Prairie Line",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 40,
+   "title": "Wolf Shift",
+   "theme": "Race simulation",
+   "format": "Rounds for time",
+   "durationMin": 43,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpee broad jumps",
-    "run",
-    "sandbag walking lunges",
-    "wall balls"
+    "burpees",
+    "row",
+    "run"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "7 rounds for time, time cap 43 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "40 wall balls (6/4 kg)",
-       "800 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "25 burpee broad jumps",
-       "800 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "40 wall balls (6/4 kg)",
-       "800 m run"
-      ]
+       "20/15 cal row",
+       "400 m run",
+       "12 burpees"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 40 min\n\n- 800 m run\n- 40 wall balls (6/4 kg)\n- 800 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 25 burpee broad jumps\n- 800 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 40 wall balls (6/4 kg)\n- 800 m run"
+    "scoring": "Time",
+    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal row\n- 400 m run\n- 12 burpees\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "50 wall balls (6/4 kg)",
-       "800 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "30 burpee broad jumps",
-       "800 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "50 wall balls (6/4 kg)",
-       "800 m run"
-      ]
+       "28/21 cal row",
+       "400 m run",
+       "16 burpees"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 50 wall balls (6/4 kg)\n- 800 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 30 burpee broad jumps\n- 800 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 50 wall balls (6/4 kg)\n- 800 m run"
+    "scoring": "Time",
+    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal row\n- 400 m run\n- 16 burpees\nrest 1 min between rounds"
    }
   },
   {
@@ -10234,65 +10461,69 @@
    "day": 159,
    "week": 23,
    "weekday": "Friday",
-   "title": "Blackout Drift",
+   "title": "Frostbite Loop",
    "theme": "Compromised running",
    "format": "For time",
-   "durationMin": 45,
+   "durationMin": 48,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpee broad jumps",
-    "row",
     "run",
-    "sled push"
+    "sandbag walking lunges",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "For time, time cap 45 min",
+    "headline": "For time, time cap 48 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "400 m run",
+       "50 wall balls (6/4 kg)",
+       "600 m run",
+       "37.5 m sled push (152/102 kg)",
        "800 m run",
-       "37/28 cal row",
+       "50 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "50 m sandbag walking lunges (20/10 kg)",
        "800 m run",
-       "30 burpee broad jumps",
-       "800 m run",
-       "50 m sled push (152/102 kg)",
-       "800 m run",
-       "30 burpee broad jumps",
-       "800 m run",
-       "37/28 cal row",
-       "800 m run"
+       "37.5 m sled push (152/102 kg)",
+       "600 m run",
+       "50 wall balls (6/4 kg)",
+       "400 m run"
       ]
      }
     ],
     "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 45 min\n\n- 800 m run\n- 37/28 cal row\n- 800 m run\n- 30 burpee broad jumps\n- 800 m run\n- 50 m sled push (152/102 kg)\n- 800 m run\n- 30 burpee broad jumps\n- 800 m run\n- 37/28 cal row\n- 800 m run"
+    "text": "For time, time cap 48 min\n\n- 400 m run\n- 50 wall balls (6/4 kg)\n- 600 m run\n- 37.5 m sled push (152/102 kg)\n- 800 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 37.5 m sled push (152/102 kg)\n- 600 m run\n- 50 wall balls (6/4 kg)\n- 400 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 45 min",
+    "headline": "Team of 2: For time, time cap 48 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "400 m run",
+       "65 wall balls (6/4 kg)",
+       "600 m run",
+       "50 m sled push (152/102 kg)",
        "800 m run",
-       "48/36 cal row",
+       "65 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "65 m sandbag walking lunges (20/10 kg)",
        "800 m run",
-       "40 burpee broad jumps",
-       "800 m run",
-       "75 m sled push (152/102 kg)",
-       "800 m run",
-       "40 burpee broad jumps",
-       "800 m run",
-       "48/36 cal row",
-       "800 m run"
+       "50 m sled push (152/102 kg)",
+       "600 m run",
+       "65 wall balls (6/4 kg)",
+       "400 m run"
       ]
      }
     ],
     "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 48/36 cal row\n- 800 m run\n- 40 burpee broad jumps\n- 800 m run\n- 75 m sled push (152/102 kg)\n- 800 m run\n- 40 burpee broad jumps\n- 800 m run\n- 48/36 cal row\n- 800 m run"
+    "text": "Team of 2: For time, time cap 48 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 400 m run\n- 65 wall balls (6/4 kg)\n- 600 m run\n- 50 m sled push (152/102 kg)\n- 800 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 50 m sled push (152/102 kg)\n- 600 m run\n- 65 wall balls (6/4 kg)\n- 400 m run"
    }
   },
   {
@@ -10696,52 +10927,70 @@
    "day": 166,
    "week": 24,
    "weekday": "Friday",
-   "title": "Sled Run",
+   "title": "Burner Circuit",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Chipper",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
     "SkiErg",
-    "box step-overs",
-    "run"
+    "burpee box jump-overs",
+    "farmers carry",
+    "row",
+    "run",
+    "sandbag walking lunges",
+    "sled pull",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
-       "400 m run",
-       "16 box step-overs (24/20 in)"
+       "800 m run",
+       "75 wall balls (6/4 kg)",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "1000 m SkiErg",
+       "75 m sandbag walking lunges (20/10 kg)",
+       "1000 m row",
+       "50 m sled pull (103/78 kg)",
+       "50 m sled push (152/102 kg)",
+       "40 burpee box jump-overs (24/20 in)",
+       "800 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 42 min\n\n7 rounds:\n- 15/11 cal SkiErg\n- 400 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "text": "For time, time cap 46 min\n\nonce through, in this order:\n- 800 m run\n- 75 wall balls (6/4 kg)\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m SkiErg\n- 75 m sandbag walking lunges (20/10 kg)\n- 1000 m row\n- 50 m sled pull (103/78 kg)\n- 50 m sled push (152/102 kg)\n- 40 burpee box jump-overs (24/20 in)\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
-       "400 m run",
-       "20 box step-overs (24/20 in)"
+       "800 m run",
+       "100 wall balls (6/4 kg)",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "1300 m SkiErg",
+       "100 m sandbag walking lunges (20/10 kg)",
+       "1300 m row",
+       "75 m sled pull (103/78 kg)",
+       "75 m sled push (152/102 kg)",
+       "50 burpee box jump-overs (24/20 in)",
+       "800 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal SkiErg\n- 400 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 800 m run\n- 100 wall balls (6/4 kg)\n- 250 m farmers carry (2x24/2x16 kg)\n- 1300 m SkiErg\n- 100 m sandbag walking lunges (20/10 kg)\n- 1300 m row\n- 75 m sled pull (103/78 kg)\n- 75 m sled push (152/102 kg)\n- 50 burpee box jump-overs (24/20 in)\n- 800 m run"
    }
   },
   {
@@ -11152,52 +11401,82 @@
    "day": 173,
    "week": 25,
    "weekday": "Friday",
-   "title": "Heavy Rally",
+   "title": "Canal Line",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 40,
+   "format": "Simulation",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "KB swings",
-    "assault/echo bike",
-    "run"
+    "SkiErg",
+    "burpee broad jumps",
+    "farmers carry",
+    "row",
+    "run",
+    "sandbag walking lunges",
+    "sled pull",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 40 min",
+    "headline": "All 8 race stations at half volume, for time, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal assault/echo bike",
-       "400 m run",
-       "20 KB swings (24/16 kg)"
+       "500 m run",
+       "500 m SkiErg",
+       "500 m run",
+       "25 m sled push (152/102 kg)",
+       "500 m run",
+       "25 m sled pull (103/78 kg)",
+       "500 m run",
+       "40 m burpee broad jumps",
+       "500 m run",
+       "500 m row",
+       "500 m run",
+       "100 m farmers carry (2x24/2x16 kg)",
+       "500 m run",
+       "50 m sandbag walking lunges (20/10 kg)",
+       "500 m run",
+       "50 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 40 min\n\n7 rounds:\n- 15/11 cal assault/echo bike\n- 400 m run\n- 20 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "All 8 race stations at half volume, for time, time cap 45 min\n\nrace weights, race order:\n- 500 m run\n- 500 m SkiErg\n- 500 m run\n- 25 m sled push (152/102 kg)\n- 500 m run\n- 25 m sled pull (103/78 kg)\n- 500 m run\n- 40 m burpee broad jumps\n- 500 m run\n- 500 m row\n- 500 m run\n- 100 m farmers carry (2x24/2x16 kg)\n- 500 m run\n- 50 m sandbag walking lunges (20/10 kg)\n- 500 m run\n- 50 wall balls (6/4 kg)"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 40 min",
-    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: All 8 race stations at half volume, for time, time cap 45 min",
+    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal assault/echo bike",
-       "400 m run",
-       "30 KB swings (24/16 kg)"
+       "500 m run",
+       "650 m SkiErg",
+       "500 m run",
+       "37.5 m sled push (152/102 kg)",
+       "500 m run",
+       "37.5 m sled pull (103/78 kg)",
+       "500 m run",
+       "50 m burpee broad jumps",
+       "500 m run",
+       "650 m row",
+       "500 m run",
+       "125 m farmers carry (2x24/2x16 kg)",
+       "500 m run",
+       "65 m sandbag walking lunges (20/10 kg)",
+       "500 m run",
+       "65 wall balls (6/4 kg)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal assault/echo bike\n- 400 m run\n- 30 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Team of 2: All 8 race stations at half volume, for time, time cap 45 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 500 m run\n- 650 m SkiErg\n- 500 m run\n- 37.5 m sled push (152/102 kg)\n- 500 m run\n- 37.5 m sled pull (103/78 kg)\n- 500 m run\n- 50 m burpee broad jumps\n- 500 m run\n- 650 m row\n- 500 m run\n- 125 m farmers carry (2x24/2x16 kg)\n- 500 m run\n- 65 m sandbag walking lunges (20/10 kg)\n- 500 m run\n- 65 wall balls (6/4 kg)"
    }
   },
   {
@@ -11575,69 +11854,75 @@
    "day": 180,
    "week": 26,
    "weekday": "Friday",
-   "title": "Glacier Rush",
+   "title": "Thunder March",
    "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 44,
+   "format": "Bookends",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "farmers carry",
-    "row",
+    "BikeErg",
+    "burpees",
     "run",
-    "sandbag walking lunges"
+    "sled push"
    ],
    "solo": {
-    "headline": "For time, time cap 44 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "400 m run",
-       "39/29 cal row",
-       "600 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "275 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "275 m farmers carry (2x24/2x16 kg)",
-       "800 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "600 m run",
-       "39/29 cal row",
-       "400 m run"
-      ]
+       "1600 m run"
+      ],
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1000 m BikeErg",
+       "25 m sled push (152/102 kg)",
+       "25 burpees"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 44 min\n\n- 400 m run\n- 39/29 cal row\n- 600 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 275 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 275 m farmers carry (2x24/2x16 kg)\n- 800 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 600 m run\n- 39/29 cal row\n- 400 m run"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 46 min\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 1000 m BikeErg\n- 25 m sled push (152/102 kg)\n- 25 burpees\n\nthen finish with:\n- 1600 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "400 m run",
-       "51/38 cal row",
-       "600 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "350 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "350 m farmers carry (2x24/2x16 kg)",
-       "800 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "600 m run",
-       "51/38 cal row",
-       "400 m run"
-      ]
+       "1600 m run"
+      ],
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1250 m BikeErg",
+       "37.5 m sled push (152/102 kg)",
+       "30 burpees"
+      ],
+      "label": "then 4 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 400 m run\n- 51/38 cal row\n- 600 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 350 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 350 m farmers carry (2x24/2x16 kg)\n- 800 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 600 m run\n- 51/38 cal row\n- 400 m run"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 1600 m run\n\nthen 4 rounds of:\n- 1250 m BikeErg\n- 37.5 m sled push (152/102 kg)\n- 30 burpees\n\nthen finish with:\n- 1600 m run"
    }
   },
   {
@@ -11999,65 +12284,75 @@
    "day": 187,
    "week": 27,
    "weekday": "Friday",
-   "title": "Maple Push",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 42,
+   "title": "Wolf Engine",
+   "theme": "Race simulation",
+   "format": "Three parts",
+   "durationMin": 41,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "KB swings",
+    "DB thrusters",
     "SkiErg",
-    "burpee broad jumps",
-    "run"
+    "assault/echo bike",
+    "burpee dual-DB step-overs"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "For time, time cap 41 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "35/26 cal SkiErg",
-       "800 m run",
-       "60 KB swings (24/16 kg)",
-       "800 m run",
-       "35 burpee broad jumps",
-       "800 m run",
-       "60 KB swings (24/16 kg)",
-       "800 m run",
-       "35/26 cal SkiErg",
-       "800 m run"
-      ]
+       "34/26 cal SkiErg",
+       "65-45-25 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "23/17 cal assault/echo bike",
+       "20 burpee dual-DB step-overs (2x22.5/15 kg)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 42 min\n\n- 800 m run\n- 35/26 cal SkiErg\n- 800 m run\n- 60 KB swings (24/16 kg)\n- 800 m run\n- 35 burpee broad jumps\n- 800 m run\n- 60 KB swings (24/16 kg)\n- 800 m run\n- 35/26 cal SkiErg\n- 800 m run"
+    "scoring": "Time",
+    "text": "For time, time cap 41 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 65-45-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 23/17 cal assault/echo bike\n- 20 burpee dual-DB step-overs (2x22.5/15 kg)"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 41 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "800 m run",
-       "46/34 cal SkiErg",
-       "800 m run",
-       "80 KB swings (24/16 kg)",
-       "800 m run",
-       "45 burpee broad jumps",
-       "800 m run",
-       "80 KB swings (24/16 kg)",
-       "800 m run",
-       "46/34 cal SkiErg",
-       "800 m run"
-      ]
+       "44/33 cal SkiErg",
+       "85-60-30 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "30/22 cal assault/echo bike",
+       "25 burpee dual-DB step-overs (2x22.5/15 kg)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 46/34 cal SkiErg\n- 800 m run\n- 80 KB swings (24/16 kg)\n- 800 m run\n- 45 burpee broad jumps\n- 800 m run\n- 80 KB swings (24/16 kg)\n- 800 m run\n- 46/34 cal SkiErg\n- 800 m run"
+    "scoring": "Time",
+    "text": "Team of 2: For time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 85-60-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 30/22 cal assault/echo bike\n- 25 burpee dual-DB step-overs (2x22.5/15 kg)"
    }
   },
   {
@@ -12498,76 +12793,90 @@
    "day": 194,
    "week": 28,
    "weekday": "Friday",
-   "title": "Steel Haul",
+   "title": "Heavy Grind",
    "theme": "Race simulation",
-   "format": "For time",
-   "durationMin": 40,
+   "format": "Blocks for time",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "KB swings",
     "SkiErg",
-    "burpee dual-DB step-overs",
+    "burpee broad jumps",
     "row",
-    "run"
+    "run",
+    "sled push"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "3 blocks for time, rest 2 min between, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "30/22 cal SkiErg",
-       "45-35-25 KB swings (24/16 kg)"
+       "1000 m run",
+       "60 DB thrusters (2x15/10 kg)",
+       "35 burpee broad jumps"
       ],
-      "label": "3 rounds of"
+      "label": "Block 1",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "2000 m run"
+       "1000 m run",
+       "40/30 cal SkiErg",
+       "45/34 cal row"
       ],
-      "label": "then"
+      "label": "Block 2",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "21/16 cal row",
-       "18 burpee dual-DB step-overs (2x22.5/15 kg)"
+       "1000 m run",
+       "50 m sled push (152/102 kg)",
+       "80 KB swings (24/16 kg)"
       ],
-      "label": "then 3 rounds of"
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 30/22 cal SkiErg\n- 45-35-25 KB swings (24/16 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 21/16 cal row\n- 18 burpee dual-DB step-overs (2x22.5/15 kg)"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 2 min between, time cap 45 min\n\nBlock 1:\n- 1000 m run\n- 60 DB thrusters (2x15/10 kg)\n- 35 burpee broad jumps\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 40/30 cal SkiErg\n- 45/34 cal row\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 80 KB swings (24/16 kg)"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: 3 blocks for time, rest 2 min between, time cap 45 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "39/29 cal SkiErg",
-       "60-45-30 KB swings (24/16 kg)"
+       "1000 m run",
+       "80 DB thrusters (2x15/10 kg)",
+       "45 burpee broad jumps"
       ],
-      "label": "3 rounds of"
+      "label": "Block 1",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "2000 m run"
+       "1000 m run",
+       "52/39 cal SkiErg",
+       "58/44 cal row"
       ],
-      "label": "then"
+      "label": "Block 2",
+      "rest": "rest 2 min"
      },
      {
       "items": [
-       "27/20 cal row",
-       "25 burpee dual-DB step-overs (2x22.5/15 kg)"
+       "1000 m run",
+       "75 m sled push (152/102 kg)",
+       "105 KB swings (24/16 kg)"
       ],
-      "label": "then 3 rounds of"
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 39/29 cal SkiErg\n- 60-45-30 KB swings (24/16 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 27/20 cal row\n- 25 burpee dual-DB step-overs (2x22.5/15 kg)"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 2 min between, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 1000 m run\n- 80 DB thrusters (2x15/10 kg)\n- 45 burpee broad jumps\nrest 2 min\n\nBlock 2:\n- 1000 m run\n- 52/39 cal SkiErg\n- 58/44 cal row\nrest 2 min\n\nBlock 3:\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 105 KB swings (24/16 kg)"
    }
   },
   {
@@ -12952,52 +13261,52 @@
    "day": 201,
    "week": 29,
    "weekday": "Friday",
-   "title": "Prairie Storm",
+   "title": "Double Line",
    "theme": "Race simulation",
    "format": "Rounds for time",
-   "durationMin": 43,
+   "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "goblet lunges",
-    "row",
+    "SkiErg",
+    "box step-overs",
     "run"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 43 min",
+    "headline": "7 rounds for time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal row",
+       "20/15 cal SkiErg",
        "400 m run",
-       "18 goblet lunges (22.5/15 kg)"
+       "16 box step-overs (24/20 in)"
       ],
       "scheme": "7 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal row\n- 400 m run\n- 18 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "7 rounds for time, time cap 44 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 44 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal row",
+       "28/21 cal SkiErg",
        "400 m run",
-       "25 goblet lunges (22.5/15 kg)"
+       "20 box step-overs (24/20 in)"
       ],
       "scheme": "7 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal row\n- 400 m run\n- 25 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: 7 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal SkiErg\n- 400 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
    }
   },
   {
@@ -13450,52 +13759,60 @@
    "day": 208,
    "week": 30,
    "weekday": "Friday",
-   "title": "Wild Bridge",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 44,
+   "title": "Lumber Loop",
+   "theme": "Compromised running",
+   "format": "For time",
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
-    "burpees",
+    "KB swings",
+    "burpee broad jumps",
     "run"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal SkiErg",
-       "400 m run",
-       "12 burpees"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "1000 m run",
+       "75 KB swings (24/16 kg)",
+       "1000 m run",
+       "35 burpee broad jumps",
+       "1000 m run",
+       "35 burpee broad jumps",
+       "1000 m run",
+       "75 KB swings (24/16 kg)",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 44 min\n\n7 rounds:\n- 20/15 cal SkiErg\n- 400 m run\n- 12 burpees\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 42 min\n\n- 1000 m run\n- 75 KB swings (24/16 kg)\n- 1000 m run\n- 35 burpee broad jumps\n- 1000 m run\n- 35 burpee broad jumps\n- 1000 m run\n- 75 KB swings (24/16 kg)\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal SkiErg",
-       "400 m run",
-       "16 burpees"
-      ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+       "1000 m run",
+       "100 KB swings (24/16 kg)",
+       "1000 m run",
+       "45 burpee broad jumps",
+       "1000 m run",
+       "45 burpee broad jumps",
+       "1000 m run",
+       "100 KB swings (24/16 kg)",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal SkiErg\n- 400 m run\n- 16 burpees\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 100 KB swings (24/16 kg)\n- 1000 m run\n- 45 burpee broad jumps\n- 1000 m run\n- 45 burpee broad jumps\n- 1000 m run\n- 100 KB swings (24/16 kg)\n- 1000 m run"
    }
   },
   {
@@ -13851,60 +14168,70 @@
    "day": 215,
    "week": 31,
    "weekday": "Friday",
-   "title": "Iron Current",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 42,
+   "title": "Sled Ridge",
+   "theme": "Race simulation",
+   "format": "Chipper",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "KB swings",
+    "SkiErg",
+    "burpee broad jumps",
+    "farmers carry",
+    "row",
     "run",
-    "sandbag walking lunges"
+    "sandbag walking lunges",
+    "wall balls"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "75 KB swings (24/16 kg)",
-       "1000 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "75 KB swings (24/16 kg)",
+       "75 m sandbag walking lunges (20/10 kg)",
+       "50 DB thrusters (2x15/10 kg)",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "60 m burpee broad jumps",
+       "75 wall balls (6/4 kg)",
+       "60 KB swings (24/16 kg)",
+       "1000 m row",
+       "1000 m SkiErg",
        "1000 m run"
-      ]
+      ],
+      "scheme": "once through, in this order"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 42 min\n\n- 1000 m run\n- 75 KB swings (24/16 kg)\n- 1000 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 75 KB swings (24/16 kg)\n- 1000 m run"
+    "scoring": "Time",
+    "text": "For time, time cap 46 min\n\nonce through, in this order:\n- 1000 m run\n- 75 m sandbag walking lunges (20/10 kg)\n- 50 DB thrusters (2x15/10 kg)\n- 200 m farmers carry (2x24/2x16 kg)\n- 60 m burpee broad jumps\n- 75 wall balls (6/4 kg)\n- 60 KB swings (24/16 kg)\n- 1000 m row\n- 1000 m SkiErg\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "100 KB swings (24/16 kg)",
-       "1000 m run",
-       "80 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "80 m sandbag walking lunges (20/10 kg)",
-       "1000 m run",
-       "100 KB swings (24/16 kg)",
+       "100 m sandbag walking lunges (20/10 kg)",
+       "65 DB thrusters (2x15/10 kg)",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "80 m burpee broad jumps",
+       "100 wall balls (6/4 kg)",
+       "80 KB swings (24/16 kg)",
+       "1300 m row",
+       "1300 m SkiErg",
        "1000 m run"
-      ]
+      ],
+      "scheme": "once through, in this order"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 100 KB swings (24/16 kg)\n- 1000 m run\n- 80 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 80 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 100 KB swings (24/16 kg)\n- 1000 m run"
+    "scoring": "Time",
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)\n- 65 DB thrusters (2x15/10 kg)\n- 250 m farmers carry (2x24/2x16 kg)\n- 80 m burpee broad jumps\n- 100 wall balls (6/4 kg)\n- 80 KB swings (24/16 kg)\n- 1300 m row\n- 1300 m SkiErg\n- 1000 m run"
    }
   },
   {
@@ -14286,75 +14613,62 @@
    "day": 222,
    "week": 32,
    "weekday": "Friday",
-   "title": "Wolf Vault",
+   "title": "Wild Breaker",
    "theme": "Race simulation",
-   "format": "For time",
-   "durationMin": 42,
+   "format": "Simulation",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
     "SkiErg",
-    "burpees to target",
-    "run"
+    "row",
+    "run",
+    "sandbag walking lunges",
+    "sled pull"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "Race odd stations, for time, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "30/22 cal SkiErg",
-       "60-40-25 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "1000 m SkiErg",
+       "1000 m run",
+       "50 m sled pull (103/78 kg)",
+       "1000 m run",
+       "1000 m row",
+       "1000 m run",
+       "100 m sandbag walking lunges (20/10 kg)"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "21/16 cal SkiErg",
-       "18 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 42 min\n\n3 rounds of:\n- 30/22 cal SkiErg\n- 60-40-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 21/16 cal SkiErg\n- 18 burpees to target"
+    "scoring": "Time; note each run split",
+    "text": "Race odd stations, for time, time cap 45 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m SkiErg\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 1000 m run\n- 1000 m row\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
-    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: Race odd stations, for time, time cap 45 min",
+    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "39/29 cal SkiErg",
-       "80-50-30 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "1300 m SkiErg",
+       "1000 m run",
+       "75 m sled pull (103/78 kg)",
+       "1000 m run",
+       "1300 m row",
+       "1000 m run",
+       "130 m sandbag walking lunges (20/10 kg)"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "27/20 cal SkiErg",
-       "25 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 39/29 cal SkiErg\n- 80-50-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 27/20 cal SkiErg\n- 25 burpees to target"
+    "scoring": "Time; note each run split",
+    "text": "Team of 2: Race odd stations, for time, time cap 45 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m SkiErg\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 1000 m run\n- 1300 m row\n- 1000 m run\n- 130 m sandbag walking lunges (20/10 kg)"
    }
   },
   {
@@ -14785,52 +15099,75 @@
    "day": 229,
    "week": 33,
    "weekday": "Friday",
-   "title": "Double Crossing",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "title": "Lumber Ladder",
+   "theme": "Compromised running",
+   "format": "Bookends",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
-    "assault/echo bike",
+    "BikeErg",
+    "burpees",
+    "goblet lunges",
     "run"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal assault/echo bike",
-       "600 m run",
-       "16 DB thrusters (2x15/10 kg)"
+       "2400 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1000 m BikeErg",
+       "14 burpees",
+       "20 goblet lunges (22.5/15 kg)"
+      ],
+      "label": "then 3 rounds of"
+     },
+     {
+      "items": [
+       "2400 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "6 rounds for time, time cap 42 min\n\n6 rounds:\n- 20/15 cal assault/echo bike\n- 600 m run\n- 16 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 40 min\n\nStart with:\n- 2400 m run\n\nthen 3 rounds of:\n- 1000 m BikeErg\n- 14 burpees\n- 20 goblet lunges (22.5/15 kg)\n\nthen finish with:\n- 2400 m run"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal assault/echo bike",
-       "600 m run",
-       "20 DB thrusters (2x15/10 kg)"
+       "2400 m run"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1250 m BikeErg",
+       "18 burpees",
+       "25 goblet lunges (22.5/15 kg)"
+      ],
+      "label": "then 3 rounds of"
+     },
+     {
+      "items": [
+       "2400 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal assault/echo bike\n- 600 m run\n- 20 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 2400 m run\n\nthen 3 rounds of:\n- 1250 m BikeErg\n- 18 burpees\n- 25 goblet lunges (22.5/15 kg)\n\nthen finish with:\n- 2400 m run"
    }
   },
   {
@@ -15265,60 +15602,75 @@
    "day": 236,
    "week": 34,
    "weekday": "Friday",
-   "title": "Copper Shift",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 40,
+   "title": "Canal Ridge",
+   "theme": "Race simulation",
+   "format": "Three parts",
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "farmers carry",
-    "row",
-    "run"
+    "DB thrusters",
+    "SkiErg",
+    "burpees over the rower",
+    "row"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "For time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "34/26 cal row",
-       "1000 m run",
-       "300 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "300 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "34/26 cal row",
-       "1000 m run"
-      ]
+       "34/26 cal SkiErg",
+       "50-40-25 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "23/17 cal row",
+       "20 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 40 min\n\n- 1000 m run\n- 34/26 cal row\n- 1000 m run\n- 300 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 300 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 34/26 cal row\n- 1000 m run"
+    "scoring": "Time",
+    "text": "For time, time cap 42 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 50-40-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 23/17 cal row\n- 20 burpees over the rower"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: For time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "44/33 cal row",
-       "1000 m run",
-       "400 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "400 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "44/33 cal row",
-       "1000 m run"
-      ]
+       "44/33 cal SkiErg",
+       "65-50-30 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m SkiErg"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "30/22 cal row",
+       "25 burpees over the rower"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 44/33 cal row\n- 1000 m run\n- 400 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 400 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 44/33 cal row\n- 1000 m run"
+    "scoring": "Time",
+    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 65-50-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m SkiErg\n\nthen 3 rounds of:\n- 30/22 cal row\n- 25 burpees over the rower"
    }
   },
   {
@@ -15692,62 +16044,90 @@
    "day": 243,
    "week": 35,
    "weekday": "Friday",
-   "title": "Long Climb",
+   "title": "Final Vault",
    "theme": "Race simulation",
-   "format": "Simulation",
-   "durationMin": 43,
+   "format": "Blocks for time",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
+    "KB swings",
     "SkiErg",
+    "burpee box jump-overs",
     "burpee broad jumps",
     "run",
-    "sled pull",
-    "sled push"
+    "sled pull"
    ],
    "solo": {
-    "headline": "Race front half, for time, time cap 43 min",
+    "headline": "3 blocks for time, rest 3 min between, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "1000 m SkiErg",
-       "1000 m run",
-       "50 m sled push (152/102 kg)",
-       "1000 m run",
-       "50 m sled pull (103/78 kg)",
-       "1000 m run",
-       "80 m burpee broad jumps"
+       "800 m run",
+       "40 burpee box jump-overs (24/20 in)",
+       "40 burpee broad jumps"
       ],
-      "scheme": "race weights, race order"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "42/32 cal SkiErg",
+       "85 KB swings (24/16 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "65 DB thrusters (2x15/10 kg)",
+       "50 m sled pull (103/78 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Race front half, for time, time cap 43 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m SkiErg\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 50 m sled pull (103/78 kg)\n- 1000 m run\n- 80 m burpee broad jumps"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 3 min between, time cap 45 min\n\nBlock 1:\n- 800 m run\n- 40 burpee box jump-overs (24/20 in)\n- 40 burpee broad jumps\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 42/32 cal SkiErg\n- 85 KB swings (24/16 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 65 DB thrusters (2x15/10 kg)\n- 50 m sled pull (103/78 kg)"
    },
    "team": {
-    "headline": "Team of 2: Race front half, for time, time cap 43 min",
-    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: 3 blocks for time, rest 3 min between, time cap 45 min",
+    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "1300 m SkiErg",
-       "1000 m run",
-       "75 m sled push (152/102 kg)",
-       "1000 m run",
-       "75 m sled pull (103/78 kg)",
-       "1000 m run",
-       "100 m burpee broad jumps"
+       "800 m run",
+       "50 burpee box jump-overs (24/20 in)",
+       "50 burpee broad jumps"
       ],
-      "scheme": "race weights, race order"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "55/41 cal SkiErg",
+       "110 KB swings (24/16 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "85 DB thrusters (2x15/10 kg)",
+       "75 m sled pull (103/78 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time; note each run split",
-    "text": "Team of 2: Race front half, for time, time cap 43 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m SkiErg\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 1000 m run\n- 75 m sled pull (103/78 kg)\n- 1000 m run\n- 100 m burpee broad jumps"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 3 min between, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 800 m run\n- 50 burpee box jump-overs (24/20 in)\n- 50 burpee broad jumps\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 55/41 cal SkiErg\n- 110 KB swings (24/16 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 85 DB thrusters (2x15/10 kg)\n- 75 m sled pull (103/78 kg)"
    }
   },
   {
@@ -16184,69 +16564,52 @@
    "day": 250,
    "week": 36,
    "weekday": "Friday",
-   "title": "Northern March",
-   "theme": "Compromised running",
-   "format": "For time",
-   "durationMin": 44,
+   "title": "Lumber Push",
+   "theme": "Race simulation",
+   "format": "Rounds for time",
+   "durationMin": 43,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "burpees",
+    "goblet lunges",
     "row",
-    "run",
-    "sandbag walking lunges"
+    "run"
    ],
    "solo": {
-    "headline": "For time, time cap 44 min",
+    "headline": "7 rounds for time, time cap 43 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "20/15 cal row",
        "400 m run",
-       "35 burpees",
-       "600 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "38/28 cal row",
-       "1000 m run",
-       "38/28 cal row",
-       "800 m run",
-       "45 m sandbag walking lunges (20/10 kg)",
-       "600 m run",
-       "35 burpees",
-       "400 m run"
-      ]
+       "18 goblet lunges (22.5/15 kg)"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 44 min\n\n- 400 m run\n- 35 burpees\n- 600 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 38/28 cal row\n- 1000 m run\n- 38/28 cal row\n- 800 m run\n- 45 m sandbag walking lunges (20/10 kg)\n- 600 m run\n- 35 burpees\n- 400 m run"
+    "scoring": "Time",
+    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal row\n- 400 m run\n- 18 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 44 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
+       "28/21 cal row",
        "400 m run",
-       "45 burpees",
-       "600 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "800 m run",
-       "49/37 cal row",
-       "1000 m run",
-       "49/37 cal row",
-       "800 m run",
-       "60 m sandbag walking lunges (20/10 kg)",
-       "600 m run",
-       "45 burpees",
-       "400 m run"
-      ]
+       "25 goblet lunges (22.5/15 kg)"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 400 m run\n- 45 burpees\n- 600 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 800 m run\n- 49/37 cal row\n- 1000 m run\n- 49/37 cal row\n- 800 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 600 m run\n- 45 burpees\n- 400 m run"
+    "scoring": "Time",
+    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal row\n- 400 m run\n- 25 goblet lunges (22.5/15 kg)\nrest 1 min between rounds"
    }
   },
   {
@@ -16602,76 +16965,65 @@
    "day": 257,
    "week": 37,
    "weekday": "Friday",
-   "title": "Quick Ridge",
-   "theme": "Race simulation",
+   "title": "Thunder Signal",
+   "theme": "Compromised running",
    "format": "For time",
-   "durationMin": 42,
+   "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
-    "SkiErg",
-    "assault/echo bike",
-    "burpee box jump-overs",
-    "run"
+    "KB swings",
+    "row",
+    "run",
+    "wall balls"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "For time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "34/26 cal SkiErg",
-       "65-45-25 DB thrusters (2x15/10 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "23/17 cal assault/echo bike",
-       "20 burpee box jump-overs (24/20 in)"
-      ],
-      "label": "then 3 rounds of"
+       "800 m run",
+       "50 wall balls (6/4 kg)",
+       "800 m run",
+       "40/30 cal row",
+       "800 m run",
+       "65 KB swings (24/16 kg)",
+       "800 m run",
+       "40/30 cal row",
+       "800 m run",
+       "50 wall balls (6/4 kg)",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 42 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 65-45-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 23/17 cal assault/echo bike\n- 20 burpee box jump-overs (24/20 in)"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 44 min\n\n- 800 m run\n- 50 wall balls (6/4 kg)\n- 800 m run\n- 40/30 cal row\n- 800 m run\n- 65 KB swings (24/16 kg)\n- 800 m run\n- 40/30 cal row\n- 800 m run\n- 50 wall balls (6/4 kg)\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 44 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "44/33 cal SkiErg",
-       "85-60-30 DB thrusters (2x15/10 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "30/22 cal assault/echo bike",
-       "25 burpee box jump-overs (24/20 in)"
-      ],
-      "label": "then 3 rounds of"
+       "800 m run",
+       "65 wall balls (6/4 kg)",
+       "800 m run",
+       "52/39 cal row",
+       "800 m run",
+       "85 KB swings (24/16 kg)",
+       "800 m run",
+       "52/39 cal row",
+       "800 m run",
+       "65 wall balls (6/4 kg)",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 85-60-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 30/22 cal assault/echo bike\n- 25 burpee box jump-overs (24/20 in)"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 65 wall balls (6/4 kg)\n- 800 m run\n- 52/39 cal row\n- 800 m run\n- 85 KB swings (24/16 kg)\n- 800 m run\n- 52/39 cal row\n- 800 m run\n- 65 wall balls (6/4 kg)\n- 800 m run"
    }
   },
   {
@@ -17045,52 +17397,70 @@
    "day": 264,
    "week": 38,
    "weekday": "Friday",
-   "title": "Steel Grind",
+   "title": "Double Haul",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Chipper",
+   "durationMin": 45,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "SkiErg",
+    "burpee box jump-overs",
+    "row",
     "run",
+    "sandbag walking lunges",
+    "sled pull",
+    "sled push",
     "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 45 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal SkiErg",
-       "400 m run",
-       "16 wall balls (6/4 kg)"
+       "800 m run",
+       "50 DB thrusters (2x15/10 kg)",
+       "50 m sled push (152/102 kg)",
+       "40 burpee box jump-overs (24/20 in)",
+       "1000 m row",
+       "1000 m SkiErg",
+       "50 m sled pull (103/78 kg)",
+       "75 m sandbag walking lunges (20/10 kg)",
+       "75 wall balls (6/4 kg)",
+       "800 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "7 rounds for time, time cap 42 min\n\n7 rounds:\n- 15/11 cal SkiErg\n- 400 m run\n- 16 wall balls (6/4 kg)\nrest 1 min between rounds"
+    "text": "For time, time cap 45 min\n\nonce through, in this order:\n- 800 m run\n- 50 DB thrusters (2x15/10 kg)\n- 50 m sled push (152/102 kg)\n- 40 burpee box jump-overs (24/20 in)\n- 1000 m row\n- 1000 m SkiErg\n- 50 m sled pull (103/78 kg)\n- 75 m sandbag walking lunges (20/10 kg)\n- 75 wall balls (6/4 kg)\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 45 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal SkiErg",
-       "400 m run",
-       "20 wall balls (6/4 kg)"
+       "800 m run",
+       "65 DB thrusters (2x15/10 kg)",
+       "75 m sled push (152/102 kg)",
+       "50 burpee box jump-overs (24/20 in)",
+       "1300 m row",
+       "1300 m SkiErg",
+       "75 m sled pull (103/78 kg)",
+       "100 m sandbag walking lunges (20/10 kg)",
+       "100 wall balls (6/4 kg)",
+       "800 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal SkiErg\n- 400 m run\n- 20 wall balls (6/4 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 45 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 800 m run\n- 65 DB thrusters (2x15/10 kg)\n- 75 m sled push (152/102 kg)\n- 50 burpee box jump-overs (24/20 in)\n- 1300 m row\n- 1300 m SkiErg\n- 75 m sled pull (103/78 kg)\n- 100 m sandbag walking lunges (20/10 kg)\n- 100 wall balls (6/4 kg)\n- 800 m run"
    }
   },
   {
@@ -17425,32 +17795,32 @@
    "day": 271,
    "week": 39,
    "weekday": "Friday",
-   "title": "Wolf Express",
+   "title": "Storm Furnace",
    "theme": "Race simulation",
    "format": "Simulation",
-   "durationMin": 44,
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "burpee broad jumps",
     "farmers carry",
-    "row",
     "run",
-    "sandbag walking lunges",
+    "sled push",
     "wall balls"
    ],
    "solo": {
-    "headline": "Race back half, for time, time cap 44 min",
+    "headline": "Race even stations, for time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "1000 m row",
+       "50 m sled push (152/102 kg)",
+       "1000 m run",
+       "80 m burpee broad jumps",
        "1000 m run",
        "200 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "100 m sandbag walking lunges (20/10 kg)",
        "1000 m run",
        "100 wall balls (6/4 kg)"
       ],
@@ -17458,21 +17828,21 @@
      }
     ],
     "scoring": "Time; note each run split",
-    "text": "Race back half, for time, time cap 44 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m row\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 100 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 100 wall balls (6/4 kg)"
+    "text": "Race even stations, for time, time cap 42 min\n\nrace weights, race order:\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 80 m burpee broad jumps\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 100 wall balls (6/4 kg)"
    },
    "team": {
-    "headline": "Team of 2: Race back half, for time, time cap 44 min",
+    "headline": "Team of 2: Race even stations, for time, time cap 42 min",
     "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
        "1000 m run",
-       "1300 m row",
+       "75 m sled push (152/102 kg)",
+       "1000 m run",
+       "100 m burpee broad jumps",
        "1000 m run",
        "250 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "130 m sandbag walking lunges (20/10 kg)",
        "1000 m run",
        "130 wall balls (6/4 kg)"
       ],
@@ -17480,7 +17850,7 @@
      }
     ],
     "scoring": "Time; note each run split",
-    "text": "Team of 2: Race back half, for time, time cap 44 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m row\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 130 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 130 wall balls (6/4 kg)"
+    "text": "Team of 2: Race even stations, for time, time cap 42 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 75 m sled push (152/102 kg)\n- 1000 m run\n- 100 m burpee broad jumps\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 130 wall balls (6/4 kg)"
    }
   },
   {
@@ -17866,52 +18236,75 @@
    "day": 278,
    "week": 40,
    "weekday": "Friday",
-   "title": "Midnight Storm",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 43,
+   "title": "Storm Grind",
+   "theme": "Compromised running",
+   "format": "Bookends",
+   "durationMin": 44,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "BikeErg",
+    "KB swings",
     "box step-overs",
-    "row",
     "run"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 43 min",
+    "headline": "For time, time cap 44 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal row",
-       "400 m run",
-       "16 box step-overs (24/20 in)"
+       "2000 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1000 m BikeErg",
+       "14 box step-overs (24/20 in)",
+       "18 KB swings (24/16 kg)"
+      ],
+      "label": "then 5 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 43 min\n\n7 rounds:\n- 20/15 cal row\n- 400 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 44 min\n\nStart with:\n- 2000 m run\n\nthen 5 rounds of:\n- 1000 m BikeErg\n- 14 box step-overs (24/20 in)\n- 18 KB swings (24/16 kg)\n\nthen finish with:\n- 2000 m run"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 43 min",
+    "headline": "Team of 2: For time, time cap 44 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal row",
-       "400 m run",
-       "20 box step-overs (24/20 in)"
+       "2000 m run"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Start with"
+     },
+     {
+      "items": [
+       "1250 m BikeErg",
+       "18 box step-overs (24/20 in)",
+       "25 KB swings (24/16 kg)"
+      ],
+      "label": "then 5 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 28/21 cal row\n- 400 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 2000 m run\n\nthen 5 rounds of:\n- 1250 m BikeErg\n- 18 box step-overs (24/20 in)\n- 25 KB swings (24/16 kg)\n\nthen finish with:\n- 2000 m run"
    }
   },
   {
@@ -18291,52 +18684,75 @@
    "day": 285,
    "week": 41,
    "weekday": "Friday",
-   "title": "Engine Breaker",
+   "title": "Double Mile",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 42,
+   "format": "Three parts",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
     "assault/echo bike",
-    "burpees",
+    "burpee box jump-overs",
+    "goblet lunges",
     "run"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 42 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal assault/echo bike",
-       "600 m run",
-       "12 burpees"
+       "31/23 cal assault/echo bike",
+       "60-40-25 goblet lunges (22.5/15 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "22/16 cal assault/echo bike",
+       "20 burpee box jump-overs (24/20 in)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 42 min\n\n6 rounds:\n- 20/15 cal assault/echo bike\n- 600 m run\n- 12 burpees\nrest 1 min between rounds"
+    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 31/23 cal assault/echo bike\n- 60-40-25 goblet lunges (22.5/15 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 22/16 cal assault/echo bike\n- 20 burpee box jump-overs (24/20 in)"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 42 min",
+    "headline": "Team of 2: For time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal assault/echo bike",
-       "600 m run",
-       "16 burpees"
+       "40/30 cal assault/echo bike",
+       "80-50-30 goblet lunges (22.5/15 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "2000 m run"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "29/22 cal assault/echo bike",
+       "25 burpee box jump-overs (24/20 in)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal assault/echo bike\n- 600 m run\n- 16 burpees\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 40/30 cal assault/echo bike\n- 80-50-30 goblet lunges (22.5/15 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 29/22 cal assault/echo bike\n- 25 burpee box jump-overs (24/20 in)"
    }
   },
   {
@@ -18744,52 +19160,90 @@
    "day": 292,
    "week": 42,
    "weekday": "Friday",
-   "title": "Blackout Express",
+   "title": "Canal Current",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 41,
+   "format": "Blocks for time",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
+    "SkiErg",
     "row",
     "run",
+    "sled pull",
+    "sled push",
     "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 41 min",
+    "headline": "3 blocks for time, rest 3 min between, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal row",
-       "400 m run",
-       "16 wall balls (6/4 kg)"
+       "800 m run",
+       "55 wall balls (6/4 kg)",
+       "37/28 cal SkiErg"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "55 DB thrusters (2x15/10 kg)",
+       "50 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "37.5 m sled pull (103/78 kg)",
+       "42/32 cal row"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 41 min\n\n7 rounds:\n- 15/11 cal row\n- 400 m run\n- 16 wall balls (6/4 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 3 min between, time cap 40 min\n\nBlock 1:\n- 800 m run\n- 55 wall balls (6/4 kg)\n- 37/28 cal SkiErg\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 55 DB thrusters (2x15/10 kg)\n- 50 m sled push (152/102 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 37.5 m sled pull (103/78 kg)\n- 42/32 cal row"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 41 min",
+    "headline": "Team of 2: 3 blocks for time, rest 3 min between, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal row",
-       "400 m run",
-       "20 wall balls (6/4 kg)"
+       "800 m run",
+       "70 wall balls (6/4 kg)",
+       "48/36 cal SkiErg"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "70 DB thrusters (2x15/10 kg)",
+       "75 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "50 m sled pull (103/78 kg)",
+       "55/41 cal row"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal row\n- 400 m run\n- 20 wall balls (6/4 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 3 min between, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 800 m run\n- 70 wall balls (6/4 kg)\n- 48/36 cal SkiErg\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 70 DB thrusters (2x15/10 kg)\n- 75 m sled push (152/102 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 50 m sled pull (103/78 kg)\n- 55/41 cal row"
    }
   },
   {
@@ -19186,60 +19640,52 @@
    "day": 299,
    "week": 43,
    "weekday": "Friday",
-   "title": "Thunder Express",
-   "theme": "Compromised running",
-   "format": "For time",
+   "title": "Blackout Current",
+   "theme": "Race simulation",
+   "format": "Rounds for time",
    "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "farmers carry",
-    "run",
-    "sled push"
+    "SkiErg",
+    "box step-overs",
+    "run"
    ],
    "solo": {
-    "headline": "For time, time cap 42 min",
+    "headline": "7 rounds for time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "37.5 m sled push (152/102 kg)",
-       "1000 m run",
-       "325 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "325 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "37.5 m sled push (152/102 kg)",
-       "1000 m run"
-      ]
+       "15/11 cal SkiErg",
+       "400 m run",
+       "16 box step-overs (24/20 in)"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "For time, time cap 42 min\n\n- 1000 m run\n- 37.5 m sled push (152/102 kg)\n- 1000 m run\n- 325 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 325 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 37.5 m sled push (152/102 kg)\n- 1000 m run"
+    "scoring": "Time",
+    "text": "7 rounds for time, time cap 42 min\n\n7 rounds:\n- 15/11 cal SkiErg\n- 400 m run\n- 16 box step-overs (24/20 in)\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 42 min",
+    "headline": "Team of 2: 7 rounds for time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "1000 m run",
-       "50 m sled push (152/102 kg)",
-       "1000 m run",
-       "425 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "425 m farmers carry (2x24/2x16 kg)",
-       "1000 m run",
-       "50 m sled push (152/102 kg)",
-       "1000 m run"
-      ]
+       "21/16 cal SkiErg",
+       "400 m run",
+       "20 box step-overs (24/20 in)"
+      ],
+      "scheme": "7 rounds",
+      "rest": "rest 1 min between rounds"
      }
     ],
-    "scoring": "Time (or work done at the cap)",
-    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run\n- 425 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 425 m farmers carry (2x24/2x16 kg)\n- 1000 m run\n- 50 m sled push (152/102 kg)\n- 1000 m run"
+    "scoring": "Time",
+    "text": "Team of 2: 7 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal SkiErg\n- 400 m run\n- 20 box step-overs (24/20 in)\nrest 1 min between rounds"
    }
   },
   {
@@ -19655,75 +20101,60 @@
    "day": 306,
    "week": 44,
    "weekday": "Friday",
-   "title": "Wild Wave",
-   "theme": "Race simulation",
+   "title": "Red Line Shift",
+   "theme": "Compromised running",
    "format": "For time",
-   "durationMin": 40,
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "SkiErg",
     "burpee broad jumps",
-    "goblet lunges",
-    "run"
+    "run",
+    "sandbag walking lunges"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "For time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "33/25 cal SkiErg",
-       "40-30-25 goblet lunges (22.5/15 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "1600 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "23/17 cal SkiErg",
-       "20 burpee broad jumps"
-      ],
-      "label": "then 3 rounds of"
+       "1000 m run",
+       "60 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "30 burpee broad jumps",
+       "1000 m run",
+       "30 burpee broad jumps",
+       "1000 m run",
+       "60 m sandbag walking lunges (20/10 kg)",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 33/25 cal SkiErg\n- 40-30-25 goblet lunges (22.5/15 kg)\n\nthen:\n- 1600 m run\n\nthen 3 rounds of:\n- 23/17 cal SkiErg\n- 20 burpee broad jumps"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 42 min\n\n- 1000 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 30 burpee broad jumps\n- 1000 m run\n- 30 burpee broad jumps\n- 1000 m run\n- 60 m sandbag walking lunges (20/10 kg)\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: For time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "43/32 cal SkiErg",
-       "50-40-30 goblet lunges (22.5/15 kg)"
-      ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "1600 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "30/22 cal SkiErg",
-       "25 burpee broad jumps"
-      ],
-      "label": "then 3 rounds of"
+       "1000 m run",
+       "80 m sandbag walking lunges (20/10 kg)",
+       "1000 m run",
+       "40 burpee broad jumps",
+       "1000 m run",
+       "40 burpee broad jumps",
+       "1000 m run",
+       "80 m sandbag walking lunges (20/10 kg)",
+       "1000 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 43/32 cal SkiErg\n- 50-40-30 goblet lunges (22.5/15 kg)\n\nthen:\n- 1600 m run\n\nthen 3 rounds of:\n- 30/22 cal SkiErg\n- 25 burpee broad jumps"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 1000 m run\n- 80 m sandbag walking lunges (20/10 kg)\n- 1000 m run\n- 40 burpee broad jumps\n- 1000 m run\n- 40 burpee broad jumps\n- 1000 m run\n- 80 m sandbag walking lunges (20/10 kg)\n- 1000 m run"
    }
   },
   {
@@ -20103,18 +20534,21 @@
    "day": 313,
    "week": 45,
    "weekday": "Friday",
-   "title": "Steel Wave",
+   "title": "Final Mile",
    "theme": "Race simulation",
-   "format": "For time",
+   "format": "Chipper",
    "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "DB thrusters",
     "SkiErg",
-    "assault/echo bike",
-    "burpees to target",
+    "burpee broad jumps",
+    "farmers carry",
     "run",
-    "wall balls"
+    "sandbag walking lunges",
+    "sled pull",
+    "sled push"
    ],
    "solo": {
     "headline": "For time, time cap 40 min",
@@ -20123,27 +20557,21 @@
     "blocks": [
      {
       "items": [
-       "34/26 cal SkiErg",
-       "50-40-25 wall balls (6/4 kg)"
+       "1000 m run",
+       "200 m farmers carry (2x24/2x16 kg)",
+       "50 DB thrusters (2x15/10 kg)",
+       "50 m sled push (152/102 kg)",
+       "60 m burpee broad jumps",
+       "1000 m SkiErg",
+       "75 m sandbag walking lunges (20/10 kg)",
+       "50 m sled pull (103/78 kg)",
+       "1000 m run"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "23/17 cal assault/echo bike",
-       "20 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 50-40-25 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 23/17 cal assault/echo bike\n- 20 burpees to target"
+    "text": "For time, time cap 40 min\n\nonce through, in this order:\n- 1000 m run\n- 200 m farmers carry (2x24/2x16 kg)\n- 50 DB thrusters (2x15/10 kg)\n- 50 m sled push (152/102 kg)\n- 60 m burpee broad jumps\n- 1000 m SkiErg\n- 75 m sandbag walking lunges (20/10 kg)\n- 50 m sled pull (103/78 kg)\n- 1000 m run"
    },
    "team": {
     "headline": "Team of 2: For time, time cap 40 min",
@@ -20152,27 +20580,21 @@
     "blocks": [
      {
       "items": [
-       "44/33 cal SkiErg",
-       "65-50-30 wall balls (6/4 kg)"
+       "1000 m run",
+       "250 m farmers carry (2x24/2x16 kg)",
+       "65 DB thrusters (2x15/10 kg)",
+       "75 m sled push (152/102 kg)",
+       "80 m burpee broad jumps",
+       "1300 m SkiErg",
+       "100 m sandbag walking lunges (20/10 kg)",
+       "75 m sled pull (103/78 kg)",
+       "1000 m run"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "30/22 cal assault/echo bike",
-       "25 burpees to target"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 65-50-30 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 30/22 cal assault/echo bike\n- 25 burpees to target"
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 1000 m run\n- 250 m farmers carry (2x24/2x16 kg)\n- 65 DB thrusters (2x15/10 kg)\n- 75 m sled push (152/102 kg)\n- 80 m burpee broad jumps\n- 1300 m SkiErg\n- 100 m sandbag walking lunges (20/10 kg)\n- 75 m sled pull (103/78 kg)\n- 1000 m run"
    }
   },
   {
@@ -20617,52 +21039,62 @@
    "day": 320,
    "week": 46,
    "weekday": "Friday",
-   "title": "Granite Chase",
+   "title": "Glacier Crossing",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 41,
+   "format": "Simulation",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
-    "assault/echo bike",
-    "run"
+    "SkiErg",
+    "burpee broad jumps",
+    "row",
+    "run",
+    "wall balls"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 41 min",
+    "headline": "Race engine stations, for time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal assault/echo bike",
-       "600 m run",
-       "16 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "1000 m SkiErg",
+       "1000 m run",
+       "80 m burpee broad jumps",
+       "1000 m run",
+       "1000 m row",
+       "1000 m run",
+       "100 wall balls (6/4 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "6 rounds for time, time cap 41 min\n\n6 rounds:\n- 15/11 cal assault/echo bike\n- 600 m run\n- 16 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Race engine stations, for time, time cap 46 min\n\nrace weights, race order:\n- 1000 m run\n- 1000 m SkiErg\n- 1000 m run\n- 80 m burpee broad jumps\n- 1000 m run\n- 1000 m row\n- 1000 m run\n- 100 wall balls (6/4 kg)"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 41 min",
-    "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
+    "headline": "Team of 2: Race engine stations, for time, time cap 46 min",
+    "howTo": "Doubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal assault/echo bike",
-       "600 m run",
-       "20 DB thrusters (2x15/10 kg)"
+       "1000 m run",
+       "1300 m SkiErg",
+       "1000 m run",
+       "100 m burpee broad jumps",
+       "1000 m run",
+       "1300 m row",
+       "1000 m run",
+       "130 wall balls (6/4 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "scheme": "race weights, race order"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 41 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 21/16 cal assault/echo bike\n- 600 m run\n- 20 DB thrusters (2x15/10 kg)\nrest 1 min between rounds"
+    "scoring": "Time; note each run split",
+    "text": "Team of 2: Race engine stations, for time, time cap 46 min\nDoubles style with 30% more station work: Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nrace weights, race order:\n- 1000 m run\n- 1300 m SkiErg\n- 1000 m run\n- 100 m burpee broad jumps\n- 1000 m run\n- 1300 m row\n- 1000 m run\n- 130 wall balls (6/4 kg)"
    }
   },
   {
@@ -21040,75 +21472,75 @@
    "day": 327,
    "week": 47,
    "weekday": "Friday",
-   "title": "Granite Haul",
-   "theme": "Race simulation",
-   "format": "For time",
-   "durationMin": 40,
+   "title": "Maple Storm",
+   "theme": "Compromised running",
+   "format": "Bookends",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "DB thrusters",
-    "SkiErg",
-    "burpees over the rower",
-    "row"
+    "goblet lunges",
+    "row",
+    "run",
+    "sled push"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "34/26 cal SkiErg",
-       "65-45-25 DB thrusters (2x15/10 kg)"
+       "2400 m run"
       ],
-      "label": "3 rounds of"
+      "label": "Start with"
      },
      {
       "items": [
-       "2000 m row"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "23/17 cal row",
-       "20 burpees over the rower"
+       "500 m row",
+       "25 goblet lunges (22.5/15 kg)",
+       "25 m sled push (152/102 kg)"
       ],
       "label": "then 3 rounds of"
+     },
+     {
+      "items": [
+       "2400 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 65-45-25 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m row\n\nthen 3 rounds of:\n- 23/17 cal row\n- 20 burpees over the rower"
+    "scoring": "Time; note both run times",
+    "text": "For time, time cap 46 min\n\nStart with:\n- 2400 m run\n\nthen 3 rounds of:\n- 500 m row\n- 25 goblet lunges (22.5/15 kg)\n- 25 m sled push (152/102 kg)\n\nthen finish with:\n- 2400 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "44/33 cal SkiErg",
-       "85-60-30 DB thrusters (2x15/10 kg)"
+       "2400 m run"
       ],
-      "label": "3 rounds of"
+      "label": "Start with"
      },
      {
       "items": [
-       "2000 m row"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "30/22 cal row",
-       "25 burpees over the rower"
+       "650 m row",
+       "30 goblet lunges (22.5/15 kg)",
+       "37.5 m sled push (152/102 kg)"
       ],
       "label": "then 3 rounds of"
+     },
+     {
+      "items": [
+       "2400 m run"
+      ],
+      "label": "then finish with"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 85-60-30 DB thrusters (2x15/10 kg)\n\nthen:\n- 2000 m row\n\nthen 3 rounds of:\n- 30/22 cal row\n- 25 burpees over the rower"
+    "scoring": "Time; note both run times",
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nStart with:\n- 2400 m run\n\nthen 3 rounds of:\n- 650 m row\n- 30 goblet lunges (22.5/15 kg)\n- 37.5 m sled push (152/102 kg)\n\nthen finish with:\n- 2400 m run"
    }
   },
   {
@@ -21600,52 +22032,75 @@
    "day": 334,
    "week": 48,
    "weekday": "Friday",
-   "title": "Heavy Loop",
+   "title": "Blackout Storm",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 43,
+   "format": "Three parts",
+   "durationMin": 40,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
     "KB swings",
-    "row",
+    "SkiErg",
+    "burpee box jump-overs",
     "run"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 43 min",
+    "headline": "For time, time cap 40 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "20/15 cal row",
-       "600 m run",
-       "20 KB swings (24/16 kg)"
+       "34/26 cal SkiErg",
+       "50-40-25 KB swings (24/16 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "23/17 cal SkiErg",
+       "20 burpee box jump-overs (24/20 in)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 43 min\n\n6 rounds:\n- 20/15 cal row\n- 600 m run\n- 20 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 34/26 cal SkiErg\n- 50-40-25 KB swings (24/16 kg)\n\nthen:\n- 1600 m run\n\nthen 3 rounds of:\n- 23/17 cal SkiErg\n- 20 burpee box jump-overs (24/20 in)"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 43 min",
+    "headline": "Team of 2: For time, time cap 40 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "28/21 cal row",
-       "600 m run",
-       "30 KB swings (24/16 kg)"
+       "44/33 cal SkiErg",
+       "65-50-30 KB swings (24/16 kg)"
       ],
-      "scheme": "6 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "3 rounds of"
+     },
+     {
+      "items": [
+       "1600 m run"
+      ],
+      "label": "then"
+     },
+     {
+      "items": [
+       "30/22 cal SkiErg",
+       "25 burpee box jump-overs (24/20 in)"
+      ],
+      "label": "then 3 rounds of"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 43 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal row\n- 600 m run\n- 30 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal SkiErg\n- 65-50-30 KB swings (24/16 kg)\n\nthen:\n- 1600 m run\n\nthen 3 rounds of:\n- 30/22 cal SkiErg\n- 25 burpee box jump-overs (24/20 in)"
    }
   },
   {
@@ -21998,52 +22453,90 @@
    "day": 341,
    "week": 49,
    "weekday": "Friday",
-   "title": "Midnight Ridge",
+   "title": "Double Wave",
    "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 40,
+   "format": "Blocks for time",
+   "durationMin": 48,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "KB swings",
+    "DB thrusters",
+    "burpee box jump-overs",
     "row",
-    "run"
+    "run",
+    "sled pull",
+    "sled push",
+    "wall balls"
    ],
    "solo": {
-    "headline": "7 rounds for time, time cap 40 min",
+    "headline": "3 blocks for time, rest 3 min between, time cap 48 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal row",
-       "400 m run",
-       "20 KB swings (24/16 kg)"
+       "800 m run",
+       "47/35 cal row",
+       "40 burpee box jump-overs (24/20 in)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "65 wall balls (6/4 kg)",
+       "50 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "50 m sled pull (103/78 kg)",
+       "65 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "7 rounds for time, time cap 40 min\n\n7 rounds:\n- 15/11 cal row\n- 400 m run\n- 20 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "3 blocks for time, rest 3 min between, time cap 48 min\n\nBlock 1:\n- 800 m run\n- 47/35 cal row\n- 40 burpee box jump-overs (24/20 in)\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 65 wall balls (6/4 kg)\n- 50 m sled push (152/102 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 50 m sled pull (103/78 kg)\n- 65 DB thrusters (2x15/10 kg)"
    },
    "team": {
-    "headline": "Team of 2: 7 rounds for time, time cap 40 min",
+    "headline": "Team of 2: 3 blocks for time, rest 3 min between, time cap 48 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal row",
-       "400 m run",
-       "30 KB swings (24/16 kg)"
+       "800 m run",
+       "61/46 cal row",
+       "50 burpee box jump-overs (24/20 in)"
       ],
-      "scheme": "7 rounds",
-      "rest": "rest 1 min between rounds"
+      "label": "Block 1",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "85 wall balls (6/4 kg)",
+       "75 m sled push (152/102 kg)"
+      ],
+      "label": "Block 2",
+      "rest": "rest 3 min"
+     },
+     {
+      "items": [
+       "800 m run",
+       "75 m sled pull (103/78 kg)",
+       "85 DB thrusters (2x15/10 kg)"
+      ],
+      "label": "Block 3"
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 7 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n7 rounds:\n- 21/16 cal row\n- 400 m run\n- 30 KB swings (24/16 kg)\nrest 1 min between rounds"
+    "scoring": "Time, rest included",
+    "text": "Team of 2: 3 blocks for time, rest 3 min between, time cap 48 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nBlock 1:\n- 800 m run\n- 61/46 cal row\n- 50 burpee box jump-overs (24/20 in)\nrest 3 min\n\nBlock 2:\n- 800 m run\n- 85 wall balls (6/4 kg)\n- 75 m sled push (152/102 kg)\nrest 3 min\n\nBlock 3:\n- 800 m run\n- 75 m sled pull (103/78 kg)\n- 85 DB thrusters (2x15/10 kg)"
    }
   },
   {
@@ -22424,52 +22917,52 @@
    "day": 348,
    "week": 50,
    "weekday": "Friday",
-   "title": "Red Line Bridge",
+   "title": "Sled Pull",
    "theme": "Race simulation",
    "format": "Rounds for time",
-   "durationMin": 40,
+   "durationMin": 42,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "KB swings",
     "assault/echo bike",
-    "burpee broad jumps",
     "run"
    ],
    "solo": {
-    "headline": "6 rounds for time, time cap 40 min",
+    "headline": "6 rounds for time, time cap 42 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal assault/echo bike",
+       "20/15 cal assault/echo bike",
        "600 m run",
-       "8 burpee broad jumps"
+       "20 KB swings (24/16 kg)"
       ],
       "scheme": "6 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "6 rounds for time, time cap 40 min\n\n6 rounds:\n- 15/11 cal assault/echo bike\n- 600 m run\n- 8 burpee broad jumps\nrest 1 min between rounds"
+    "text": "6 rounds for time, time cap 42 min\n\n6 rounds:\n- 20/15 cal assault/echo bike\n- 600 m run\n- 20 KB swings (24/16 kg)\nrest 1 min between rounds"
    },
    "team": {
-    "headline": "Team of 2: 6 rounds for time, time cap 40 min",
+    "headline": "Team of 2: 6 rounds for time, time cap 42 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal assault/echo bike",
+       "28/21 cal assault/echo bike",
        "600 m run",
-       "12 burpee broad jumps"
+       "30 KB swings (24/16 kg)"
       ],
       "scheme": "6 rounds",
       "rest": "rest 1 min between rounds"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: 6 rounds for time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 21/16 cal assault/echo bike\n- 600 m run\n- 12 burpee broad jumps\nrest 1 min between rounds"
+    "text": "Team of 2: 6 rounds for time, time cap 42 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n6 rounds:\n- 28/21 cal assault/echo bike\n- 600 m run\n- 30 KB swings (24/16 kg)\nrest 1 min between rounds"
    }
   },
   {
@@ -22891,52 +23384,65 @@
    "day": 355,
    "week": 51,
    "weekday": "Friday",
-   "title": "Wolf Line",
-   "theme": "Race simulation",
-   "format": "Rounds for time",
-   "durationMin": 44,
+   "title": "Thunder Drift",
+   "theme": "Compromised running",
+   "format": "For time",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
-    "assault/echo bike",
+    "SkiErg",
     "burpee broad jumps",
+    "farmers carry",
     "run"
    ],
    "solo": {
-    "headline": "8 rounds for time, time cap 44 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "15/11 cal assault/echo bike",
-       "400 m run",
-       "8 burpee broad jumps"
-      ],
-      "scheme": "8 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "35/26 cal SkiErg",
+       "800 m run",
+       "35 burpee broad jumps",
+       "800 m run",
+       "325 m farmers carry (2x24/2x16 kg)",
+       "800 m run",
+       "35 burpee broad jumps",
+       "800 m run",
+       "35/26 cal SkiErg",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "8 rounds for time, time cap 44 min\n\n8 rounds:\n- 15/11 cal assault/echo bike\n- 400 m run\n- 8 burpee broad jumps\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "For time, time cap 46 min\n\n- 800 m run\n- 35/26 cal SkiErg\n- 800 m run\n- 35 burpee broad jumps\n- 800 m run\n- 325 m farmers carry (2x24/2x16 kg)\n- 800 m run\n- 35 burpee broad jumps\n- 800 m run\n- 35/26 cal SkiErg\n- 800 m run"
    },
    "team": {
-    "headline": "Team of 2: 8 rounds for time, time cap 44 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "21/16 cal assault/echo bike",
-       "400 m run",
-       "12 burpee broad jumps"
-      ],
-      "scheme": "8 rounds",
-      "rest": "rest 1 min between rounds"
+       "800 m run",
+       "46/34 cal SkiErg",
+       "800 m run",
+       "45 burpee broad jumps",
+       "800 m run",
+       "425 m farmers carry (2x24/2x16 kg)",
+       "800 m run",
+       "45 burpee broad jumps",
+       "800 m run",
+       "46/34 cal SkiErg",
+       "800 m run"
+      ]
      }
     ],
-    "scoring": "Time",
-    "text": "Team of 2: 8 rounds for time, time cap 44 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n8 rounds:\n- 21/16 cal assault/echo bike\n- 400 m run\n- 12 burpee broad jumps\nrest 1 min between rounds"
+    "scoring": "Time (or work done at the cap)",
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n- 800 m run\n- 46/34 cal SkiErg\n- 800 m run\n- 45 burpee broad jumps\n- 800 m run\n- 425 m farmers carry (2x24/2x16 kg)\n- 800 m run\n- 45 burpee broad jumps\n- 800 m run\n- 46/34 cal SkiErg\n- 800 m run"
    }
   },
   {
@@ -23425,76 +23931,67 @@
    "day": 362,
    "week": 52,
    "weekday": "Friday",
-   "title": "Steel Crossing",
+   "title": "Canal Crossing",
    "theme": "Race simulation",
-   "format": "For time",
-   "durationMin": 40,
+   "format": "Chipper",
+   "durationMin": 46,
    "intensity": "hard",
    "defaultMode": "solo",
    "movements": [
+    "KB swings",
     "SkiErg",
-    "assault/echo bike",
-    "burpees over the rower",
+    "burpee box jump-overs",
+    "burpee broad jumps",
     "run",
+    "sandbag walking lunges",
+    "sled pull",
     "wall balls"
    ],
    "solo": {
-    "headline": "For time, time cap 40 min",
+    "headline": "For time, time cap 46 min",
     "howTo": null,
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "34/26 cal assault/echo bike",
-       "50-40-25 wall balls (6/4 kg)"
+       "1000 m run",
+       "65 KB swings (24/16 kg)",
+       "1100 m SkiErg",
+       "85 m sandbag walking lunges (20/10 kg)",
+       "70 m burpee broad jumps",
+       "45 burpee box jump-overs (24/20 in)",
+       "50 m sled pull (103/78 kg)",
+       "85 wall balls (6/4 kg)",
+       "1000 m run"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "23/17 cal SkiErg",
-       "20 burpees over the rower"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "For time, time cap 40 min\n\n3 rounds of:\n- 34/26 cal assault/echo bike\n- 50-40-25 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 23/17 cal SkiErg\n- 20 burpees over the rower"
+    "text": "For time, time cap 46 min\n\nonce through, in this order:\n- 1000 m run\n- 65 KB swings (24/16 kg)\n- 1100 m SkiErg\n- 85 m sandbag walking lunges (20/10 kg)\n- 70 m burpee broad jumps\n- 45 burpee box jump-overs (24/20 in)\n- 50 m sled pull (103/78 kg)\n- 85 wall balls (6/4 kg)\n- 1000 m run"
    },
    "team": {
-    "headline": "Team of 2: For time, time cap 40 min",
+    "headline": "Team of 2: For time, time cap 46 min",
     "howTo": "Run together, side by side. Split the station work however you like, one partner working at a time, and swap often.",
     "scheme": null,
     "blocks": [
      {
       "items": [
-       "44/33 cal assault/echo bike",
-       "65-50-30 wall balls (6/4 kg)"
+       "1000 m run",
+       "85 KB swings (24/16 kg)",
+       "1450 m SkiErg",
+       "110 m sandbag walking lunges (20/10 kg)",
+       "90 m burpee broad jumps",
+       "60 burpee box jump-overs (24/20 in)",
+       "75 m sled pull (103/78 kg)",
+       "110 wall balls (6/4 kg)",
+       "1000 m run"
       ],
-      "label": "3 rounds of"
-     },
-     {
-      "items": [
-       "2000 m run"
-      ],
-      "label": "then"
-     },
-     {
-      "items": [
-       "30/22 cal SkiErg",
-       "25 burpees over the rower"
-      ],
-      "label": "then 3 rounds of"
+      "scheme": "once through, in this order"
      }
     ],
     "scoring": "Time",
-    "text": "Team of 2: For time, time cap 40 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\n3 rounds of:\n- 44/33 cal assault/echo bike\n- 65-50-30 wall balls (6/4 kg)\n\nthen:\n- 2000 m run\n\nthen 3 rounds of:\n- 30/22 cal SkiErg\n- 25 burpees over the rower"
+    "text": "Team of 2: For time, time cap 46 min\nRun together, side by side. Split the station work however you like, one partner working at a time, and swap often.\n\nonce through, in this order:\n- 1000 m run\n- 85 KB swings (24/16 kg)\n- 1450 m SkiErg\n- 110 m sandbag walking lunges (20/10 kg)\n- 90 m burpee broad jumps\n- 60 burpee box jump-overs (24/20 in)\n- 75 m sled pull (103/78 kg)\n- 110 wall balls (6/4 kg)\n- 1000 m run"
    }
   },
   {

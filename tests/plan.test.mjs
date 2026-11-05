@@ -465,6 +465,16 @@ test('WOD: a different workout every day of the year', () => {
   assert.doesNotMatch(JSON.stringify(WODS), /benchmark/i);
 });
 
+test('WOD: Fridays take turns through seven formats, never the same twice in a row', () => {
+  const fridays = WODS.workouts.filter((w) => w.weekday === 'Friday').map((w) => w.format);
+  assert.equal(fridays.length, 52);
+  assert.equal(new Set(fridays).size, 7);
+  fridays.forEach((format, i) => {
+    if (i) assert.notEqual(format, fridays[i - 1], `week ${i + 1}`);
+  });
+  for (const format of new Set(fridays)) assert.ok(fridays.filter((f) => f === format).length <= 8, format);
+});
+
 test('WOD shows only the current week', () => {
   assert.equal(clampToWeek('2026-11-06', '2026-11-04'), '2026-11-06');
   assert.equal(clampToWeek('2026-11-09', '2026-11-04'), '2026-11-04', 'next week is pulled back to today');

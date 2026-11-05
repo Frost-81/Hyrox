@@ -615,8 +615,8 @@ HALF_FRONT = [('ski', 1000), ('sled_push', 50), ('sled_pull', 50), ('bbj_m', 80)
 HALF_BACK = [('row', 1000), ('farmers', 200), ('sb_lunge', 100), ('wall_ball', 100)]
 
 
-def t_half_sim(L, intensity):
-    which = rng.choice(['front', 'back', 'odd', 'even', 'all-half'])
+def t_half_sim(L, intensity, which=None):
+    which = which or rng.choice(['front', 'back', 'odd', 'even', 'all-half'])
     if which == 'front':
         sts, run, name = HALF_FRONT, 1000, 'Race front half'
     elif which == 'back':
@@ -625,6 +625,10 @@ def t_half_sim(L, intensity):
         sts, run, name = [HALF_FRONT[0], HALF_FRONT[2], HALF_BACK[0], HALF_BACK[2]], 1000, 'Race odd stations'
     elif which == 'even':
         sts, run, name = [HALF_FRONT[1], HALF_FRONT[3], HALF_BACK[1], HALF_BACK[3]], 1000, 'Race even stations'
+    elif which == 'heavy':
+        sts, run, name = [HALF_FRONT[1], HALF_FRONT[2], HALF_BACK[1], HALF_BACK[2]], 1000, 'Race strength stations'
+    elif which == 'engine':
+        sts, run, name = [HALF_FRONT[0], HALF_FRONT[3], HALF_BACK[0], HALF_BACK[3]], 1000, 'Race engine stations'
     else:
         sts = [(s, q / 2) for s, q in HALF_FRONT + HALF_BACK]
         run, name = 500, 'All 8 race stations at half volume'
@@ -656,7 +660,7 @@ def t_chipper_then(L, intensity):
         e = 3 * est(erg1, c1) + sum(est(m1, x) for x in d) + est(*mid) + 3 * (est(erg2, c2) + est(m2, b)) + 14 * TRANSITION
         return (c1, c2, b, d), e
     (c1, c2, b, d), cap, e = fit_for_time(build)
-    w = W('For time', f'For time, time cap {cap} min', cap, intensity, 'Race simulation', tf=1.3)
+    w = W('Three parts', f'For time, time cap {cap} min', cap, intensity, 'Race simulation', tf=1.3)
     wt = f" ({MV[m1]['w']})" if MV[m1].get('w') else ''
     w.block([(erg1, c1), lambda sc: f"{'-'.join(str(rnd_qty(m1, x * sc)) for x in d)} {MV[m1]['name']}{wt}"],
             label='3 rounds of', reps=3)
@@ -682,6 +686,71 @@ def t_rounds_rest(L, intensity):
     w.block([(erg, c), ('run', run), (st, q)], scheme=f'{rounds} rounds', rest='rest 1 min between rounds', reps=rounds)
     w.d['scoring'] = 'Time'
     w.extra_est = lambda sc: (0, (rounds - 1) * 60)
+    return w
+
+
+def t_race_sim(L, intensity):
+    return t_half_sim(L, intensity, rng.choice(['front', 'back', 'odd', 'even', 'heavy', 'engine', 'all-half']))
+
+
+def t_chipper(L, intensity):
+    """One long list, done once: a run in, every station straight through with no runs between, a run out."""
+    pool = [('ski', 1000), ('row', 1000), ('sled_push', 50), ('sled_pull', 50), ('bbj_m', 60), ('farmers', 200),
+            ('sb_lunge', 75), ('wall_ball', 75), ('kb_swing', 60), ('burpee_box', 40), ('db_thruster', 50)]
+    sts = rng.sample(pool, rng.choice([7, 8]))
+    run = rng.choice([800, 1000, 1200])
+
+    def build(f):
+        items = [('run', run)] + [(s, rnd_qty(s, q * f * L)) for s, q in sts] + [('run', run)]
+        return items, seq_est(items)
+    items, cap, e = fit_for_time(build)
+    w = W('Chipper', f'For time, time cap {cap} min', cap, intensity, 'Race simulation', tf=1.3)
+    w.block(items, scheme='once through, in this order')
+    w.d['scoring'] = 'Time'
+    return w
+
+
+def t_bookends(L, intensity):
+    """The same long run at both ends with rounds between, so the second run shows what the rounds cost."""
+    run = rng.choice([1600, 2000, 2400])
+    rounds = rng.choice([3, 4, 5])
+    erg = rng.choice(ERG_M)
+    metres = 1000 if erg == 'bike' else 500
+    sts = pick(['wall_ball', 'kb_swing', 'db_thruster', 'goblet_lunge', 'burpee', 'bbj', 'box_step', 'sled_push', 'farmers'], 2)
+    sec = ((2300 - 2 * est('run', run)) / rounds - est(erg, metres) - 3 * TRANSITION) / 2
+    if not 40 <= sec <= 110:
+        raise Retry
+
+    def build(f):
+        items = [(erg, metres)] + [(s, for_sec(s, sec * f * L)) for s in sts]
+        return items, 2 * (est('run', run) + TRANSITION) + rounds * seq_est(items)
+    items, cap, e = fit_for_time(build)
+    w = W('Bookends', f'For time, time cap {cap} min', cap, intensity, 'Compromised running', tf=1.3)
+    w.block([('run', run)], label='Start with', tf=1.0)
+    w.block(items, label=f'then {rounds} rounds of', reps=rounds)
+    w.block([('run', run)], label='then finish with', tf=1.0)
+    w.d['scoring'] = 'Time; note both run times'
+    return w
+
+
+def t_blocks(L, intensity):
+    """Short races with rest between: a run and two stations, different each time, so every block can be hard."""
+    n, rest, run = rng.choice([(3, 3, 800), (3, 2, 1000), (4, 2, 600), (4, 2, 800)])
+    sts = rng.sample(['sled_push', 'sled_pull', 'farmers', 'sb_lunge', 'wall_ball', 'bbj', 'burpee_box', 'kb_swing',
+                      'db_thruster', 'row_cal', 'ski_cal'], 2 * n)
+    rests = (n - 1) * rest * 60
+    sec = ((2300 - rests) / n - est('run', run) - 3 * TRANSITION) / 2
+
+    def build(f):
+        blocks = [[('run', run)] + [(s, for_sec(s, sec * f * L)) for s in sts[2 * i:2 * i + 2]] for i in range(n)]
+        return blocks, rests + sum(seq_est(b) for b in blocks)
+    blocks, cap, e = fit_for_time(build)
+    w = W('Blocks for time', f'{n} blocks for time, rest {rest} min between, time cap {cap} min', cap, intensity,
+          'Race simulation', tf=1.3)
+    for i, b in enumerate(blocks):
+        w.block(b, label=f'Block {i + 1}', rest=f'rest {rest} min' if i < n - 1 else None)
+    w.d['scoring'] = 'Time, rest included'
+    w.extra_est = lambda sc: (0, rests)
     return w
 
 
@@ -775,6 +844,8 @@ THEMES = {
     5: [t_max_reps_sets, t_machine_rotation, t_descending],
     6: [t_recovery],
 }
+# Fridays take turns through these, so no two in a row look alike and no format takes over.
+FRIDAY_ROTATION = [t_rounds_rest, t_run_ladder, t_chipper, t_race_sim, t_bookends, t_chipper_then, t_blocks]
 # No build-up or lighter weeks: a workout someone picks is the same size whichever week it falls in.
 LOAD = 1.0
 
@@ -825,16 +896,14 @@ def build_variants(w):
     return solo, team, (es / cap if capped else None), (et / cap if capped else None)
 
 
-workouts, seen = [], set()
-fit_report = []
-# Every 4th week's Friday is built last. These days used to be fixed benchmarks that drew no random numbers, so
-# building them last gave them new workouts and left every other workout in the library as it was.
-BUILT_LAST = [7 * wi - 2 for wi in range(4, 53, 4)]
-for day in [d for d in range(1, 366) if d not in BUILT_LAST] + BUILT_LAST:
+workouts, keys, fit_report = {}, {}, {}
+
+
+def build_day(day, tpls):
+    """A new 40-48 min workout for this day from tpls. The stops below catch a year that can't be filled."""
     wi = (day - 1) // 7 + 1
     dow = (day - 1) % 7
     intensity = 'hard' if dow in (1, 4) else ('moderate' if dow in (0, 2, 5) else None)
-    tpls = THEMES[dow]
     for attempt in range(200):
         t = tpls[(wi + attempt) % len(tpls)] if attempt < len(tpls) else rng.choice(tpls)
         try:
@@ -844,21 +913,34 @@ for day in [d for d in range(1, 366) if d not in BUILT_LAST] + BUILT_LAST:
         d = w.d
         solo, team, rs, rt = build_variants(w)
         key = hashlib.md5((solo['text'] + team['text']).encode()).hexdigest()
-        if key not in seen and 40 <= d['durationMin'] <= 48:
+        if key not in keys.values() and 40 <= d['durationMin'] <= 48:
             break
     assert 40 <= d['durationMin'] <= 48, (day, d)
-    assert key not in seen, (day, 'no new workout found')
-    seen.add(key)
+    assert key not in keys.values(), (day, 'no new workout found')
+    keys[day] = key
     if rs is not None:
-        fit_report.append((day, d['format'], w.native, round(rs, 2), round(rt, 2)))
-    workouts.append(dict(
+        fit_report[day] = (day, d['format'], w.native, round(rs, 2), round(rt, 2))
+    workouts[day] = dict(
         day=day, week=wi, weekday=DAYS[dow], title=name_pool.pop(), theme=d['theme'],
         format=d['format'], durationMin=d['durationMin'], intensity=d['intensity'],
         defaultMode=w.native, movements=sorted(d['movements']), solo=solo, team=team,
-    ))
-workouts.sort(key=lambda w: w['day'])
+    )
 
-json.dump(fit_report, open('fit_report.json', 'w'))
+
+# Every workout draws from one seeded random stream. So that changing Fridays leaves the other six days as they are,
+# this first pass still builds most Fridays the old way (every 4th week's old Friday drew no random numbers), and the
+# second pass replaces them all from FRIDAY_ROTATION.
+FRIDAYS = [7 * wi - 2 for wi in range(1, 53)]
+for day in range(1, 366):
+    if day not in FRIDAYS[3::4]:
+        build_day(day, THEMES[(day - 1) % 7])
+for day in FRIDAYS:
+    keys.pop(day, None)
+for i, day in enumerate(FRIDAYS):
+    build_day(day, [FRIDAY_ROTATION[i % len(FRIDAY_ROTATION)]])
+workouts = [workouts[day] for day in range(1, 366)]
+
+json.dump(list(fit_report.values()), open('fit_report.json', 'w'))
 
 meta = dict(
     version=2, count=len(workouts), durationRangeMin=[40, 48],
@@ -874,7 +956,8 @@ meta = dict(
     },
     weeklyRotation=dict(zip(DAYS, [
         'Strength endurance (moderate)', 'Run + station intervals (hard)', 'Partner day: written for teams of 2 (moderate), solo version included',
-        'Light aerobic (easy)', 'For time / race simulation (hard)', 'Engine: ergs, burpees, wall balls (moderate)',
+        'Light aerobic (easy)', 'For time: a different format each week, from chippers to race simulations (hard)',
+        'Engine: ergs, burpees, wall balls (moderate)',
         'Active recovery (optional)'])),
     substitutions={
         'no sled': 'Heavy DB/KB bear crawl push or prowler on turf; pull = heavy rope pull or 2x heavy KB walking backwards.',
