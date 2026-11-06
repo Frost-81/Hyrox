@@ -225,7 +225,9 @@ a { color: inherit; }
   margin: 14px auto 0; width: 100%; max-width: 600px;
   padding: 20px 18px 16px;
   color: var(--on-ink); --focus: var(--yellow);
-  background: rgb(10 10 10 / 52%);
+  /* Phones and tablets: the card sits right over the photo's brightest parts (the rope photo's white wall),
+     so the glass is a little darker here than on desktop to keep its white words at 4.5:1 or better. */
+  background: rgb(10 10 10 / 62%);
   -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   border: 1px solid rgb(255 255 255 / 20%); border-top: 2px solid var(--yellow);
   border-radius: var(--radius); box-shadow: none;
@@ -266,8 +268,10 @@ a { color: inherit; }
   .price { font-size: .66rem; }
   .checks li { font-size: .98rem; }
 }
+/* The rope photo's hands sit a little above the middle. */
+[data-view="wod"] .hero-photo { --focus-y: 30%; }
 /* On very wide screens the lunge drawing is cut top and bottom: keep the head. */
-[data-view="wod"] .hero-photo { --focus-y: 22%; }
+[data-view="plan"] .hero-photo { --focus-y: 22%; }
 
 /* Once the buy card is gone (the plan is theirs, or is loading), the page is a tool: a short title, and the
    photo stays behind the top of the page, dimmed, with the cards over it as glass, like the buy card.
