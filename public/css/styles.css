@@ -266,23 +266,62 @@ a { color: inherit; }
   .price { font-size: .66rem; }
   .checks li { font-size: .98rem; }
 }
-/* The rope photo's hands sit a little above the middle. */
-[data-view="wod"] .hero-photo { --focus-y: 30%; }
+/* On very wide screens the lunge drawing is cut top and bottom: keep the head. */
+[data-view="wod"] .hero-photo { --focus-y: 22%; }
 
-/* Once the buy card is gone (the plan is theirs, or is loading), the page is a tool: a short title, no big photo.
+/* Once the buy card is gone (the plan is theirs, or is loading), the page is a tool: a short title, and the
+   photo stays behind the top of the page, dimmed, with the cards over it as glass, like the buy card.
    .owner-view is set in <head> from what this device saw the user own, so owners never see the big hero first. */
 .owner-view .buy-card, .owner-view .info-band { display: none; }
-:is(.hero:has(.buy-card[hidden]), .owner-view .hero) { display: block; min-height: 0; }
-:is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo,
+.page-main { position: relative; isolation: isolate; } /* keeps the photo behind the cards, in front of the page */
+:is(.hero:has(.buy-card[hidden]), .owner-view .hero) { display: block; min-height: 0; overflow: visible; isolation: auto; background: transparent; }
+/* Phones and tablets: from under the title down, as on the cover, so the title never sits on the photo. */
+:is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo {
+  position: absolute; z-index: -1; top: calc(100% - 10px); left: 0; right: 0; margin: 0 auto; pointer-events: none;
+  overflow: hidden; /* the hero no longer clips, and the fade overhangs the photo by a pixel */
+}
+:is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo::after {
+  background: linear-gradient(180deg, rgb(10 10 10 / 66%) 0, rgb(10 10 10 / 40%) 28%, rgb(10 10 10 / 52%) 64%, var(--ink) 100%);
+}
+@media (min-width: 561px) {
+  :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo::after {
+    background:
+      linear-gradient(180deg, rgb(10 10 10 / 66%) 0, rgb(10 10 10 / 40%) 28%, rgb(10 10 10 / 52%) 64%, var(--ink) 100%),
+      linear-gradient(90deg, var(--ink) 0, rgb(10 10 10 / 0%) 16%, rgb(10 10 10 / 0%) 84%, var(--ink) 100%);
+  }
+}
+@media (min-width: 1000px) {
+  :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo { top: 0; width: 100%; height: clamp(560px, 86svh, 860px); }
+  :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo img { object-position: var(--focus-x, 80%) var(--focus-y, center); }
+  :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-photo::after {
+    background: linear-gradient(180deg, rgb(10 10 10 / 60%) 0, rgb(10 10 10 / 34%) 30%, rgb(10 10 10 / 50%) 66%, var(--ink) 100%);
+  }
+}
 :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .page-lede { display: none; }
 :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .hero-inner { padding-block: 18px 4px; }
 :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .page-head { width: 100%; max-width: 788px; margin-inline: auto; }
 :is(.hero:has(.buy-card[hidden]), .owner-view .hero) .eyebrow { margin-bottom: .4rem; }
 :is(.hero:has(.buy-card[hidden]), .owner-view .hero) h1 { font-size: clamp(1.45rem, 7.2vw, 2.5rem); margin: 0; }
 
-/* The training tools: a narrower column of light cards under the title. */
-.tool { width: 100%; max-width: 820px; margin: 0 auto; padding-inline: 16px; color: var(--on-ink); }
+/* The training tools: a narrower column of glass cards under the title. The glass has a faint light tint,
+   so a card still reads as a card where the photo has faded to black. */
+.tool {
+  width: 100%; max-width: 820px; margin: 0 auto; padding-inline: 16px; color: var(--on-ink);
+  --glass: rgb(255 255 255 / 6.5%);
+  --glass-filter: blur(10px) brightness(.5);
+  --panel: rgb(255 255 255 / 5.5%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tool { --glass: rgb(26 26 27 / 90%); }
+}
 .tool:has(> :not([hidden])) { padding-block: 14px 40px; }
+.tool .card { -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter); box-shadow: 0 14px 40px rgb(0 0 0 / 34%); }
+.tool .card:not(.warn) { background: var(--glass); }
+/* The day picker and the plan's toolbar sit on the photo too. */
+.tool .strip-day:not(.selected), .tool .toolbar select, .tool .toolbar .btn, .tool .strip-arrow {
+  background: var(--glass); -webkit-backdrop-filter: var(--glass-filter); backdrop-filter: var(--glass-filter);
+}
+.tool :is(.toolbar .btn, .strip-arrow):not(:disabled):hover { background: rgb(255 214 10 / 14%); }
 
 /* While sign-in or a purchase loads. */
 .wait-card { display: flex; align-items: center; gap: 12px; }
@@ -747,7 +786,7 @@ dialog::backdrop { background: rgb(0 0 0 / 74%); }
 
 /* The session card, on the WOD page and the plan page: the design of our social posts.
    Dark panels, yellow labels, each movement with its load on the right. */
-.card.wod-sheet { border-top: 4px solid var(--yellow); box-shadow: none; padding: 16px 14px 18px; }
+.card.wod-sheet { border-top: 2px solid var(--yellow); padding: 16px 14px 18px; }
 .sheet-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
 .sheet-day {
   display: flex; align-items: center; gap: 10px; margin: 0; overflow-wrap: normal;
@@ -777,7 +816,7 @@ dialog::backdrop { background: rgb(0 0 0 / 74%); }
   background: var(--yellow-soft); font-size: .94rem; line-height: 1.45;
 }
 .sheet-controls + .sheet-howto, .sheet-controls + .sheet-part { margin-top: 0; }
-.sheet-part { margin-top: 10px; padding: 14px 14px 6px; border-radius: 10px; background: var(--bg); }
+.sheet-part { margin-top: 10px; padding: 14px 14px 6px; border-radius: 10px; background: var(--panel, var(--bg)); border: 1px solid var(--hairline); }
 .sheet-meta + .sheet-part, .sheet-meta + .sheet-howto { margin-top: 16px; }
 .sheet-text { padding-bottom: 14px; }
 .sheet-text p { margin: 0; }
@@ -869,6 +908,7 @@ dialog::backdrop { background: rgb(0 0 0 / 74%); }
     color-scheme: light;
     --surface: #fff; --bg: #fff; --bg-soft: #fff; --text: #000; --muted: #333; --border: #d8d7d0; --hairline: #e2e1da;
     --field-border: #bbb; --yellow-soft: #fff; --warn-bg: #fff; --ok-bg: #fff; --danger-text: #c92a2a; --accent: #000;
+    --glass: #fff; --glass-filter: none; --panel: #fff;
   }
   .logged { color: #000; }
   body { font-size: 11pt; }
@@ -876,13 +916,13 @@ dialog::backdrop { background: rgb(0 0 0 / 74%); }
   .hero, .tool { background: #fff; color: #000; min-height: 0; display: block; }
   .hero { margin-top: 0; padding-top: 0; }
   .hero-inner { padding: 0; }
-  .card { box-shadow: none; break-inside: avoid; }
+  .card, .tool .card { box-shadow: none; break-inside: avoid; }
   .summary { background: #fff; color: #000; border-color: var(--border); }
   .summary h2, .stats dt { color: #000; }
   .summary .muted { color: var(--muted); }
   .site-footer { background: #fff; color: #000; padding: 0; border: 0; }
   .footer-note { border: 0; }
-  .sheet-part { padding: 8px 0 0; }
+  .sheet-part { padding: 8px 0 0; border: 0; }
   .glossary summary::after { content: ""; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
